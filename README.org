@@ -1,5 +1,19 @@
 * NICEMACS
 
+To tangle the =nicemacs.el= file from the command line execute the following
+command:
+
+#+begin_src sh
+emacs README.org --batch --eval="(org-babel-tangle)"
+#+end_src
+
+Then to include this in your spacemacs configutation add the following
+expression to =dotspacemacs/user-config=:
+
+#+begin_src emacs-lisp
+(load "/home/aez/Documents/nicemacs/nicemacs.el")
+#+end_src
+
 #+begin_src emacs-lisp :tangle nicemacs.el
 
 ;; mnemonic: [t]oggle-[t]heme
