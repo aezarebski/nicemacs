@@ -1,0 +1,355 @@
+* NICEMACS
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+
+;; mnemonic: [t]oggle-[t]heme
+(spacemacs/set-leader-keys "tt" 'spacemacs/cycle-spacemacs-theme)
+
+;; The "o" menu is all of my stuff!
+(spacemacs/declare-prefix "o" "own-menu")
+
+;; NOTE It looks like this file can be loaded with the "load" function.
+
+(defun melbourne ()
+  "Display the time in Melbourne"
+  (interactive)
+  (helm-world-time))
+
+
+(defun read-with-espeak ()
+  "Send region to espeak asynchronously."
+  (interactive)
+  (start-process "espeak-process" "espeak-buffer" "espeak" "-v" "en")
+  (process-send-region "espeak-process" (point-min) (point-max)))
+
+
+;; ------------------------------------------------------------------------------
+;; Haskell
+;; ------------------------------------------------------------------------------
+(spacemacs/declare-prefix "oh" "haskell-menu")
+(spacemacs/set-leader-keys "ohr" 'haskell-process-restart)
+(defun haskell-insert-language-pragma ()
+  "Insert \"{-# LANGUAGE <point here!> #-}\""
+  (interactive)
+  (progn
+    (insert "{-# LANGUAGE #-}")
+    (evil-backward-char 3)))
+(spacemacs/set-leader-keys "ohl" 'haskell-insert-language-pragma)
+
+;; pretty printing the code with hindent (requires executable to be on path)
+(spacemacs/set-leader-keys "ohhr" 'hindent-reformat-region)
+(spacemacs/set-leader-keys "ohhb" 'hindent-reformat-buffer)
+
+;; Send the current buffer to the REPL
+(spacemacs/set-leader-keys "ohb" 'haskell-process-load-file)
+
+;; Switch to the haskell REPL.
+(spacemacs/set-leader-keys "ohg" 'haskell-interactive-switch)
+
+;; Set the input method to TeX for using unicode. Use C-\ to unset this.
+(spacemacs/set-leader-keys "ohu" 'set-input-method)
+
+;; Go to the next error found by flycheck
+(spacemacs/set-leader-keys "ohe" 'flycheck-next-error)
+
+;; ------------------------------------------------------------------------------
+;; Settings for latex
+;; ------------------------------------------------------------------------------
+(defun references ()
+  "Opens my bibtex references.
+
+This function opens a buffer for the bibtex file that I keep all my references
+in."
+  (interactive)
+  (let ((path-template "~/Documents/bibliography/references.bib"))
+    (find-file path-template)
+    (goto-char 1)
+    (recenter-top-bottom)
+    )
+  )
+
+(defun review-tex-file ()
+  "Open my review.tex file"
+  (interactive)
+  (let ((path-template "~/Documents/bibliography/review/review.tex"))
+    (find-file path-template)
+    (goto-char 1)
+    (recenter-top-bottom)))
+
+(defun last-bib ()
+  "Opens the most recent bibtex file in the Downloads directory in a new buffer."
+  (interactive)
+  (let ((bib-files (directory-files-and-attributes "~/Downloads" t ".*bib" "ctime"))
+        (path-and-time (lambda (x) (list (first x) (eighth x))))
+        (time-order (lambda (a b) (time-less-p (second b) (second a))))
+        (most-recent (lambda (files) (car (car (sort (mapcar path-and-time files) time-order))))))
+    (find-file (funcall most-recent bib-files))))
+
+
+(defun switch-to-org-scratch-buffer ()
+  "Switch to the `*org-scratch*' buffer, creating it first if necessary."
+  (interactive)
+  (let ((exists (get-buffer "*org-scratch*")))
+    (switch-to-buffer (get-buffer-create "*org-scratch*"))
+    (with-current-buffer "*org-scratch*" (funcall 'org-mode))))
+
+(spacemacs/declare-prefix "ow" "writing-menu")
+;; Open my references.bib
+(spacemacs/set-leader-keys "owr" 'references)
+;; Open the last .bib file in ~/Downloads
+(spacemacs/set-leader-keys "owl" 'last-bib)
+;; Open my review.tex
+(spacemacs/set-leader-keys "owt" 'review-tex-file)
+;; Open a scratch buffer in org-mode
+(spacemacs/set-leader-keys "owb" 'switch-to-org-scratch-buffer)
+;; Force spell checking of the word at point
+(spacemacs/set-leader-keys "ows" 'flyspell-correct-at-point)
+
+;; ------------------------------------------------------------------------------
+;; Settings for org
+;; ------------------------------------------------------------------------------
+
+(defun journal ()
+  "Opens the current journal file.
+
+This function opens a buffer for the current month and attempts to center the
+cursor at the entry for the current date."
+  (interactive)
+  (let ((path-template "~/Documents/journal/journal-%s.org")
+        (year-month (format-time-string "%Y-%m"))
+        (entry-regex (format-time-string "^** %d")))
+    (find-file (format path-template year-month))
+    (goto-char 1)
+    (re-search-forward entry-regex nil t)
+    (recenter-top-bottom)))
+
+(setq org-agenda-start-day "-3d")
+(setq org-agenda-span 30)
+(setq org-agenda-start-on-weekday nil)
+
+
+(spacemacs/declare-prefix "oo" "orgo-menu")
+;; Start the org agenda view
+(spacemacs/set-leader-keys "ooa" 'org-agenda)
+;; Schedule an item in org
+(spacemacs/set-leader-keys "oos" 'org-schedule)
+;; Tangle the current org file
+(spacemacs/set-leader-keys "oot" 'org-babel-tangle)
+;; open the export menu
+(spacemacs/set-leader-keys "ooe" 'org-export-dispatch)
+;; Run the journal command
+(spacemacs/set-leader-keys "ooj" 'journal)
+
+;; Make sure org files open with lines truncated
+(add-hook 'org-mode-hook 'spacemacs/toggle-truncate-lines-on)
+
+;; Set up for publishing my website, note that this will write the output\
+;; directly to the github repository for the site.
+(require 'ox-publish)
+
+(setq org-publish-project-alist
+      '(
+        ("org-notes"
+         :base-directory "~/public-site/org/"
+         :base-extension "org"
+         :publishing-directory "~/aezarebski.github.io/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4
+         :auto-preamble t
+         )
+        ("org-static"
+         :base-directory "~/public-site/org/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|txt\\|cur\\|svg\\|csv\\|json"
+         :publishing-directory "~/aezarebski.github.io/"
+         :recursive t
+         :publishing-function org-publish-attachment
+         )
+
+        ("org" :components ("org-notes" "org-static"))
+        ))
+
+;; Publish my notes to the site repository and visit the index file.
+(defun publish-my-site ()
+  "Publish site and visit home page before running offering to commit changes."
+  (interactive)
+  (org-publish "org")
+  (find-file "~/aezarebski.github.io/index.html")
+  (magit-status))
+(spacemacs/set-leader-keys "oop" 'publish-my-site)
+;; Include a command and shortcut to actually visit this site in eww
+(defun visit-my-site-in-eww ()
+  "Visit my website in eww"
+  (interactive)
+  (eww "aezarebski.github.io"))
+(spacemacs/set-leader-keys "oon" 'visit-my-site-in-eww)
+(defun visit-my-site-index ()
+  (interactive)
+  (find-file "~/public-site/org/index.org"))
+(spacemacs/set-leader-keys "oov" 'visit-my-site-index)
+
+;; Create a table.
+(spacemacs/set-leader-keys "ooit" 'org-table-create-or-convert-from-region)
+
+
+(defun org-insert-source-block ()
+  "Insert a source block"
+  (interactive)
+  (progn
+    (insert "#+begin_src \n\n#+end_src")
+    (evil-previous-line 2)
+    (evil-forward-char 10)
+    (insert " ")))
+
+(spacemacs/declare-prefix "ooi" "orgo-inserto-menu")
+(spacemacs/set-leader-keys "oois" 'org-insert-source-block)
+
+;; ------------------------------------------------------------------------------
+
+
+
+
+;; ------------------------------------------------------------------------------
+;; Settings for maxima
+;; ------------------------------------------------------------------------------
+;; These are machine specific because it is hard to predict exactly where maxima
+;; will be installed on each machine.
+;;
+;; (add-to-list 'load-path "/usr/share/emacs/site-lisp/maxima/")
+;; (add-to-list 'load-path "/Applications/Maxima.app/Contents/Resources/maxima/share/maxima/5.38.0/emacs")
+;; (add-to-list 'load-path "/usr/local/Cellar/maxima/5.37.2/share/maxima/5.37.2/emacs")
+;; (autoload 'maxima-mode "maxima" "Maxima mode" t)
+;; (autoload 'imaxima "imaxima" "Frontend for maxima with Image support" t)
+;; (autoload 'maxima "maxima" "Maxima interaction" t)
+;; (autoload 'imath-mode "imath" "Imath mode for math formula input" t)
+;; (setq imaxima-use-maxima-mode-flag t)
+;; (add-to-list 'auto-mode-alist '("\\.ma[cx]" . maxima-mode))
+;; ------------------------------------------------------------------------------
+
+
+
+
+;; ------------------------------------------------------------------------------
+;; Settings for shell
+;; ------------------------------------------------------------------------------
+;; (shell :variables
+;;        shell-default-shell 'eshell
+;;        shell-default-position "bottom")
+
+(defun eshell-aliases ()
+  "Visit the file containing the eshell aliases."
+  (interactive)
+  (find-file-other-window eshell-aliases-file))
+
+;; allow for case insensitive tab completion of file names in eshell
+(setq eshell-cmpl-ignore-case t)
+(spacemacs/declare-prefix "os" "sheila-menu")
+(spacemacs/set-leader-keys "osh" 'helm-eshell-history)
+
+;; Ensure that the path contains the directory stack installs into.
+;; (setq eshell-path-env (concat eshell-path-env ":/home/aez/.local/bin"))
+(setenv "PATH" (concat (getenv "PATH") ":/home/aez/.local/bin"))
+(setq exec-path (append exec-path '("/home/aez/.local/bin")))
+
+;; ------------------------------------------------------------------------------
+;; Emacs Speaks Statistics
+;; ------------------------------------------------------------------------------
+(setq spacemacs/ess-config
+      '(progn
+         ;; Follow Hadley Wickham's R style guide
+         (setq ess-first-continued-statement-offset 2
+               ess-continued-statement-offset 0
+               ess-expression-offset 2
+               ess-nuke-trailing-whitespace-p t
+               ess-default-style 'DEFAULT)
+         (when ess-disable-underscore-assign
+           (setq ess-smart-S-assign-key nil))
+
+         (define-key ess-doc-map "h" 'ess-display-help-on-object)
+         (define-key ess-doc-map "p" 'ess-R-dv-pprint)
+         (define-key ess-doc-map "t" 'ess-R-dv-ctable)
+         (dolist (mode '(ess-r-mode ess-mode)))))
+
+;; make documentation open in a useful mode in ess
+(evil-set-initial-state 'ess-r-help-mode 'motion)
+(spacemacs/declare-prefix "or" "r-menu")
+(spacemacs/set-leader-keys "ors" 'run-ess-r)
+(spacemacs/set-leader-keys "org" 'ess-switch-to-inferior-or-script-buffer)
+(spacemacs/set-leader-keys "orr" 'ess-eval-region)
+(spacemacs/set-leader-keys "orb" 'ess-eval-buffer)
+
+;; Bindings for some devtools
+(spacemacs/set-leader-keys "ordb" 'ess-r-devtools-build)
+(spacemacs/set-leader-keys "ordi" 'ess-r-devtools-install-package)
+(spacemacs/set-leader-keys "ordt" 'ess-r-devtools-test-package)
+(spacemacs/set-leader-keys "ordl" 'ess-r-devtools-load-package)
+
+
+;; Include a little function to run a particular file if it exists which can be
+;; very useful for testing only specific parts of a package being developed
+(defun ess-r-execute-sneaky ()
+  "If a file .sneaky.R exists in the current directory then
+source it into the R session."
+  (interactive)
+  (if (file-exists-p ".sneaky.R")
+      (ess-r-package-eval-linewise
+       "source(\".sneaky.R\")"
+       "Running .sneaky.R")
+    (message "Missing file .sneaky.R")))
+
+(spacemacs/set-leader-keys "orx" 'ess-r-execute-sneaky)
+
+
+(defun styler-reformat-buffer ()
+  "Run styler on the current buffer."
+  (interactive)
+  (let ((cmd-pattern "R -q --vanilla -e \'options(warn=-1); styler::style_file(\"%s\")\'")
+        (curr-buffer-path (buffer-file-name)))
+    (shell-command (format cmd-pattern curr-buffer-path))))
+(spacemacs/set-leader-keys "orf" 'styler-reformat-buffer)
+
+;; ------------------------------------------------------------------------------
+;; Version control via magit
+;; ------------------------------------------------------------------------------
+;; Open the magit status in a full frame.
+(setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+
+
+
+;; ------------------------------------------------------------------------------
+;; Ergonomics and generic emacs stuff
+;; ------------------------------------------------------------------------------
+(defun kill-all-other-buffers ()
+  "Kill all the buffers other than the current one."
+  (interactive)
+  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+
+;; Define a short cut to close all windows except the current one without killing
+;; their buffers.
+(spacemacs/set-leader-keys "wD" 'spacemacs/window-manipulation-transient-state/delete-other-windows)
+
+;; Define a short cut for C-g which is a little awkward.
+(spacemacs/set-leader-keys "og" 'keyboard-quit)
+
+;; Define a short cut for following files
+(spacemacs/declare-prefix "of" "file-stuff")
+(spacemacs/set-leader-keys "off" 'find-file-at-point)
+(spacemacs/set-leader-keys "ofb" 'ibuffer)
+(spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
+;; Open Ibuffer in the motion state rather than as the default emacs mode.
+(evil-set-initial-state 'ibuffer-mode 'motion)
+
+
+;; ------------------------------------------------------------------------------
+;; Vega(-lite)
+;; ------------------------------------------------------------------------------
+
+(defun vl-view (spec-filepath)
+  "Render a vega-lite specification."
+  (interactive)
+  (let* ((plot-filepath (concat (file-name-sans-extension spec-filepath) ".png"))
+         (vl-cmd (format "vl2png %s %s" spec-filepath plot-filepath)))
+    (shell-command vl-cmd)
+    (find-file plot-filepath)))
+
+#+end_src

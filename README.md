@@ -1,2 +1,0 @@
-# nicemacs
-configuration for spacemacs
