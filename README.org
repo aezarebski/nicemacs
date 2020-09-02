@@ -135,6 +135,10 @@ agenda file and makes sure that the =org-agenda-files= variable is set to that
 one. This function is here because we want a simple way to access the current
 agenda file and don't want to have to search to open it manually.
 
+*NOTE* that the =org-agenda-files= variable needs to be bound to a /list/ or
+files rather than the name of a single file, otherwise it will interpret that
+single file as a list of files to use.
+
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun journal ()
   "Opens the current journal file.
@@ -146,7 +150,7 @@ org-agenda-files variable to be the current agenda file."
   (let* ((path-template "~/Documents/journal/journal-%s.org")
          (year-month (format-time-string "%Y-%m"))
          (agenda-file (format path-template year-month)))
-    (setq org-agenda-files agenda-file)
+    (setq org-agenda-files (list agenda-file))
     (find-file agenda-file)
     (goto-char 1)
     (recenter-top-bottom)))
