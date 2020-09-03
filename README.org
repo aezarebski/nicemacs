@@ -386,3 +386,61 @@ source it into the R session."
     (find-file plot-filepath)))
 
 #+end_src
+
+** Snippets
+
+The following files need to be moved into the correct snippet directory for your
+configuration.
+
+A snippet for a very simple scatter plot in vega-lite.
+
+#+BEGIN_SRC :tangle vl-scatter-plot
+# -*- mode: snippet -*-
+# name: vega-lite scatter plot
+# key: vl-scatter-plot
+# --
+
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "data": {
+        "url": "$1"
+    },
+    "mark": "point",
+    "encoding": {
+        "x": {
+            "field": "$2",
+            "type": "quantitative"
+        },
+        "y": {
+            "field": "$3",
+            "type": "quantitative"
+        }
+    }
+}
+#+END_SRC
+
+A snippet for a very simple histogram in vega-lite.
+
+#+BEGIN_SRC :tangle vl-histogram
+# -*- mode: snippet -*-
+# name: vega-lite histogram
+# key: vl-histogram
+# --
+
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "data": {
+        "url": "$1"
+    },
+    "mark": "bar",
+    "encoding": {
+        "x": {
+            "bin": true,
+            "field": "$2"
+        },
+        "y": {
+            "aggregate": "count"
+        }
+    }
+}
+#+END_SRC
