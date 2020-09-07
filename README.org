@@ -389,6 +389,8 @@ source it into the R session."
 
 ** Snippets
 
+*** Vega-Lite
+
 The following files need to be moved into the correct snippet directory for your
 configuration.
 
@@ -443,4 +445,35 @@ A snippet for a very simple histogram in vega-lite.
         }
     }
 }
+#+END_SRC
+
+*** R 
+
+A snippet to include the basic packages
+
+#+BEGIN_SRC snippet :tangle rpacks
+# -*- mode: snippet -*-
+# name: Standard R packages
+# key: rpacks
+# --
+library(dplyr)
+library(purrr)
+library(magrittr)
+library(ggplot2)
+#+END_SRC
+
+A snippet with sensible defaults for writing a data frame to CSV
+
+#+BEGIN_SRC snippet :tangle rtable
+# -*- mode: snippet -*-
+# name: CSV output from R using write.table
+# key: rtable
+# --
+
+write.table(x = $1,
+            file = $2,
+            sep = ",",
+            row.names = FALSE)
+
+$0
 #+END_SRC
