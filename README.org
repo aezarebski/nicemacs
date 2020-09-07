@@ -387,16 +387,19 @@ source it into the R session."
 
 #+end_src
 
-** Snippets
+* Snippets
 
-*** Vega-Lite
+Snippets usually live in =~/.emacs.d/private/snippets= in a directory which is
+named after the major mode for them to be used in.
+
+** Vega-Lite
 
 The following files need to be moved into the correct snippet directory for your
 configuration.
 
 A snippet for a very simple scatter plot in vega-lite.
 
-#+BEGIN_SRC :tangle vl-scatter-plot
+#+BEGIN_SRC snippet :tangle vl-scatter-plot
 # -*- mode: snippet -*-
 # name: vega-lite scatter plot
 # key: vl-scatter-plot
@@ -423,7 +426,7 @@ A snippet for a very simple scatter plot in vega-lite.
 
 A snippet for a very simple histogram in vega-lite.
 
-#+BEGIN_SRC :tangle vl-histogram
+#+BEGIN_SRC snippet :tangle vl-histogram
 # -*- mode: snippet -*-
 # name: vega-lite histogram
 # key: vl-histogram
@@ -447,7 +450,7 @@ A snippet for a very simple histogram in vega-lite.
 }
 #+END_SRC
 
-*** R 
+** R 
 
 A snippet to include the basic packages
 
