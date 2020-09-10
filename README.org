@@ -480,3 +480,31 @@ write.table(x = $1,
 
 $0
 #+END_SRC
+
+** Writing
+
+I use the following as a format for recording information about journals that
+are relevant to my research.
+
+#+BEGIN_SRC snippet :tangle journal
+# -*- mode: snippet -*-
+# name: Description of an academic journal
+# key: journal
+# --
+{
+    "name": "$1",
+    "publisher": "",
+    "url": "",
+    "ISO": "",
+    "JCR": "",
+    "metric": [
+        {
+            "year": ,
+            "impactFactor":
+        }
+    ],
+    "tenRelated": [
+    ]
+}
+#+END_SRC
+
