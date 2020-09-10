@@ -341,14 +341,16 @@ source it into the R session."
     (shell-command (format cmd-pattern curr-buffer-path))))
 (spacemacs/set-leader-keys "orf" 'styler-reformat-buffer)
 
-;; ------------------------------------------------------------------------------
-;; Version control via magit
-;; ------------------------------------------------------------------------------
+#+end_src
+
+** Version control via magit
+
+#+begin_src emacs-lisp :tangle nicemacs.el
 ;; Open the magit status in a full frame.
 (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+#+end_src
 
-
-
+#+begin_src emacs-lisp :tangle nicemacs.el
 ;; ------------------------------------------------------------------------------
 ;; Ergonomics and generic emacs stuff
 ;; ------------------------------------------------------------------------------
