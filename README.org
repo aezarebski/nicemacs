@@ -36,10 +36,11 @@ expression to =dotspacemacs/user-config=:
   (start-process "espeak-process" "espeak-buffer" "espeak" "-v" "en")
   (process-send-region "espeak-process" (point-min) (point-max)))
 
+#+end_src
 
-;; ------------------------------------------------------------------------------
-;; Haskell
-;; ------------------------------------------------------------------------------
+** Haskell 
+
+#+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/declare-prefix "oh" "haskell-menu")
 (spacemacs/set-leader-keys "ohr" 'haskell-process-restart)
 (defun haskell-insert-language-pragma ()
@@ -284,9 +285,11 @@ org-agenda-files variable to be the current agenda file."
 (setenv "PATH" (concat (getenv "PATH") ":/home/aez/.local/bin"))
 (setq exec-path (append exec-path '("/home/aez/.local/bin")))
 
-;; ------------------------------------------------------------------------------
-;; Emacs Speaks Statistics
-;; ------------------------------------------------------------------------------
+#+end_src
+
+** Emacs Speaks Statistics
+
+#+begin_src emacs-lisp :tangle nicemacs.el
 (setq spacemacs/ess-config
       '(progn
          ;; Follow Hadley Wickham's R style guide
