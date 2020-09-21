@@ -470,6 +470,33 @@ library(magrittr)
 library(ggplot2)
 #+END_SRC
 
+A snippet to include packages that are useful when working with geographic data
+
+#+BEGIN_SRC snippet :tangle rgeopacks
+# -*- mode: snippet -*-
+# name: R packages for computational geography
+# key: rgeopacks
+# --
+
+library(sf)
+
+$0
+#+END_SRC
+
+A snippet to include packages that are useful for doing MCMC
+
+#+BEGIN_SRC snippet :tangle rmcmc
+# -*- mode: snippet -*-
+# name: R packages for MCMC
+# key: rmcmc
+# --
+
+library(mcmc) # provides the \code{mcmc} class
+library(coda) # provides the \code{metrop} function
+
+$0
+#+END_SRC
+
 A snippet with sensible defaults for writing a data frame to CSV
 
 #+BEGIN_SRC snippet :tangle rtable
