@@ -1,5 +1,6 @@
 * NICEMACS
-
+** Usage notes
+   
 To tangle the =nicemacs.el= file from the command line execute the following
 command:
 
@@ -13,6 +14,8 @@ expression to =dotspacemacs/user-config=:
 #+begin_src emacs-lisp
 (load "/home/aez/Documents/nicemacs/nicemacs.el")
 #+end_src
+
+** Stuff
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 
@@ -66,10 +69,11 @@ expression to =dotspacemacs/user-config=:
 
 ;; Go to the next error found by flycheck
 (spacemacs/set-leader-keys "ohe" 'flycheck-next-error)
+#+end_src
 
-;; ------------------------------------------------------------------------------
-;; Settings for latex
-;; ------------------------------------------------------------------------------
+** Latex and Bibtex
+
+#+begin_src emacs-lisp :tangle nicemacs.el
 (defun references ()
   "Opens my bibtex references.
 
