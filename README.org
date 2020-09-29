@@ -117,6 +117,8 @@ in."
 (spacemacs/set-leader-keys "owr" 'references)
 ;; Open the last .bib file in ~/Downloads
 (spacemacs/set-leader-keys "owl" 'last-bib)
+;; Reformat the current bibtex file.
+(spacemacs/set-leader-keys "owf" 'bibtex-reformat)
 ;; Open my review.tex
 (spacemacs/set-leader-keys "owt" 'review-tex-file)
 ;; Open a scratch buffer in org-mode
