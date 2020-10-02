@@ -227,26 +227,25 @@ org-agenda-files variable to be the current agenda file."
   (interactive)
   (find-file "~/public-site/org/index.org"))
 (spacemacs/set-leader-keys "oov" 'visit-my-site-index)
+#+end_src
 
-;; Create a table.
-(spacemacs/set-leader-keys "ooit" 'org-table-create-or-convert-from-region)
+I used to have some commands for inserting tables and source code blocks into
+org-mode files, but this functionality (and more) is all provided by
+=yasnippet=. Just run =SPC i s= and it will start a search for the relevant
+snippet: "source" and "table" are in there for example.
 
+As of org-mode version about 9.3 the default behaviour appears to be that new
+lines will be indented to the level of the current header. I would prefer that
+new lines of text start at the start of the line. This can be achieved by
+setting =org-adapt-indentation= to =nil=.
 
-(defun org-insert-source-block ()
-  "Insert a source block"
-  (interactive)
-  (progn
-    (insert "#+begin_src \n\n#+end_src")
-    (evil-previous-line 2)
-    (evil-forward-char 10)
-    (insert " ")))
+#+BEGIN_SRC emacs-lisp
+(setq org-adapt-indentation nil) 
+#+END_SRC
 
-(spacemacs/declare-prefix "ooi" "orgo-inserto-menu")
-(spacemacs/set-leader-keys "oois" 'org-insert-source-block)
+** Maxima
 
-;; ------------------------------------------------------------------------------
-
-
+#+begin_src emacs-lisp :tangle nicemacs.el
 
 
 ;; ------------------------------------------------------------------------------
@@ -267,15 +266,23 @@ org-agenda-files variable to be the current agenda file."
 ;; ------------------------------------------------------------------------------
 
 
+#+end_src
 
+** Eshell
 
-;; ------------------------------------------------------------------------------
-;; Settings for shell
-;; ------------------------------------------------------------------------------
-;; (shell :variables
-;;        shell-default-shell 'eshell
-;;        shell-default-position "bottom")
+To add =eshell= as the default shell to spacemacs you need to add the following
+to the =dotspacemacs-configuration-layers=.
 
+#+BEGIN_SRC emacs-lisp
+  (shell :variables
+         shell-default-shell 'eshell
+         shell-default-position "bottom")
+#+END_SRC
+
+Then the following are useful configuration for =eshell=, the =PATH= commands
+are particularly important to make haskell executables available.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
 (defun eshell-aliases ()
   "Visit the file containing the eshell aliases."
   (interactive)
@@ -290,7 +297,6 @@ org-agenda-files variable to be the current agenda file."
 ;; (setq eshell-path-env (concat eshell-path-env ":/home/aez/.local/bin"))
 (setenv "PATH" (concat (getenv "PATH") ":/home/aez/.local/bin"))
 (setq exec-path (append exec-path '("/home/aez/.local/bin")))
-
 #+end_src
 
 ** Emacs Speaks Statistics
