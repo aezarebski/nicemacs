@@ -239,7 +239,7 @@ lines will be indented to the level of the current header. I would prefer that
 new lines of text start at the start of the line. This can be achieved by
 setting =org-adapt-indentation= to =nil=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
 (setq org-adapt-indentation nil) 
 #+END_SRC
 
