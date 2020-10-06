@@ -407,7 +407,9 @@ source it into the R session."
 * Snippets
 
 Snippets usually live in =~/.emacs.d/private/snippets= in a directory which is
-named after the major mode for them to be used in.
+named after the major mode for them to be used in. You need to
+=yas-recompile-all= and =yas-reload-all= for any changes to the snippets to take
+effect.
 
 *WARNING!* Tangling this file will write the snippets to your private snippet
 directory which is convenient for me but may not be desirable for everyone. It
