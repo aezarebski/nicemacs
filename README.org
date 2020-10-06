@@ -409,6 +409,11 @@ source it into the R session."
 Snippets usually live in =~/.emacs.d/private/snippets= in a directory which is
 named after the major mode for them to be used in.
 
+*WARNING!* Tangling this file will write the snippets to your private snippet
+directory which is convenient for me but may not be desirable for everyone. It
+is set this way so that I don't have to remember to copy the tangled files over
+all the time.
+
 ** Vega-Lite
 
 The following files need to be moved into the correct snippet directory for your
@@ -471,7 +476,7 @@ A snippet for a very simple histogram in vega-lite.
 
 A snippet to include the basic packages
 
-#+BEGIN_SRC snippet :tangle rpacks
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rpacks
 # -*- mode: snippet -*-
 # name: Standard R packages
 # key: rpacks
@@ -484,20 +489,21 @@ library(ggplot2)
 
 A snippet to include packages that are useful when working with geographic data
 
-#+BEGIN_SRC snippet :tangle rgeopacks
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rgeopacks
 # -*- mode: snippet -*-
 # name: R packages for computational geography
 # key: rgeopacks
 # --
 
 library(sf)
+library(countrycode)
 
 $0
 #+END_SRC
 
 A snippet to include packages that are useful for doing MCMC
 
-#+BEGIN_SRC snippet :tangle rmcmc
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rmcmc
 # -*- mode: snippet -*-
 # name: R packages for MCMC
 # key: rmcmc
@@ -511,7 +517,7 @@ $0
 
 A snippet with sensible defaults for writing a data frame to CSV
 
-#+BEGIN_SRC snippet :tangle rtable
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rtable
 # -*- mode: snippet -*-
 # name: CSV output from R using write.table
 # key: rtable
