@@ -488,6 +488,7 @@ library(purrr)
 library(magrittr)
 library(ggplot2)
 library(stringr)
+library(jsonlite)
 #+END_SRC
 
 A snippet to include packages that are useful when working with geographic data
