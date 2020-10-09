@@ -217,12 +217,7 @@ org-agenda-files variable to be the current agenda file."
   (find-file "~/aezarebski.github.io/index.html")
   (magit-status))
 (spacemacs/set-leader-keys "oop" 'publish-my-site)
-;; Include a command and shortcut to actually visit this site in eww
-(defun visit-my-site-in-eww ()
-  "Visit my website in eww"
-  (interactive)
-  (eww "aezarebski.github.io"))
-(spacemacs/set-leader-keys "oon" 'visit-my-site-in-eww)
+;; Include a command and shortcut to actually visit 
 (defun visit-my-site-index ()
   (interactive)
   (find-file "~/public-site/org/index.org"))
@@ -241,6 +236,15 @@ setting =org-adapt-indentation= to =nil=.
 
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
 (setq org-adapt-indentation nil) 
+#+END_SRC
+
+To quickly jump to this very org-mode file it will be useful to have a shortcut
+
+#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
+(defun visit-nicemacs ()
+  (interactive)
+  (find-file "~/Documents/nicemacs/README.org"))
+(spacemacs/set-leader-keys "oon" 'visit-nicemacs)
 #+END_SRC
 
 ** Maxima
