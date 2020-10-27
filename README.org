@@ -1,4 +1,7 @@
 * NICEMACS
+
+[[./resources/nicemacs-logo.png]]
+
 ** Usage notes
    
 To tangle the =nicemacs.el= file from the command line execute the following
