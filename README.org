@@ -365,6 +365,14 @@ source it into the R session."
 
 #+end_src
 
+*** TODO Fix the buffer display settings so that help covers the REPL
+
+The following might be useful as a starting point for this
+
+#+begin_src emacs-lisp
+(info "(ess) Controlling buffer display")
+#+end_src
+
 ** Version control via magit
 
 #+begin_src emacs-lisp :tangle nicemacs.el
