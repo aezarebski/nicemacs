@@ -18,6 +18,11 @@ expression to =dotspacemacs/user-config=:
 (load "/home/aez/Documents/nicemacs/nicemacs.el")
 #+end_src
 
+*** Emacs-LISP REPL
+
+From time to time it will be useful to have access to an emacs lisp REPL. To
+start this repl run the =ielm= command.
+
 ** Stuff
 
 #+begin_src emacs-lisp :tangle nicemacs.el
