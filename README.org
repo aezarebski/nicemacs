@@ -358,16 +358,23 @@ source it into the R session."
     (message "Missing file .sneaky.R")))
 
 (spacemacs/set-leader-keys "orx" 'ess-r-execute-sneaky)
+#+end_src
 
+The function =styler-reformat-buffer= will attempt to use the
+=styler::style_file= function to format the R code in the current buffer and
+then reload the buffer based on the changes to the file. If the styler package
+is not installed then it fails but this gets reported in =*Messages*=. The use
+of ="*"= in =interactive= ensures that you cannot accidentally run this function
+on a read-only buffer.
 
+#+begin_src emacs-lisp :tangle nicemacs.el
 (defun styler-reformat-buffer ()
-  "Run styler on the current buffer."
-  (interactive)
-  (let ((cmd-pattern "R -q --vanilla -e \'options(warn=-1); styler::style_file(\"%s\")\'")
-        (curr-buffer-path (buffer-file-name)))
-    (shell-command (format cmd-pattern curr-buffer-path))))
+  "Run styler::style_file on the current buffer and then revert to load any changes."
+  (interactive "*")
+  (shell-command (concat "Rscript --slave --no-restore --quiet --no-init-file -e \"styler::style_file('" (buffer-file-name)  "')\""))
+  (revert-buffer nil t)
+)
 (spacemacs/set-leader-keys "orf" 'styler-reformat-buffer)
-
 #+end_src
 
 *** TODO Fix the buffer display settings so that help covers the REPL
