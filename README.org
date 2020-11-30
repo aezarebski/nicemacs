@@ -392,10 +392,9 @@ The following might be useful as a starting point for this
 (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
 #+end_src
 
+** File and buffer manipulation
+
 #+begin_src emacs-lisp :tangle nicemacs.el
-;; ------------------------------------------------------------------------------
-;; Ergonomics and generic emacs stuff
-;; ------------------------------------------------------------------------------
 (defun kill-all-other-buffers ()
   "Kill all the buffers other than the current one."
   (interactive)
@@ -415,20 +414,6 @@ The following might be useful as a starting point for this
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 ;; Open Ibuffer in the motion state rather than as the default emacs mode.
 (evil-set-initial-state 'ibuffer-mode 'motion)
-
-
-;; ------------------------------------------------------------------------------
-;; Vega(-lite)
-;; ------------------------------------------------------------------------------
-
-(defun vl-view (spec-filepath)
-  "Render a vega-lite specification."
-  (interactive)
-  (let* ((plot-filepath (concat (file-name-sans-extension spec-filepath) ".png"))
-         (vl-cmd (format "vl2png %s %s" spec-filepath plot-filepath)))
-    (shell-command vl-cmd)
-    (find-file plot-filepath)))
-
 #+end_src
 
 * Snippets
