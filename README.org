@@ -18,10 +18,64 @@ expression to =dotspacemacs/user-config=:
 (load "/home/aez/Documents/nicemacs/nicemacs.el")
 #+end_src
 
+To quickly jump to this very org-mode file it will be useful to have a shortcut
+
+#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
+(defun visit-nicemacs ()
+  (interactive)
+  (find-file "~/Documents/nicemacs/README.org"))
+(spacemacs/set-leader-keys "oon" 'visit-nicemacs)
+#+END_SRC
+
 *** Emacs-LISP REPL
 
 From time to time it will be useful to have access to an emacs lisp REPL. To
 start this repl run the =ielm= command.
+
+*** Configuration layers
+
+This configuration is used from within spacemacs, so it seems appropriate that I
+should also document the configuration layers that I use.
+
+#+begin_src emacs-lisp
+'(
+     epub
+     auto-completion
+     better-defaults
+     bibtex
+     csv
+     emacs-lisp
+     ess
+     git
+     (haskell :variables
+              haskell-completion-backend 'company-ghci
+              haskell-process-type 'stack-ghci
+              hsakell-enable-hindent-style "fundamental")
+     helm
+     html
+     (javascript :variables
+                 javascript-import-tool 'import-js
+                 javascript-backend 'tern
+                 javascript-fmt-tool 'web-beautify)
+     latex
+     markdown
+     nixos
+     org
+     python
+     (shell :variables
+            shell-default-shell 'eshell
+            shell-default-position "right"
+            shell-default-height 40)
+     speed-reading
+     (spell-checking :variables
+                     spell-checking-enable-by-default nil
+                     enable-flyspell-auto-completion t)
+     syntax-checking
+     web-beautify
+     yaml
+     version-control
+     )
+#+end_src
 
 ** Stuff
 
@@ -145,6 +199,8 @@ Bindings for org-mode functionality start with =o o= for "owner org".
 (spacemacs/declare-prefix "oo" "orgo-menu")
 #+end_src
 
+*** Journal
+
 The =journal= function, which is bound to =SPC o o j= will open the current
 agenda file and makes sure that the =org-agenda-files= variable is set to that
 one. This function is here because we want a simple way to access the current
@@ -174,23 +230,30 @@ org-agenda-files variable to be the current agenda file."
 (setq org-agenda-span 30)
 (setq org-agenda-start-on-weekday nil)
 
-;; Run the journal command
 (spacemacs/set-leader-keys "ooj" 'journal)
-;; Start the org agenda view
 (spacemacs/set-leader-keys "ooa" 'org-agenda)
-;; Schedule an item in org
 (spacemacs/set-leader-keys "oos" 'org-schedule)
 #+end_src
 
+I always use the same pattern for my commit messages for my journal files. The
+following is a useful way to save me needed to type this out each time.
+Apparently, this is [[https://xkcd.com/1205/][worth the time...]]
+
 #+begin_src emacs-lisp :tangle nicemacs.el
-;; Tangle the current org file
-(spacemacs/set-leader-keys "oot" 'org-babel-tangle)
-;; open the export menu
-(spacemacs/set-leader-keys "ooe" 'org-export-dispatch)
+(defun journal-commit-message ()
+  "Insert a string describing a generic commit to my journal
+file."
+  (interactive)
+  (let ((date-string (downcase (format-time-string "%A %l:%M %p"))))
+    (insert (format "update tasklist %s"
+                    date-string))))
 
-;; Make sure org files open with lines truncated
-(add-hook 'org-mode-hook 'spacemacs/toggle-truncate-lines-on)
+(spacemacs/set-leader-keys "oocm" 'journal-commit-message)
+#+end_src
 
+*** Website
+
+#+begin_src emacs-lisp :tangle nicemacs.el
 ;; Set up for publishing my website, note that this will write the output\
 ;; directly to the github repository for the site.
 (require 'ox-publish)
@@ -246,14 +309,18 @@ setting =org-adapt-indentation= to =nil=.
 (setq org-adapt-indentation nil) 
 #+END_SRC
 
-To quickly jump to this very org-mode file it will be useful to have a shortcut
 
-#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
-(defun visit-nicemacs ()
-  (interactive)
-  (find-file "~/Documents/nicemacs/README.org"))
-(spacemacs/set-leader-keys "oon" 'visit-nicemacs)
-#+END_SRC
+*** Miscellaneous
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+;; Tangle the current org file
+(spacemacs/set-leader-keys "oot" 'org-babel-tangle)
+;; open the export menu
+(spacemacs/set-leader-keys "ooe" 'org-export-dispatch)
+
+;; Make sure org files open with lines truncated
+(add-hook 'org-mode-hook 'spacemacs/toggle-truncate-lines-on)
+#+end_src
 
 ** Maxima
 
