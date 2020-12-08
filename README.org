@@ -237,18 +237,20 @@ org-agenda-files variable to be the current agenda file."
 
 I always use the same pattern for my commit messages for my journal files. The
 following is a useful way to save me needed to type this out each time.
-Apparently, this is [[https://xkcd.com/1205/][worth the time...]]
+Apparently, this is [[https://xkcd.com/1205/][worth the time...]] After staging the necessary files use =SPC
+o o c j= for /commit to journal/.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defun journal-commit-message ()
-  "Insert a string describing a generic commit to my journal
-file."
+(defun journal-commit-function ()
+  "Create a commit and insert a string describing a generic
+commit to my journal file. This should be fun from the magit
+buffer"
   (interactive)
-  (let ((date-string (downcase (format-time-string "%A %l:%M %p"))))
-    (insert (format "update tasklist %s"
-                    date-string))))
+  (let* ((date-string (downcase (format-time-string "%A %l:%M %p")))
+         (edit-string (format "-mupdate tasklist %s"  date-string)))
+    (magit-commit-create `("--edit", edit-string))))
 
-(spacemacs/set-leader-keys "oocm" 'journal-commit-message)
+(spacemacs/set-leader-keys "oocj" 'journal-commit-function)
 #+end_src
 
 *** Website
