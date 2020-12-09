@@ -103,6 +103,16 @@ should also document the configuration layers that I use.
 
 #+end_src
 
+** Completion
+
+The following potentially reduce the latency in input which can be increased by
+unnecessary calls to a completion backend.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(setq company-idle-delay 0.5)
+(setq company-minimum-prefix-length 3)
+#+end_src
+
 ** Haskell 
 
 #+begin_src emacs-lisp :tangle nicemacs.el
