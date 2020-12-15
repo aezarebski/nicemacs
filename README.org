@@ -136,6 +136,22 @@ should also document the configuration layers that I use.
 ** Latex and Bibtex
 
 #+begin_src emacs-lisp :tangle nicemacs.el
+(defun review-tex-file ()
+  "Open my review.tex file"
+  (interactive)
+  (let ((path-template "~/Documents/bibliography/review/review.tex"))
+    (find-file path-template)
+    (goto-char 1)
+    (recenter-top-bottom)))
+
+(spacemacs/declare-prefix "ow" "writing-menu")
+;; Open my review.tex
+(spacemacs/set-leader-keys "owt" 'review-tex-file)
+;; Force spell checking of the word at point
+(spacemacs/set-leader-keys "ows" 'flyspell-correct-at-point)
+#+end_src
+
+#+begin_src emacs-lisp :tangle nicemacs.el
 (defun references ()
   "Opens my bibtex references.
 
@@ -149,16 +165,9 @@ in."
     )
   )
 
-(defun review-tex-file ()
-  "Open my review.tex file"
-  (interactive)
-  (let ((path-template "~/Documents/bibliography/review/review.tex"))
-    (find-file path-template)
-    (goto-char 1)
-    (recenter-top-bottom)))
-
 (defun last-bib ()
-  "Opens the most recent bibtex file in the Downloads directory in a new buffer."
+  "Opens the most recent bibtex file in the Downloads directory
+in a new buffer."
   (interactive)
   (let ((bib-files (directory-files-and-attributes "~/Downloads" t ".*bib" "ctime"))
         (path-and-time (lambda (x) (list (first x) (eighth x))))
@@ -166,29 +175,31 @@ in."
         (most-recent (lambda (files) (car (car (sort (mapcar path-and-time files) time-order))))))
     (find-file (funcall most-recent bib-files))))
 
-
-(defun switch-to-org-scratch-buffer ()
-  "Switch to the `*org-scratch*' buffer, creating it first if necessary."
+(defun bibtex-braces ()
+  "Wrap upper case letters with brackets for bibtex titles."
   (interactive)
-  (let ((exists (get-buffer "*org-scratch*")))
-    (switch-to-buffer (get-buffer-create "*org-scratch*"))
-    (with-current-buffer "*org-scratch*" (funcall 'org-mode))))
+  (evil-ex "%s/\\([A-Z]\\)/\\{\\1\\}/g"))
+#+end_src
 
-(spacemacs/declare-prefix "ow" "writing-menu")
+Now we need some sensible key-bindings for this functionality. The following aim
+to follow the naming used for the functionality because this is easier to
+remember. *Owner* *Bibtex* *X* where
+
+- *R* for /references/,
+- *L* for /last/ bibtex file in =Downloads=,
+- *F* for /format/ the current buffer and
+- *B* for /braces/ around upper case characters
+  
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/declare-prefix "ob" "bibtex-menu")
 ;; Open my references.bib
-(spacemacs/set-leader-keys "owr" 'references)
+(spacemacs/set-leader-keys "obr" 'references)
 ;; Open the last .bib file in ~/Downloads
-(spacemacs/set-leader-keys "owl" 'last-bib)
+(spacemacs/set-leader-keys "obl" 'last-bib)
 ;; Reformat the current bibtex file.
-(spacemacs/set-leader-keys "owf" 'bibtex-reformat)
-;; Open my review.tex
-(spacemacs/set-leader-keys "owt" 'review-tex-file)
-;; Open a scratch buffer in org-mode
-(spacemacs/set-leader-keys "owb" 'switch-to-org-scratch-buffer)
-;; Force spell checking of the word at point
-(spacemacs/set-leader-keys "ows" 'flyspell-correct-at-point)
-
-
+(spacemacs/set-leader-keys "obf" 'bibtex-reformat)
+;; Fix capital letters in a bibtex entry
+(spacemacs/set-leader-keys "obb" 'bibtex-braces)
 #+end_src
 
 ** Org-mode
