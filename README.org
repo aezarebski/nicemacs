@@ -169,11 +169,11 @@ in."
   "Opens the most recent bibtex file in the Downloads directory
 in a new buffer."
   (interactive)
-  (let ((bib-files (directory-files-and-attributes "~/Downloads" t ".*bib" "ctime"))
-        (path-and-time (lambda (x) (list (first x) (eighth x))))
-        (time-order (lambda (a b) (time-less-p (second b) (second a))))
-        (most-recent (lambda (files) (car (car (sort (mapcar path-and-time files) time-order))))))
-    (find-file (funcall most-recent bib-files))))
+  (let* ((bib-files (directory-files-and-attributes "~/Downloads" t ".*bib" "ctime"))
+         (path-and-time (lambda (x) (list (first x) (eighth x))))
+         (time-order (lambda (a b) (time-less-p (second b) (second a))))
+         (most-recent (lambda (files) (car (car (sort (mapcar path-and-time files) time-order))))))
+   (find-file (funcall most-recent bib-files))))
 
 (defun bibtex-braces ()
   "Wrap upper case letters with brackets for bibtex titles."
@@ -371,25 +371,37 @@ to the =dotspacemacs-configuration-layers=.
          shell-default-position "bottom")
 #+END_SRC
 
-Then the following are useful configuration for =eshell=, the =PATH= commands
-are particularly important to make haskell executables available.
+It is useful to have a prefix for all the shell related commands
 
-#+begin_src emacs-lisp :tangle nicemacs.el
+#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
+(spacemacs/declare-prefix "os" "sheila-menu")
+(spacemacs/set-leader-keys "osh" 'helm-eshell-history)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
 (defun eshell-aliases ()
   "Visit the file containing the eshell aliases."
   (interactive)
   (find-file-other-window eshell-aliases-file))
+#+END_SRC
 
-;; allow for case insensitive tab completion of file names in eshell
+Because no one has time for typing capital letters we will set the completion
+variable in the shell to ignore case during tab completion.
+
+#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
 (setq eshell-cmpl-ignore-case t)
-(spacemacs/declare-prefix "os" "sheila-menu")
-(spacemacs/set-leader-keys "osh" 'helm-eshell-history)
+#+END_SRC
 
-;; Ensure that the path contains the directory stack installs into.
+Then the following are useful configuration for =eshell=, the =PATH= commands
+are particularly important to make haskell executables available because this is
+missing by default and if you change it from outside of here spacemacs seems to
+not like it.
+
+#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
 ;; (setq eshell-path-env (concat eshell-path-env ":/home/aez/.local/bin"))
 (setenv "PATH" (concat (getenv "PATH") ":/home/aez/.local/bin"))
 (setq exec-path (append exec-path '("/home/aez/.local/bin")))
-#+end_src
+#+END_SRC
 
 ** Emacs Speaks Statistics
 
