@@ -257,9 +257,10 @@ buffer"
 
 *** Website
 
+Set up for publishing my website, note that this will write the output directly
+to the github repository for the site.
+
 #+begin_src emacs-lisp :tangle nicemacs.el
-;; Set up for publishing my website, note that this will write the output\
-;; directly to the github repository for the site.
 (require 'ox-publish)
 
 (setq org-publish-project-alist
@@ -283,16 +284,25 @@ buffer"
 
         ("org" :components ("org-notes" "org-static"))
         ))
+#+end_src
 
-;; Publish my notes to the site repository and visit the index file.
+The following function simplifies the process of compiling the site and
+commiting it to github so it goes live.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
 (defun publish-my-site ()
-  "Publish site and visit home page before running offering to commit changes."
+  "Publish site and open version control for the published site."
   (interactive)
   (org-publish "org")
-  (find-file "~/aezarebski.github.io/index.html")
-  (magit-status))
+  (magit-status "~/aezarebski.github.io"))
+
 (spacemacs/set-leader-keys "oop" 'publish-my-site)
-;; Include a command and shortcut to actually visit 
+#+end_src
+
+The following function is useful for going to the root of my notes site which is
+a sensible starting point for looking up material without the browser.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
 (defun visit-my-site-index ()
   (interactive)
   (find-file "~/public-site/org/index.org"))
@@ -312,7 +322,6 @@ setting =org-adapt-indentation= to =nil=.
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
 (setq org-adapt-indentation nil) 
 #+END_SRC
-
 
 *** Miscellaneous
 
