@@ -79,28 +79,19 @@ should also document the configuration layers that I use.
 
 ** Stuff
 
+To quickly toggle between the default spacemacs theme use =SPC t t=. Since this
+is something that I want to do in a hurry if my retinas are burning this is a
+useful shortcut.
+
 #+begin_src emacs-lisp :tangle nicemacs.el
-
-;; mnemonic: [t]oggle-[t]heme
 (spacemacs/set-leader-keys "tt" 'spacemacs/cycle-spacemacs-theme)
+#+end_src
 
-;; The "o" menu is all of my stuff!
+The spacemacs documentation recommends that you store all of your shortcuts with
+a prefix of "o" for owner.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/declare-prefix "o" "own-menu")
-
-;; NOTE It looks like this file can be loaded with the "load" function.
-
-(defun melbourne ()
-  "Display the time in Melbourne"
-  (interactive)
-  (helm-world-time))
-
-
-(defun read-with-espeak ()
-  "Send region to espeak asynchronously."
-  (interactive)
-  (start-process "espeak-process" "espeak-buffer" "espeak" "-v" "en")
-  (process-send-region "espeak-process" (point-min) (point-max)))
-
 #+end_src
 
 ** Haskell 
