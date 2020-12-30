@@ -179,7 +179,7 @@ in a new buffer."
 (defun bibtex-braces ()
   "Wrap upper case letters with brackets for bibtex titles."
   (interactive)
-  (evil-ex "%s/\\([A-Z]\\)/\\{\\1\\}/g"))
+  (evil-ex "'<,'>s/\\([A-Z]\\)/\\{\\1\\}/g"))
 #+end_src
 
 Now we need some sensible key-bindings for this functionality. The following aim
