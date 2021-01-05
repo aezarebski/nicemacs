@@ -519,6 +519,23 @@ directory which is convenient for me but may not be desirable for everyone. It
 is set this way so that I don't have to remember to copy the tangled files over
 all the time.
 
+** Yasnippet configuration
+
+I have started to get some weird warnings which [[https://github.com/syl20bnr/spacemacs/issues/12648][this issue]] suggests may be
+something breaking in Emacs 27, but can be silenced with the following.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(defvaralias
+  'helm-c-yas-space-match-any-greedy
+  'helm-yas-space-match-any-greedy
+  "Temporary alias for Emacs27")
+#+end_src
+
+For some unknown reason, when I try to insert a snippet in the JSON mode I get
+an error, "No JavaScript AST available". Things are working fine in other modes
+so this might be something javascript specific, in which case, it is probably
+easier just to call =yas-insert-snippet= directly when editing JSON.
+
 ** Vega-Lite
 
 The following files need to be moved into the correct snippet directory for your
