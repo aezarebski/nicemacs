@@ -517,6 +517,19 @@ The following might be useful as a starting point for this
 (evil-set-initial-state 'ibuffer-mode 'motion)
 #+end_src
 
+Sometimes it is useful to get the directory of the file shown in a buffer. This
+is bound to =SPC o f d= for owner-files-directory.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(defun message-working-directory ()
+  "Print the directory of the current buffer."
+  (interactive)
+  (message default-directory))
+
+(spacemacs/set-leader-keys "ofd" 'message-working-directory)
+#+end_src
+
+
 * Snippets
 
 Snippets usually live in =~/.emacs.d/private/snippets= in a directory which is
