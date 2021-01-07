@@ -345,6 +345,15 @@ setting =org-adapt-indentation= to =nil=.
 (add-hook 'org-mode-hook 'spacemacs/toggle-truncate-lines-on)
 #+end_src
 
+Orgmode can display images inline, however it is useful to be able to toggle
+this feature occassionally, particularly if there are large images which take up
+too much space. There is a function =org-toggle-inline-images= which does this.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/set-leader-keys "ooi" 'org-toggle-inline-images)
+#+end_src
+
+
 ** Maxima
 
 The following settings assume that you have =maxima=, =maxima-doc= and
