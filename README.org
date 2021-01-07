@@ -247,24 +247,6 @@ org-agenda-files variable to be the current agenda file."
 (spacemacs/set-leader-keys "oos" 'org-schedule)
 #+end_src
 
-I always use the same pattern for my commit messages for my journal files. The
-following is a useful way to save me needed to type this out each time.
-Apparently, this is [[https://xkcd.com/1205/][worth the time...]] After staging the necessary files use =SPC
-o o c j= for /commit to journal/.
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(defun journal-commit-function ()
-  "Create a commit and insert a string describing a generic
-commit to my journal file. This should be fun from the magit
-buffer"
-  (interactive)
-  (let* ((date-string (downcase (format-time-string "%A %l:%M %p")))
-         (edit-string (format "-mupdate tasklist %s"  date-string)))
-    (magit-commit-create `("--edit", edit-string))))
-
-(spacemacs/set-leader-keys "oocj" 'journal-commit-function)
-#+end_src
-
 *** Website
 
 Set up for publishing my website, note that this will write the output directly
@@ -352,7 +334,6 @@ too much space. There is a function =org-toggle-inline-images= which does this.
 #+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/set-leader-keys "ooi" 'org-toggle-inline-images)
 #+end_src
-
 
 ** Maxima
 
@@ -497,9 +478,47 @@ The following might be useful as a starting point for this
 
 ** Version control via magit
 
+The following setting makes magit use the full frame when visiting the status.
+
 #+begin_src emacs-lisp :tangle nicemacs.el
-;; Open the magit status in a full frame.
 (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+#+end_src
+
+There are a few projects where the same commit message use used often. It would
+be nice to have a macro to fill this in each time for me. Since this is working
+with commits I will use the prefix "c" followed by an indicator of the appropriate
+commit message to use.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/declare-prefix "oc" "commits-menu")
+#+end_src
+
+Apparently, this is [[https://xkcd.com/1205/][worth the time...]] After staging the
+necessary files use =SPC o c j= for /journal/.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(defun journal-commit-function ()
+  "Create a commit and insert a string describing a generic
+commit to my journal file. This should be fun from the magit
+buffer"
+  (interactive)
+  (let* ((date-string (downcase (format-time-string "%A %l:%M %p")))
+         (edit-string (format "-mupdate tasklist %s"  date-string)))
+    (magit-commit-create `("--edit", edit-string))))
+
+(spacemacs/set-leader-keys "ocj" 'journal-commit-function)
+#+end_src
+
+And when updating my /web/ page use =SPC o c w=.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(defun website-commit-function ()
+  (interactive)
+  (let* ((date-string (downcase (format-time-string "%A %l:%M %p")))
+         (edit-string (format "-mupdate website %s"  date-string)))
+    (magit-commit-create `("--edit", edit-string))))
+
+(spacemacs/set-leader-keys "ocw" 'website-commit-function)
 #+end_src
 
 ** File and buffer manipulation
@@ -537,7 +556,6 @@ is bound to =SPC o f d= for owner-files-directory.
 
 (spacemacs/set-leader-keys "ofd" 'message-working-directory)
 #+end_src
-
 
 * Snippets
 
