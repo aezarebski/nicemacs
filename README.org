@@ -540,7 +540,13 @@ effect.
 *WARNING!* Tangling this file will write the snippets to your private snippet
 directory which is convenient for me but may not be desirable for everyone. It
 is set this way so that I don't have to remember to copy the tangled files over
-all the time.
+all the time. To generate the directories that the snippets will be tangled to
+you can run the following.
+
+#+begin_src emacs-lisp
+(make-directory "~/.emacs.d/private/snippets/ess-r-mode" t)
+(make-directory "~/.emacs.d/private/snippets/json-mode" t)
+#+end_src
 
 ** Yasnippet configuration
 
@@ -566,7 +572,7 @@ configuration.
 
 A snippet for a very simple scatter plot in vega-lite.
 
-#+BEGIN_SRC snippet :tangle vl-scatter-plot
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/json-mode/vl-scatter-plot
 # -*- mode: snippet -*-
 # name: vega-lite scatter plot
 # key: vl-scatter-plot
@@ -593,7 +599,7 @@ A snippet for a very simple scatter plot in vega-lite.
 
 A snippet for a very simple histogram in vega-lite.
 
-#+BEGIN_SRC snippet :tangle vl-histogram
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/json-mode/vl-histogram
 # -*- mode: snippet -*-
 # name: vega-lite histogram
 # key: vl-histogram
