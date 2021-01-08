@@ -509,6 +509,8 @@ buffer"
 (spacemacs/set-leader-keys "ocj" 'journal-commit-function)
 #+end_src
 
+**** TODO This should really finish the commit and push it as well!
+
 And when updating my /web/ page use =SPC o c w=.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
