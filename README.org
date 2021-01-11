@@ -392,6 +392,8 @@ following binding helps with this.
 (spacemacs/set-leader-keys "osb" 'shell)
 #+end_src
 
+It is useful to be able to look at what aliases are currently defined for
+eshell. The following function visits this file.
 
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
 (defun eshell-aliases ()
@@ -399,6 +401,16 @@ following binding helps with this.
   (interactive)
   (find-file-other-window eshell-aliases-file))
 #+END_SRC
+
+On =2021-01-11= the aliases I have are shown below. The =cdX= ones are for quick
+navigation inspired by vim navigation.
+
+#+begin_src 
+alias cdkkk cd ../../..
+alias cdkk cd ../..
+alias cdk cd ..
+alias ff find-file $1
+#+end_src
 
 Because no one has time for typing capital letters we will set the completion
 variable in the shell to ignore case during tab completion.
