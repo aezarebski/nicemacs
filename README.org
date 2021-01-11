@@ -359,23 +359,39 @@ This seems to be where brew installed maxima on a mac I was using.
 (add-to-list 'load-path "/usr/local/Cellar/maxima/5.37.2/share/maxima/5.37.2/emacs")
 #+end_src
 
-** Eshell
+** Shells
 
-To add =eshell= as the default shell to spacemacs you need to add the following
-to the =dotspacemacs-configuration-layers=.
+To make =eshell= the default shell in spacemacs add the following to the
+=dotspacemacs-configuration-layers=. The position and width might need a bit of
+tweaking to get something you like, but it is pretty easy to adjust the window
+set up anyway.
 
 #+BEGIN_SRC emacs-lisp
-  (shell :variables
-         shell-default-shell 'eshell
-         shell-default-position "bottom")
+    (shell :variables
+           shell-default-shell 'eshell
+           shell-default-position "right"
+           shell-default-width 80)
 #+END_SRC
 
 It is useful to have a prefix for all the shell related commands
 
-#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
+#+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/declare-prefix "os" "sheila-menu")
+#+end_src
+
+The following is for searching the shell history, but I rarely use it.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/set-leader-keys "osh" 'helm-eshell-history)
-#+END_SRC
+#+end_src
+
+Sometimes it is useful to just be able to open a regular bash shell. The
+following binding helps with this.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/set-leader-keys "osb" 'shell)
+#+end_src
+
 
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
 (defun eshell-aliases ()
