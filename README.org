@@ -182,25 +182,39 @@ in a new buffer."
   (evil-ex "'<,'>s/\\([A-Z]\\)/\\{\\1\\}/g"))
 #+end_src
 
+Some places seem reluctant to provide a bibtex file for a citation, but they all
+seem to have RIS files available for download. There are tools to convert
+between them. The following function makes it easier to use these tools by
+finding the most recent RIS file in your downloads and running the convertion on
+that to generate a file =new.bib= which may require a bit of manual tweaking but
+is close to correct.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (defun bibtex-ris2bib ()
+    "Convert the most recent RIS file in my downloads to a BIB
+  file. TODO Make this less ugly please!"
+    (interactive "*")
+    (let ((ris-filepath (nth 1 (car (sort (mapcar (lambda (fp) (list (time-convert (file-attribute-modification-time (file-attributes fp)) 'integer) fp)) (directory-files "~/Downloads" 1 ".*ris")) (lambda (x y) (> (car x) (car y))))))))
+      (shell-command (format "ris2xml %s | xml2bib > /home/aez/Downloads/new.bib" ris-filepath))))
+#+end_src
+
 Now we need some sensible key-bindings for this functionality. The following aim
 to follow the naming used for the functionality because this is easier to
 remember. *Owner* *Bibtex* *X* where
 
-- *R* for /references/,
-- *L* for /last/ bibtex file in =Downloads=,
-- *F* for /format/ the current buffer and
-- *B* for /braces/ around upper case characters
+- *B* for /braces/ around upper case characters,
+- *C* for /convert/ between RIS and bibtex,
+- *F* for /format/ the current buffer,
+- *L* for /last/ bibtex file in =Downloads= and
+- *R* for /references/.
   
 #+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/declare-prefix "ob" "bibtex-menu")
-;; Open my references.bib
 (spacemacs/set-leader-keys "obr" 'references)
-;; Open the last .bib file in ~/Downloads
 (spacemacs/set-leader-keys "obl" 'last-bib)
-;; Reformat the current bibtex file.
 (spacemacs/set-leader-keys "obf" 'bibtex-reformat)
-;; Fix capital letters in a bibtex entry
 (spacemacs/set-leader-keys "obb" 'bibtex-braces)
+(spacemacs/set-leader-keys "obc" 'bibtex-ris2bib)
 #+end_src
 
 ** Org-mode
