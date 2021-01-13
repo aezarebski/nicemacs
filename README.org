@@ -175,11 +175,18 @@ in a new buffer."
          (time-order (lambda (a b) (time-less-p (second b) (second a))))
          (most-recent (lambda (files) (car (car (sort (mapcar path-and-time files) time-order))))))
    (find-file (funcall most-recent bib-files))))
+#+end_src
 
+Bibtex requires that capital letters in the title be surrounded by braces to
+ensure that they are capitalised correctly. The following function is a way to
+quickly add these braces to long titles. Just hightlight the relevant text and
+run the function.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
 (defun bibtex-braces ()
   "Wrap upper case letters with brackets for bibtex titles."
   (interactive)
-  (evil-ex "'<,'>s/\\([A-Z]\\)/\\{\\1\\}/g"))
+  (evil-ex "'<,'>s/\\([A-Z]+\\)/\\{\\1\\}/g"))
 #+end_src
 
 Some places seem reluctant to provide a bibtex file for a citation, but they all
