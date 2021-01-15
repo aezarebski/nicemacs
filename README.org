@@ -356,6 +356,8 @@ too much space. There is a function =org-toggle-inline-images= which does this.
 (spacemacs/set-leader-keys "ooi" 'org-toggle-inline-images)
 #+end_src
 
+**** TODO There is a function =org-latex-preview= which toggles showing inline latex at a particular point. It would be nice to have this bound to =SPC o o l=.
+
 ** Maxima
 
 The following settings assume that you have =maxima=, =maxima-doc= and
