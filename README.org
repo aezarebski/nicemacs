@@ -356,6 +356,19 @@ too much space. There is a function =org-toggle-inline-images= which does this.
 (spacemacs/set-leader-keys "ooi" 'org-toggle-inline-images)
 #+end_src
 
+The =org-latex-preview= function will show a preview of the latex fragment under
+the mark. Running the command a second time will revert to the plain text.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/set-leader-keys "ool" 'org-latex-preview)
+#+end_src
+
+You can try it in the following expressions \(\alpha\)
+
+\[
+\frac{a}{b}
+\]
+
 ** Maxima
 
 The following settings assume that you have =maxima=, =maxima-doc= and
