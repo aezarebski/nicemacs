@@ -361,15 +361,13 @@ too much space. There is a function =org-toggle-inline-images= which does this.
 The following settings assume that you have =maxima=, =maxima-doc= and
 =maxima-emacs= installed via your package manager. These settings are probably
 quite specific to linux, but the snippet below might be useful if you want to
-use MacOS.
+use MacOS. Basically, the =maxima= command starts a maxima REPL and the file
+extensions =.max= and =.mac= are taken as refering to maxima files.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/maxima/")
 (autoload 'maxima-mode "maxima" "Maxima mode" t)
-(autoload 'imaxima "imaxima" "Frontend for maxima with Image support" t)
 (autoload 'maxima "maxima" "Maxima interaction" t)
-(autoload 'imath-mode "imath" "Imath mode for math formula input" t)
-(setq imaxima-use-maxima-mode-flag t)
 (add-to-list 'auto-mode-alist '("\\.ma[cx]" . maxima-mode))
 #+end_src
 
