@@ -1,6 +1,8 @@
-* NICEMACS
+#+title: NICEMACS
 
 [[./resources/nicemacs-logo.png]]
+
+* Configuration
 
 ** Usage notes
    
