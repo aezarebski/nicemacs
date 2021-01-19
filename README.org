@@ -391,6 +391,8 @@ This seems to be where brew installed maxima on a mac I was using.
 (add-to-list 'load-path "/usr/local/Cellar/maxima/5.37.2/share/maxima/5.37.2/emacs")
 #+end_src
 
+*** [[file:./maxima/README.org][Maxima layer]]
+
 ** Shells
 
 To make =eshell= the default shell in spacemacs add the following to the
