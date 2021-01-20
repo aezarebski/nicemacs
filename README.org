@@ -1,6 +1,8 @@
-* NICEMACS
+#+title: NICEMACS
 
 [[./resources/nicemacs-logo.png]]
+
+* Configuration
 
 ** Usage notes
    
@@ -369,27 +371,9 @@ You can try it in the following expressions \(\alpha\)
 \frac{a}{b}
 \]
 
-** Maxima
+** [[file:./maxima/README.org][Maxima layer]]
 
-The following settings assume that you have =maxima=, =maxima-doc= and
-=maxima-emacs= installed via your package manager. These settings are probably
-quite specific to linux, but the snippet below might be useful if you want to
-use MacOS. Basically, the =maxima= command starts a maxima REPL and the file
-extensions =.max= and =.mac= are taken as refering to maxima files.
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/maxima/")
-(autoload 'maxima-mode "maxima" "Maxima mode" t)
-(autoload 'maxima "maxima" "Maxima interaction" t)
-(add-to-list 'auto-mode-alist '("\\.ma[cx]" . maxima-mode))
-#+end_src
-
-This seems to be where brew installed maxima on a mac I was using.
-
-#+begin_src emacs-lisp
-(add-to-list 'load-path "/Applications/Maxima.app/Contents/Resources/maxima/share/maxima/5.38.0/emacs")
-(add-to-list 'load-path "/usr/local/Cellar/maxima/5.37.2/share/maxima/5.37.2/emacs")
-#+end_src
+I have written a layer for working with maxima in spacemacs.
 
 ** Shells
 
