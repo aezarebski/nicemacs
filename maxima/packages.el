@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
-;; Author: alex <aez@morty>
+;; Author: Alexander E. Zarebski <aezarebski@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
@@ -30,7 +30,7 @@
 ;;; Code:
 
 (defconst maxima-packages
-  '()
+  '(maxima)
   "The list of Lisp packages required by the maxima layer.
 
 Each entry is either:
@@ -57,6 +57,22 @@ Each entry is either:
 
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
+
+(defun maxima/init-maxima ()
+  (use-package maxima
+    :defer f
+    :load-path "/usr/share/emacs/site-lisp/maxima/"
+    :mode ("\\.mac" . maxima-mode)
+    :config
+    (progn
+      (autoload 'maxima-mode "maxima" "Maxima mode" t)
+      (autoload 'maxima "maxima" "Maxima interaction" t)
+
+      (spacemacs/declare-prefix-for-mode 'maxima-mode "ms" "repl")
+      (spacemacs/set-leader-keys-for-major-mode 'maxima-mode
+        "sb" 'maxima-send-buffer)
+
+      )))
 
 
 ;;; packages.el ends here

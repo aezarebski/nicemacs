@@ -4,21 +4,20 @@
 
 [[./img/maxima.png]]
 
-# TOC links should be GitHub style anchors.
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                                       :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for something.
+This layer adds support for symbolic computation with maxima.
 
 ** Features:
-  - Autocomplete
-  - Lint
-  - Refactor
-  - ...
+  # - Autocomplete
+  # - Lint
+  # - Refactor
+  - Repl support
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -27,12 +26,6 @@ file.
 
 * Key bindings
 
-| Key Binding | Description    |
-|-------------+----------------|
-| ~SPC x x x~ | Does thing01   |
-
-# Use GitHub URLs if you wish to link a Spacemacs documentation file or its heading.
-# Examples:
-# [[https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org#sessions]]
-# [[https://github.com/syl20bnr/spacemacs/blob/master/layers/%2Bfun/emoji/README.org][Link to Emoji layer README.org]]
-# If space-doc-mode is enabled, Spacemacs will open a local copy of the linked file.
+| Key Binding | Description                              |
+|-------------+------------------------------------------|
+| ~SPC m s b~ | send buffer and keep code buffer focused |
