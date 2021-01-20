@@ -14,9 +14,6 @@
 This layer adds support for symbolic computation with maxima.
 
 ** Features:
-  # - Autocomplete
-  # - Lint
-  # - Refactor
   - Repl support
 
 * Install
@@ -29,3 +26,6 @@ file.
 | Key Binding | Description                              |
 |-------------+------------------------------------------|
 | ~SPC m s b~ | send buffer and keep code buffer focused |
+| ~SPC m s r~ | send region and keep code buffer focused |
+| ~SPC m s l~ | send line and keep code buffer focused   |
+| ~SPC m h i~ | open maxima info manual                  |
