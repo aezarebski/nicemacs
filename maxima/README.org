@@ -1,0 +1,31 @@
+#+TITLE: Maxima layer
+#+TAGS: layer|dsl|programming
+
+
+[[./img/maxima.png]]
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for symbolic computation with maxima.
+
+** Features:
+  - Repl support
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =maxima= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description                              |
+|-------------+------------------------------------------|
+| ~SPC m s b~ | send buffer and keep code buffer focused |
+| ~SPC m s r~ | send region and keep code buffer focused |
+| ~SPC m s l~ | send line and keep code buffer focused   |
+| ~SPC m h i~ | open maxima info manual                  |
