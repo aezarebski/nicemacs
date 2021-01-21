@@ -268,6 +268,11 @@ org-agenda-files variable to be the current agenda file."
 (spacemacs/set-leader-keys "oos" 'org-schedule)
 #+end_src
 
+*** TODO Add a hook to =org-agenda= to ensure the agenda file is set first!
+
+Basically, the =ooa= keybinding should do a quick check that an agenda file has
+been set before it runs to avoid the case where it otherwise opens an empy list.
+
 *** Website
 
 Set up for publishing my website, note that this will write the output directly
