@@ -2,7 +2,7 @@
 
 [[./resources/nicemacs-logo.png]]
 
-* Configuration
+* Spacemacs configuration
 
 ** Usage notes
    
@@ -376,10 +376,6 @@ You can try it in the following expressions \(\alpha\)
 \frac{a}{b}
 \]
 
-** [[file:./maxima/README.org][Maxima layer]]
-
-I have written a layer for working with maxima in spacemacs.
-
 ** Shells
 
 To make =eshell= the default shell in spacemacs add the following to the
@@ -608,7 +604,7 @@ is bound to =SPC o f d= for owner-files-directory.
 (spacemacs/set-leader-keys "ofd" 'message-working-directory)
 #+end_src
 
-* Snippets
+* Yasnippet snippets
 
 Snippets usually live in =~/.emacs.d/private/snippets= in a directory which is
 named after the major mode for them to be used in. You need to
@@ -809,3 +805,8 @@ are relevant to my research.
 }
 #+END_SRC
 
+* Maxima
+
+I have written a [[file:./maxima/README.org][Maxima layer]] for working with maxima in spacemacs. To make use
+of it, copy the directory =maxima= into =~/.emacs.d/private/= and add =maxima=
+to the layers list.
