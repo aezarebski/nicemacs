@@ -242,7 +242,7 @@ that these are my variables and functions I will try to maintain =nicemacs-=
 prefixes. We will also define some decent settings here.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defvar nicemacs-journal-directory "The directory for nicemacs journal files.")
+(defvar nicemacs-journal-directory "" "The directory for nicemacs journal files.")
 (setq nicemacs-journal-directory "~/Documents/journal")
 
 (setq org-agenda-start-day "-5d")
