@@ -577,6 +577,8 @@ buffer"
 
 **** TODO This should really finish the commit and push it as well!
 
+**** TODO There is a lot of duplicated code here! This should be refactored.
+
 And when updating my /web/ page use =SPC o c w=.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
@@ -587,6 +589,18 @@ And when updating my /web/ page use =SPC o c w=.
     (magit-commit-create `("--edit", edit-string))))
 
 (spacemacs/set-leader-keys "ocw" 'website-commit-function)
+#+end_src
+
+And when we are updating the reading list it is always the same...
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(defun review-commit-function ()
+  (interactive)
+  (let* ((date-string (downcase (format-time-string "%A %l:%M %p")))
+         (edit-string (format "-mupdate reading list %s"  date-string)))
+    (magit-commit-create `("--edit", edit-string))))
+
+(spacemacs/set-leader-keys "ocr" 'review-commit-function)
 #+end_src
 
 ** File and buffer manipulation
