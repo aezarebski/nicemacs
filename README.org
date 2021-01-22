@@ -234,46 +234,67 @@ Bindings for org-mode functionality start with =o o= for "owner org".
 (spacemacs/declare-prefix "oo" "orgo-menu")
 #+end_src
 
-*** Journal
+*** Nicemacs journal
 
-The =journal= function, which is bound to =SPC o o j= will open the current
-agenda file and makes sure that the =org-agenda-files= variable is set to that
-one. This function is here because we want a simple way to access the current
-agenda file and don't want to have to search to open it manually.
-
-*NOTE* that the =org-agenda-files= variable needs to be bound to a /list/ or
-files rather than the name of a single file, otherwise it will interpret that
-single file as a list of files to use.
+I want a directory just for my journal which potentially will vary between
+machines so a variable to describe where they live is useful. To make it clear
+that these are my variables and functions I will try to maintain =nicemacs-=
+prefixes. We will also define some decent settings here.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defun journal ()
-  "Opens the current journal file.
+(defvar nicemacs-journal-directory "The directory for nicemacs journal files.")
+(setq nicemacs-journal-directory "~/Documents/journal")
 
-This function opens a buffer for the current month and puts the
-cursor at the start of the buffer. It also sets the
-org-agenda-files variable to be the current agenda file."
+(setq org-agenda-start-day "-5d")
+(setq org-agenda-span 30)
+(setq org-agenda-start-on-weekday nil)
+#+end_src
+
+I need a way to talk about what the particular journal file is on any given
+date. Updating the file about monthly seems sensible, so the filenames can
+follow the pattern =journal-YYYY-MM=. *NOTE* that this function will set the
+agenda file to the correct value whenever it is called and that the
+=org-agenda-files= variable needs to be bound to a /list/ or files rather than
+the name of a single file, otherwise it will interpret that single file as a
+list of files to use.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(defun nicemacs-journal-filepath ()
+  "The filepath of the current journal file."
   (interactive)
-  (let* ((path-template "~/Documents/journal/journal-%s.org")
-         (year-month (format-time-string "%Y-%m"))
-         (agenda-file (format path-template year-month)))
+  (let* ((filepath-template (concat nicemacs-journal-directory "/journal-%s.org"))
+        (time-string (format-time-string "%Y-%m"))
+        (agenda-file (format filepath-template time-string)))
     (setq org-agenda-files (list agenda-file))
+    agenda-file))
+#+end_src
+
+I want functions to quickly visit our current journal file and to visit the
+current agenda because this is something I do several times a day.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(defun nicemacs-visit-journal ()
+  "Opens the current journal file."
+  (interactive)
+  (let ((agenda-file (nicemacs-journal-filepath)))
     (find-file agenda-file)
     (goto-char 1)
     (recenter-top-bottom)))
 
-(setq org-agenda-start-day "-3d")
-(setq org-agenda-span 30)
-(setq org-agenda-start-on-weekday nil)
-
-(spacemacs/set-leader-keys "ooj" 'journal)
-(spacemacs/set-leader-keys "ooa" 'org-agenda)
-(spacemacs/set-leader-keys "oos" 'org-schedule)
+(defun nicemacs-visit-agenda ()
+  "Opens the agenda after checking it has been set correctly."
+  (interactive)
+  (let ((agenda-file (nicemacs-journal-filepath)))
+    (org-agenda-list)))
 #+end_src
 
-*** TODO Add a hook to =org-agenda= to ensure the agenda file is set first!
+To make it easy to access these we will bind them to come convenient keys.
 
-Basically, the =ooa= keybinding should do a quick check that an agenda file has
-been set before it runs to avoid the case where it otherwise opens an empy list.
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/set-leader-keys "ooj" 'nicemacs-visit-journal)
+(spacemacs/set-leader-keys "ooa" 'nicemacs-visit-agenda)
+(spacemacs/set-leader-keys "oos" 'org-schedule)
+#+end_src
 
 *** Website
 
