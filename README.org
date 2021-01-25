@@ -143,34 +143,42 @@ unnecessary calls to a completion backend.
 (spacemacs/declare-prefix "ob" "bibtex-menu")
 #+end_src
 
-Often I quickly want to be able to look at the main file for my reading notes.
+There are a couple of files that I want to have easy access to for reference and
+to make minor edits. Having a function to access such a file easily is useful
+for this.
 
+#+begin_src emacs-lisp :tangle nicemacs.el
+(defun visit-bib-and-tex-file (path-template)
+  (interactive)
+  (progn
+    (find-file path-template)
+    (goto-char 1)
+    (recenter-top-bottom)))
+#+end_src
+
+This is a /latex/ file for my /reviews/ so the binding is =olr=.
+ 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun review-tex-file ()
   "Open my review.tex file"
   (interactive)
-  (let ((path-template "~/Documents/bibliography/review/review.tex"))
-    (find-file path-template)
-    (goto-char 1)
-    (recenter-top-bottom)))
+  (visit-bib-and-tex-file "~/Documents/bibliography/review/review.tex"))
 
-(spacemacs/set-leader-keys "olt" 'review-tex-file)
+(spacemacs/set-leader-keys "olr" 'review-tex-file)
+#+end_src
+
+This is a /bibtex/ file for my /references/ so the binding is =obr=.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(defun references-bib-file ()
+  "Opens my bibtex references."
+  (interactive)
+  (visit-bib-and-tex-file "~/Documents/bibliography/references.bib"))
+
+(spacemacs/set-leader-keys "obr" 'references)
 #+end_src
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defun references ()
-  "Opens my bibtex references.
-
-This function opens a buffer for the bibtex file that I keep all my references
-in."
-  (interactive)
-  (let ((path-template "~/Documents/bibliography/references.bib"))
-    (find-file path-template)
-    (goto-char 1)
-    (recenter-top-bottom)
-    )
-  )
-
 (defun last-bib ()
   "Opens the most recent bibtex file in the Downloads directory
 in a new buffer."
@@ -218,10 +226,8 @@ remember. *Owner* *Bibtex* *X* where
 - *C* for /convert/ between RIS and bibtex,
 - *F* for /format/ the current buffer,
 - *L* for /last/ bibtex file in =Downloads= and
-- *R* for /references/.
   
 #+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/set-leader-keys "obr" 'references)
 (spacemacs/set-leader-keys "obl" 'last-bib)
 (spacemacs/set-leader-keys "obf" 'bibtex-reformat)
 (spacemacs/set-leader-keys "obb" 'bibtex-braces)
