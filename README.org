@@ -139,6 +139,13 @@ unnecessary calls to a completion backend.
 ** Latex and Bibtex
 
 #+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/declare-prefix "ol" "latex")
+(spacemacs/declare-prefix "ob" "bibtex-menu")
+#+end_src
+
+Often I quickly want to be able to look at the main file for my reading notes.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
 (defun review-tex-file ()
   "Open my review.tex file"
   (interactive)
@@ -147,11 +154,7 @@ unnecessary calls to a completion backend.
     (goto-char 1)
     (recenter-top-bottom)))
 
-(spacemacs/declare-prefix "ow" "writing-menu")
-;; Open my review.tex
-(spacemacs/set-leader-keys "owt" 'review-tex-file)
-;; Force spell checking of the word at point
-(spacemacs/set-leader-keys "ows" 'flyspell-correct-at-point)
+(spacemacs/set-leader-keys "olt" 'review-tex-file)
 #+end_src
 
 #+begin_src emacs-lisp :tangle nicemacs.el
@@ -218,7 +221,6 @@ remember. *Owner* *Bibtex* *X* where
 - *R* for /references/.
   
 #+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/declare-prefix "ob" "bibtex-menu")
 (spacemacs/set-leader-keys "obr" 'references)
 (spacemacs/set-leader-keys "obl" 'last-bib)
 (spacemacs/set-leader-keys "obf" 'bibtex-reformat)
