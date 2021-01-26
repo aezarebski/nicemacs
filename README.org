@@ -167,6 +167,17 @@ This is a /latex/ file for my /reviews/ so the binding is =olr=.
 (spacemacs/set-leader-keys "olr" 'review-tex-file)
 #+end_src
 
+This is a /latex/ file for my reading /list/ so the binding is =oll=.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(defun reading-list-tex-file ()
+  "Open my review.tex file"
+  (interactive)
+  (visit-bib-and-tex-file "~/Documents/bibliography/review/reading-list.tex"))
+
+(spacemacs/set-leader-keys "oll" 'reading-list-tex-file)
+#+end_src
+
 This is a /bibtex/ file for my /references/ so the binding is =obr=.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
@@ -175,7 +186,7 @@ This is a /bibtex/ file for my /references/ so the binding is =obr=.
   (interactive)
   (visit-bib-and-tex-file "~/Documents/bibliography/references.bib"))
 
-(spacemacs/set-leader-keys "obr" 'references)
+(spacemacs/set-leader-keys "obr" 'references-bib-file)
 #+end_src
 
 #+begin_src emacs-lisp :tangle nicemacs.el
