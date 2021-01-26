@@ -863,4 +863,19 @@ are relevant to my research.
 
 I have written a [[file:./maxima/README.org][Maxima layer]] for working with maxima in spacemacs. To make use
 of it, copy the directory =maxima= into =~/.emacs.d/private/= and add =maxima=
-to the layers list.
+to the layers list. Unfortunately it breaks most of the time so do not use it
+yet.
+
+** TODO Work out how to write a bloody layer for this!!!
+
+I just can't get a proper maxima layer set up so here is the basic functionality
+stored in the owner menu.
+
+#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
+(load "/usr/share/emacs/site-lisp/maxima/maxima-font-lock.el")
+(load "/usr/share/emacs/site-lisp/maxima/maxima.el")
+(spacemacs/declare-prefix "om" "maxima-menu")
+(spacemacs/set-leader-keys "omsb" 'maxima-send-buffer)
+(spacemacs/set-leader-keys "omsr" 'maxima-send-region)
+(spacemacs/set-leader-keys "omi" 'maxima-info)
+#+END_SRC

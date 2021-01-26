@@ -15,7 +15,7 @@
 (defun maxima/init-maxima ()
   (use-package maxima
     :defer f
-    :load-path "/usr/share/emacs/site-lisp/maxima/"
+    ;; :load-path "/usr/share/emacs/site-lisp/maxima/" <--- this does not appear to be necessary
     :mode ("\\.mac" . maxima-mode)
     :config
     (progn
