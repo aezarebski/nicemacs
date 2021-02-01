@@ -561,6 +561,16 @@ The following might be useful as a starting point for this
 (info "(ess) Controlling buffer display")
 #+end_src
 
+*** Setting up =lintr= for static analysis
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (setq ess-use-flymake nil)
+  (use-package flycheck
+    :ensure t
+    :init
+    (global-flycheck-mode t))
+#+end_src
+
 ** Version control via magit
 
 The following setting makes magit use the full frame when visiting the status.
