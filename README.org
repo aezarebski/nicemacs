@@ -476,15 +476,15 @@ variable in the shell to ignore case during tab completion.
 (setq eshell-cmpl-ignore-case t)
 #+END_SRC
 
-Then the following are useful configuration for =eshell=, the =PATH= commands
-are particularly important to make haskell executables available because this is
-missing by default and if you change it from outside of here spacemacs seems to
-not like it.
+The value of =exec-path= is the list of locations that emacs will look for
+executables on. The =executable-find= function plays the role of =which= for
+emacs. We need to add =~/.local/bin= so that it knows where to find haskell
+executables and the =.nvm= path is so that it knows where to find javascript
+programs that have been installed from npm.
 
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
-;; (setq eshell-path-env (concat eshell-path-env ":/home/aez/.local/bin"))
-(setenv "PATH" (concat (getenv "PATH") ":/home/aez/.local/bin"))
 (setq exec-path (append exec-path '("/home/aez/.local/bin")))
+(setq exec-path (append exec-path '("/home/aez/.nvm/versions/node/v14.6.0/bin")))
 #+END_SRC
 
 ** Emacs Speaks Statistics
