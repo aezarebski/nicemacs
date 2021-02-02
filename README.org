@@ -245,6 +245,21 @@ remember. *Owner* *Bibtex* *X* where
 (spacemacs/set-leader-keys "obc" 'bibtex-ris2bib)
 #+end_src
 
+I often want to be able to open my reading notes quickly so it would be useful
+to have a function to do that. This will be bound to =olp= because it is opening
+/the/ PDF.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(defun nicemacs-open-review-pdf ()
+  "Open PDF of reading notes in evince."
+  (interactive)
+  (let ((pdf-viewer "evince")
+        (review-path "/home/aez/Documents/bibliography/review/review.pdf"))
+    (shell-command (concat pdf-viewer " " review-path " &"))))
+
+(spacemacs/set-leader-keys "olp" 'nicemacs-open-review-pdf)
+#+end_src
+
 ** Org-mode
 
 Bindings for org-mode functionality start with =o o= for "owner org".
