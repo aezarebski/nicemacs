@@ -718,63 +718,23 @@ an error, "No JavaScript AST available". Things are working fine in other modes
 so this might be something javascript specific, in which case, it is probably
 easier just to call =yas-insert-snippet= directly when editing JSON.
 
-** Vega-Lite
+** HTML and JS
 
-The following files need to be moved into the correct snippet directory for your
-configuration.
-
-A snippet for a very simple scatter plot in vega-lite.
-
-#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/json-mode/vl-scatter-plot
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/web-mode/basic-template
 # -*- mode: snippet -*-
-# name: vega-lite scatter plot
-# key: vl-scatter-plot
+# name: basic starter template
+# key: basic-template
 # --
+<!DOCTYPE html>
+<html>
+    <head>
 
-{
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-    "data": {
-        "url": "$1"
-    },
-    "mark": "point",
-    "encoding": {
-        "x": {
-            "field": "$2",
-            "type": "quantitative"
-        },
-        "y": {
-            "field": "$3",
-            "type": "quantitative"
-        }
-    }
-}
-#+END_SRC
+    </head>
+    <body>
 
-A snippet for a very simple histogram in vega-lite.
-
-#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/json-mode/vl-histogram
-# -*- mode: snippet -*-
-# name: vega-lite histogram
-# key: vl-histogram
-# --
-
-{
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-    "data": {
-        "url": "$1"
-    },
-    "mark": "bar",
-    "encoding": {
-        "x": {
-            "bin": true,
-            "field": "$2"
-        },
-        "y": {
-            "aggregate": "count"
-        }
-    }
-}
-#+END_SRC
+    </body>
+</html>
+#+end_src
 
 ** R 
 
@@ -854,6 +814,64 @@ main <- function(args) {
 if (!interactive()) {
   args <- commandArgs(trailingOnly = TRUE)
   main(args)
+}
+#+END_SRC
+
+** Vega-Lite
+
+The following files need to be moved into the correct snippet directory for your
+configuration.
+
+A snippet for a very simple scatter plot in vega-lite.
+
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/json-mode/vl-scatter-plot
+# -*- mode: snippet -*-
+# name: vega-lite scatter plot
+# key: vl-scatter-plot
+# --
+
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "data": {
+        "url": "$1"
+    },
+    "mark": "point",
+    "encoding": {
+        "x": {
+            "field": "$2",
+            "type": "quantitative"
+        },
+        "y": {
+            "field": "$3",
+            "type": "quantitative"
+        }
+    }
+}
+#+END_SRC
+
+A snippet for a very simple histogram in vega-lite.
+
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/json-mode/vl-histogram
+# -*- mode: snippet -*-
+# name: vega-lite histogram
+# key: vl-histogram
+# --
+
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "data": {
+        "url": "$1"
+    },
+    "mark": "bar",
+    "encoding": {
+        "x": {
+            "bin": true,
+            "field": "$2"
+        },
+        "y": {
+            "aggregate": "count"
+        }
+    }
 }
 #+END_SRC
 
