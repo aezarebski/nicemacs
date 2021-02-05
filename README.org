@@ -699,6 +699,7 @@ you can run the following.
 #+begin_src emacs-lisp
 (make-directory "~/.emacs.d/private/snippets/ess-r-mode" t)
 (make-directory "~/.emacs.d/private/snippets/json-mode" t)
+(make-directory "~/.emacs.d/private/snippets/web-mode" t)
 #+end_src
 
 ** Yasnippet configuration
