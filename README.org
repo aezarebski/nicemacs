@@ -474,15 +474,24 @@ eshell. The following function visits this file.
   (find-file-other-window eshell-aliases-file))
 #+END_SRC
 
-On =2021-01-11= the aliases I have are shown below. The =cdX= ones are for quick
-navigation inspired by vim navigation.
+If you want to create an alias in the eshell the following examples of a command
+to run in the shell will achieve this.
 
 #+begin_src 
-alias cdkkk cd ../../..
-alias cdkk cd ../..
 alias cdk cd ..
 alias ff find-file $1
 #+end_src
+
+It is useful to be able to have these specified in code though in case the alias
+file gets lost during an upgrade. The following expressions set up some useful
+aliases to have in the shell.
+
+#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
+(eshell/alias "cdk" "cd ..")
+(eshell/alias "cdkk" "cd ../..")
+(eshell/alias "cdkkk" "cd ../../")
+(eshell/alias "ff" "find-file $1")
+#+END_SRC
 
 Because no one has time for typing capital letters we will set the completion
 variable in the shell to ignore case during tab completion.
