@@ -600,7 +600,7 @@ The following might be useful as a starting point for this
 The following setting makes magit use the full frame when visiting the status.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+(setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
 #+end_src
 
 There are a few projects where the same commit message use used often. It would
