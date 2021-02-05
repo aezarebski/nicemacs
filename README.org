@@ -885,32 +885,19 @@ A snippet for a very simple histogram in vega-lite.
 }
 #+END_SRC
 
-** Writing
+** Org-mode
 
-I use the following as a format for recording information about journals that
-are relevant to my research.
-
-#+BEGIN_SRC snippet
+#+begin_src snippet :tangle ~/.emacs.d/private/snippets/org-mode/title.yasnippet
 # -*- mode: snippet -*-
-# name: Description of an academic journal
-# key: journal
+# name: title
+# key: title
 # --
-{
-    "name": "$1",
-    "publisher": "",
-    "url": "",
-    "ISO": "",
-    "JCR": "",
-    "metric": [
-        {
-            "year": ,
-            "impactFactor":
-        }
-    ],
-    "tenRelated": [
-    ]
-}
-#+END_SRC
+
+#+title: 
+#+end_src
+
+Unfortunately it is very difficult to write a source block snippet in this
+style, so you probably just want to do that manually.
 
 * Maxima
 
