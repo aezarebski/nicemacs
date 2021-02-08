@@ -487,6 +487,7 @@ file gets lost during an upgrade. The following expressions set up some useful
 aliases to have in the shell.
 
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
+(require 'em-alias)
 (eshell/alias "cdk" "cd ..")
 (eshell/alias "cdkk" "cd ../..")
 (eshell/alias "cdkkk" "cd ../../")
