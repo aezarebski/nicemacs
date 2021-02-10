@@ -89,6 +89,15 @@ useful shortcut.
 (spacemacs/set-leader-keys "tt" 'spacemacs/cycle-spacemacs-theme)
 #+end_src
 
+If you want to scratch something out quickly there is the scratch buffer
+provided by spacemacs at =SCP b s=. By default this opens in text mode. To avoid
+always needing to switch it into org-mode we can set the following variable
+instead.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(setq dotspacemacs-scratch-mode 'org-mode)
+#+end_src
+
 The spacemacs documentation recommends that you store all of your shortcuts with
 a prefix of "o" for owner.
 
