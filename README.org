@@ -147,6 +147,13 @@ unnecessary calls to a completion backend.
 
 ** Latex and Bibtex
 
+To ensure that files with the extension =.bibtex= open in =bibtex-mode= we need
+to explicitly request this
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(add-to-list 'auto-mode-alist '("\\.bibtex\\'" . bibtex-mode))
+#+end_src
+
 #+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/declare-prefix "ol" "latex")
 (spacemacs/declare-prefix "ob" "bibtex-menu")
