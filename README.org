@@ -40,13 +40,13 @@ This configuration is used from within spacemacs, so it seems appropriate that I
 should also document the configuration layers that I use.
 
 #+begin_src emacs-lisp
-'(
-     epub
+   '(
      auto-completion
      better-defaults
      bibtex
      csv
      emacs-lisp
+     epub
      ess
      git
      (haskell :variables
@@ -57,26 +57,30 @@ should also document the configuration layers that I use.
      html
      (javascript :variables
                  javascript-import-tool 'import-js
+                 javascript-repl `nodejs
                  javascript-backend 'tern
                  javascript-fmt-tool 'web-beautify)
      latex
      markdown
+     multiple-cursors
      nixos
      org
+     purescript
      python
      (shell :variables
             shell-default-shell 'eshell
             shell-default-position "right"
-            shell-default-height 40)
+            shell-default-width 40)
      speed-reading
      (spell-checking :variables
                      spell-checking-enable-by-default nil
                      enable-flyspell-auto-completion t)
      syntax-checking
+     typescript
      web-beautify
      yaml
      version-control
-     )
+     treemacs)
 #+end_src
 
 ** Stuff
