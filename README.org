@@ -50,7 +50,7 @@ should also document the configuration layers that I use.
      ess
      git
      (haskell :variables
-              haskell-completion-backend 'company-ghci
+              haskell-completion-backend 'lsp
               haskell-process-type 'stack-ghci
               hsakell-enable-hindent-style "fundamental")
      helm
@@ -532,6 +532,14 @@ programs that have been installed from npm.
 (setq exec-path (append exec-path '("/home/aez/.nvm/versions/node/v14.6.0/bin")))
 #+END_SRC
 
+=ghcup= is a tool to manage haskell versions and the haskell language server.
+The bin directory for this tool needs to be added to the path so emacs can find
+the haskell language server program.
+
+#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
+(setq exec-path (append exec-path '("/home/aez/.ghcup/bin")))
+#+END_SRC
+
 ** Emacs Speaks Statistics
 
 #+begin_src emacs-lisp :tangle nicemacs.el
@@ -940,3 +948,10 @@ stored in the owner menu.
 (spacemacs/set-leader-keys "omsr" 'maxima-send-region)
 (spacemacs/set-leader-keys "omi" 'maxima-info)
 #+END_SRC
+
+We want files ending in =.mac= to open in maxima mode so we need to add this to
+the =auto-mode-alist=.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(add-to-list 'auto-mode-alist '("\\.mac\\'" . maxima-mode))
+#+end_src
