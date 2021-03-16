@@ -783,7 +783,7 @@ library(purrr)
 A snippet to include some extra packages that are often useful but probably
 aren't needed enough to be imported by default.
 
-#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rpacks
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rpacks-extra
 # -*- mode: snippet -*-
 # name: Extra R packages
 # key: rpacks-extra
@@ -796,7 +796,7 @@ library(whisker)
 
 A snippet to include packages that are useful when working with geographic data
 
-#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rgeopacks
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rpacks-geo
 # -*- mode: snippet -*-
 # name: R packages for computational geography
 # key: rpacks-geo
@@ -807,7 +807,7 @@ library(sf)
 
 A snippet to include packages that are useful for doing MCMC
 
-#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rmcmc
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rpacks-mcmc
 # -*- mode: snippet -*-
 # name: R packages for MCMC
 # key: rpacks-mcmc
