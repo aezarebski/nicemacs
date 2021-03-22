@@ -149,6 +149,12 @@ unnecessary calls to a completion backend.
 (spacemacs/set-leader-keys "ohe" 'flycheck-next-error)
 #+end_src
 
+*** LSP
+
+Even after installing the =haskell-language-server= using [[https://github.com/haskell/haskell-language-server#installation][the GHCUP installation
+method]] there were some issues because emacs could not find it. It appears that
+setting the =lsp-haskell-server-path= to the executable solved things.
+
 ** Latex and Bibtex
 
 To ensure that files with the extension =.bibtex= open in =bibtex-mode= we need
