@@ -548,6 +548,13 @@ the haskell language server program.
 
 ** Emacs Speaks Statistics
 
+There are some useful materials about ESS which I have contributed to in the [[https://ess-intro.github.io/][ESS
+intro]].
+
+Spacemacs provides good keybindings out of the box, and after setting up LSP
+there is very little need to do any additional configuration for a nice R
+experience. You just need to remember to install =languageserver= from CRAN.
+
 #+begin_src emacs-lisp :tangle nicemacs.el
 (setq spacemacs/ess-config
       '(progn
@@ -567,49 +574,6 @@ the haskell language server program.
 
 ;; make documentation open in a useful mode in ess
 (evil-set-initial-state 'ess-r-help-mode 'motion)
-(spacemacs/declare-prefix "or" "r-menu")
-(spacemacs/set-leader-keys "ors" 'run-ess-r)
-(spacemacs/set-leader-keys "org" 'ess-switch-to-inferior-or-script-buffer)
-(spacemacs/set-leader-keys "orr" 'ess-eval-region)
-(spacemacs/set-leader-keys "orb" 'ess-eval-buffer)
-
-;; Bindings for some devtools
-(spacemacs/set-leader-keys "ordb" 'ess-r-devtools-build)
-(spacemacs/set-leader-keys "ordi" 'ess-r-devtools-install-package)
-(spacemacs/set-leader-keys "ordt" 'ess-r-devtools-test-package)
-(spacemacs/set-leader-keys "ordl" 'ess-r-devtools-load-package)
-
-
-;; Include a little function to run a particular file if it exists which can be
-;; very useful for testing only specific parts of a package being developed
-(defun ess-r-execute-sneaky ()
-  "If a file .sneaky.R exists in the current directory then
-source it into the R session."
-  (interactive)
-  (if (file-exists-p ".sneaky.R")
-      (ess-r-package-eval-linewise
-       "source(\".sneaky.R\")"
-       "Running .sneaky.R")
-    (message "Missing file .sneaky.R")))
-
-(spacemacs/set-leader-keys "orx" 'ess-r-execute-sneaky)
-#+end_src
-
-The function =styler-reformat-buffer= will attempt to use the
-=styler::style_file= function to format the R code in the current buffer and
-then reload the buffer based on the changes to the file. If the styler package
-is not installed then it fails but this gets reported in =*Messages*=. The use
-of ="*"= in =interactive= ensures that you cannot accidentally run this function
-on a read-only buffer.
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(defun styler-reformat-buffer ()
-  "Run styler::style_file on the current buffer and then revert to load any changes."
-  (interactive "*")
-  (shell-command (concat "Rscript --slave --no-restore --quiet --no-init-file -e \"styler::style_file('" (buffer-file-name)  "')\""))
-  (revert-buffer nil t)
-)
-(spacemacs/set-leader-keys "orf" 'styler-reformat-buffer)
 #+end_src
 
 *** TODO Fix the buffer display settings so that help covers the REPL
