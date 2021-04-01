@@ -693,11 +693,23 @@ And when we are updating the reading list it is always the same...
 ;; Define a short cut for following files
 (spacemacs/declare-prefix "of" "file-stuff")
 (spacemacs/set-leader-keys "off" 'find-file-at-point)
-(spacemacs/set-leader-keys "ofb" 'ibuffer)
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
+#+end_src
+
+*** Ibuffer
+
+The Ibuffer menu provides a more featureful dired-like menu for buffers.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/set-leader-keys "ofb" 'ibuffer)
 ;; Open Ibuffer in the motion state rather than as the default emacs mode.
 (evil-set-initial-state 'ibuffer-mode 'motion)
 #+end_src
+
+The navigation mode for ibuffer needs to be adjusted to work nicely with vim
+keybindings.
+
+*** Misc
 
 Sometimes it is useful to get the directory of the file shown in a buffer. This
 is bound to =SPC o f d= for owner-files-directory.
