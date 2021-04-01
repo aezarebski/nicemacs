@@ -119,6 +119,26 @@ unnecessary calls to a completion backend.
 (setq company-minimum-prefix-length 3)
 #+end_src
 
+** LSP
+
+- [[*LSP with ESS]]
+  
+The path to the current file in LSP is a little unnecessary.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(setq lsp-headerline-breadcrumb-enable nil)
+#+end_src
+
+LSP tends to be a bit too eager to display help under the default delay of 0.2
+seconds and this also leads to an unnecessary amount of communication. To
+improve this we can increase the delay for both the documentation and the
+sideline display.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(setq lsp-ui-doc-delay 1.0)
+(setq lsp-ui-sideline-delay 1.0)
+#+end_src
+
 ** Haskell 
 
 #+begin_src emacs-lisp :tangle nicemacs.el
