@@ -47,7 +47,8 @@ should also document the configuration layers that I use.
      csv
      emacs-lisp
      epub
-     ess
+     (ess :variables
+          ess-r-backend 'ess)
      git
      (haskell :variables
               haskell-completion-backend 'lsp
@@ -571,29 +572,39 @@ the haskell language server program.
 There are some useful materials about ESS which I have contributed to in the [[https://ess-intro.github.io/][ESS
 intro]].
 
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (setq spacemacs/ess-config
+        '(progn
+           ;; Follow Hadley Wickham's R style guide
+           (setq ess-first-continued-statement-offset 2
+                 ess-continued-statement-offset 0
+                 ess-expression-offset 2
+                 ess-nuke-trailing-whitespace-p t
+                 ess-default-style 'DEFAULT)
+           (when ess-disable-underscore-assign
+             (setq ess-smart-S-assign-key nil))
+
+           ;; (define-key ess-doc-map "h" 'ess-display-help-on-object)
+           ;; (define-key ess-doc-map "p" 'ess-R-dv-pprint)
+           ;; (define-key ess-doc-map "t" 'ess-R-dv-ctable)
+           (dolist (mode '(ess-r-mode ess-mode)))))
+
+  ;; make documentation open in a useful mode in ess
+  (evil-set-initial-state 'ess-r-help-mode 'motion)
+#+end_src
+
+*** LSP with ESS
+
 Spacemacs provides good keybindings out of the box, and after setting up LSP
 there is very little need to do any additional configuration for a nice R
 experience. You just need to remember to install =languageserver= from CRAN.
 
-#+begin_src emacs-lisp :tangle nicemacs.el
-(setq spacemacs/ess-config
-      '(progn
-         ;; Follow Hadley Wickham's R style guide
-         (setq ess-first-continued-statement-offset 2
-               ess-continued-statement-offset 0
-               ess-expression-offset 2
-               ess-nuke-trailing-whitespace-p t
-               ess-default-style 'DEFAULT)
-         (when ess-disable-underscore-assign
-           (setq ess-smart-S-assign-key nil))
+*HOWEVER* I have found it laggy so if you want to disable this and use a
+different backend adjust your layer config with the following
 
-         (define-key ess-doc-map "h" 'ess-display-help-on-object)
-         (define-key ess-doc-map "p" 'ess-R-dv-pprint)
-         (define-key ess-doc-map "t" 'ess-R-dv-ctable)
-         (dolist (mode '(ess-r-mode ess-mode)))))
-
-;; make documentation open in a useful mode in ess
-(evil-set-initial-state 'ess-r-help-mode 'motion)
+#+begin_src emacs-lisp
+     (ess :variables
+          ess-r-backend 'ess)
 #+end_src
 
 *** TODO Fix the buffer display settings so that help covers the REPL
