@@ -122,6 +122,8 @@ unnecessary calls to a completion backend.
 
 ** LSP
 
+[[*LSP and Haskell]]
+
 - [[*LSP with ESS]]
   
 The path to the current file in LSP is a little unnecessary.
@@ -170,11 +172,33 @@ sideline display.
 (spacemacs/set-leader-keys "ohe" 'flycheck-next-error)
 #+end_src
 
-*** LSP
+*** LSP and Haskell
 
 Even after installing the =haskell-language-server= using [[https://github.com/haskell/haskell-language-server#installation][the GHCUP installation
 method]] there were some issues because emacs could not find it. It appears that
 setting the =lsp-haskell-server-path= to the executable solved things.
+
+1. Install =ghcup=, which will also offer to install the haskell language server
+   for you.
+   
+[[https://github.com/haskell/haskell-language-server#installation][GHCUP installation instructions are here]]
+
+2. Make sure that this has been added to the =exec-path= and that
+   =lsp-haskell-server-path= is set.
+   
+#+begin_src emacs-lisp :tangle nicemacs.el
+(setq exec-path (append exec-path '("/home/aez/.ghcup/bin")))
+(setq lsp-haskell-server-path "/home/aez/.ghcup/bin/haskell-language-server-8.8.4")
+#+end_src
+
+3. Make sure that the layer variables have been set to use LSP.
+ 
+#+begin_src emacs-lisp 
+     (haskell :variables
+              haskell-completion-backend 'lsp
+              haskell-process-type 'stack-ghci
+              hsakell-enable-hindent-style "fundamental")
+#+end_src
 
 ** Latex and Bibtex
 
@@ -557,14 +581,6 @@ programs that have been installed from npm.
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
 (setq exec-path (append exec-path '("/home/aez/.local/bin")))
 (setq exec-path (append exec-path '("/home/aez/.nvm/versions/node/v14.6.0/bin")))
-#+END_SRC
-
-=ghcup= is a tool to manage haskell versions and the haskell language server.
-The bin directory for this tool needs to be added to the path so emacs can find
-the haskell language server program.
-
-#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
-(setq exec-path (append exec-path '("/home/aez/.ghcup/bin")))
 #+END_SRC
 
 ** Emacs Speaks Statistics
