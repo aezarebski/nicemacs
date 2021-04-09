@@ -70,8 +70,8 @@ should also document the configuration layers that I use.
      python
      (shell :variables
             shell-default-shell 'eshell
-            shell-default-position "right"
-            shell-default-width 40)
+            shell-default-position 'bottom
+            shell-default-width 30)
      speed-reading
      (spell-checking :variables
                      spell-checking-enable-by-default nil
