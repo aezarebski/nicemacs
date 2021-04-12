@@ -9,6 +9,8 @@
 
 (spacemacs/declare-prefix "o" "own-menu")
 
+(advice-remove 'mwheel-scroll #'spacemacs//scroll-bar-show-delayed-hide)
+
 (setq company-idle-delay 0.5)
 (setq company-minimum-prefix-length 3)
 

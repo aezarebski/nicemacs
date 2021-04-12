@@ -110,6 +110,15 @@ a prefix of "o" for owner.
 (spacemacs/declare-prefix "o" "own-menu")
 #+end_src
 
+*** Ugly ugly scroll bar
+
+I very much do not want to scroll bar popping up every now and then so I will
+remove the advice to do this!
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(advice-remove 'mwheel-scroll #'spacemacs//scroll-bar-show-delayed-hide)
+#+end_src
+
 ** Completion
 
 The following potentially reduce the latency in input which can be increased by
