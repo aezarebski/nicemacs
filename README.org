@@ -94,6 +94,20 @@ useful shortcut.
 (spacemacs/set-leader-keys "tt" 'spacemacs/cycle-spacemacs-theme)
 #+end_src
 
+I prefer the startup banner number 100 so set the following in my =.spacemacs=.
+
+#+begin_src emacs-lisp
+dotspacemacs-startup-banner 100
+#+end_src
+
+You may also want to remove some of the noise from the start up menu
+
+#+begin_src emacs-lisp
+dotspacemacs-startup-lists '()
+#+end_src
+
+*** Scratch buffer
+
 If you want to scratch something out quickly there is the scratch buffer
 provided by spacemacs at =SCP b s=. By default this opens in text mode. To avoid
 always needing to switch it into org-mode we can set the following variable
@@ -102,6 +116,8 @@ instead.
 #+begin_src emacs-lisp :tangle nicemacs.el
 (setq dotspacemacs-scratch-mode 'org-mode)
 #+end_src
+
+*** Owner menu
 
 The spacemacs documentation recommends that you store all of your shortcuts with
 a prefix of "o" for owner.
@@ -960,7 +976,7 @@ yet.
 I just can't get a proper maxima layer set up so here is the basic functionality
 stored in the owner menu.
 
-#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
+#+BEGIN_SRC emacs-lisp :tangle blah-nicemacs.el
 (load "/usr/share/emacs/site-lisp/maxima/maxima-font-lock.el")
 (load "/usr/share/emacs/site-lisp/maxima/maxima.el")
 (spacemacs/declare-prefix "om" "maxima-menu")
@@ -972,6 +988,9 @@ stored in the owner menu.
 We want files ending in =.mac= to open in maxima mode so we need to add this to
 the =auto-mode-alist=.
 
-#+begin_src emacs-lisp :tangle nicemacs.el
-(add-to-list 'auto-mode-alist '("\\.mac\\'" . maxima-mode))
+#+begin_src emacs-lisp :tangle blah-nicemacs.el
+
+   ;; (autoload 'maxima-mode "maxima" "Maxima mode" t)
+   ;; (autoload 'maxima "maxima" "Maxima interaction" t)
+   (add-to-list 'auto-mode-alist '("\\.mac\\'" . maxima-mode))
 #+end_src
