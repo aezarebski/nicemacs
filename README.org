@@ -482,6 +482,8 @@ setting =org-adapt-indentation= to =nil=.
 (add-hook 'org-mode-hook 'spacemacs/toggle-truncate-lines-on)
 #+end_src
 
+*** Inline Latex and image display
+
 Orgmode can display images inline, however it is useful to be able to toggle
 this feature occassionally, particularly if there are large images which take up
 too much space. There is a function =org-toggle-inline-images= which does this.
@@ -502,6 +504,16 @@ You can try it in the following expressions \(\alpha\)
 \[
 \frac{a}{b}
 \]
+
+*** Hyperlinking in org-mode
+
+By default, when you follow a link it will open in a new window in the current
+frame. To follow links in the same window, you need to adjust the
+=org-link-frame-setup= variable[fn:1].
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(add-to-list 'org-link-frame-setup '(file . find-file))
+#+end_src
 
 ** Shells
 
@@ -994,3 +1006,9 @@ the =auto-mode-alist=.
    ;; (autoload 'maxima "maxima" "Maxima interaction" t)
    (add-to-list 'auto-mode-alist '("\\.mac\\'" . maxima-mode))
 #+end_src
+
+* Footnotes
+
+[fn:1] The =add-to-list= function is used to add elements to the start of a
+list, this should only be used in configuration code; use =push= to add elements
+to a list in emacs-lisp.

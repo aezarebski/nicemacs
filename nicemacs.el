@@ -201,6 +201,8 @@ file. TODO Make this less ugly please!"
 
 (spacemacs/set-leader-keys "ool" 'org-latex-preview)
 
+(add-to-list 'org-link-frame-setup '(file . find-file))
+
 (spacemacs/declare-prefix "os" "sheila-menu")
 
 (spacemacs/set-leader-keys "osh" 'helm-eshell-history)
