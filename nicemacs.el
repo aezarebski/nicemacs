@@ -311,12 +311,6 @@ buffer"
 
 (spacemacs/set-leader-keys "ofd" 'message-working-directory)
 
-(defvaralias
-  'helm-c-yas-space-match-any-greedy
-  'helm-yas-space-match-any-greedy
-  "Temporary alias for Emacs27")
-
-
 (defun insert-greek (case-name letter-name)
   (interactive)
   (if
@@ -413,3 +407,8 @@ buffer"
   (interactive)
   (insert-greek "capital" "omega"))
 (spacemacs/set-leader-keys "ouo" 'insert-greek-small-omega)
+
+(defvaralias
+  'helm-c-yas-space-match-any-greedy
+  'helm-yas-space-match-any-greedy
+  "Temporary alias for Emacs27")
