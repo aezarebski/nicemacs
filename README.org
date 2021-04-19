@@ -213,7 +213,7 @@ setting the =lsp-haskell-server-path= to the executable solved things.
    
 #+begin_src emacs-lisp :tangle nicemacs.el
 (setq exec-path (append exec-path '("/home/aez/.ghcup/bin")))
-(setq lsp-haskell-server-path "/home/aez/.ghcup/bin/haskell-language-server-8.8.4")
+(setq lsp-haskell-server-path "/home/aez/.ghcup/bin/haskell-language-server-8.10.4")
 #+end_src
 
 3. Make sure that the layer variables have been set to use LSP.

@@ -45,6 +45,9 @@
 ;; Go to the next error found by flycheck
 (spacemacs/set-leader-keys "ohe" 'flycheck-next-error)
 
+(setq exec-path (append exec-path '("/home/aez/.ghcup/bin")))
+(setq lsp-haskell-server-path "/home/aez/.ghcup/bin/haskell-language-server-8.10.4")
+
 (add-to-list 'auto-mode-alist '("\\.bibtex\\'" . bibtex-mode))
 
 (spacemacs/declare-prefix "ol" "latex")
@@ -224,8 +227,6 @@ file. TODO Make this less ugly please!"
 
 (setq exec-path (append exec-path '("/home/aez/.local/bin")))
 (setq exec-path (append exec-path '("/home/aez/.nvm/versions/node/v14.6.0/bin")))
-
-(setq exec-path (append exec-path '("/home/aez/.ghcup/bin")))
 
 (setq spacemacs/ess-config
       '(progn
