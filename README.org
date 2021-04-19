@@ -70,8 +70,8 @@ should also document the configuration layers that I use.
      python
      (shell :variables
             shell-default-shell 'eshell
-            shell-default-position "right"
-            shell-default-width 40)
+            shell-default-position 'bottom
+            shell-default-width 30)
      speed-reading
      (spell-checking :variables
                      spell-checking-enable-by-default nil
@@ -94,6 +94,20 @@ useful shortcut.
 (spacemacs/set-leader-keys "tt" 'spacemacs/cycle-spacemacs-theme)
 #+end_src
 
+I prefer the startup banner number 100 so set the following in my =.spacemacs=.
+
+#+begin_src emacs-lisp
+dotspacemacs-startup-banner 100
+#+end_src
+
+You may also want to remove some of the noise from the start up menu
+
+#+begin_src emacs-lisp
+dotspacemacs-startup-lists '()
+#+end_src
+
+*** Scratch buffer
+
 If you want to scratch something out quickly there is the scratch buffer
 provided by spacemacs at =SCP b s=. By default this opens in text mode. To avoid
 always needing to switch it into org-mode we can set the following variable
@@ -103,11 +117,22 @@ instead.
 (setq dotspacemacs-scratch-mode 'org-mode)
 #+end_src
 
+*** Owner menu
+
 The spacemacs documentation recommends that you store all of your shortcuts with
 a prefix of "o" for owner.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/declare-prefix "o" "own-menu")
+#+end_src
+
+*** Ugly ugly scroll bar
+
+I very much do not want to scroll bar popping up every now and then so I will
+remove the advice to do this!
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(advice-remove 'mwheel-scroll #'spacemacs//scroll-bar-show-delayed-hide)
 #+end_src
 
 ** Completion
@@ -481,6 +506,8 @@ setting =org-adapt-indentation= to =nil=.
 (add-hook 'org-mode-hook 'spacemacs/toggle-truncate-lines-on)
 #+end_src
 
+*** Inline Latex and image display
+
 Orgmode can display images inline, however it is useful to be able to toggle
 this feature occassionally, particularly if there are large images which take up
 too much space. There is a function =org-toggle-inline-images= which does this.
@@ -501,6 +528,16 @@ You can try it in the following expressions \(\alpha\)
 \[
 \frac{a}{b}
 \]
+
+*** Hyperlinking in org-mode
+
+By default, when you follow a link it will open in a new window in the current
+frame. To follow links in the same window, you need to adjust the
+=org-link-frame-setup= variable[fn:1].
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(add-to-list 'org-link-frame-setup '(file . find-file))
+#+end_src
 
 ** Shells
 
@@ -750,6 +787,117 @@ is bound to =SPC o f d= for owner-files-directory.
 (spacemacs/set-leader-keys "ofd" 'message-working-directory)
 #+end_src
 
+** Unicode and Greek letters
+
+To insert a unicode character based on its name use =C-x 8 RET=. Since typically
+this is just the Greek letters we can define the following function to make this
+easier.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(defun insert-greek (case-name letter-name)
+  (interactive)
+  (if
+      (equal case-name "small")
+      (insert (char-from-name (format "GREEK SMALL LETTER %s" (upcase letter-name))))
+      (insert (char-from-name (format "GREEK CAPITAL LETTER %s" (upcase letter-name))))))
+#+end_src
+
+Then we can add key bindings for this =SPC o u <l>= to insert the Greek letter.
+
+*** TODO Work out how to abstract this with a macro.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/declare-prefix "ou" "unicode-stuff")
+
+(defun insert-greek-small-alpha ()
+  (interactive)
+  (insert-greek "small" "alpha"))
+(defun insert-greek-capital-alpha ()
+  (interactive)
+  (insert-greek "capital" "alpha"))
+(spacemacs/set-leader-keys "oua" 'insert-greek-small-alpha)
+(spacemacs/set-leader-keys "ouA" 'insert-greek-capital-alpha)
+
+(defun insert-greek-small-beta ()
+  (interactive)
+  (insert-greek "small" "beta"))
+(defun insert-greek-capital-beta ()
+  (interactive)
+  (insert-greek "capital" "beta"))
+(spacemacs/set-leader-keys "oub" 'insert-greek-small-beta)
+(spacemacs/set-leader-keys "ouB" 'insert-greek-capital-beta)
+
+(defun insert-greek-small-gamma ()
+  (interactive)
+  (insert-greek "small" "gamma"))
+(defun insert-greek-capital-gamma ()
+  (interactive)
+  (insert-greek "capital" "gamma"))
+(spacemacs/set-leader-keys "oug" 'insert-greek-small-gamma)
+(spacemacs/set-leader-keys "ouG" 'insert-greek-capital-gamma)
+
+(defun insert-greek-small-delta ()
+  (interactive)
+  (insert-greek "small" "delta"))
+(defun insert-greek-capital-delta ()
+  (interactive)
+  (insert-greek "capital" "delta"))
+(spacemacs/set-leader-keys "oud" 'insert-greek-small-delta)
+(spacemacs/set-leader-keys "ouD" 'insert-greek-capital-delta)
+
+(defun insert-greek-small-lambda ()
+  (interactive)
+  (insert-greek "small" "lambda"))
+(defun insert-greek-capital-lambda ()
+  (interactive)
+  (insert-greek "capital" "lambda"))
+(spacemacs/set-leader-keys "oul" 'insert-greek-small-lambda)
+(spacemacs/set-leader-keys "ouL" 'insert-greek-capital-lambda)
+
+(defun insert-greek-small-mu ()
+  (interactive)
+  (insert-greek "small" "mu"))
+(defun insert-greek-capital-mu ()
+  (interactive)
+  (insert-greek "capital" "mu"))
+(spacemacs/set-leader-keys "oum" 'insert-greek-small-mu)
+(spacemacs/set-leader-keys "ouM" 'insert-greek-capital-mu)
+
+(defun insert-greek-small-nu ()
+  (interactive)
+  (insert-greek "small" "nu"))
+(defun insert-greek-capital-nu ()
+  (interactive)
+  (insert-greek "capital" "nu"))
+(spacemacs/set-leader-keys "oun" 'insert-greek-small-nu)
+(spacemacs/set-leader-keys "ouN" 'insert-greek-capital-nu)
+
+(defun insert-greek-small-rho ()
+  (interactive)
+  (insert-greek "small" "rho"))
+(defun insert-greek-capital-rho ()
+  (interactive)
+  (insert-greek "capital" "rho"))
+(spacemacs/set-leader-keys "our" 'insert-greek-small-rho)
+(spacemacs/set-leader-keys "ouR" 'insert-greek-capital-rho)
+
+(defun insert-greek-small-psi ()
+  (interactive)
+  (insert-greek "small" "psi"))
+(defun insert-greek-capital-psi ()
+  (interactive)
+  (insert-greek "capital" "psi"))
+(spacemacs/set-leader-keys "oups" 'insert-greek-small-psi)
+
+(defun insert-greek-small-omega ()
+  (interactive)
+  (insert-greek "small" "omega"))
+(defun insert-greek-capital-omega ()
+  (interactive)
+  (insert-greek "capital" "omega"))
+(spacemacs/set-leader-keys "ouo" 'insert-greek-small-omega)
+#+end_src
+
 * Yasnippet snippets
 
 Snippets usually live in =~/.emacs.d/private/snippets= in a directory which is
@@ -967,7 +1115,7 @@ yet.
 I just can't get a proper maxima layer set up so here is the basic functionality
 stored in the owner menu.
 
-#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
+#+BEGIN_SRC emacs-lisp :tangle blah-nicemacs.el
 (load "/usr/share/emacs/site-lisp/maxima/maxima-font-lock.el")
 (load "/usr/share/emacs/site-lisp/maxima/maxima.el")
 (spacemacs/declare-prefix "om" "maxima-menu")
@@ -979,6 +1127,15 @@ stored in the owner menu.
 We want files ending in =.mac= to open in maxima mode so we need to add this to
 the =auto-mode-alist=.
 
-#+begin_src emacs-lisp :tangle nicemacs.el
-(add-to-list 'auto-mode-alist '("\\.mac\\'" . maxima-mode))
+#+begin_src emacs-lisp :tangle blah-nicemacs.el
+
+   ;; (autoload 'maxima-mode "maxima" "Maxima mode" t)
+   ;; (autoload 'maxima "maxima" "Maxima interaction" t)
+   (add-to-list 'auto-mode-alist '("\\.mac\\'" . maxima-mode))
 #+end_src
+
+* Footnotes
+
+[fn:1] The =add-to-list= function is used to add elements to the start of a
+list, this should only be used in configuration code; use =push= to add elements
+to a list in emacs-lisp.

@@ -1,7 +1,0 @@
-#+title: CHANGELOG
-
-* 2021-03-24
-
-- Remove a bunch of keybindings for working with R code because a more
-  consistent set is already provided and the new LSP support provides additional
-  functionality anyway.
