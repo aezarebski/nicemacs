@@ -119,6 +119,10 @@ file. TODO Make this less ugly please!"
 
 (spacemacs/declare-prefix "oo" "orgo-menu")
 
+(org-babel-do-load-languages
+'org-babel-load-languages
+'((maxima . t)))
+
 (defvar nicemacs-journal-directory "" "The directory for nicemacs journal files.")
 (setq nicemacs-journal-directory "~/Documents/journal")
 
@@ -192,8 +196,6 @@ file. TODO Make this less ugly please!"
 
 (setq org-adapt-indentation nil)
 
-;; Tangle the current org file
-(spacemacs/set-leader-keys "oot" 'org-babel-tangle)
 ;; open the export menu
 (spacemacs/set-leader-keys "ooe" 'org-export-dispatch)
 

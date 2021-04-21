@@ -364,6 +364,25 @@ Bindings for org-mode functionality start with =o o= for "owner org".
 (spacemacs/declare-prefix "oo" "orgo-menu")
 #+end_src
 
+*** Literate programming
+
+The =org-babel-tangle= function will tangle the current org-mode file. This is
+bound to =SPC m b t=. You can tangle to multiple files by adding multiple
+=:tangle= variables to the source environment.
+
+*** Notebook programming
+
+To use org-mode as a notebook, you need to have the corresponding language
+included in =org-babel-load-languages=.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+ (org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((maxima . t)))
+#+end_src
+
+- There is an example of using org-mode for Maxima notebooks [[https://www.orgmode.org/worg/org-contrib/babel/languages/ob-doc-maxima.html][here]].
+
 *** Nicemacs journal
 
 I want a directory just for my journal which potentially will vary between
@@ -497,8 +516,6 @@ setting =org-adapt-indentation= to =nil=.
 *** Miscellaneous
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-;; Tangle the current org file
-(spacemacs/set-leader-keys "oot" 'org-babel-tangle)
 ;; open the export menu
 (spacemacs/set-leader-keys "ooe" 'org-export-dispatch)
 
