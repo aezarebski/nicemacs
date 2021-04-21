@@ -1091,6 +1091,30 @@ A snippet for a very simple histogram in vega-lite.
 
 ** Org-mode
 
+*** header
+
+#+begin_src snippet :tangle ~/.emacs.d/private/snippets/org-mode/header.yasnippet
+# -*- mode: snippet -*-
+# name: header
+# key: header
+# --
+
+#+header: 
+#+end_src
+
+*** name
+
+#+begin_src snippet :tangle ~/.emacs.d/private/snippets/org-mode/name.yasnippet
+# -*- mode: snippet -*-
+# name: name
+# key: name
+# --
+
+#+name: 
+#+end_src
+
+*** title
+
 #+begin_src snippet :tangle ~/.emacs.d/private/snippets/org-mode/title.yasnippet
 # -*- mode: snippet -*-
 # name: title
@@ -1101,7 +1125,7 @@ A snippet for a very simple histogram in vega-lite.
 #+end_src
 
 Unfortunately it is very difficult to write a source block snippet in this
-style, so you probably just want to do that manually.
+literate programming style, so you probably just want to do that manually.
 
 * Maxima
 
