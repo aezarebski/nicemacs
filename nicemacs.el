@@ -117,7 +117,11 @@ file. TODO Make this less ugly please!"
 
 (spacemacs/set-leader-keys "olp" 'nicemacs-open-review-pdf)
 
-(spacemacs/declare-prefix "oo" "orgo-menu")
+(spacemacs/declare-prefix "oo" "org-menu")
+
+(spacemacs/declare-prefix "oot" "org-toggle-menu")
+
+(spacemacs/set-leader-keys "ootw" 'writeroom-mode)
 
 (org-babel-do-load-languages
 'org-babel-load-languages

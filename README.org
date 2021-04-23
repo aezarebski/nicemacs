@@ -361,7 +361,36 @@ to have a function to do that. This will be bound to =olp= because it is opening
 Bindings for org-mode functionality start with =o o= for "owner org".
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/declare-prefix "oo" "orgo-menu")
+(spacemacs/declare-prefix "oo" "org-menu")
+#+end_src
+
+for toggle style functions we will have a submenu.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/declare-prefix "oot" "org-toggle-menu")
+#+end_src
+
+*** Writing prose
+
+The =writeroom-mode= provides a clean setup for writing prose. It centres the
+text and removes visual distractions. The following little function sets up a
+toggle to turn this on and off.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(require 'writeroom-mode)
+
+(defvar writeroom-active t "variable to say if writeroom is active")
+
+(defun toggle-writeroom ()
+  "Toggle the writeroom-mode on the current buffer."
+  (interactive)
+  (if writeroom-active
+      (writeroom--enable)
+    (writeroom--disable))
+  (setq writeroom-active (not writeroom-active))
+  )
+
+(spacemacs/set-leader-keys "ootw" 'toggle-writeroom)
 #+end_src
 
 *** Literate programming
