@@ -180,10 +180,6 @@ sideline display.
     (evil-backward-char 3)))
 (spacemacs/set-leader-keys "ohl" 'haskell-insert-language-pragma)
 
-;; pretty printing the code with hindent (requires executable to be on path)
-(spacemacs/set-leader-keys "ohhr" 'hindent-reformat-region)
-(spacemacs/set-leader-keys "ohhb" 'hindent-reformat-buffer)
-
 ;; Send the current buffer to the REPL
 (spacemacs/set-leader-keys "ohb" 'haskell-process-load-file)
 
@@ -195,6 +191,35 @@ sideline display.
 
 ;; Go to the next error found by flycheck
 (spacemacs/set-leader-keys "ohe" 'flycheck-next-error)
+#+end_src
+
+*** Formatting code without LSP
+
+If you are not using LSP then the following might be useful additions if you
+have =hindent= installed. Although I suspect a nicer option is to use [[*Formatting code with
+ LSP][stylish-haskell with LSP]].
+
+#+begin_src emacs-lisp
+(spacemacs/set-leader-keys "ohhr" 'hindent-reformat-region)
+(spacemacs/set-leader-keys "ohhb" 'hindent-reformat-buffer)
+#+end_src
+
+You will probably also want to set the =haskell-enable-hindent-style= variable
+to ="fundamental"=.
+
+#+begin_src emacs-lisp
+(setq haskell-enable-hindent-style "fundamental")
+#+end_src
+
+*** Formatting code with LSP
+
+If you are using LSP then =hindent= is not available by default. [[https://github.com/haskell/stylish-haskell][stylish-haskell]]
+seems to be an acceptable replacement though. The
+=lsp-haskell-formatting-provider= is used to specify which formatting tool to
+use.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(setq lsp-haskell-formatting-provider "stylish-haskell")
 #+end_src
 
 *** LSP and Haskell
@@ -209,7 +234,9 @@ setting the =lsp-haskell-server-path= to the executable solved things.
 [[https://github.com/haskell/haskell-language-server#installation][GHCUP installation instructions are here]]
 
 2. Make sure that this has been added to the =exec-path= and that
-   =lsp-haskell-server-path= is set.
+   =lsp-haskell-server-path= is set. Note that some projects might get upset
+   about the language server being used, adjust this and restarting emacs is a
+   hacky solution by it works.
    
 #+begin_src emacs-lisp :tangle nicemacs.el
 (setq exec-path (append exec-path '("/home/aez/.ghcup/bin")))
@@ -221,8 +248,7 @@ setting the =lsp-haskell-server-path= to the executable solved things.
 #+begin_src emacs-lisp 
      (haskell :variables
               haskell-completion-backend 'lsp
-              haskell-process-type 'stack-ghci
-              hsakell-enable-hindent-style "fundamental")
+              haskell-process-type 'stack-ghci)
 #+end_src
 
 ** Latex and Bibtex
