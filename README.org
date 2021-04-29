@@ -403,7 +403,8 @@ for toggle style functions we will have a submenu.
 
 The =writeroom-mode= provides a clean setup for writing prose. It centres the
 text and removes visual distractions. The following little function sets up a
-toggle to turn this on and off.
+toggle to turn this on and off. There is a variable =writeroom-width= to specify
+how wide the display should be.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (require 'writeroom-mode)
