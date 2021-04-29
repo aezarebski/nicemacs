@@ -83,13 +83,16 @@
 
 (defun last-bib ()
   "Opens the most recent bibtex file in the Downloads directory
-in a new buffer."
+in a new buffer. If there is no such file then a message is
+given to indicate this."
   (interactive)
   (let* ((bib-files (directory-files-and-attributes "~/Downloads" t ".*bib" "ctime"))
          (path-and-time (lambda (x) (list (first x) (eighth x))))
          (time-order (lambda (a b) (time-less-p (second b) (second a))))
          (most-recent (lambda (files) (car (car (sort (mapcar path-and-time files) time-order))))))
-   (find-file (funcall most-recent bib-files))))
+    (if (not (null bib-files))
+        (find-file (funcall most-recent bib-files))
+      (message "No bib files found in ~/Downloads/"))))
 
 (defun bibtex-braces ()
   "Wrap upper case letters with brackets for bibtex titles."
@@ -121,7 +124,20 @@ file. TODO Make this less ugly please!"
 
 (spacemacs/declare-prefix "oot" "org-toggle-menu")
 
-(spacemacs/set-leader-keys "ootw" 'writeroom-mode)
+(require 'writeroom-mode)
+
+(defvar writeroom-active t "variable to say if writeroom is active")
+
+(defun toggle-writeroom ()
+  "Toggle the writeroom-mode on the current buffer."
+  (interactive)
+  (if writeroom-active
+      (writeroom--enable)
+    (writeroom--disable))
+  (setq writeroom-active (not writeroom-active))
+  )
+
+(spacemacs/set-leader-keys "ootw" 'toggle-writeroom)
 
 (org-babel-do-load-languages
 'org-babel-load-languages
