@@ -68,6 +68,7 @@ should also document the configuration layers that I use.
      org
      purescript
      python
+     semantic
      (shell :variables
             shell-default-shell 'eshell
             shell-default-position 'bottom
@@ -83,6 +84,8 @@ should also document the configuration layers that I use.
      version-control
      treemacs)
 #+end_src
+
+The =semantic= layer is needed for formating emacs lisp code.
 
 ** Stuff
 
