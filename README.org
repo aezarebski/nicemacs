@@ -467,27 +467,45 @@ the name of a single file, otherwise it will interpret that single file as a
 list of files to use.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defun nicemacs-journal-filepath ()
-  "The filepath of the current journal file."
-  (interactive)
-  (let* ((filepath-template (concat nicemacs-journal-directory "/journal-%s.org"))
-        (time-string (format-time-string "%Y-%m"))
-        (agenda-file (format filepath-template time-string)))
-    (setq org-agenda-files (list agenda-file))
-    agenda-file))
+  (defun nicemacs-journal-filepath ()
+    "The filepath of the current journal file."
+    (interactive)
+    (let* ((filepath-template (concat nicemacs-journal-directory "/journal-%s.org"))
+           (time-string (format-time-string "%Y-%m"))
+           (agenda-file (format filepath-template time-string)))
+      (setq org-agenda-files (list agenda-file))
+      agenda-file))
+
+  (defun nicemacs-journal-previous-filepath ()
+    "The filepath of the /previous/ journal file."
+    (interactive)
+    (let* ((filepath-template (concat nicemacs-journal-directory "/journal-%s.org"))
+           (seconds-in-week (* 7 (* 24 (* 60 (* 60 1)))))
+           (time-string (format-time-string "%Y-%m" (time-subtract (current-time) seconds-in-week)))
+           (agenda-file (format filepath-template time-string)))
+      agenda-file))
 #+end_src
 
 I want functions to quickly visit our current journal file and to visit the
-current agenda because this is something I do several times a day.
+current agenda because this is something I do several times a day. If the
+journal file does not exist then we just need to copy over the previous one. To
+do this we look for one with a date from a week ago.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun nicemacs-visit-journal ()
-  "Opens the current journal file."
+  "Opens the current journal file. If it does not yet exist it
+makes a copy of the one from one week ago."
   (interactive)
-  (let ((agenda-file (nicemacs-journal-filepath)))
-    (find-file agenda-file)
-    (goto-char 1)
-    (recenter-top-bottom)))
+  (let* ((current-journal-file (nicemacs-journal-filepath))
+        (previous-journal-file (nicemacs-journal-previous-filepath)))
+    (if (not (file-exists-p current-journal-file))
+        (progn
+          (message "creating new journal file")
+          (copy-file previous-journal-file current-journal-file))
+      (message "opening journal file"))
+          (find-file current-journal-file)
+          (goto-char 1)
+          (recenter-top-bottom)))
 
 (defun nicemacs-visit-agenda ()
   "Opens the agenda after checking it has been set correctly."

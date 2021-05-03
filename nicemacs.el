@@ -154,18 +154,34 @@ file. TODO Make this less ugly please!"
   "The filepath of the current journal file."
   (interactive)
   (let* ((filepath-template (concat nicemacs-journal-directory "/journal-%s.org"))
-        (time-string (format-time-string "%Y-%m"))
-        (agenda-file (format filepath-template time-string)))
+         (time-string (format-time-string "%Y-%m"))
+         (agenda-file (format filepath-template time-string)))
     (setq org-agenda-files (list agenda-file))
     agenda-file))
 
-(defun nicemacs-visit-journal ()
-  "Opens the current journal file."
+(defun nicemacs-journal-previous-filepath ()
+  "The filepath of the /previous/ journal file."
   (interactive)
-  (let ((agenda-file (nicemacs-journal-filepath)))
-    (find-file agenda-file)
-    (goto-char 1)
-    (recenter-top-bottom)))
+  (let* ((filepath-template (concat nicemacs-journal-directory "/journal-%s.org"))
+         (seconds-in-week (* 7 (* 24 (* 60 (* 60 1)))))
+         (time-string (format-time-string "%Y-%m" (time-subtract (current-time) seconds-in-week)))
+         (agenda-file (format filepath-template time-string)))
+    agenda-file))
+
+(defun nicemacs-visit-journal ()
+  "Opens the current journal file. If it does not yet exist it
+makes a copy of the one from one week ago."
+  (interactive)
+  (let* ((current-journal-file (nicemacs-journal-filepath))
+        (previous-journal-file (nicemacs-journal-previous-filepath)))
+    (if (not (file-exists-p current-journal-file))
+        (progn
+          (message "creating new journal file")
+          (copy-file previous-journal-file current-journal-file))
+      (message "opening journal file"))
+          (find-file current-journal-file)
+          (goto-char 1)
+          (recenter-top-bottom)))
 
 (defun nicemacs-visit-agenda ()
   "Opens the agenda after checking it has been set correctly."
