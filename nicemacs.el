@@ -251,14 +251,16 @@ makes a copy of the one from one week ago."
 (spacemacs/set-leader-keys "osb" 'shell)
 
 (defun eshell-aliases ()
-  "Visit the file containing the eshell aliases."
-  (interactive)
-  (find-file-other-window eshell-aliases-file))
+    "Visit the file containing the eshell aliases."
+    (interactive)
+    (find-file-other-window eshell-aliases-file))
+
+(spacemacs/set-leader-keys "osa" 'eshell-aliases)
 
 (require 'em-alias)
 (eshell/alias "cdk" "cd ..")
 (eshell/alias "cdkk" "cd ../..")
-(eshell/alias "cdkkk" "cd ../../")
+(eshell/alias "cdkkk" "cd ../../..")
 (eshell/alias "ff" "find-file $1")
 
 (setq eshell-cmpl-ignore-case t)

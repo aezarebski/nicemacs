@@ -668,13 +668,16 @@ following binding helps with this.
 #+end_src
 
 It is useful to be able to look at what aliases are currently defined for
-eshell. The following function visits this file.
+eshell. The following function visits this file. Although the preferred way to
+edit the aliases in the eshell is using the definitions below!
 
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
-(defun eshell-aliases ()
-  "Visit the file containing the eshell aliases."
-  (interactive)
-  (find-file-other-window eshell-aliases-file))
+  (defun eshell-aliases ()
+    "Visit the file containing the eshell aliases."
+    (interactive)
+    (find-file-other-window eshell-aliases-file))
+
+(spacemacs/set-leader-keys "osa" 'eshell-aliases)
 #+END_SRC
 
 If you want to create an alias in the eshell the following examples of a command
@@ -693,7 +696,7 @@ aliases to have in the shell.
 (require 'em-alias)
 (eshell/alias "cdk" "cd ..")
 (eshell/alias "cdkk" "cd ../..")
-(eshell/alias "cdkkk" "cd ../../")
+(eshell/alias "cdkkk" "cd ../../..")
 (eshell/alias "ff" "find-file $1")
 #+END_SRC
 
