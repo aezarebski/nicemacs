@@ -21,29 +21,11 @@
 
 (spacemacs/declare-prefix "oh" "haskell-menu")
 (spacemacs/set-leader-keys "ohr" 'haskell-process-restart)
-(defun haskell-insert-language-pragma ()
-  "Insert \"{-# LANGUAGE <point here!> #-}\""
-  (interactive)
-  (progn
-    (insert "{-# LANGUAGE #-}")
-    (evil-backward-char 3)))
-(spacemacs/set-leader-keys "ohl" 'haskell-insert-language-pragma)
-
-;; pretty printing the code with hindent (requires executable to be on path)
-(spacemacs/set-leader-keys "ohhr" 'hindent-reformat-region)
-(spacemacs/set-leader-keys "ohhb" 'hindent-reformat-buffer)
-
-;; Send the current buffer to the REPL
-(spacemacs/set-leader-keys "ohb" 'haskell-process-load-file)
-
-;; Switch to the haskell REPL.
-(spacemacs/set-leader-keys "ohg" 'haskell-interactive-switch)
 
 ;; Set the input method to TeX for using unicode. Use C-\ to unset this.
 (spacemacs/set-leader-keys "ohu" 'set-input-method)
 
-;; Go to the next error found by flycheck
-(spacemacs/set-leader-keys "ohe" 'flycheck-next-error)
+(setq lsp-haskell-formatting-provider "stylish-haskell")
 
 (setq exec-path (append exec-path '("/home/aez/.ghcup/bin")))
 (setq lsp-haskell-server-path "/home/aez/.ghcup/bin/haskell-language-server-8.10.4")
@@ -241,6 +223,8 @@ makes a copy of the one from one week ago."
 (spacemacs/set-leader-keys "ooi" 'org-toggle-inline-images)
 
 (spacemacs/set-leader-keys "ool" 'org-latex-preview)
+
+(require 'ol)
 
 (add-to-list 'org-link-frame-setup '(file . find-file))
 
