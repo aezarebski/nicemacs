@@ -615,8 +615,14 @@ frame. To follow links in the same window, you need to adjust the
 =org-link-frame-setup= variable[fn:1].
 
 #+begin_src emacs-lisp :tangle nicemacs.el
+(require 'ol)
+
 (add-to-list 'org-link-frame-setup '(file . find-file))
 #+end_src
+
+We know that we need to =(require 'ol)= here by looking at the end of the file
+in which =org-link-frame-setup= is defined and seeing what it "provides" at the
+end.
 
 ** Shells
 
