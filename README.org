@@ -87,13 +87,10 @@ The =semantic= layer is needed for formating emacs lisp code.
 
 ** Stuff
 
-To quickly toggle between the default spacemacs theme use =SPC t t=. Since this
-is something that I want to do in a hurry if my retinas are burning this is a
-useful shortcut.
+To quickly toggle between the default spacemacs themes use =SPC T n= (the
+default bindings.)
 
-#+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/set-leader-keys "tt" 'spacemacs/cycle-spacemacs-theme)
-#+end_src
+*** Start up/splash page
 
 I prefer the startup banner number 100 so set the following in my =.spacemacs=.
 
@@ -999,11 +996,14 @@ is set this way so that I don't have to remember to copy the tangled files over
 all the time. To generate the directories that the snippets will be tangled to
 you can run the following.
 
-#+begin_src emacs-lisp
-(make-directory "~/.emacs.d/private/snippets/ess-r-mode" t)
-(make-directory "~/.emacs.d/private/snippets/json-mode" t)
-(make-directory "~/.emacs.d/private/snippets/web-mode" t)
-(make-directory "~/.emacs.d/private/snippets/org-mode" t)
+The =files--ensure-directory= function will create these directories if they do
+not already exist.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
+(files--ensure-directory "~/.emacs.d/private/snippets/json-mode")
+(files--ensure-directory "~/.emacs.d/private/snippets/web-mode")
+(files--ensure-directory "~/.emacs.d/private/snippets/org-mode")
 #+end_src
 
 ** Yasnippet configuration

@@ -3,8 +3,6 @@
   (find-file "~/Documents/nicemacs/README.org"))
 (spacemacs/set-leader-keys "oon" 'visit-nicemacs)
 
-(spacemacs/set-leader-keys "tt" 'spacemacs/cycle-spacemacs-theme)
-
 (setq dotspacemacs-scratch-mode 'org-mode)
 
 (spacemacs/declare-prefix "o" "own-menu")
@@ -432,6 +430,11 @@ buffer"
   (interactive)
   (insert-greek "capital" "omega"))
 (spacemacs/set-leader-keys "ouo" 'insert-greek-small-omega)
+
+(files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
+(files--ensure-directory "~/.emacs.d/private/snippets/json-mode")
+(files--ensure-directory "~/.emacs.d/private/snippets/web-mode")
+(files--ensure-directory "~/.emacs.d/private/snippets/org-mode")
 
 (defvaralias
   'helm-c-yas-space-match-any-greedy
