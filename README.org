@@ -328,12 +328,23 @@ that to generate a file =new.bib= which may require a bit of manual tweaking but
 is close to correct.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-  (defun bibtex-ris2bib ()
-    "Convert the most recent RIS file in my downloads to a BIB
-  file. TODO Make this less ugly please!"
-    (interactive "*")
-    (let ((ris-filepath (nth 1 (car (sort (mapcar (lambda (fp) (list (time-convert (file-attribute-modification-time (file-attributes fp)) 'integer) fp)) (directory-files "~/Downloads" 1 ".*ris")) (lambda (x y) (> (car x) (car y))))))))
-      (shell-command (format "ris2xml %s | xml2bib > /home/aez/Downloads/new.bib" ris-filepath))))
+(defun bibtex-ris2bib ()
+  "Convert the most recent RIS file in my downloads to a BIB
+file."
+  (interactive "*")
+  (let* ((all-ris-files (directory-files "~/Downloads" 1 ".*ris"))
+         (modification-time (lambda (fp)
+                              (list (time-convert (file-attribute-modification-time (file-attributes fp))
+                                                  'integer)
+                                    fp)))
+         (ris-filepath (nth 1
+                            (car (sort (mapcar modification-time all-ris-files)
+                                       (lambda (x y)
+                                         (> (car x) (car y)))))))
+         (target-bib "/home/aez/Downloads/new.bib")
+         (ris2xml-command (format "ris2xml %s | xml2bib > %s" ris-filepath
+                                  target-bib)))
+    (shell-command ris2xml-command)))
 #+end_src
 
 Now we need some sensible key-bindings for this functionality. The following aim

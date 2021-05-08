@@ -81,10 +81,21 @@ given to indicate this."
 
 (defun bibtex-ris2bib ()
   "Convert the most recent RIS file in my downloads to a BIB
-file. TODO Make this less ugly please!"
+file."
   (interactive "*")
-  (let ((ris-filepath (nth 1 (car (sort (mapcar (lambda (fp) (list (time-convert (file-attribute-modification-time (file-attributes fp)) 'integer) fp)) (directory-files "~/Downloads" 1 ".*ris")) (lambda (x y) (> (car x) (car y))))))))
-    (shell-command (format "ris2xml %s | xml2bib > /home/aez/Downloads/new.bib" ris-filepath))))
+  (let* ((all-ris-files (directory-files "~/Downloads" 1 ".*ris"))
+         (modification-time (lambda (fp)
+                              (list (time-convert (file-attribute-modification-time (file-attributes fp))
+                                                  'integer)
+                                    fp)))
+         (ris-filepath (nth 1
+                            (car (sort (mapcar modification-time all-ris-files)
+                                       (lambda (x y)
+                                         (> (car x) (car y)))))))
+         (target-bib "/home/aez/Downloads/new.bib")
+         (ris2xml-command (format "ris2xml %s | xml2bib > %s" ris-filepath
+                                  target-bib)))
+    (shell-command ris2xml-command)))
 
 (spacemacs/set-leader-keys "obl" 'last-bib)
 (spacemacs/set-leader-keys "obf" 'bibtex-reformat)
