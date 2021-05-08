@@ -322,15 +322,14 @@ run the function.
 
 Some places seem reluctant to provide a bibtex file for a citation, but they all
 seem to have RIS files available for download. There are tools to convert
-between them. The following function makes it easier to use these tools by
-finding the most recent RIS file in your downloads and running the convertion on
-that to generate a file =new.bib= which may require a bit of manual tweaking but
-is close to correct.
+between them. The =bibtex-ris2bib= function looks up the most recent RIS file in
+your downloads directory and then converts that to a BIB file. You can then open
+this file using the =last-bib= function from above.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun bibtex-ris2bib ()
   "Convert the most recent RIS file in my downloads to a BIB
-file."
+file. TODO Add error message if there are no RIS files."
   (interactive "*")
   (let* ((all-ris-files (directory-files "~/Downloads" 1 ".*ris"))
          (modification-time (lambda (fp)
