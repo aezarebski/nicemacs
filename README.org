@@ -1,4 +1,7 @@
 #+title: NICEMACS
+#+OPTIONS: toc:nil
+#+OPTIONS: num:nil
+#+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet-dark.css" />
 
 [[./resources/nicemacs-logo.png]]
 
@@ -540,19 +543,33 @@ to the github repository for the site.
          :recursive t
          :publishing-function org-publish-attachment
          )
-
-        ("org" :components ("org-notes" "org-static"))
+        ("org-nicemacs"
+         :base-directory "~/Documents/nicemacs/"
+         :base-extension "org"
+         :publishing-directory "~/aezarebski.github.io/misc/nicemacs/"
+         :recursive ()
+         :publishing-function org-html-publish-to-html
+         )
+        ("org" :components ("org-notes" "org-static" "org-nicemacs"))
         ))
 #+end_src
 
 The following function simplifies the process of compiling the site and
-commiting it to github so it goes live.
+commiting it to github so it goes live. To enable this page to be copied to a
+file with a more sensible name and to have easier access to the logo there are
+some additional commands.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun publish-my-site ()
   "Publish site and open version control for the published site."
   (interactive)
   (org-publish "org")
+  (rename-file "~/aezarebski.github.io/misc/nicemacs/README.html"
+               "~/aezarebski.github.io/misc/nicemacs/index.html"
+               t)
+  (copy-file "~/Documents/nicemacs/resources/nicemacs-logo.png"
+             "~/aezarebski.github.io/misc/nicemacs/resources/nicemacs-logo.png"
+             t)
   (magit-status "~/aezarebski.github.io"))
 
 (spacemacs/set-leader-keys "oop" 'publish-my-site)

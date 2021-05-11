@@ -204,14 +204,26 @@ makes a copy of the one from one week ago."
          :recursive t
          :publishing-function org-publish-attachment
          )
-
-        ("org" :components ("org-notes" "org-static"))
+        ("org-nicemacs"
+         :base-directory "~/Documents/nicemacs/"
+         :base-extension "org"
+         :publishing-directory "~/aezarebski.github.io/misc/nicemacs/"
+         :recursive ()
+         :publishing-function org-html-publish-to-html
+         )
+        ("org" :components ("org-notes" "org-static" "org-nicemacs"))
         ))
 
 (defun publish-my-site ()
   "Publish site and open version control for the published site."
   (interactive)
   (org-publish "org")
+  (rename-file "~/aezarebski.github.io/misc/nicemacs/README.html"
+               "~/aezarebski.github.io/misc/nicemacs/index.html"
+               t)
+  (copy-file "~/Documents/nicemacs/resources/nicemacs-logo.png"
+             "~/aezarebski.github.io/misc/nicemacs/resources/nicemacs-logo.png"
+             t)
   (magit-status "~/aezarebski.github.io"))
 
 (spacemacs/set-leader-keys "oop" 'publish-my-site)
