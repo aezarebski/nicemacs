@@ -564,9 +564,10 @@ some additional commands.
   "Publish site and open version control for the published site."
   (interactive)
   (org-publish "org")
-  (rename-file "~/aezarebski.github.io/misc/nicemacs/README.html"
-               "~/aezarebski.github.io/misc/nicemacs/index.html"
-               t)
+  (let ((readme "~/aezarebski.github.io/misc/nicemacs/README.html")
+        (index "~/aezarebski.github.io/misc/nicemacs/index.html"))
+    (if (file-exists-p readme)
+        (copy-file readme index t)))
   (copy-file "~/Documents/nicemacs/resources/nicemacs-logo.png"
              "~/aezarebski.github.io/misc/nicemacs/resources/nicemacs-logo.png"
              t)
