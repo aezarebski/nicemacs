@@ -250,6 +250,13 @@ makes a copy of the one from one week ago."
 
 (add-to-list 'org-link-frame-setup '(file . find-file))
 
+(defun pop-shell-far-right ()
+  (interactive)
+  (spacemacs/default-pop-shell)
+  (evil-window-move-far-right))
+
+(spacemacs/set-leader-keys "\"" 'pop-shell-far-right)
+
 (spacemacs/declare-prefix "os" "sheila-menu")
 
 (spacemacs/set-leader-keys "osh" 'helm-eshell-history)
