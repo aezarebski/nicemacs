@@ -380,6 +380,20 @@ to have a function to do that. This will be bound to =olp= because it is opening
 (spacemacs/set-leader-keys "olp" 'nicemacs-open-review-pdf)
 #+end_src
 
+I have a page of tricky to spell words but it is usually easier to jump to the
+browser and check it that way which is a little silly. Instead the following
+binding will make it simple to jump to that page.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(defun nicemacs-open-spelling ()
+  "Open notes page on spelling and grammar."
+  (interactive)
+  (let ((page-path "/home/aez/public-site/org/misc/spelling.org"))
+    (find-file page-path)))
+
+(spacemacs/set-leader-keys "ols" 'nicemacs-open-spelling)
+#+end_src
+
 ** Org-mode
 
 Bindings for org-mode functionality start with =o o= for "owner org".

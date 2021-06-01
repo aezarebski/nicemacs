@@ -111,6 +111,14 @@ file."
 
 (spacemacs/set-leader-keys "olp" 'nicemacs-open-review-pdf)
 
+(defun nicemacs-open-spelling ()
+  "Open notes page on spelling and grammar."
+  (interactive)
+  (let ((page-path "/home/aez/public-site/org/misc/spelling.org"))
+    (find-file page-path)))
+
+(spacemacs/set-leader-keys "ols" 'nicemacs-open-spelling)
+
 (spacemacs/declare-prefix "oo" "org-menu")
 
 (spacemacs/declare-prefix "oot" "org-toggle-menu")
@@ -199,7 +207,7 @@ makes a copy of the one from one week ago."
          )
         ("org-static"
          :base-directory "~/public-site/org/"
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|txt\\|cur\\|svg\\|csv\\|json"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|txt\\|cur\\|svg\\|csv\\|html\\|json"
          :publishing-directory "~/aezarebski.github.io/"
          :recursive t
          :publishing-function org-publish-attachment
