@@ -394,6 +394,11 @@ binding will make it simple to jump to that page.
 (spacemacs/set-leader-keys "ols" 'nicemacs-open-spelling)
 #+end_src
 
+If you want a word count there is the =count-words= function. This is used so
+infrequently though that it is not really worth adding a binding for it. By
+default it counts the words in the current buffer, but if you have selected a
+region of text it will count the words and characters there.
+
 ** Org-mode
 
 Bindings for org-mode functionality start with =o o= for "owner org".
