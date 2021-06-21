@@ -207,7 +207,7 @@ makes a copy of the one from one week ago."
          )
         ("org-static"
          :base-directory "~/public-site/org/"
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|txt\\|cur\\|svg\\|csv\\|html\\|json"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|txt\\|cur\\|svg\\|csv\\|html\\|json\\|webp"
          :publishing-directory "~/aezarebski.github.io/"
          :recursive t
          :publishing-function org-publish-attachment
