@@ -383,11 +383,25 @@ buffer"
    "/home/aez/public-site/org/misc/spelling.org"
    "spelling"))
 
+(defun nvf-reading-list ()
+  (interactive)
+  (nicemacs-visit-friend
+   "/home/aez/Documents/bibliography/review/reading-list.tex"
+   "reading list"))
+
+(defun nvf-website ()
+  (interactive)
+  (nicemacs-visit-friend
+   "/home/aez/public-site/org/index.org"
+   "my website"))
+
 (spacemacs/set-leader-keys
   "ovc" 'nvf-colleagues
   "ovj" 'nicemacs-visit-journal
+  "ovl" 'nvf-reading-list
   "ovn" 'nvf-nicemacs
-  "ovs" 'nvf-spelling)
+  "ovs" 'nvf-spelling
+  "ovw" 'nvf-website)
 
 (spacemacs/set-leader-keys "ofb" 'ibuffer)
 ;; Open Ibuffer in the motion state rather than as the default emacs mode.

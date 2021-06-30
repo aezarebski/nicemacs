@@ -929,6 +929,18 @@ Then we need to define the actual files that we want listed
   (nicemacs-visit-friend
    "/home/aez/public-site/org/misc/spelling.org"
    "spelling"))
+
+(defun nvf-reading-list ()
+  (interactive)
+  (nicemacs-visit-friend
+   "/home/aez/Documents/bibliography/review/reading-list.tex"
+   "reading list"))
+
+(defun nvf-website ()
+  (interactive)
+  (nicemacs-visit-friend
+   "/home/aez/public-site/org/index.org"
+   "my website"))
 #+end_src
 
 And finally we need to writing keybindings for these.
@@ -937,8 +949,10 @@ And finally we need to writing keybindings for these.
 (spacemacs/set-leader-keys
   "ovc" 'nvf-colleagues
   "ovj" 'nicemacs-visit-journal
+  "ovl" 'nvf-reading-list
   "ovn" 'nvf-nicemacs
-  "ovs" 'nvf-spelling)
+  "ovs" 'nvf-spelling
+  "ovw" 'nvf-website)
 #+end_src
 
 *** Ibuffer
