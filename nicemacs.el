@@ -81,7 +81,7 @@ given to indicate this."
 
 (defun bibtex-ris2bib ()
   "Convert the most recent RIS file in my downloads to a BIB
-file."
+file. TODO Add error message if there are no RIS files."
   (interactive "*")
   (let* ((all-ris-files (directory-files "~/Downloads" 1 ".*ris"))
          (modification-time (lambda (fp)
@@ -110,14 +110,6 @@ file."
     (shell-command (concat pdf-viewer " " review-path " &"))))
 
 (spacemacs/set-leader-keys "olp" 'nicemacs-open-review-pdf)
-
-(defun nicemacs-open-spelling ()
-  "Open notes page on spelling and grammar."
-  (interactive)
-  (let ((page-path "/home/aez/public-site/org/misc/spelling.org"))
-    (find-file page-path)))
-
-(spacemacs/set-leader-keys "ols" 'nicemacs-open-spelling)
 
 (spacemacs/declare-prefix "oo" "org-menu")
 
@@ -188,7 +180,6 @@ makes a copy of the one from one week ago."
   (let ((agenda-file (nicemacs-journal-filepath)))
     (org-agenda-list)))
 
-(spacemacs/set-leader-keys "ooj" 'nicemacs-visit-journal)
 (spacemacs/set-leader-keys "ooa" 'nicemacs-visit-agenda)
 (spacemacs/set-leader-keys "oos" 'org-schedule)
 
@@ -361,6 +352,42 @@ buffer"
 (spacemacs/declare-prefix "of" "file-stuff")
 (spacemacs/set-leader-keys "off" 'find-file-at-point)
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
+
+(defun nicemacs-visit-friend (filepath filename)
+  "Visit a frequently used file."
+  (interactive)
+  (message (format "Visiting %s" filename))
+  (find-file filepath))
+
+(spacemacs/declare-prefix "ov" "visit friendly files")
+
+(defun nvf-nicemacs ()
+  (interactive)
+  (nicemacs-visit-friend
+   "~/Documents/nicemacs/README.org"
+   "nicemacs readme"))
+
+(defun nvf-colleagues ()
+  (interactive)
+  (nicemacs-visit-friend
+   "~/Documents/professional/colleague-details.org"
+   "colleagues notes"))
+
+(defun nvf-journal ()
+  (interactive)
+  (nicemacs-visit-journal))
+
+(defun nvf-spelling ()
+  (interactive)
+  (nicemacs-visit-friend
+   "/home/aez/public-site/org/misc/spelling.org"
+   "spelling"))
+
+(spacemacs/set-leader-keys
+  "ovc" 'nvf-colleagues
+  "ovj" 'nicemacs-visit-journal
+  "ovn" 'nvf-nicemacs
+  "ovs" 'nvf-spelling)
 
 (spacemacs/set-leader-keys "ofb" 'ibuffer)
 ;; Open Ibuffer in the motion state rather than as the default emacs mode.
