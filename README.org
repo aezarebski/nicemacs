@@ -941,16 +941,28 @@ Then we need to define the actual files that we want listed
   (nicemacs-visit-friend
    "/home/aez/public-site/org/index.org"
    "my website"))
+
+(defun nvf-references ()
+  (interactive)
+  (nicemacs-visit-friend
+   "/home/aez/Documents/bibliography/references.bib"
+   "references bibtex"))
+
+(defun nvf-last-bib ()
+  (interactive)
+  (last-bib))
 #+end_src
 
 And finally we need to writing keybindings for these.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/set-leader-keys
+  "ovb" 'nvf-last-bib
   "ovc" 'nvf-colleagues
   "ovj" 'nicemacs-visit-journal
   "ovl" 'nvf-reading-list
   "ovn" 'nvf-nicemacs
+  "ovr" 'nvf-references
   "ovs" 'nvf-spelling
   "ovw" 'nvf-website)
 #+end_src

@@ -395,11 +395,23 @@ buffer"
    "/home/aez/public-site/org/index.org"
    "my website"))
 
+(defun nvf-references ()
+  (interactive)
+  (nicemacs-visit-friend
+   "/home/aez/Documents/bibliography/references.bib"
+   "references bibtex"))
+
+(defun nvf-last-bib ()
+  (interactive)
+  (last-bib))
+
 (spacemacs/set-leader-keys
+  "ovb" 'nvf-last-bib
   "ovc" 'nvf-colleagues
   "ovj" 'nicemacs-visit-journal
   "ovl" 'nvf-reading-list
   "ovn" 'nvf-nicemacs
+  "ovr" 'nvf-references
   "ovs" 'nvf-spelling
   "ovw" 'nvf-website)
 
