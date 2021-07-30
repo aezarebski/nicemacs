@@ -663,8 +663,8 @@ set up anyway.
 #+BEGIN_SRC emacs-lisp
      (shell :variables
             shell-default-shell 'eshell
-            shell-default-position 'bottom
-            shell-default-height 10)
+            shell-default-position 'right
+            shell-default-width 50)
 #+END_SRC
 
 Sometimes it is nice to be able to quickly open a larger terminal window, the
@@ -672,12 +672,13 @@ following does this. The mnemonic here is that we are using the bigger quote
 mark so it opens the bigger terminal window.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defun pop-shell-far-right ()
+(defun shell-and-delete-windows ()
   (interactive)
   (spacemacs/default-pop-shell)
-  (evil-window-move-far-right))
+  (delete-other-windows)
+  )
 
-(spacemacs/set-leader-keys "\"" 'pop-shell-far-right)
+(spacemacs/set-leader-keys "\"" 'shell-and-delete-windows)
 #+end_src
 
 It is useful to have a prefix for more involved shell related commands
