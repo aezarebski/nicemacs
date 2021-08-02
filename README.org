@@ -1339,34 +1339,7 @@ literate programming style, so you probably just want to do that manually.
 
 * Maxima
 
-I have written a [[file:./maxima/README.org][Maxima layer]] for working with maxima in spacemacs. To make use
-of it, copy the directory =maxima= into =~/.emacs.d/private/= and add =maxima=
-to the layers list. Unfortunately it breaks most of the time so do not use it
-yet.
-
-** TODO Work out how to write a bloody layer for this!!!
-
-I just can't get a proper maxima layer set up so here is the basic functionality
-stored in the owner menu.
-
-#+BEGIN_SRC emacs-lisp :tangle blah-nicemacs.el
-(load "/usr/share/emacs/site-lisp/maxima/maxima-font-lock.el")
-(load "/usr/share/emacs/site-lisp/maxima/maxima.el")
-(spacemacs/declare-prefix "om" "maxima-menu")
-(spacemacs/set-leader-keys "omsb" 'maxima-send-buffer)
-(spacemacs/set-leader-keys "omsr" 'maxima-send-region)
-(spacemacs/set-leader-keys "omi" 'maxima-info)
-#+END_SRC
-
-We want files ending in =.mac= to open in maxima mode so we need to add this to
-the =auto-mode-alist=.
-
-#+begin_src emacs-lisp :tangle blah-nicemacs.el
-
-   ;; (autoload 'maxima-mode "maxima" "Maxima mode" t)
-   ;; (autoload 'maxima "maxima" "Maxima interaction" t)
-   (add-to-list 'auto-mode-alist '("\\.mac\\'" . maxima-mode))
-#+end_src
+See [[https://github.com/dalanicolai/maxima-layer][maxima-layer]] by [[https://dalanicolai.github.io/][Daniel Nicolai]]. 
 
 * Footnotes
 
