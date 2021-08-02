@@ -249,12 +249,13 @@ makes a copy of the one from one week ago."
 
 (add-to-list 'org-link-frame-setup '(file . find-file))
 
-(defun pop-shell-far-right ()
+(defun shell-and-delete-windows ()
   (interactive)
   (spacemacs/default-pop-shell)
-  (evil-window-move-far-right))
+  (delete-other-windows)
+  )
 
-(spacemacs/set-leader-keys "\"" 'pop-shell-far-right)
+(spacemacs/set-leader-keys "\"" 'shell-and-delete-windows)
 
 (spacemacs/declare-prefix "os" "sheila-menu")
 
