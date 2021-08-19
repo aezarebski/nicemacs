@@ -524,7 +524,8 @@ To make it easy to access these we will bind them to come convenient keys.
 *** Website
 
 Set up for publishing my website, note that this will write the output directly
-to the github repository for the site.
+to the github repository for the site. Note that the =:exclude= variable can be
+used to specify which files to ignore using a regular expression.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
   (require 'ox-publish)
@@ -560,13 +561,17 @@ to the github repository for the site.
 #+end_src
 
 The following function simplifies the process of compiling the site and
-commiting it to github so it goes live. To enable this page to be copied to a
+committing it to github so it goes live. To enable this page to be copied to a
 file with a more sensible name and to have easier access to the logo there are
 some additional commands.
 
+There are two functions here, the first, bound to =SPC oop= runs the publishing
+and =SPC ooP= runs the publishing and opens the magit buffer to commit and push
+the changes.
+
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun publish-my-site ()
-  "Publish site and open version control for the published site."
+  "Publish site."
   (interactive)
   (org-publish "org")
   (let ((readme "~/aezarebski.github.io/misc/nicemacs/README.html")
@@ -576,9 +581,17 @@ some additional commands.
   (copy-file "~/Documents/nicemacs/resources/nicemacs-logo.png"
              "~/aezarebski.github.io/misc/nicemacs/resources/nicemacs-logo.png"
              t)
-  (magit-status "~/aezarebski.github.io"))
+  )
+
+(defun publish-my-site-and-magit ()
+  "Publish site then open magit status buffer."
+  (interactive)
+  (publish-my-site)
+  (magit-status "~/aezarebski.github.io")
+  )
 
 (spacemacs/set-leader-keys "oop" 'publish-my-site)
+(spacemacs/set-leader-keys "ooP" 'publish-my-site-and-magit)
 #+end_src
 
 The following function is useful for going to the root of my notes site which is
