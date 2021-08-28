@@ -215,7 +215,14 @@ makes a copy of the one from one week ago."
          :recursive ()
          :publishing-function org-html-publish-to-html
          )
-        ("org" :components ("org-notes" "org-static" "org-nicemacs"))
+      ("org-bibliography"
+       :base-directory "~/Documents/bibliography/"
+       :base-extension "png"
+       :publishing-directory "~/aezarebski.github.io/resources/"
+       :recursive ()
+       :publishing-function org-publish-attachment
+       )
+      ("org" :components ("org-notes" "org-static" "org-nicemacs" "org-bibliography"))
         ))
 
 (defun publish-my-site ()
