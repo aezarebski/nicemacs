@@ -517,6 +517,15 @@ buffer"
 (spacemacs/set-leader-keys "our" 'insert-greek-small-rho)
 (spacemacs/set-leader-keys "ouR" 'insert-greek-capital-rho)
 
+(defun insert-greek-small-sigma ()
+  (interactive)
+  (insert-greek "small" "sigma"))
+(defun insert-greek-capital-sigma ()
+  (interactive)
+  (insert-greek "capital" "sigma"))
+(spacemacs/set-leader-keys "ous" 'insert-greek-small-sigma)
+(spacemacs/set-leader-keys "ouS" 'insert-greek-capital-sigma)
+
 (defun insert-greek-small-psi ()
   (interactive)
   (insert-greek "small" "psi"))
