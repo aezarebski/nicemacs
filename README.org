@@ -1013,18 +1013,17 @@ is bound to =SPC o f d= for owner-files-directory.
 
 To insert a unicode character based on its name use =C-x 8 RET=. Since typically
 this is just the Greek letters we can define the following function to make this
-easier.
+easier. 
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun insert-greek (case-name letter-name)
   (interactive)
-  (if
-      (equal case-name "small")
-      (insert (char-from-name (format "GREEK SMALL LETTER %s" (upcase letter-name))))
-      (insert (char-from-name (format "GREEK CAPITAL LETTER %s" (upcase letter-name))))))
+  (insert (char-from-name (upcase (format "GREEK %s LETTER %s" case-name letter-name)))))
 #+end_src
 
-Then we can add key bindings for this =SPC o u <l>= to insert the Greek letter.
+For example, to insert a lower case alpha, you would use =(insert-greek "small"
+"alpha")=. Then we can add key bindings for this =SPC o u <l>= to insert the
+Greek letter.
 
 *** TODO Work out how to abstract this with a macro.
 

@@ -436,12 +436,10 @@ buffer"
 
 (spacemacs/set-leader-keys "ofd" 'message-working-directory)
 
+
 (defun insert-greek (case-name letter-name)
   (interactive)
-  (if
-      (equal case-name "small")
-      (insert (char-from-name (format "GREEK SMALL LETTER %s" (upcase letter-name))))
-      (insert (char-from-name (format "GREEK CAPITAL LETTER %s" (upcase letter-name))))))
+  (insert (char-from-name (upcase (format "GREEK %s LETTER %s" case-name letter-name)))))
 
 (spacemacs/declare-prefix "ou" "unicode-stuff")
 
