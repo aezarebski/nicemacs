@@ -62,14 +62,18 @@
 (spacemacs/set-leader-keys "obr" 'references-bib-file)
 
 (defun last-bib ()
-  "Opens the most recent bibtex file in the Downloads directory
-in a new buffer. If there is no such file then a message is
-given to indicate this."
   (interactive)
-  (let* ((bib-files (directory-files-and-attributes "~/Downloads" t ".*bib" "ctime"))
-         (path-and-time (lambda (x) (list (first x) (eighth x))))
-         (time-order (lambda (a b) (time-less-p (second b) (second a))))
-         (most-recent (lambda (files) (car (car (sort (mapcar path-and-time files) time-order))))))
+  (let* ((bib-files (directory-files-and-attributes "~/Downloads"
+                                                    t ".*bib" "ctime"))
+         (path-and-time (lambda (x)
+                          (list (first x)
+                                (eighth x))))
+         (time-order (lambda (a b)
+                       (time-less-p (second b)
+                                    (second a))))
+         (most-recent (lambda (files)
+                        (car (car (sort (mapcar path-and-time files)
+                                        time-order))))))
     (if (not (null bib-files))
         (find-file (funcall most-recent bib-files))
       (message "No bib files found in ~/Downloads/"))))
@@ -435,7 +439,6 @@ buffer"
   (message default-directory))
 
 (spacemacs/set-leader-keys "ofd" 'message-working-directory)
-
 
 (defun insert-greek (case-name letter-name)
   (interactive)
