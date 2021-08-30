@@ -226,7 +226,6 @@ makes a copy of the one from one week ago."
         ))
 
 (defun publish-my-site ()
-  "Publish site."
   (interactive)
   (org-publish "org")
   (let ((readme "~/aezarebski.github.io/misc/nicemacs/README.html")
@@ -236,10 +235,12 @@ makes a copy of the one from one week ago."
   (copy-file "~/Documents/nicemacs/resources/nicemacs-logo.png"
              "~/aezarebski.github.io/misc/nicemacs/resources/nicemacs-logo.png"
              t)
+  (copy-file "~/public-site/org/scratch.html"
+             "~/aezarebski.github.io/index.html"
+             t)
   )
 
 (defun publish-my-site-and-magit ()
-  "Publish site then open magit status buffer."
   (interactive)
   (publish-my-site)
   (magit-status "~/aezarebski.github.io")

@@ -580,13 +580,13 @@ committing it to github so it goes live. To enable this page to be copied to a
 file with a more sensible name and to have easier access to the logo there are
 some additional commands.
 
-There are two functions here, the first, bound to =SPC oop= runs the publishing
-and =SPC ooP= runs the publishing and opens the magit buffer to commit and push
-the changes.
+There are two functions here, the first, =publish-my-site=, is bound to =SPC
+oop= runs the publishing and the second, =publish-my-site-and-magit=, bound to
+=SPC ooP= runs the publishing and opens the magit buffer to commit and push the
+changes.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun publish-my-site ()
-  "Publish site."
   (interactive)
   (org-publish "org")
   (let ((readme "~/aezarebski.github.io/misc/nicemacs/README.html")
@@ -596,10 +596,12 @@ the changes.
   (copy-file "~/Documents/nicemacs/resources/nicemacs-logo.png"
              "~/aezarebski.github.io/misc/nicemacs/resources/nicemacs-logo.png"
              t)
+  (copy-file "~/public-site/org/scratch.html"
+             "~/aezarebski.github.io/index.html"
+             t)
   )
 
 (defun publish-my-site-and-magit ()
-  "Publish site then open magit status buffer."
   (interactive)
   (publish-my-site)
   (magit-status "~/aezarebski.github.io")
