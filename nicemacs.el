@@ -490,6 +490,15 @@ buffer"
 (spacemacs/set-leader-keys "oud" 'insert-greek-small-delta)
 (spacemacs/set-leader-keys "ouD" 'insert-greek-capital-delta)
 
+(defun insert-greek-small-theta ()
+  (interactive)
+  (insert-greek "small" "theta"))
+(defun insert-greek-capital-theta ()
+  (interactive)
+  (insert-greek "capital" "theta"))
+(spacemacs/set-leader-keys "outh" 'insert-greek-small-theta)
+(spacemacs/set-leader-keys "ouTh" 'insert-greek-capital-theta)
+
 (defun insert-greek-small-lambda ()
   (interactive)
   (insert-greek "small" "lambda"))
