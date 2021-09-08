@@ -985,6 +985,14 @@ Then we need to define the actual files that we want listed
   (last-bib))
 #+end_src
 
+We can also define visiting functions for a dired buffer.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(defun nvf-professional ()
+  (interactive)
+  (dired-jump nil "/home/aez/Documents/professional/README.org"))
+#+end_src
+
 And finally we need to writing keybindings for these.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
@@ -995,6 +1003,7 @@ And finally we need to writing keybindings for these.
   "ovl" 'nvf-reading-list
   "ovn" 'nvf-nicemacs
   "ovr" 'nvf-references
+  "ovp" 'nvf-professional
   "ovs" 'nvf-spelling
   "ovw" 'nvf-website)
 #+end_src

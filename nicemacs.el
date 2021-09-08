@@ -427,6 +427,10 @@ buffer"
   (interactive)
   (last-bib))
 
+(defun nvf-professional ()
+  (interactive)
+  (dired-jump nil "/home/aez/Documents/professional/README.org"))
+
 (spacemacs/set-leader-keys
   "ovb" 'nvf-last-bib
   "ovc" 'nvf-colleagues
@@ -434,6 +438,7 @@ buffer"
   "ovl" 'nvf-reading-list
   "ovn" 'nvf-nicemacs
   "ovr" 'nvf-references
+  "ovp" 'nvf-professional
   "ovs" 'nvf-spelling
   "ovw" 'nvf-website)
 
