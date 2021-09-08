@@ -1255,6 +1255,8 @@ library(coda)
 
 *** Useful programming snippets
 
+**** Writing CSV
+
 A snippet with sensible defaults for writing a data frame to CSV
 
 #+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rtable
@@ -1270,6 +1272,25 @@ write.table(x = $1,
 
 $0
 #+END_SRC
+
+**** Writing JSON
+
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rjsonoutput
+# -*- mode: snippet -*-
+# name: JSON output from R using jsonlite
+# key: rhelp-json-output
+# --
+
+jsonlite::write_json(
+  x = $1,
+  path = $2,
+  auto_unbox = T
+)
+
+$0
+#+END_SRC
+
+**** Main function
 
 A snippet to provide a main function which only runs when the script is called
 from the command line and passes any command line arguments through.
