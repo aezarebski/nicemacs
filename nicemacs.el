@@ -413,9 +413,7 @@ buffer"
 
 (defun nvf-website ()
   (interactive)
-  (nicemacs-visit-friend
-   "/home/aez/public-site/org/index.org"
-   "my website"))
+  (dired-jump nil "/home/aez/public-site/org/index.org"))
 
 (defun nvf-references ()
   (interactive)
