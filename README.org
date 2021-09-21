@@ -1297,6 +1297,43 @@ jsonlite::write_json(
 $0
 #+END_SRC
 
+**** Writing HTML
+
+#+begin_src snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rhtml
+# -*- mode: snippet -*-
+# name: Programmatically generating HTML
+# key: rhelp-html
+# --
+library(htmltools)
+library(base64enc)
+
+#' An HTML tag encoding an image stored in a PNG.
+#'
+#' This uses the \code{base64enc} and \code{htmltools} packages.
+#'
+#' @param filepath is the path to the PNG
+#' @param ... is additional arguments to \code{tags$img} such as style.
+#'
+png_as_img <- function(filepath, ...) {
+  if (tools::file_ext(filepath) == "png") {
+    b64 <- base64enc::base64encode(what = filepath)
+    tags$img(
+      src = paste("data:image/png;base64", b64, sep = ","),
+      ...
+    )
+  } else {
+    stop("Filepath given to png_as_img must be a PNG.")
+  }
+}
+
+html_body <-
+  tags$body(
+    tags$h1("Hello World!")
+  )
+
+save_html(html_body, file = "index.html")
+#+end_src
+
 **** Main function
 
 A snippet to provide a main function which only runs when the script is called
@@ -1314,9 +1351,50 @@ main <- function(args) {
 
 if (!interactive()) {
   args <- commandArgs(trailingOnly = TRUE)
+  # if you are using argparse this might help...
+  # args <- parser$parse_args()
   main(args)
 }
 #+END_SRC
+
+**** Parse command line arguments
+
+The [[https://cran.r-project.org/web/packages/argparse/index.html][argparse]] library, inspired by the python equivalent, provides a simple way
+to build up CLIs.
+
+#+begin_src snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/argparse
+# -*- mode: snippet -*-
+# name: Example of how to use the argparse library
+# key: rhelp-argparse
+# --
+
+library(argparse)
+
+# create parser object
+parser <- ArgumentParser()
+
+parser$add_argument(
+         "-v",
+         "--verbose",
+         action = "store_true",
+         default = FALSE,
+         help = "Verbose output"
+       )
+parser$add_argument(
+         "-s",
+         "--seed",
+         type = "integer",
+         default = 1,
+         help = "PRNG seed"
+       )
+parser$add_argument(
+         "-p",
+         "--parameters",
+         type = "character",
+         help = "Filepath to parameters JSON"
+       )
+#+end_src
+
 
 ** Vega-Lite
 
