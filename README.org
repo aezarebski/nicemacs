@@ -48,11 +48,13 @@ should also document the configuration layers that I use.
      better-defaults
      bibtex
      csv
+     dhall
      emacs-lisp
      epub
      (ess :variables
           ess-r-backend 'ess)
      git
+     hackernews
      (haskell :variables
               haskell-completion-backend 'lsp
               haskell-process-type 'stack-ghci
@@ -61,11 +63,12 @@ should also document the configuration layers that I use.
      html
      (javascript :variables
                  javascript-import-tool 'import-js
-                 javascript-repl `nodejs
+                 javascript-repl 'nodejs
                  javascript-backend 'tern
                  javascript-fmt-tool 'web-beautify)
      latex
-     markdown
+     lsp
+     maxima
      multiple-cursors
      nixos
      org
@@ -73,8 +76,8 @@ should also document the configuration layers that I use.
      semantic
      (shell :variables
             shell-default-shell 'eshell
-            shell-default-position 'bottom
-            shell-default-width 30)
+            shell-default-position 'right
+            shell-default-width 50)
      speed-reading
      (spell-checking :variables
                      spell-checking-enable-by-default nil
