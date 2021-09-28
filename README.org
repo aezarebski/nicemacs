@@ -54,7 +54,8 @@ should also document the configuration layers that I use.
      (ess :variables
           ess-r-backend 'ess)
      git
-     hackernews
+     (hackernews :variables
+                 hackernews-items-per-page 24)
      (haskell :variables
               haskell-completion-backend 'lsp
               haskell-process-type 'stack-ghci
@@ -89,7 +90,10 @@ should also document the configuration layers that I use.
      treemacs)
 #+end_src
 
-The =semantic= layer is needed for formating emacs lisp code.
+- The =semantic= layer is needed for formating emacs lisp code.
+- The =hackernews= layer provides an application for reading hacker news
+  + the application is bound to =SPC a w h=
+  + the variable =hackernews-items-per-page= describes how many to display.
 
 ** Stuff
 
