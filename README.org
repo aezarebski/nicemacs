@@ -1400,6 +1400,8 @@ parser$add_argument(
          type = "character",
          help = "Filepath to parameters JSON"
        )
+
+args <- parser$parse_args()
 #+end_src
 
 
