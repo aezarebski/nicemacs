@@ -910,6 +910,9 @@ And when we are updating the reading list it is always the same...
 
 ** File and buffer manipulation
 
+If you want to kill buffers with names that match a regex there is the
+=kill-matching-buffers= function.
+
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun kill-all-other-buffers ()
   "Kill all the buffers other than the current one."
