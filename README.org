@@ -929,6 +929,15 @@ And when we are updating the reading list it is always the same...
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 #+end_src
 
+*** Dired
+
+By default dired displays the size of files in bytes, a more human friendly
+description can be obtained by modifying the =dired-listing-switches= variable.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(setq dired-listing-switches "-alh")
+#+end_src
+
 *** Visiting friends
 
 The following functionality is useful for defining visitors of frequently needed

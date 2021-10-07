@@ -375,6 +375,8 @@ buffer"
 (spacemacs/set-leader-keys "off" 'find-file-at-point)
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 
+(setq dired-listing-switches "-alh")
+
 (defun nicemacs-visit-friend (filepath filename)
   "Visit a frequently used file."
   (interactive)
