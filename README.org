@@ -987,10 +987,6 @@ Then we need to define the actual files that we want listed
    "/home/aez/Documents/bibliography/review/reading-list.tex"
    "reading list"))
 
-(defun nvf-website ()
-  (interactive)
-  (dired-jump nil "/home/aez/public-site/org/index.org"))
-
 (defun nvf-references ()
   (interactive)
   (nicemacs-visit-friend
@@ -1000,6 +996,33 @@ Then we need to define the actual files that we want listed
 (defun nvf-last-bib ()
   (interactive)
   (last-bib))
+
+#+end_src
+
+And some for specifically visiting the website and associated notes files
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(defun nvf-website ()
+  (interactive)
+  (dired-jump nil "/home/aez/public-site/org/index.org"))
+
+(defun nvf-haskell-notes ()
+  (interactive)
+  (nicemacs-visit-friend
+   "/home/aez/public-site/org/notes/haskell-notes.org"
+   "Haskell notes"))
+
+(defun nvf-python-notes ()
+  (interactive)
+  (nicemacs-visit-friend
+   "/home/aez/public-site/org/notes/python-notes.org"
+   "Python notes"))
+
+(defun nvf-r-notes ()
+  (interactive)
+  (nicemacs-visit-friend
+   "/home/aez/public-site/org/notes/r-notes.org"
+   "R notes"))
 #+end_src
 
 We can also define visiting functions for a dired buffer.
@@ -1016,11 +1039,14 @@ And finally we need to writing keybindings for these.
 (spacemacs/set-leader-keys
   "ovb" 'nvf-last-bib
   "ovc" 'nvf-colleagues
+  "ove" 'nvf-nicemacs
   "ovj" 'nicemacs-visit-journal
   "ovl" 'nvf-reading-list
-  "ovn" 'nvf-nicemacs
-  "ovr" 'nvf-references
+  "ovnh" 'nvf-haskell-notes
+  "ovnp" 'nvf-python-notes
+  "ovnr" 'nvf-r-notes
   "ovp" 'nvf-professional
+  "ovr" 'nvf-references
   "ovs" 'nvf-spelling
   "ovw" 'nvf-website)
 #+end_src

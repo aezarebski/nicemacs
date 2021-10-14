@@ -413,10 +413,6 @@ buffer"
    "/home/aez/Documents/bibliography/review/reading-list.tex"
    "reading list"))
 
-(defun nvf-website ()
-  (interactive)
-  (dired-jump nil "/home/aez/public-site/org/index.org"))
-
 (defun nvf-references ()
   (interactive)
   (nicemacs-visit-friend
@@ -427,6 +423,28 @@ buffer"
   (interactive)
   (last-bib))
 
+(defun nvf-website ()
+  (interactive)
+  (dired-jump nil "/home/aez/public-site/org/index.org"))
+
+(defun nvf-haskell-notes ()
+  (interactive)
+  (nicemacs-visit-friend
+   "/home/aez/public-site/org/notes/haskell-notes.org"
+   "Haskell notes"))
+
+(defun nvf-python-notes ()
+  (interactive)
+  (nicemacs-visit-friend
+   "/home/aez/public-site/org/notes/python-notes.org"
+   "Python notes"))
+
+(defun nvf-r-notes ()
+  (interactive)
+  (nicemacs-visit-friend
+   "/home/aez/public-site/org/notes/r-notes.org"
+   "R notes"))
+
 (defun nvf-professional ()
   (interactive)
   (dired-jump nil "/home/aez/Documents/professional/README.org"))
@@ -434,11 +452,14 @@ buffer"
 (spacemacs/set-leader-keys
   "ovb" 'nvf-last-bib
   "ovc" 'nvf-colleagues
+  "ove" 'nvf-nicemacs
   "ovj" 'nicemacs-visit-journal
   "ovl" 'nvf-reading-list
-  "ovn" 'nvf-nicemacs
-  "ovr" 'nvf-references
+  "ovnh" 'nvf-haskell-notes
+  "ovnp" 'nvf-python-notes
+  "ovnr" 'nvf-r-notes
   "ovp" 'nvf-professional
+  "ovr" 'nvf-references
   "ovs" 'nvf-spelling
   "ovw" 'nvf-website)
 
