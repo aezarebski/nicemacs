@@ -433,6 +433,12 @@ buffer"
    "/home/aez/public-site/org/notes/haskell-notes.org"
    "Haskell notes"))
 
+(defun nvf-java-notes ()
+  (interactive)
+  (nicemacs-visit-friend
+   "/home/aez/public-site/org/notes/java-notes.org"
+   "Java notes"))
+
 (defun nvf-python-notes ()
   (interactive)
   (nicemacs-visit-friend
@@ -456,6 +462,7 @@ buffer"
   "ovj" 'nicemacs-visit-journal
   "ovl" 'nvf-reading-list
   "ovnh" 'nvf-haskell-notes
+  "ovnj" 'nvf-java-notes
   "ovnp" 'nvf-python-notes
   "ovnr" 'nvf-r-notes
   "ovp" 'nvf-professional

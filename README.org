@@ -1002,27 +1002,33 @@ Then we need to define the actual files that we want listed
 And some for specifically visiting the website and associated notes files
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defun nvf-website ()
-  (interactive)
-  (dired-jump nil "/home/aez/public-site/org/index.org"))
+  (defun nvf-website ()
+    (interactive)
+    (dired-jump nil "/home/aez/public-site/org/index.org"))
 
-(defun nvf-haskell-notes ()
-  (interactive)
-  (nicemacs-visit-friend
-   "/home/aez/public-site/org/notes/haskell-notes.org"
-   "Haskell notes"))
+  (defun nvf-haskell-notes ()
+    (interactive)
+    (nicemacs-visit-friend
+     "/home/aez/public-site/org/notes/haskell-notes.org"
+     "Haskell notes"))
 
-(defun nvf-python-notes ()
-  (interactive)
-  (nicemacs-visit-friend
-   "/home/aez/public-site/org/notes/python-notes.org"
-   "Python notes"))
+  (defun nvf-java-notes ()
+    (interactive)
+    (nicemacs-visit-friend
+     "/home/aez/public-site/org/notes/java-notes.org"
+     "Java notes"))
 
-(defun nvf-r-notes ()
-  (interactive)
-  (nicemacs-visit-friend
-   "/home/aez/public-site/org/notes/r-notes.org"
-   "R notes"))
+  (defun nvf-python-notes ()
+    (interactive)
+    (nicemacs-visit-friend
+     "/home/aez/public-site/org/notes/python-notes.org"
+     "Python notes"))
+
+  (defun nvf-r-notes ()
+    (interactive)
+    (nicemacs-visit-friend
+     "/home/aez/public-site/org/notes/r-notes.org"
+     "R notes"))
 #+end_src
 
 We can also define visiting functions for a dired buffer.
@@ -1043,6 +1049,7 @@ And finally we need to writing keybindings for these.
   "ovj" 'nicemacs-visit-journal
   "ovl" 'nvf-reading-list
   "ovnh" 'nvf-haskell-notes
+  "ovnj" 'nvf-java-notes
   "ovnp" 'nvf-python-notes
   "ovnr" 'nvf-r-notes
   "ovp" 'nvf-professional
