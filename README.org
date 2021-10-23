@@ -1085,6 +1085,12 @@ is bound to =SPC o f d= for owner-files-directory.
 (spacemacs/set-leader-keys "ofd" 'message-working-directory)
 #+end_src
 
+** treemacs
+
+Treemacs provides a file and project explorer. To summon treemacs use =SPC f t=
+(=treemacs=). To edit the directories it tracks use the
+=treemacs-edit-workspaces= function.
+
 ** Unicode and Greek letters
 
 To insert a unicode character based on its name use =C-x 8 RET=. Since typically
