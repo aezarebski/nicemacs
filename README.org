@@ -8,7 +8,7 @@
 * Spacemacs configuration
 
 ** Usage notes
-   
+
 To tangle the =nicemacs.el= file from the command line execute the following
 command:
 
@@ -158,7 +158,7 @@ unnecessary calls to a completion backend.
 [[*LSP and Haskell]]
 
 - [[*LSP with ESS]]
-  
+
 The path to the current file in LSP is a little unnecessary.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
@@ -175,7 +175,7 @@ sideline display.
 (setq lsp-ui-sideline-delay 1.0)
 #+end_src
 
-** Haskell 
+** Haskell
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/declare-prefix "oh" "haskell-menu")
@@ -222,22 +222,22 @@ setting the =lsp-haskell-server-path= to the executable solved things.
 
 1. Install =ghcup=, which will also offer to install the haskell language server
    for you.
-   
+
 [[https://github.com/haskell/haskell-language-server#installation][GHCUP installation instructions are here]]
 
 2. Make sure that this has been added to the =exec-path= and that
    =lsp-haskell-server-path= is set. Note that some projects might get upset
    about the language server being used, adjust this and restarting emacs is a
    hacky solution by it works.
-   
+
 #+begin_src emacs-lisp :tangle nicemacs.el
 (setq exec-path (append exec-path '("/home/aez/.ghcup/bin")))
 (setq lsp-haskell-server-path "/home/aez/.ghcup/bin/haskell-language-server-8.10.4")
 #+end_src
 
 3. Make sure that the layer variables have been set to use LSP.
- 
-#+begin_src emacs-lisp 
+
+#+begin_src emacs-lisp
      (haskell :variables
               haskell-completion-backend 'lsp
               haskell-process-type 'stack-ghci)
@@ -271,7 +271,7 @@ for this.
 #+end_src
 
 This is a /latex/ file for my /reviews/ so the binding is =olr=.
- 
+
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun review-tex-file ()
   "Open my review.tex file"
@@ -372,7 +372,7 @@ remember. *Owner* *Bibtex* *X* where
 - *C* for /convert/ between RIS and bibtex,
 - *F* for /format/ the current buffer,
 - *L* for /last/ bibtex file in =Downloads= and
-  
+
 #+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/set-leader-keys "obl" 'last-bib)
 (spacemacs/set-leader-keys "obf" 'bibtex-reformat)
@@ -544,7 +544,7 @@ used to specify which files to ignore using a regular expression.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
   (require 'ox-publish)
-  
+
   (setq org-publish-project-alist
         '(
           ("org-notes"
@@ -639,7 +639,7 @@ new lines of text start at the start of the line. This can be achieved by
 setting =org-adapt-indentation= to =nil=.
 
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
-(setq org-adapt-indentation nil) 
+(setq org-adapt-indentation nil)
 #+END_SRC
 
 *** Miscellaneous
@@ -754,7 +754,7 @@ edit the aliases in the eshell is using the definitions below!
 If you want to create an alias in the eshell the following examples of a command
 to run in the shell will achieve this.
 
-#+begin_src 
+#+begin_src
 alias cdk cd ..
 alias ff find-file $1
 #+end_src
@@ -947,93 +947,47 @@ The following functionality is useful for defining visitors of frequently needed
 files.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defun nicemacs-visit-friend (filepath filename)
-  "Visit a frequently used file."
-  (interactive)
-  (message (format "Visiting %s" filename))
-  (find-file filepath))
-
 (spacemacs/declare-prefix "ov" "visit friendly files")
+
+(defmacro nicemacs-visit (fname pname path)
+  (list 'defun (intern (format "nvf-%s" fname)) ()
+        (list 'interactive)
+        (list 'progn
+              (list 'message (format "Visiting %s" pname))
+              (list 'find-file path))))
 #+end_src
 
 Then we need to define the actual files that we want listed
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defun nvf-nicemacs ()
-  (interactive)
-  (nicemacs-visit-friend
-   "~/Documents/nicemacs/README.org"
-   "nicemacs readme"))
+  (nicemacs-visit nicemacs "nicemacs README" "~/Documents/nicemacs/README.org")
+  (nicemacs-visit colleagues "Colleagues notes" "~/Documents/professional/colleague-details.org")
+  (nicemacs-visit spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
+  (nicemacs-visit haskell-notes "Haskell notes" "/home/aez/public-site/org/notes/haskell-notes.org")
+  (nicemacs-visit java-notes "Java notes" "/home/aez/public-site/org/notes/java-notes.org")
+  (nicemacs-visit python-notes "Python notes" "/home/aez/public-site/org/notes/python-notes.org")
+  (nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
+  (nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
+  (nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review/reading-list.tex")
+  (nicemacs-visit references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
+#+end_src
 
-(defun nvf-colleagues ()
-  (interactive)
-  (nicemacs-visit-friend
-   "~/Documents/professional/colleague-details.org"
-   "colleagues notes"))
+There are some visitor functions that we want that are easier just to define
+manually.
 
+#+begin_src emacs-lisp :tangle nicemacs.el
 (defun nvf-journal ()
   (interactive)
   (nicemacs-visit-journal))
-
-(defun nvf-spelling ()
-  (interactive)
-  (nicemacs-visit-friend
-   "/home/aez/public-site/org/misc/spelling.org"
-   "spelling"))
-
-(defun nvf-reading-list ()
-  (interactive)
-  (nicemacs-visit-friend
-   "/home/aez/Documents/bibliography/review/reading-list.tex"
-   "reading list"))
-
-(defun nvf-references ()
-  (interactive)
-  (nicemacs-visit-friend
-   "/home/aez/Documents/bibliography/references.bib"
-   "references bibtex"))
 
 (defun nvf-last-bib ()
   (interactive)
   (last-bib))
 
-#+end_src
+(defun nvf-website ()
+  (interactive)
+  (dired-jump nil "/home/aez/public-site/org/index.org"))
 
-And some for specifically visiting the website and associated notes files
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-  (defun nvf-website ()
-    (interactive)
-    (dired-jump nil "/home/aez/public-site/org/index.org"))
-
-  (defun nvf-haskell-notes ()
-    (interactive)
-    (nicemacs-visit-friend
-     "/home/aez/public-site/org/notes/haskell-notes.org"
-     "Haskell notes"))
-
-  (defun nvf-java-notes ()
-    (interactive)
-    (nicemacs-visit-friend
-     "/home/aez/public-site/org/notes/java-notes.org"
-     "Java notes"))
-
-  (defun nvf-python-notes ()
-    (interactive)
-    (nicemacs-visit-friend
-     "/home/aez/public-site/org/notes/python-notes.org"
-     "Python notes"))
-
-  (defun nvf-r-notes ()
-    (interactive)
-    (nicemacs-visit-friend
-     "/home/aez/public-site/org/notes/r-notes.org"
-     "R notes"))
-#+end_src
-
-We can also define visiting functions for a dired buffer.
-
-#+begin_src emacs-lisp :tangle nicemacs.el
 (defun nvf-professional ()
   (interactive)
   (dired-jump nil "/home/aez/Documents/professional/README.org"))
@@ -1046,10 +1000,11 @@ And finally we need to writing keybindings for these.
   "ovb" 'nvf-last-bib
   "ovc" 'nvf-colleagues
   "ove" 'nvf-nicemacs
-  "ovj" 'nicemacs-visit-journal
+  "ovj" 'nvf-journal
   "ovl" 'nvf-reading-list
   "ovnh" 'nvf-haskell-notes
   "ovnj" 'nvf-java-notes
+  "ovno" 'nvf-org-mode-notes
   "ovnp" 'nvf-python-notes
   "ovnr" 'nvf-r-notes
   "ovp" 'nvf-professional
@@ -1095,7 +1050,7 @@ Treemacs provides a file and project explorer. To summon treemacs use =SPC f t=
 
 To insert a unicode character based on its name use =C-x 8 RET=. Since typically
 this is just the Greek letters we can define the following function to make this
-easier. 
+easier.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun insert-greek (case-name letter-name)
@@ -1259,7 +1214,7 @@ an error, "No JavaScript AST available". Things are working fine in other modes
 so this might be something javascript specific, in which case, it is probably
 easier just to call =yas-insert-snippet= directly when editing JSON.
 
-** R 
+** R
 
 The R snippets can be roughly devided into those that provide useful [[*Useful
 package collections]] and those that provide [[*Useful programming snippets]]. Those
@@ -1293,7 +1248,7 @@ aren't needed enough to be imported by default.
 library(jsonlite)
 library(reshape2)
 library(stringr)
-library(whisker)  
+library(whisker)
 #+END_SRC
 
 A snippet to include packages that are useful when working with geographic data
@@ -1524,7 +1479,7 @@ A snippet for a very simple histogram in vega-lite.
 # key: header
 # --
 
-#+header: 
+#+header:
 #+end_src
 
 *** name
@@ -1535,7 +1490,7 @@ A snippet for a very simple histogram in vega-lite.
 # key: name
 # --
 
-#+name: 
+#+name:
 #+end_src
 
 *** title
@@ -1546,7 +1501,7 @@ A snippet for a very simple histogram in vega-lite.
 # key: title
 # --
 
-#+title: 
+#+title:
 #+end_src
 
 Unfortunately it is very difficult to write a source block snippet in this
@@ -1554,7 +1509,7 @@ literate programming style, so you probably just want to do that manually.
 
 * Maxima
 
-See [[https://github.com/dalanicolai/maxima-layer][maxima-layer]] by [[https://dalanicolai.github.io/][Daniel Nicolai]]. 
+See [[https://github.com/dalanicolai/maxima-layer][maxima-layer]] by [[https://dalanicolai.github.io/][Daniel Nicolai]].
 
 * Footnotes
 
