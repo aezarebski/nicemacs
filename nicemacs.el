@@ -451,6 +451,12 @@ buffer"
    "/home/aez/public-site/org/notes/r-notes.org"
    "R notes"))
 
+(defun nvf-org-mode-notes ()
+  (interactive)
+  (nicemacs-visit-friend
+   "/home/aez/public-site/org/notes/org-mode-notes.org"
+   "orgmode notes"))
+
 (defun nvf-professional ()
   (interactive)
   (dired-jump nil "/home/aez/Documents/professional/README.org"))
@@ -463,6 +469,7 @@ buffer"
   "ovl" 'nvf-reading-list
   "ovnh" 'nvf-haskell-notes
   "ovnj" 'nvf-java-notes
+  "ovno" 'nvf-org-mode-notes
   "ovnp" 'nvf-python-notes
   "ovnr" 'nvf-r-notes
   "ovp" 'nvf-professional
