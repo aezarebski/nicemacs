@@ -377,47 +377,29 @@ buffer"
 
 (setq dired-listing-switches "-alh")
 
-(defun nicemacs-visit-friend (filepath filename)
-  "Visit a frequently used file."
-  (interactive)
-  (message (format "Visiting %s" filename))
-  (find-file filepath))
-
 (spacemacs/declare-prefix "ov" "visit friendly files")
 
-(defun nvf-nicemacs ()
-  (interactive)
-  (nicemacs-visit-friend
-   "~/Documents/nicemacs/README.org"
-   "nicemacs readme"))
+(defmacro nicemacs-visit (fname pname path)
+  (list 'defun (intern (format "nvf-%s" fname)) ()
+        (list 'interactive)
+        (list 'progn
+              (list 'message (format "Visiting %s" pname))
+              (list 'find-file path))))
 
-(defun nvf-colleagues ()
-  (interactive)
-  (nicemacs-visit-friend
-   "~/Documents/professional/colleague-details.org"
-   "colleagues notes"))
+(nicemacs-visit nicemacs "nicemacs README" "~/Documents/nicemacs/README.org")
+(nicemacs-visit colleagues "Colleagues notes" "~/Documents/professional/colleague-details.org")
+(nicemacs-visit spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
+(nicemacs-visit haskell-notes "Haskell notes" "/home/aez/public-site/org/notes/haskell-notes.org")
+(nicemacs-visit java-notes "Java notes" "/home/aez/public-site/org/notes/java-notes.org")
+(nicemacs-visit python-notes "Python notes" "/home/aez/public-site/org/notes/python-notes.org")
+(nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
+(nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
+(nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review/reading-list.tex")
+(nicemacs-visit references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
 
 (defun nvf-journal ()
   (interactive)
   (nicemacs-visit-journal))
-
-(defun nvf-spelling ()
-  (interactive)
-  (nicemacs-visit-friend
-   "/home/aez/public-site/org/misc/spelling.org"
-   "spelling"))
-
-(defun nvf-reading-list ()
-  (interactive)
-  (nicemacs-visit-friend
-   "/home/aez/Documents/bibliography/review/reading-list.tex"
-   "reading list"))
-
-(defun nvf-references ()
-  (interactive)
-  (nicemacs-visit-friend
-   "/home/aez/Documents/bibliography/references.bib"
-   "references bibtex"))
 
 (defun nvf-last-bib ()
   (interactive)
@@ -427,36 +409,6 @@ buffer"
   (interactive)
   (dired-jump nil "/home/aez/public-site/org/index.org"))
 
-(defun nvf-haskell-notes ()
-  (interactive)
-  (nicemacs-visit-friend
-   "/home/aez/public-site/org/notes/haskell-notes.org"
-   "Haskell notes"))
-
-(defun nvf-java-notes ()
-  (interactive)
-  (nicemacs-visit-friend
-   "/home/aez/public-site/org/notes/java-notes.org"
-   "Java notes"))
-
-(defun nvf-python-notes ()
-  (interactive)
-  (nicemacs-visit-friend
-   "/home/aez/public-site/org/notes/python-notes.org"
-   "Python notes"))
-
-(defun nvf-r-notes ()
-  (interactive)
-  (nicemacs-visit-friend
-   "/home/aez/public-site/org/notes/r-notes.org"
-   "R notes"))
-
-(defun nvf-org-mode-notes ()
-  (interactive)
-  (nicemacs-visit-friend
-   "/home/aez/public-site/org/notes/org-mode-notes.org"
-   "orgmode notes"))
-
 (defun nvf-professional ()
   (interactive)
   (dired-jump nil "/home/aez/Documents/professional/README.org"))
@@ -465,7 +417,7 @@ buffer"
   "ovb" 'nvf-last-bib
   "ovc" 'nvf-colleagues
   "ove" 'nvf-nicemacs
-  "ovj" 'nicemacs-visit-journal
+  "ovj" 'nvf-journal
   "ovl" 'nvf-reading-list
   "ovnh" 'nvf-haskell-notes
   "ovnj" 'nvf-java-notes
