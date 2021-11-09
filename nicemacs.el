@@ -387,6 +387,7 @@ buffer"
               (list 'find-file path))))
 
 (nicemacs-visit nicemacs "nicemacs README" "~/Documents/nicemacs/README.org")
+(nicemacs-visit beast-notes "BEAST2 notes" "/home/aez/public-site/org/notes/beast2-notes.org")
 (nicemacs-visit colleagues "Colleagues notes" "~/Documents/professional/colleague-details.org")
 (nicemacs-visit spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
 (nicemacs-visit haskell-notes "Haskell notes" "/home/aez/public-site/org/notes/haskell-notes.org")
@@ -419,6 +420,7 @@ buffer"
   "ove" 'nvf-nicemacs
   "ovj" 'nvf-journal
   "ovl" 'nvf-reading-list
+  "ovnb" 'nvf-beast-notes
   "ovnh" 'nvf-haskell-notes
   "ovnj" 'nvf-java-notes
   "ovno" 'nvf-org-mode-notes
