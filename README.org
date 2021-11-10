@@ -438,6 +438,10 @@ how wide the display should be.
 (spacemacs/set-leader-keys "ootw" 'toggle-writeroom)
 #+end_src
 
+*** Spell checking
+
+Highlight the text and use =SPC S r= to spellcheck that region.
+
 *** Literate programming
 
 The =org-babel-tangle= function will tangle the current org-mode file. This is
