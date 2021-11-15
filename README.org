@@ -416,6 +416,40 @@ for toggle style functions we will have a submenu.
 
 *** Writing prose
 
+The following can be used to hide extra markup symbols
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (setq org-hide-emphasis-markers t)
+#+end_src
+
+We can use a hook to switch to proportional font for org-mode, because lines now
+become a bit tricky we need to include =visual-line-mode= otherwise things look
+weird.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (add-hook 'org-mode-hook 'variable-pitch-mode)
+  (add-hook 'org-mode-hook 'visual-line-mode)
+#+end_src
+
+To make sure that code blocks are still rendered with a fixed width font we need
+to specify this.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (custom-theme-set-faces
+   'user
+   '(org-block ((t (:inherit fixed-pitch))))
+   '(org-code ((t (:inherit (shadow fixed-pitch)))))
+   '(org-document-info ((t (:inherit fixed-pitch))))
+   '(org-document-info-keyword ((t (:inherit fixed-pitch))))
+   '(org-link ((t (:underline t))))
+   '(org-meta-line ((t (:inherit fixed-pitch))))
+   '(org-property-value ((t (:inherit fixed-pitch))) t)
+   '(org-special-keyword ((t (:inherit fixed-pitch))))
+   '(org-table ((t (:inherit fixed-pitch))))
+   '(org-tag ((t (:inherit fixed-pitch))))
+   '(org-verbatim ((t (:inherit fixed-pitch)))))
+#+end_src
+
 The =writeroom-mode= provides a clean setup for writing prose. It centres the
 text and removes visual distractions. The following little function sets up a
 toggle to turn this on and off. There is a variable =writeroom-width= to specify
