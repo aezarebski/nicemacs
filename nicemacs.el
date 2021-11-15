@@ -314,6 +314,7 @@ makes a copy of the one from one week ago."
 (eshell/alias "cdk" "cd ..")
 (eshell/alias "cdkk" "cd ../..")
 (eshell/alias "cdkkk" "cd ../../..")
+(eshell/alias "ls1" "ls -1 $1")
 (eshell/alias "ff" "find-file $1")
 
 (setq eshell-cmpl-ignore-case t)
