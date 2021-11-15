@@ -444,124 +444,55 @@ buffer"
 
 (spacemacs/set-leader-keys "ofd" 'message-working-directory)
 
-(defun insert-greek (case-name letter-name)
-  (interactive)
-  (insert (char-from-name (upcase (format "GREEK %s LETTER %s" case-name letter-name)))))
+(defmacro nicemacs-greek (lname)
+    (list 'progn
+          (list 'defun (intern (format "nag-%s-small" lname)) ()
+                (list 'interactive)
+                (list 'insert (char-from-name (upcase (format "greek small letter %s" lname)))))
+          (list 'defun (intern (format "nag-%s-capital" lname)) ()
+                (list 'interactive)
+                (list 'insert (char-from-name (upcase (format "greek capital letter %s" lname)))))))
+
+(nicemacs-greek alpha)
+(nicemacs-greek beta)
+(nicemacs-greek gamma)
+(nicemacs-greek delta)
+(nicemacs-greek theta)
+(nicemacs-greek lambda)
+(nicemacs-greek mu)
+(nicemacs-greek nu)
+(nicemacs-greek rho)
+(nicemacs-greek sigma)
+(nicemacs-greek psi)
+(nicemacs-greek omega)
 
 (spacemacs/declare-prefix "ou" "unicode-stuff")
 
-(defun insert-greek-small-alpha ()
-  (interactive)
-  (insert-greek "small" "alpha"))
-(defun insert-greek-capital-alpha ()
-  (interactive)
-  (insert-greek "capital" "alpha"))
-(spacemacs/set-leader-keys "oua" 'insert-greek-small-alpha)
-(spacemacs/set-leader-keys "ouA" 'insert-greek-capital-alpha)
-
-(defun insert-greek-small-beta ()
-  (interactive)
-  (insert-greek "small" "beta"))
-(defun insert-greek-capital-beta ()
-  (interactive)
-  (insert-greek "capital" "beta"))
-(spacemacs/set-leader-keys "oub" 'insert-greek-small-beta)
-(spacemacs/set-leader-keys "ouB" 'insert-greek-capital-beta)
-
-(defun insert-greek-small-gamma ()
-  (interactive)
-  (insert-greek "small" "gamma"))
-(defun insert-greek-capital-gamma ()
-  (interactive)
-  (insert-greek "capital" "gamma"))
-(spacemacs/set-leader-keys "oug" 'insert-greek-small-gamma)
-(spacemacs/set-leader-keys "ouG" 'insert-greek-capital-gamma)
-
-(defun insert-greek-small-delta ()
-  (interactive)
-  (insert-greek "small" "delta"))
-(defun insert-greek-capital-delta ()
-  (interactive)
-  (insert-greek "capital" "delta"))
-(spacemacs/set-leader-keys "oud" 'insert-greek-small-delta)
-(spacemacs/set-leader-keys "ouD" 'insert-greek-capital-delta)
-
-(defun insert-greek-small-theta ()
-  (interactive)
-  (insert-greek "small" "theta"))
-(defun insert-greek-capital-theta ()
-  (interactive)
-  (insert-greek "capital" "theta"))
-(spacemacs/set-leader-keys "outh" 'insert-greek-small-theta)
-(spacemacs/set-leader-keys "ouTh" 'insert-greek-capital-theta)
-
-(defun insert-greek-small-lambda ()
-  (interactive)
-  (insert-greek "small" "lambda"))
-(defun insert-greek-capital-lambda ()
-  (interactive)
-  (insert-greek "capital" "lambda"))
-(spacemacs/set-leader-keys "oul" 'insert-greek-small-lambda)
-(spacemacs/set-leader-keys "ouL" 'insert-greek-capital-lambda)
-
-(defun insert-greek-small-mu ()
-  (interactive)
-  (insert-greek "small" "mu"))
-(defun insert-greek-capital-mu ()
-  (interactive)
-  (insert-greek "capital" "mu"))
-(spacemacs/set-leader-keys "oum" 'insert-greek-small-mu)
-(spacemacs/set-leader-keys "ouM" 'insert-greek-capital-mu)
-
-(defun insert-greek-small-nu ()
-  (interactive)
-  (insert-greek "small" "nu"))
-(defun insert-greek-capital-nu ()
-  (interactive)
-  (insert-greek "capital" "nu"))
-(spacemacs/set-leader-keys "oun" 'insert-greek-small-nu)
-(spacemacs/set-leader-keys "ouN" 'insert-greek-capital-nu)
-
-(defun insert-greek-small-rho ()
-  (interactive)
-  (insert-greek "small" "rho"))
-(defun insert-greek-capital-rho ()
-  (interactive)
-  (insert-greek "capital" "rho"))
-(spacemacs/set-leader-keys "our" 'insert-greek-small-rho)
-(spacemacs/set-leader-keys "ouR" 'insert-greek-capital-rho)
-
-(defun insert-greek-small-sigma ()
-  (interactive)
-  (insert-greek "small" "sigma"))
-(defun insert-greek-capital-sigma ()
-  (interactive)
-  (insert-greek "capital" "sigma"))
-(spacemacs/set-leader-keys "ous" 'insert-greek-small-sigma)
-(spacemacs/set-leader-keys "ouS" 'insert-greek-capital-sigma)
-
-(defun insert-greek-small-psi ()
-  (interactive)
-  (insert-greek "small" "psi"))
-(defun insert-greek-capital-psi ()
-  (interactive)
-  (insert-greek "capital" "psi"))
-(spacemacs/set-leader-keys "oups" 'insert-greek-small-psi)
-
-(defun insert-greek-small-omega ()
-  (interactive)
-  (insert-greek "small" "omega"))
-(defun insert-greek-capital-omega ()
-  (interactive)
-  (insert-greek "capital" "omega"))
-(spacemacs/set-leader-keys "ouo" 'insert-greek-small-omega)
+(spacemacs/set-leader-keys
+  "oua" 'nag-alpha-small
+  "ouA" 'nag-alpha-capital
+  "oub" 'nag-beta-small
+  "ouB" 'nag-beta-capital
+  "oug" 'nag-gamma-small
+  "ouG" 'nag-gamma-capital
+  "oud" 'nag-delta-small
+  "ouD" 'nag-delta-capital
+  "outh" 'nag-theta-small
+  "ouTh" 'nag-theta-capital
+  "oul" 'nag-lambda-small
+  "ouL" 'nag-lambda-capital
+  "oum" 'nag-mu-small
+  "ouM" 'nag-mu-capital
+  "oun" 'nag-nu-small
+  "ouN" 'nag-nu-capital
+  "our" 'nag-rho-small
+  "ouR" 'nag-rho-capital
+  "ous" 'nag-sigma-small
+  "ouS" 'nag-sigma-capital
+  "oup" 'nag-psi-small
+  "ouo" 'nag-omega-small)
 
 (files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/json-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/web-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/org-mode")
-
-(defvaralias
-  'helm-c-yas-space-match-any-greedy
-  'helm-yas-space-match-any-greedy
-  "Temporary alias for Emacs27")
