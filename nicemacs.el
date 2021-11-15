@@ -119,6 +119,25 @@ file. TODO Add error message if there are no RIS files."
 
 (spacemacs/declare-prefix "oot" "org-toggle-menu")
 
+(setq org-hide-emphasis-markers t)
+
+(add-hook 'org-mode-hook 'variable-pitch-mode)
+(add-hook 'org-mode-hook 'visual-line-mode)
+
+(custom-theme-set-faces
+ 'user
+ '(org-block ((t (:inherit fixed-pitch))))
+ '(org-code ((t (:inherit (shadow fixed-pitch)))))
+ '(org-document-info ((t (:inherit fixed-pitch))))
+ '(org-document-info-keyword ((t (:inherit fixed-pitch))))
+ '(org-link ((t (:underline t))))
+ '(org-meta-line ((t (:inherit fixed-pitch))))
+ '(org-property-value ((t (:inherit fixed-pitch))) t)
+ '(org-special-keyword ((t (:inherit fixed-pitch))))
+ '(org-table ((t (:inherit fixed-pitch))))
+ '(org-tag ((t (:inherit fixed-pitch))))
+ '(org-verbatim ((t (:inherit fixed-pitch)))))
+
 (require 'writeroom-mode)
 
 (defvar writeroom-active t "variable to say if writeroom is active")
