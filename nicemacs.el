@@ -521,4 +521,3 @@ buffer"
 (files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/json-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/web-mode")
-(files--ensure-directory "~/.emacs.d/private/snippets/org-mode")

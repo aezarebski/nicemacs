@@ -243,6 +243,10 @@ setting the =lsp-haskell-server-path= to the executable solved things.
               haskell-process-type 'stack-ghci)
 #+end_src
 
+** Maxima
+
+See [[https://github.com/dalanicolai/maxima-layer][maxima-layer]] by [[https://dalanicolai.github.io/][Daniel Nicolai]].
+
 ** Latex and Bibtex
 
 To ensure that files with the extension =.bibtex= open in =bibtex-mode= we need
@@ -1181,7 +1185,6 @@ not already exist.
 (files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/json-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/web-mode")
-(files--ensure-directory "~/.emacs.d/private/snippets/org-mode")
 #+end_src
 
 ** Yasnippet configuration
@@ -1386,107 +1389,6 @@ parser$add_argument(
 
 args <- parser$parse_args()
 #+end_src
-
-
-** Vega-Lite
-
-The following files need to be moved into the correct snippet directory for your
-configuration.
-
-A snippet for a very simple scatter plot in vega-lite.
-
-#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/json-mode/vl-scatter-plot
-# -*- mode: snippet -*-
-# name: vega-lite scatter plot
-# key: vl-scatter-plot
-# --
-
-{
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-    "data": {
-        "url": "$1"
-    },
-    "mark": "point",
-    "encoding": {
-        "x": {
-            "field": "$2",
-            "type": "quantitative"
-        },
-        "y": {
-            "field": "$3",
-            "type": "quantitative"
-        }
-    }
-}
-#+END_SRC
-
-A snippet for a very simple histogram in vega-lite.
-
-#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/json-mode/vl-histogram
-# -*- mode: snippet -*-
-# name: vega-lite histogram
-# key: vl-histogram
-# --
-
-{
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-    "data": {
-        "url": "$1"
-    },
-    "mark": "bar",
-    "encoding": {
-        "x": {
-            "bin": true,
-            "field": "$2"
-        },
-        "y": {
-            "aggregate": "count"
-        }
-    }
-}
-#+END_SRC
-
-** Org-mode
-
-*** header
-
-#+begin_src snippet :tangle ~/.emacs.d/private/snippets/org-mode/header.yasnippet
-# -*- mode: snippet -*-
-# name: header
-# key: header
-# --
-
-#+header:
-#+end_src
-
-*** name
-
-#+begin_src snippet :tangle ~/.emacs.d/private/snippets/org-mode/name.yasnippet
-# -*- mode: snippet -*-
-# name: name
-# key: name
-# --
-
-#+name:
-#+end_src
-
-*** title
-
-#+begin_src snippet :tangle ~/.emacs.d/private/snippets/org-mode/title.yasnippet
-# -*- mode: snippet -*-
-# name: title
-# key: title
-# --
-
-#+title:
-#+end_src
-
-Unfortunately it is very difficult to write a source block snippet in this
-literate programming style, so you probably just want to do that manually.
-
-* Maxima
-
-See [[https://github.com/dalanicolai/maxima-layer][maxima-layer]] by [[https://dalanicolai.github.io/][Daniel Nicolai]].
 
 * Footnotes
 
