@@ -393,9 +393,6 @@ buffer"
 ;; their buffers.
 (spacemacs/set-leader-keys "wD" 'spacemacs/window-manipulation-transient-state/delete-other-windows)
 
-;; Define a short cut for C-g which is a little awkward.
-(spacemacs/set-leader-keys "og" 'keyboard-quit)
-
 ;; Define a short cut for following files
 (spacemacs/declare-prefix "of" "file-stuff")
 (spacemacs/set-leader-keys "off" 'find-file-at-point)

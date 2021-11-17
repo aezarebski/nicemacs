@@ -43,57 +43,53 @@ This configuration is used from within spacemacs, so it seems appropriate that I
 should also document the configuration layers that I use.
 
 #+begin_src emacs-lisp
-   '(
-     auto-completion
-     better-defaults
-     bibtex
-     csv
-     dhall
-     emacs-lisp
-     epub
-     (ess :variables
-          ess-r-backend 'ess)
-     git
-     (hackernews :variables
-                 hackernews-items-per-page 24)
-     (haskell :variables
-              haskell-completion-backend 'lsp
-              haskell-process-type 'stack-ghci
-              hsakell-enable-hindent-style "fundamental")
-     helm
-     html
-     (javascript :variables
-                 javascript-import-tool 'import-js
-                 javascript-repl 'nodejs
-                 javascript-backend 'tern
-                 javascript-fmt-tool 'web-beautify)
-     latex
-     lsp
-     maxima
-     multiple-cursors
-     nixos
-     org
-     python
-     semantic
-     (shell :variables
-            shell-default-shell 'eshell
-            shell-default-position 'right
-            shell-default-width 50)
-     speed-reading
-     (spell-checking :variables
-                     spell-checking-enable-by-default nil
-                     enable-flyspell-auto-completion t)
-     syntax-checking
-     web-beautify
-     yaml
-     version-control
-     treemacs)
+  '(auto-completion
+    better-defaults
+    bibtex
+    csv
+    dhall
+    emacs-lisp
+    epub
+    (ess :variables
+         ess-r-backend 'ess)
+    git
+    graphviz
+    (hackernews :variables
+                hackernews-items-per-page 24)
+    (haskell :variables
+             haskell-completion-backend 'lsp
+             haskell-process-type 'stack-ghci
+             hsakell-enable-hindent-style "fundamental")
+    helm
+    html
+    hy
+    (javascript :variables
+                javascript-import-tool 'import-js
+                javascript-repl 'nodejs
+                javascript-backend 'tern
+                javascript-fmt-tool 'web-beautify)
+    latex
+    lsp
+    maxima
+    multiple-cursors
+    nixos
+    org
+    python
+    semantic
+    (shell :variables
+           shell-default-shell 'eshell
+           shell-default-position 'right
+           shell-default-width 50)
+    speed-reading
+    (spell-checking :variables
+                    spell-checking-enable-by-default nil
+                    enable-flyspell-auto-completion t)
+    syntax-checking
+    web-beautify
+    yaml
+    version-control
+    treemacs)
 #+end_src
-
-- The =semantic= layer is needed for formating emacs lisp code.
-- The =hackernews= layer provides an application for reading hacker news
-  + the application is bound to =SPC a w h=
-  + the variable =hackernews-items-per-page= describes how many to display.
 
 ** Stuff
 
@@ -805,17 +801,9 @@ edit the aliases in the eshell is using the definitions below!
 (spacemacs/set-leader-keys "osa" 'eshell-aliases)
 #+END_SRC
 
-If you want to create an alias in the eshell the following examples of a command
-to run in the shell will achieve this.
-
-#+begin_src
-alias cdk cd ..
-alias ff find-file $1
-#+end_src
-
-It is useful to be able to have these specified in code though in case the alias
-file gets lost during an upgrade. The following expressions set up some useful
-aliases to have in the shell.
+The following expressions set up some useful aliases to have in the shell. Note
+that while the shell is indespensible, =dired= is also a good solution in many
+situations.
 
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
 (require 'em-alias)
@@ -977,9 +965,6 @@ If you want to kill buffers with names that match a regex there is the
 ;; Define a short cut to close all windows except the current one without killing
 ;; their buffers.
 (spacemacs/set-leader-keys "wD" 'spacemacs/window-manipulation-transient-state/delete-other-windows)
-
-;; Define a short cut for C-g which is a little awkward.
-(spacemacs/set-leader-keys "og" 'keyboard-quit)
 
 ;; Define a short cut for following files
 (spacemacs/declare-prefix "of" "file-stuff")
@@ -1252,6 +1237,26 @@ library(coda)
 #+END_SRC
 
 *** Useful programming snippets
+
+**** Saving ggplot2 figures
+
+This snippet offers some sensible default values for saving =ggplot2= figures.
+
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rggsave
+# -*- mode: snippet -*-
+# name: Save a ggplot2 figure to default paper sizes
+# key: rhelp-ggsave
+# --
+
+ggsave(filename = $1,
+       plot = $2,
+       ## A5 height = 14.8, width = 21.0,
+       ## A6 height = 10.5, width = 14.8,
+       ## A7 height = 7.4, width = 10.5,
+       units = "cm")
+
+$0
+#+END_SRC
 
 **** Writing CSV
 
