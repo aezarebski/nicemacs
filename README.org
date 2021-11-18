@@ -1195,6 +1195,7 @@ default.
 # key: rpacks
 # --
 library(dplyr)
+library(reshape2)
 library(ggplot2)
 library(magrittr)
 library(purrr)
@@ -1209,8 +1210,8 @@ aren't needed enough to be imported by default.
 # key: rpacks-extra
 # --
 library(jsonlite)
-library(reshape2)
 library(stringr)
+library(cowplot)
 library(whisker)
 #+END_SRC
 
