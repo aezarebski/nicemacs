@@ -400,6 +400,27 @@ infrequently though that it is not really worth adding a binding for it. By
 default it counts the words in the current buffer, but if you have selected a
 region of text it will count the words and characters there.
 
+*** Appearance
+
+We can use a hook to switch to proportional font for org-mode, because lines now
+become a bit tricky we need to include =visual-line-mode= otherwise things look
+weird.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (add-hook 'LaTeX-mode-hook 'variable-pitch-mode)
+  (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+#+end_src
+
+And then to get the faces looking good for the various elements of the display
+we have the following configuration
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (custom-set-faces
+   '(font-lock-keyword-face ((t (:inherit fixed-pitch))))
+   '(font-latex-sectioning-2-face ((t (:inherit bold :foreground "#3a81c3" :height 1.3 :family "Noto Sans"))))
+   '(font-latex-sectioning-3-face ((t (:inherit bold :foreground "#2d9574" :height 1.2 :family "Noto Sans")))))
+ #+end_src
+
 ** Org-mode
 
 Bindings for org-mode functionality start with =o o= for "owner org".
@@ -830,6 +851,17 @@ programs that have been installed from npm.
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
 (setq exec-path (append exec-path '("/home/aez/.local/bin")))
 (setq exec-path (append exec-path '("/home/aez/.nvm/versions/node/v14.6.0/bin")))
+#+END_SRC
+
+*** System monitoring
+
+There is an emacs function for monitoring the processes you are running called
+=proced=. In spacemacs this is bound to =SPC a P=. The following configuration
+specifies that the display should be updated every second.
+
+#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
+  (setq proced-auto-update-flag t)
+  (setq proced-auto-update-interval 1)
 #+END_SRC
 
 ** Emacs Speaks Statistics

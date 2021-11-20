@@ -115,6 +115,14 @@ file. TODO Add error message if there are no RIS files."
 
 (spacemacs/set-leader-keys "olp" 'nicemacs-open-review-pdf)
 
+(add-hook 'LaTeX-mode-hook 'variable-pitch-mode)
+(add-hook 'LaTeX-mode-hook 'visual-line-mode)
+
+(custom-set-faces
+ '(font-lock-keyword-face ((t (:inherit fixed-pitch))))
+ '(font-latex-sectioning-2-face ((t (:inherit bold :foreground "#3a81c3" :height 1.3 :family "Noto Sans"))))
+ '(font-latex-sectioning-3-face ((t (:inherit bold :foreground "#2d9574" :height 1.2 :family "Noto Sans")))))
+
 (spacemacs/declare-prefix "oo" "org-menu")
 
 (spacemacs/declare-prefix "oot" "org-toggle-menu")
@@ -327,6 +335,9 @@ makes a copy of the one from one week ago."
 
 (setq exec-path (append exec-path '("/home/aez/.local/bin")))
 (setq exec-path (append exec-path '("/home/aez/.nvm/versions/node/v14.6.0/bin")))
+
+(setq proced-auto-update-flag t)
+(setq proced-auto-update-interval 1)
 
 (setq spacemacs/ess-config
       '(progn
