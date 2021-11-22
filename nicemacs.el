@@ -427,6 +427,7 @@ buffer"
 (nicemacs-visit haskell-notes "Haskell notes" "/home/aez/public-site/org/notes/haskell-notes.org")
 (nicemacs-visit java-notes "Java notes" "/home/aez/public-site/org/notes/java-notes.org")
 (nicemacs-visit latex-notes "LaTeX notes" "/home/aez/public-site/org/notes/latex-notes.org")
+(nicemacs-visit nix-notes "Nix notes" "/home/aez/public-site/org/notes/nix-notes.org")
 (nicemacs-visit python-notes "Python notes" "/home/aez/public-site/org/notes/python-notes.org")
 (nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
 (nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
@@ -460,6 +461,7 @@ buffer"
   "ovnh" 'nvf-haskell-notes
   "ovnj" 'nvf-java-notes
   "ovnl" 'nvf-latex-notes
+  "ovnn" 'nvf-nix-notes
   "ovno" 'nvf-org-mode-notes
   "ovnp" 'nvf-python-notes
   "ovnr" 'nvf-r-notes
