@@ -1204,6 +1204,7 @@ not already exist.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
+(files--ensure-directory "~/.emacs.d/private/snippets/python-mode")
 #+end_src
 
 ** Yasnippet configuration
@@ -1212,6 +1213,23 @@ For some unknown reason, when I try to insert a snippet in the JSON mode I get
 an error, "No JavaScript AST available". Things are working fine in other modes
 so this might be something javascript specific, in which case, it is probably
 easier just to call =yas-insert-snippet= directly when editing JSON.
+
+** Python
+
+Here are a bunch of standard packages for statistical work
+
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/python-mode/pypacks
+# -*- mode: snippet -*-
+# name: Standard python packages
+# key: pypacks
+# --
+import pandas as pd
+import numpy as np
+import scipy.stats as stats
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+import matplotlib.pyplot as plt
+#+END_SRC
 
 ** R
 
