@@ -723,6 +723,13 @@ There is a variable in spacemacs, =dotspacemacs-whitespace-cleanup=, which if
 you set to ='trailing= will remove trailing whitespace each time a file is
 saved. It appears in the =.spacemacs= file with some documentation.
 
+*** Tables
+
+The org-mode support for tables is strong. There is the a neat snippet for
+inserting tables and then in spacemacs, using =, t= will bring up some available
+functions (including =, t n= which creates a new table for those that don't like
+yasnippet). There is also =org-table-transpose-table-at-point=
+
 *** Inline Latex and image display
 
 Orgmode can display images inline, however it is useful to be able to toggle
