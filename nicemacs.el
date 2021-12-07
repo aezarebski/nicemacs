@@ -471,12 +471,13 @@ buffer"
 ;; Open Ibuffer in the motion state rather than as the default emacs mode.
 (evil-set-initial-state 'ibuffer-mode 'motion)
 
-(defun message-working-directory ()
-  "Print the directory of the current buffer."
+(defun message-buffer-file-name ()
+  "Print the full path of the current buffer and store this on the kill ring."
   (interactive)
-  (message default-directory))
+  (kill-new buffer-file-name)
+  (message buffer-file-name))
 
-(spacemacs/set-leader-keys "ofd" 'message-working-directory)
+(spacemacs/set-leader-keys "ofd" 'message-buffer-file-name)
 
 (defmacro nicemacs-greek (lname)
     (list 'progn
