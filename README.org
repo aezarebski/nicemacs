@@ -1115,16 +1115,19 @@ keybindings.
 
 *** Misc
 
-Sometimes it is useful to get the directory of the file shown in a buffer. This
-is bound to =SPC o f d= for owner-files-directory.
+Sometimes it is useful to get the fullpath of the file shown in a buffer. This
+is bound to =SPC o f d= for owner-files-directory. This also writes the path to
+the kill ring because often when you need this information it is because you are
+about to include it in a buffer.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defun message-working-directory ()
-  "Print the directory of the current buffer."
+(defun message-buffer-file-name ()
+  "Print the full path of the current buffer and store this on the kill ring."
   (interactive)
-  (message default-directory))
+  (kill-new buffer-file-name)
+  (message buffer-file-name))
 
-(spacemacs/set-leader-keys "ofd" 'message-working-directory)
+(spacemacs/set-leader-keys "ofd" 'message-buffer-file-name)
 #+end_src
 
 ** treemacs
