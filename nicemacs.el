@@ -368,38 +368,22 @@ makes a copy of the one from one week ago."
 
 (spacemacs/declare-prefix "oc" "commits-menu")
 
-(defun journal-commit-function ()
-  "Create a commit and insert a string describing a generic
-commit to my journal file. This should be fun from the magit
-buffer"
-  (interactive)
-  (let* ((date-string (downcase (format-time-string "%A %l:%M %p")))
-         (edit-string (format "-mupdate tasklist %s"  date-string)))
-    (magit-commit-create `("--edit", edit-string))))
+(defmacro nicemacs-commits (fname cmessage)
+  (list 'defun (intern (format "ncf-%s" fname)) ()
+        (list 'interactive)
+        (list 'magit-commit-create `(list "--edit" ,(list 'format "-m %s %s" cmessage (list 'downcase (list 'format-time-string "%A %l:%M %p")))))))
 
-(spacemacs/set-leader-keys "ocj" 'journal-commit-function)
+(nicemacs-commits network "update citation network")
+(spacemacs/set-leader-keys "ocn" 'ncf-network)
 
-(defun website-commit-function ()
-  (interactive)
-  (let* ((date-string (downcase (format-time-string "%A %l:%M %p")))
-         (edit-string (format "-mupdate website %s"  date-string)))
-    (magit-commit-create `("--edit", edit-string))))
+(nicemacs-commits review "update reading list")
+(spacemacs/set-leader-keys "ocr" 'ncf-review)
 
-(defun review-commit-function ()
-  (interactive)
-  (let* ((date-string (downcase (format-time-string "%A %l:%M %p")))
-         (edit-string (format "-mupdate reading list %s"  date-string)))
-    (magit-commit-create `("--edit", edit-string))))
+(nicemacs-commits website "update website")
+(spacemacs/set-leader-keys "ocw" 'ncf-website)
 
-(defun network-commit-function ()
-  (interactive)
-  (let* ((date-string (downcase (format-time-string "%A %l:%M %p")))
-         (edit-string (format "-mupdate citation network %s"  date-string)))
-    (magit-commit-create `("--edit", edit-string))))
-
-(spacemacs/set-leader-keys "ocw" 'website-commit-function)
-(spacemacs/set-leader-keys "ocr" 'review-commit-function)
-(spacemacs/set-leader-keys "ocn" 'network-commit-function)
+(nicemacs-commits journal "update journal")
+(spacemacs/set-leader-keys "ocj" 'ncf-journal)
 
 (defun kill-all-other-buffers ()
   "Kill all the buffers other than the current one."
