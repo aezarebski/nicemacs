@@ -385,15 +385,21 @@ buffer"
          (edit-string (format "-mupdate website %s"  date-string)))
     (magit-commit-create `("--edit", edit-string))))
 
-(spacemacs/set-leader-keys "ocw" 'website-commit-function)
-
 (defun review-commit-function ()
   (interactive)
   (let* ((date-string (downcase (format-time-string "%A %l:%M %p")))
          (edit-string (format "-mupdate reading list %s"  date-string)))
     (magit-commit-create `("--edit", edit-string))))
 
+(defun network-commit-function ()
+  (interactive)
+  (let* ((date-string (downcase (format-time-string "%A %l:%M %p")))
+         (edit-string (format "-mupdate citation network %s"  date-string)))
+    (magit-commit-create `("--edit", edit-string))))
+
+(spacemacs/set-leader-keys "ocw" 'website-commit-function)
 (spacemacs/set-leader-keys "ocr" 'review-commit-function)
+(spacemacs/set-leader-keys "ocn" 'network-commit-function)
 
 (defun kill-all-other-buffers ()
   "Kill all the buffers other than the current one."
