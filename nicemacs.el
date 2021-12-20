@@ -422,7 +422,8 @@ makes a copy of the one from one week ago."
 (nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
 (nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
 (nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review/reading-list.tex")
-(nicemacs-visit references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
+(nicemacs-visit review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
+(nicemacs-visit review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
 (nicemacs-visit statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
 
 (defun nvf-journal ()
@@ -457,7 +458,8 @@ makes a copy of the one from one week ago."
   "ovnr" 'nvf-r-notes
   "ovns" 'nvf-statistics-notes
   "ovp" 'nvf-professional
-  "ovr" 'nvf-references
+  "ovrr" 'nvf-review-references
+  "ovrp" 'nvf-review-phylodynamics
   "ovs" 'nvf-spelling
   "ovw" 'nvf-website)
 
