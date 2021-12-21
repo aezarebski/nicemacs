@@ -399,6 +399,9 @@ makes a copy of the one from one week ago."
 (spacemacs/set-leader-keys "off" 'find-file-at-point)
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 
+(spacemacs/set-leader-keys "ofv" 'view-file)
+(spacemacs/set-leader-keys "ofl" 'find-file-literally)
+
 (setq dired-listing-switches "-alh")
 
 (spacemacs/declare-prefix "ov" "visit friendly files")

@@ -993,6 +993,20 @@ If you want to kill buffers with names that match a regex there is the
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 #+end_src
 
+*** Handling large files
+
+Visiting large or sensitive files is unpleasant. There is =find-file-literally= to
+open a file in fundamental mode, following this up with =font-lock-fontify-buffer=
+will make things look a bit nicer. This is a decent option if you have a massive
+file and want to avoid crashing emacs. There is =view-file= which opens the file
+in read-only mode but somehow manages to get syntax highlighting correct despite
+the file being in fundamental mode.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/set-leader-keys "ofv" 'view-file)
+(spacemacs/set-leader-keys "ofl" 'find-file-literally)
+#+end_src
+
 *** Dired
 
 By default dired displays the size of files in bytes, a more human friendly
