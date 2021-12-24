@@ -435,6 +435,14 @@ for toggle style functions we will have a submenu.
 (spacemacs/declare-prefix "oot" "org-toggle-menu")
 #+end_src
 
+*** TODO Citation engine
+
+The following package is required to use CSL with org-mode citations
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(require 'oc-csl)
+#+end_src
+
 *** Writing prose
 
 The following can be used to hide extra markup symbols

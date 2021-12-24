@@ -127,6 +127,8 @@ file. TODO Add error message if there are no RIS files."
 
 (spacemacs/declare-prefix "oot" "org-toggle-menu")
 
+(require 'oc-csl)
+
 (setq org-hide-emphasis-markers t)
 
 (add-hook 'org-mode-hook 'variable-pitch-mode)
