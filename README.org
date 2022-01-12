@@ -7,6 +7,25 @@
 
 * Spacemacs configuration
 
+** Spacemacs shortcuts
+
+| Keys      | Description                         |
+|-----------+-------------------------------------|
+| =SPC f e d= | Open =.spacemacs=                     |
+| =SPC f e R= | Reload =.spacemacs=                   |
+| =SPC TAB=   | Switch to last buffer               |
+| =SPC f s=   | Save file                           |
+| =SPC f f=   | Find (visit) file                   |
+| =SPC w d=   | Kill /current/ window                 |
+| =SPC w D=   | Kill all /other/ windows              |
+| =SPC b b=   | List buffers                        |
+| =SPC b [n]= | Move the current buffer to window =n= |
+| =SPC b n=   | Next buffer                         |
+| =SPC b p=   | Previous buffer                     |
+| =SPC b k=   | Kill buffer                         |
+| =SPC T n=   | Toggle the theme                    |
+| =SPC q r=   | Restart emacs                       |
+
 ** Usage notes
 
 To tangle the =nicemacs.el= file from the command line execute the following
