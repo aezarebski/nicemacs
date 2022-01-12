@@ -425,6 +425,7 @@ makes a copy of the one from one week ago."
 (nicemacs-visit nix-notes "Nix notes" "/home/aez/public-site/org/notes/nix-notes.org")
 (nicemacs-visit python-notes "Python notes" "/home/aez/public-site/org/notes/python-notes.org")
 (nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
+(nicemacs-visit ubuntu-notes "Ubuntu/Linux notes" "/home/aez/public-site/org/notes/linux-notes.org")
 (nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
 (nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review/reading-list.tex")
 (nicemacs-visit review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
@@ -462,6 +463,7 @@ makes a copy of the one from one week ago."
   "ovnp" 'nvf-python-notes
   "ovnr" 'nvf-r-notes
   "ovns" 'nvf-statistics-notes
+  "ovnu" 'nvf-ubuntu-notes
   "ovp" 'nvf-professional
   "ovrr" 'nvf-review-references
   "ovrp" 'nvf-review-phylodynamics
