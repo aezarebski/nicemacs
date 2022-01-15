@@ -482,6 +482,29 @@ makes a copy of the one from one week ago."
 
 (spacemacs/set-leader-keys "ofd" 'message-buffer-file-name)
 
+(defun cp-most-recent-download ()
+  (interactive)
+  (let* ((all-files (directory-files-and-attributes "~/Downloads"
+                                                    t ".*" "ctime"))
+         (path-and-time (lambda (x)
+                          (list (first x)
+                                (eighth x))))
+         (time-order (lambda (a b)
+                       (time-less-p (second b)
+                                    (second a))))
+         (most-recent (lambda (files)
+                        (car (car (sort (mapcar path-and-time files)
+                                        time-order))))))
+    (if (not (null all-files))
+        (let ((most-recent-file (funcall most-recent all-files)))
+          (progn
+            (message (concat "copying file: " most-recent-file))
+            (copy-file most-recent-file
+                       (concat default-directory
+                               (file-name-nondirectory most-recent-file))
+                       1)))
+      (message "No file found in ~/Downloads/"))))
+
 (defmacro nicemacs-greek (lname)
     (list 'progn
           (list 'defun (intern (format "nag-%s-small" lname)) ()

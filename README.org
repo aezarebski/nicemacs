@@ -1157,6 +1157,39 @@ about to include it in a buffer.
 (spacemacs/set-leader-keys "ofd" 'message-buffer-file-name)
 #+end_src
 
+Suppose that you want to get a copy of the last file you downloaded in the
+current directory, this is a pretty common thing to do so a function would be
+helpful. This will probably be most useful to call from eshell so I won't give
+it a key binding just yet.
+
+**** TODO Clean up this rather ugly function and consider merging with =last-bib=.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(defun cp-most-recent-download ()
+  (interactive)
+  (let* ((all-files (directory-files-and-attributes "~/Downloads"
+                                                    t ".*" "ctime"))
+         (path-and-time (lambda (x)
+                          (list (first x)
+                                (eighth x))))
+         (time-order (lambda (a b)
+                       (time-less-p (second b)
+                                    (second a))))
+         (most-recent (lambda (files)
+                        (car (car (sort (mapcar path-and-time files)
+                                        time-order))))))
+    (if (not (null all-files))
+        (let ((most-recent-file (funcall most-recent all-files)))
+          (progn
+            (message (concat "copying file: " most-recent-file))
+            (copy-file most-recent-file
+                       (concat default-directory
+                               (file-name-nondirectory most-recent-file))
+                       1)))
+      (message "No file found in ~/Downloads/"))))
+#+end_src
+
+
 ** treemacs
 
 Treemacs provides a file and project explorer. To summon treemacs use =SPC f t=
