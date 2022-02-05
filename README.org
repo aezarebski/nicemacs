@@ -530,7 +530,11 @@ how wide the display should be.
 
 *** Spell checking
 
-Highlight the text and use =SPC S r= to spellcheck that region.
+- Highlight the text and use =SPC S r= to spellcheck that region.
+- Use =SPC S b= to spellcheck the buffer.
+- Use =SPC S s= to open spelling suggestions for the work under the cursor.
+- It appears that when you add a word to a personal dictionary it is saved in
+  =~/.aspell.en.pws=.
 
 *** Literate programming
 
