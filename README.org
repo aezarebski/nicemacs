@@ -35,7 +35,7 @@ command:
 emacs README.org --batch --eval="(org-babel-tangle)"
 #+end_src
 
-Then to include this in your spacemacs configutation add the following
+Then to include this in your spacemacs configuration add the following
 expression to =dotspacemacs/user-config=:
 
 #+begin_src emacs-lisp
@@ -261,6 +261,17 @@ setting the =lsp-haskell-server-path= to the executable solved things.
 ** Maxima
 
 See [[https://github.com/dalanicolai/maxima-layer][maxima-layer]] by [[https://dalanicolai.github.io/][Daniel Nicolai]].
+
+** Javascript and Typescript
+
+The following needs to be included for eshell to be able to find node and npm.
+I'm not sure why you need to do it twice, but if this doesn't work there is
+always a bash shell available too. See
+
+#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
+  (setenv "PATH" (concat (getenv "PATH") "/home/aez/.nvm/versions/node/v17.3.1/bin"))
+  (setq exec-path (append exec-path '("/home/aez/.nvm/versions/node/v17.3.1/bin")))
+#+END_SRC
 
 ** TODO Miscellaneous configuration for prose
 
@@ -808,6 +819,14 @@ end.
 
 ** Shells
 
+It is useful to have a prefix for more involved shell related commands
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/declare-prefix "os" "sheila-menu")
+#+end_src
+
+*** Eshell
+
 To make =eshell= the default shell in spacemacs add the following to the
 =dotspacemacs-configuration-layers=. The position and width might need a bit of
 tweaking to get something you like, but it is pretty easy to adjust the window
@@ -834,23 +853,10 @@ mark so it opens the bigger terminal window.
 (spacemacs/set-leader-keys "\"" 'shell-and-delete-windows)
 #+end_src
 
-It is useful to have a prefix for more involved shell related commands
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/declare-prefix "os" "sheila-menu")
-#+end_src
-
 The following is for searching the shell history, but I rarely use it.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/set-leader-keys "osh" 'helm-eshell-history)
-#+end_src
-
-Sometimes it is useful to just be able to open a regular bash shell. The
-following binding helps with this.
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/set-leader-keys "osb" 'shell)
 #+end_src
 
 It is useful to be able to look at what aliases are currently defined for
@@ -893,11 +899,19 @@ executables and the =.nvm= path is so that it knows where to find javascript
 programs that have been installed from npm.
 
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
-(setq exec-path (append exec-path '("/home/aez/.local/bin")))
-(setq exec-path (append exec-path '("/home/aez/.nvm/versions/node/v14.6.0/bin")))
+  (setq exec-path (append exec-path '("/home/aez/.local/bin")))
 #+END_SRC
 
-*** System monitoring
+*** Bash
+
+Sometimes it is useful to just be able to open a regular bash shell. The
+following binding helps with this.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/set-leader-keys "osb" 'shell)
+#+end_src
+
+** Monitoring processes
 
 There is an emacs function for monitoring the processes you are running called
 =proced=. In spacemacs this is bound to =SPC a P=. The following configuration

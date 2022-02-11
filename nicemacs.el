@@ -28,6 +28,9 @@
 (setq exec-path (append exec-path '("/home/aez/.ghcup/bin")))
 (setq lsp-haskell-server-path "/home/aez/.ghcup/bin/haskell-language-server-8.10.4")
 
+(setenv "PATH" (concat (getenv "PATH") "/home/aez/.nvm/versions/node/v17.3.1/bin"))
+(setq exec-path (append exec-path '("/home/aez/.nvm/versions/node/v17.3.1/bin")))
+
 (add-to-list 'auto-mode-alist '("\\.bibtex\\'" . bibtex-mode))
 
 (spacemacs/declare-prefix "ol" "latex")
@@ -305,6 +308,8 @@ makes a copy of the one from one week ago."
 
 (add-to-list 'org-link-frame-setup '(file . find-file))
 
+(spacemacs/declare-prefix "os" "sheila-menu")
+
 (defun shell-and-delete-windows ()
   (interactive)
   (spacemacs/default-pop-shell)
@@ -313,11 +318,7 @@ makes a copy of the one from one week ago."
 
 (spacemacs/set-leader-keys "\"" 'shell-and-delete-windows)
 
-(spacemacs/declare-prefix "os" "sheila-menu")
-
 (spacemacs/set-leader-keys "osh" 'helm-eshell-history)
-
-(spacemacs/set-leader-keys "osb" 'shell)
 
 (defun eshell-aliases ()
     "Visit the file containing the eshell aliases."
@@ -336,7 +337,8 @@ makes a copy of the one from one week ago."
 (setq eshell-cmpl-ignore-case t)
 
 (setq exec-path (append exec-path '("/home/aez/.local/bin")))
-(setq exec-path (append exec-path '("/home/aez/.nvm/versions/node/v14.6.0/bin")))
+
+(spacemacs/set-leader-keys "osb" 'shell)
 
 (setq proced-auto-update-flag t)
 (setq proced-auto-update-interval 1)
