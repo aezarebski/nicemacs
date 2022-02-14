@@ -1308,6 +1308,20 @@ an error, "No JavaScript AST available". Things are working fine in other modes
 so this might be something javascript specific, in which case, it is probably
 easier just to call =yas-insert-snippet= directly when editing JSON.
 
+** TODO Org-mode
+
+#+BEGIN_SRC snippet
+# -*- mode: snippet -*-
+# name: Include image with caption and label
+# key: include-image
+# --
+\#+caption: WRITE A CAPTION!
+\#+name: fig:thing
+\#+attr_org: :width 500px
+\#+attr_html: :width 400px
+[[./path/to/image.png]]
+#+END_SRC
+
 ** Python
 
 Here are a bunch of standard packages for statistical work
@@ -1547,3 +1561,5 @@ args <- parser$parse_args()
 [fn:1] The =add-to-list= function is used to add elements to the start of a
 list, this should only be used in configuration code; use =push= to add elements
 to a list in emacs-lisp.
+
+#  LocalWords:  nicemacs Spacemacs spacemacs SPC
