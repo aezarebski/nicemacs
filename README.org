@@ -5,6 +5,15 @@
 
 [[./resources/nicemacs-logo.png]]
 
+* Emacs
+
+** Recursive grep
+
+The =rgrep= function is used to recursively search files matching a given pattern.
+After running =rgrep= you will be asked for the search term, a pattern to specify
+the filenames to search and finally the root directory of the search. The
+results are presented in a buffer which links to the matches found.
+
 * Spacemacs configuration
 
 ** Spacemacs shortcuts
