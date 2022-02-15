@@ -1160,6 +1160,30 @@ And finally we need to writing keybindings for these.
   "ovw" 'nvf-website)
 #+end_src
 
+*** TODO Searching files
+
+Here is an example of a nifty little function to help search my notes. It would
+be nice to abstract this into a macro so we can write similar searches for other
+directories.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (defun nsg-notes ()
+    (interactive)
+    (let ((search-terms (read-string "Search term: ")))
+      (progn
+        (message search-terms)
+        (rgrep search-terms "*.org" "/home/aez/public-site/org/notes/"))))
+#+end_src
+
+And then we need to bind it to some keys to make it easier to use.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (spacemacs/declare-prefix "oS" "Search")
+
+  (spacemacs/set-leader-keys
+    "oSn" 'nsg-notes)
+#+end_src
+
 *** Ibuffer
 
 The Ibuffer menu provides a more featureful dired-like menu for buffers.

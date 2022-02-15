@@ -472,6 +472,18 @@ makes a copy of the one from one week ago."
   "ovs" 'nvf-spelling
   "ovw" 'nvf-website)
 
+(defun nsg-notes ()
+  (interactive)
+  (let ((search-terms (read-string "Search term: ")))
+    (progn
+      (message search-terms)
+      (rgrep search-terms "*.org" "/home/aez/public-site/org/notes/"))))
+
+(spacemacs/declare-prefix "oS" "Search")
+
+(spacemacs/set-leader-keys
+  "oSn" 'nsg-notes)
+
 (spacemacs/set-leader-keys "ofb" 'ibuffer)
 ;; Open Ibuffer in the motion state rather than as the default emacs mode.
 (evil-set-initial-state 'ibuffer-mode 'motion)
