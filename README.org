@@ -1173,6 +1173,13 @@ directories.
       (progn
         (message search-terms)
         (rgrep search-terms "*.org" "/home/aez/public-site/org/notes/"))))
+
+  (defun nsg-journal ()
+    (interactive)
+    (let ((search-terms (read-string "Search term: ")))
+      (progn
+        (message search-terms)
+        (rgrep search-terms "*.org" "/home/aez/Documents/journal/"))))
 #+end_src
 
 And then we need to bind it to some keys to make it easier to use.
@@ -1181,7 +1188,8 @@ And then we need to bind it to some keys to make it easier to use.
   (spacemacs/declare-prefix "oS" "Search")
 
   (spacemacs/set-leader-keys
-    "oSn" 'nsg-notes)
+    "oSn" 'nsg-notes
+    "oSj" 'nsg-journal)
 #+end_src
 
 *** Ibuffer

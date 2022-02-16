@@ -479,10 +479,18 @@ makes a copy of the one from one week ago."
       (message search-terms)
       (rgrep search-terms "*.org" "/home/aez/public-site/org/notes/"))))
 
+(defun nsg-journal ()
+  (interactive)
+  (let ((search-terms (read-string "Search term: ")))
+    (progn
+      (message search-terms)
+      (rgrep search-terms "*.org" "/home/aez/Documents/journal/"))))
+
 (spacemacs/declare-prefix "oS" "Search")
 
 (spacemacs/set-leader-keys
-  "oSn" 'nsg-notes)
+  "oSn" 'nsg-notes
+  "oSj" 'nsg-journal)
 
 (spacemacs/set-leader-keys "ofb" 'ibuffer)
 ;; Open Ibuffer in the motion state rather than as the default emacs mode.
