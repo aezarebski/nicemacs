@@ -240,7 +240,7 @@ makes a copy of the one from one week ago."
          )
         ("org-static"
          :base-directory "~/public-site/org/"
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|txt\\|cur\\|svg\\|csv\\|html\\|json\\|webp"
+         :base-extension "css\\|js\\|png\\|jpg\\|jpeg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|txt\\|cur\\|svg\\|csv\\|html\\|json\\|webp"
          :exclude "~/public-site/org/misc/matplotlib/ven.*"
          :publishing-directory "~/aezarebski.github.io/"
          :recursive t
@@ -253,15 +253,33 @@ makes a copy of the one from one week ago."
          :recursive ()
          :publishing-function org-html-publish-to-html
          )
-      ("org-bibliography"
-       :base-directory "~/Documents/bibliography/"
-       :base-extension "png"
-       :publishing-directory "~/aezarebski.github.io/resources/"
-       :recursive ()
-       :publishing-function org-publish-attachment
-       )
-      ("org" :components ("org-notes" "org-static" "org-nicemacs" "org-bibliography"))
-        ))
+        ("org-bibliography"
+         :base-directory "~/Documents/bibliography/"
+         :base-extension "png"
+         :publishing-directory "~/aezarebski.github.io/resources/"
+         :recursive ()
+         :publishing-function org-publish-attachment
+         )
+        ("review2-org"
+         :base-directory "~/Documents/bibliography/review2"
+         :base-extension "org"
+         :publishing-directory "~/aezarebski.github.io/notes/review2"
+         :recursive ()
+         :publishing-function org-html-publish-to-html
+         )
+        ("review2-static"
+         :base-directory "~/Documents/bibliography/review2"
+         :base-extension "css\\|png"
+         :publishing-directory "~/aezarebski.github.io/notes/review2"
+         :recursive t
+         :publishing-function org-publish-attachment
+         )
+        ("org" :components ("org-notes"
+                            "org-static"
+                            "org-nicemacs"
+                            "org-bibliography"
+                            "review2-org"
+                            "review2-static"))))
 
 (defun publish-my-site ()
   (interactive)
