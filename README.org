@@ -126,16 +126,12 @@ default bindings.)
 
 *** Start up/splash page
 
-I prefer the startup banner number 100 so set the following in my =.spacemacs=.
+I prefer the startup banner number 100, to use this put =100= for the
+=dotspacemacs-startup-banner= value in =.spacemacs=. To avoide having unnecesary
+icons displayed, the following can be used.
 
-#+begin_src emacs-lisp
-dotspacemacs-startup-banner 100
-#+end_src
-
-You may also want to remove some of the noise from the start up menu
-
-#+begin_src emacs-lisp
-dotspacemacs-startup-lists '()
+#+begin_src emacs-lisp :tangle nicemacs.el
+(setq dotspacemacs-startup-buffer-show-icons nil)
 #+end_src
 
 *** Scratch buffer

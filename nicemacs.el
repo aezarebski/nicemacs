@@ -3,6 +3,8 @@
   (find-file "~/Documents/nicemacs/README.org"))
 (spacemacs/set-leader-keys "oon" 'visit-nicemacs)
 
+(setq dotspacemacs-startup-buffer-show-icons nil)
+
 (setq dotspacemacs-scratch-mode 'org-mode)
 
 (spacemacs/declare-prefix "o" "own-menu")
