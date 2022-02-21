@@ -50,13 +50,6 @@
 
 (spacemacs/set-leader-keys "olr" 'review-tex-file)
 
-(defun reading-list-tex-file ()
-  "Open my review.tex file"
-  (interactive)
-  (visit-bib-and-tex-file "~/Documents/bibliography/review/reading-list.tex"))
-
-(spacemacs/set-leader-keys "oll" 'reading-list-tex-file)
-
 (defun references-bib-file ()
   "Opens my bibtex references."
   (interactive)
@@ -447,7 +440,7 @@ makes a copy of the one from one week ago."
 (nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
 (nicemacs-visit ubuntu-notes "Ubuntu/Linux notes" "/home/aez/public-site/org/notes/linux-notes.org")
 (nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
-(nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review/reading-list.tex")
+(nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review2/review.org")
 (nicemacs-visit review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
 (nicemacs-visit review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
 (nicemacs-visit statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
@@ -504,11 +497,19 @@ makes a copy of the one from one week ago."
       (message search-terms)
       (rgrep search-terms "*.org" "/home/aez/Documents/journal/"))))
 
+(defun nsg-review ()
+  (interactive)
+  (let ((search-terms (read-string "Search term: ")))
+    (progn
+      (message search-terms)
+      (rgrep search-terms "*.tex" "/home/aez/Documents/bibliography/"))))
+
 (spacemacs/declare-prefix "oS" "Search")
 
 (spacemacs/set-leader-keys
   "oSn" 'nsg-notes
-  "oSj" 'nsg-journal)
+  "oSj" 'nsg-journal
+  "oSr" 'nsg-review)
 
 (spacemacs/set-leader-keys "ofb" 'ibuffer)
 ;; Open Ibuffer in the motion state rather than as the default emacs mode.

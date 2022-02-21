@@ -334,17 +334,6 @@ This is a /latex/ file for my /reviews/ so the binding is =olr=.
 (spacemacs/set-leader-keys "olr" 'review-tex-file)
 #+end_src
 
-This is a /latex/ file for my reading /list/ so the binding is =oll=.
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(defun reading-list-tex-file ()
-  "Open my review.tex file"
-  (interactive)
-  (visit-bib-and-tex-file "~/Documents/bibliography/review/reading-list.tex"))
-
-(spacemacs/set-leader-keys "oll" 'reading-list-tex-file)
-#+end_src
-
 This is a /bibtex/ file for my /references/ so the binding is =obr=.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
@@ -1113,22 +1102,22 @@ files.
 Then we need to define the actual files that we want listed
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(nicemacs-visit nicemacs "nicemacs README" "~/Documents/nicemacs/README.org")
-(nicemacs-visit beast-notes "BEAST2 notes" "/home/aez/public-site/org/notes/beast2-notes.org")
-(nicemacs-visit colleagues "Colleagues notes" "~/Documents/professional/colleague-details.org")
-(nicemacs-visit spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
-(nicemacs-visit haskell-notes "Haskell notes" "/home/aez/public-site/org/notes/haskell-notes.org")
-(nicemacs-visit java-notes "Java notes" "/home/aez/public-site/org/notes/java-notes.org")
-(nicemacs-visit latex-notes "LaTeX notes" "/home/aez/public-site/org/notes/latex-notes.org")
-(nicemacs-visit nix-notes "Nix notes" "/home/aez/public-site/org/notes/nix-notes.org")
-(nicemacs-visit python-notes "Python notes" "/home/aez/public-site/org/notes/python-notes.org")
-(nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
-(nicemacs-visit ubuntu-notes "Ubuntu/Linux notes" "/home/aez/public-site/org/notes/linux-notes.org")
-(nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
-(nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review/reading-list.tex")
-(nicemacs-visit review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
-(nicemacs-visit review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
-(nicemacs-visit statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
+  (nicemacs-visit nicemacs "nicemacs README" "~/Documents/nicemacs/README.org")
+  (nicemacs-visit beast-notes "BEAST2 notes" "/home/aez/public-site/org/notes/beast2-notes.org")
+  (nicemacs-visit colleagues "Colleagues notes" "~/Documents/professional/colleague-details.org")
+  (nicemacs-visit spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
+  (nicemacs-visit haskell-notes "Haskell notes" "/home/aez/public-site/org/notes/haskell-notes.org")
+  (nicemacs-visit java-notes "Java notes" "/home/aez/public-site/org/notes/java-notes.org")
+  (nicemacs-visit latex-notes "LaTeX notes" "/home/aez/public-site/org/notes/latex-notes.org")
+  (nicemacs-visit nix-notes "Nix notes" "/home/aez/public-site/org/notes/nix-notes.org")
+  (nicemacs-visit python-notes "Python notes" "/home/aez/public-site/org/notes/python-notes.org")
+  (nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
+  (nicemacs-visit ubuntu-notes "Ubuntu/Linux notes" "/home/aez/public-site/org/notes/linux-notes.org")
+  (nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
+  (nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review2/review.org")
+  (nicemacs-visit review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
+  (nicemacs-visit review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
+  (nicemacs-visit statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
 #+end_src
 
 There are some visitor functions that we want that are easier just to define
@@ -1198,16 +1187,24 @@ directories.
       (progn
         (message search-terms)
         (rgrep search-terms "*.org" "/home/aez/Documents/journal/"))))
+
+  (defun nsg-review ()
+    (interactive)
+    (let ((search-terms (read-string "Search term: ")))
+      (progn
+        (message search-terms)
+        (rgrep search-terms "*.tex" "/home/aez/Documents/bibliography/"))))
 #+end_src
 
 And then we need to bind it to some keys to make it easier to use.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-  (spacemacs/declare-prefix "oS" "Search")
+    (spacemacs/declare-prefix "oS" "Search")
 
-  (spacemacs/set-leader-keys
-    "oSn" 'nsg-notes
-    "oSj" 'nsg-journal)
+    (spacemacs/set-leader-keys
+      "oSn" 'nsg-notes
+      "oSj" 'nsg-journal
+      "oSr" 'nsg-review)
 #+end_src
 
 *** Ibuffer
