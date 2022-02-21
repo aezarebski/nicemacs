@@ -35,6 +35,15 @@ results are presented in a buffer which links to the matches found.
 | =SPC T n=   | Toggle the theme                    |
 | =SPC q r=   | Restart emacs                       |
 
+*** Owner menu
+
+The spacemacs documentation recommends that you store all of your shortcuts with
+a prefix of "o" for owner.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/declare-prefix "o" "own-menu")
+#+end_src
+
 ** Usage notes
 
 To tangle the =nicemacs.el= file from the command line execute the following
@@ -50,15 +59,6 @@ expression to =dotspacemacs/user-config=:
 #+begin_src emacs-lisp
 (load "/home/aez/Documents/nicemacs/nicemacs.el")
 #+end_src
-
-To quickly jump to this very org-mode file it will be useful to have a shortcut
-
-#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
-(defun visit-nicemacs ()
-  (interactive)
-  (find-file "~/Documents/nicemacs/README.org"))
-(spacemacs/set-leader-keys "oon" 'visit-nicemacs)
-#+END_SRC
 
 *** Emacs-LISP REPL
 
@@ -143,15 +143,6 @@ instead.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (setq dotspacemacs-scratch-mode 'org-mode)
-#+end_src
-
-*** Owner menu
-
-The spacemacs documentation recommends that you store all of your shortcuts with
-a prefix of "o" for owner.
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/declare-prefix "o" "own-menu")
 #+end_src
 
 *** Ugly ugly scroll bar
