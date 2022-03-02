@@ -1154,7 +1154,11 @@ And finally we need to writing keybindings for these.
   "ovw" 'nvf-website)
 #+end_src
 
-*** TODO Searching files
+*** TODO Searching by filename
+
+There is the =find-dired= function to help with this.
+
+*** TODO Searching within files
 
 Here is an example of a nifty little function to help search my notes. It would
 be nice to abstract this into a macro so we can write similar searches for other
