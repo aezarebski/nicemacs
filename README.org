@@ -827,11 +827,8 @@ the mark. Running the command a second time will revert to the plain text.
 (spacemacs/set-leader-keys "ool" 'org-latex-preview)
 #+end_src
 
-You can try it in the following expressions \(\alpha\)
-
-\[
-\frac{a}{b}
-\]
+To adjust the size of the figures, adjust the attribute =:scale= in the variable
+=org-format-latex-options=.
 
 *** Hyperlinking in org-mode
 
