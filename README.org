@@ -22,19 +22,18 @@ Alternatively, you can get clone the [[https://github.com/emacs-mirror/emacs][em
 =emacs-28= branch (or whatever version you want).
 
 2. Follow the instructions in the =INSTALL= file to build emacs.
-   - There may be some issues with permissions and dependencies so pay
-     attention.
+   - This seems to just be =./configure= then =make= then =sudo make install=.
    - If you cannot find the =configure= script, you may need to run =autogen.sh=
      first.
 
 *** Notes
 
-- =emacs-28.0.60= requested =libacl1-dev= and =libharfbuzz-dev= be installed but
-  worked perfectly after that. It does feel snappier. It told me that my current
-  version of GTK+ leads to a bug but I couldn't figure out how to update GTK+
-  and it seemed to be an up to date version anyway. This hasn't caused problems
-  though... yet.
- =emacs-27.2= build and installs without issue.
+- =emacs-28.0.91= requested =mailutils= to be installed during configuration.
+- =emacs-28.0.60= requested =libacl1-dev= and =libharfbuzz-dev= be installed during
+  configuration. It does feel snappier. It told me that my current version of
+  GTK+ leads to a bug but I couldn't figure out how to update GTK+ and it seemed
+  to be an up to date version anyway.
+- =emacs-27.2= build and installs without issue.
 
 ** Recursive grep
 
