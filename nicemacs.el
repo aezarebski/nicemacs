@@ -1,13 +1,8 @@
-(defun visit-nicemacs ()
-  (interactive)
-  (find-file "~/Documents/nicemacs/README.org"))
-(spacemacs/set-leader-keys "oon" 'visit-nicemacs)
+(spacemacs/declare-prefix "o" "own-menu")
 
 (setq dotspacemacs-startup-buffer-show-icons nil)
 
 (setq dotspacemacs-scratch-mode 'org-mode)
-
-(spacemacs/declare-prefix "o" "own-menu")
 
 (advice-remove 'mwheel-scroll #'spacemacs//scroll-bar-show-delayed-hide)
 
@@ -143,6 +138,7 @@ file. TODO Add error message if there are no RIS files."
 '(org-level-1 ((t (:inherit nil :extend nil :foreground "#3a81c3" :weight bold :height 1.4 :family "Noto Sans"))))
 '(org-level-2 ((t (:inherit nil :extend nil :foreground "#2d9574" :weight bold :height 1.2 :width normal :family "Noto Sans"))))
 '(org-level-3 ((t (:extend nil :foreground "#67b11d" :weight normal :height 1.1 :family "Noto Sans"))))
+'(org-level-4 ((t (:extend nil :foreground "#b1951d" :weight normal :height 1.0 :family "Noto Sans"))))
 '(org-link ((t (:underline t))))
 '(org-meta-line ((t (:inherit fixed-pitch))))
 '(org-property-value ((t (:inherit fixed-pitch))) t)
@@ -430,21 +426,23 @@ makes a copy of the one from one week ago."
               (list 'message (format "Visiting %s" pname))
               (list 'find-file path))))
 
-(nicemacs-visit nicemacs "nicemacs README" "~/Documents/nicemacs/README.org")
 (nicemacs-visit beast-notes "BEAST2 notes" "/home/aez/public-site/org/notes/beast2-notes.org")
 (nicemacs-visit colleagues "Colleagues notes" "~/Documents/professional/colleague-details.org")
-(nicemacs-visit spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
+(nicemacs-visit git-notes "Git notes" "/home/aez/public-site/org/notes/git-notes.org")
 (nicemacs-visit haskell-notes "Haskell notes" "/home/aez/public-site/org/notes/haskell-notes.org")
 (nicemacs-visit java-notes "Java notes" "/home/aez/public-site/org/notes/java-notes.org")
 (nicemacs-visit latex-notes "LaTeX notes" "/home/aez/public-site/org/notes/latex-notes.org")
+(nicemacs-visit maxima-notes "Maxima notes" "/home/aez/public-site/org/notes/maxima-notes.org")
+(nicemacs-visit nicemacs "nicemacs README" "~/Documents/nicemacs/README.org")
 (nicemacs-visit nix-notes "Nix notes" "/home/aez/public-site/org/notes/nix-notes.org")
+(nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
 (nicemacs-visit python-notes "Python notes" "/home/aez/public-site/org/notes/python-notes.org")
 (nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
 (nicemacs-visit ubuntu-notes "Ubuntu/Linux notes" "/home/aez/public-site/org/notes/linux-notes.org")
-(nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
 (nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review2/review.org")
 (nicemacs-visit review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
 (nicemacs-visit review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
+(nicemacs-visit spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
 (nicemacs-visit statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
 
 (defun nvf-journal ()
@@ -470,9 +468,11 @@ makes a copy of the one from one week ago."
   "ovj" 'nvf-journal
   "ovl" 'nvf-reading-list
   "ovnb" 'nvf-beast-notes
+  "ovng" 'nvf-git-notes
   "ovnh" 'nvf-haskell-notes
   "ovnj" 'nvf-java-notes
   "ovnl" 'nvf-latex-notes
+  "ovnm" 'nvf-maxima-notes
   "ovnn" 'nvf-nix-notes
   "ovno" 'nvf-org-mode-notes
   "ovnp" 'nvf-python-notes

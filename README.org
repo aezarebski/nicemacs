@@ -506,6 +506,7 @@ using Noto with serifs for text and sans for headers.
  '(org-level-1 ((t (:inherit nil :extend nil :foreground "#3a81c3" :weight bold :height 1.4 :family "Noto Sans"))))
  '(org-level-2 ((t (:inherit nil :extend nil :foreground "#2d9574" :weight bold :height 1.2 :width normal :family "Noto Sans"))))
  '(org-level-3 ((t (:extend nil :foreground "#67b11d" :weight normal :height 1.1 :family "Noto Sans"))))
+ '(org-level-4 ((t (:extend nil :foreground "#b1951d" :weight normal :height 1.0 :family "Noto Sans"))))
  '(org-link ((t (:underline t))))
  '(org-meta-line ((t (:inherit fixed-pitch))))
  '(org-property-value ((t (:inherit fixed-pitch))) t)
@@ -1089,26 +1090,28 @@ files.
 Then we need to define the actual files that we want listed
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-  (nicemacs-visit nicemacs "nicemacs README" "~/Documents/nicemacs/README.org")
   (nicemacs-visit beast-notes "BEAST2 notes" "/home/aez/public-site/org/notes/beast2-notes.org")
   (nicemacs-visit colleagues "Colleagues notes" "~/Documents/professional/colleague-details.org")
-  (nicemacs-visit spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
+  (nicemacs-visit git-notes "Git notes" "/home/aez/public-site/org/notes/git-notes.org")
   (nicemacs-visit haskell-notes "Haskell notes" "/home/aez/public-site/org/notes/haskell-notes.org")
   (nicemacs-visit java-notes "Java notes" "/home/aez/public-site/org/notes/java-notes.org")
   (nicemacs-visit latex-notes "LaTeX notes" "/home/aez/public-site/org/notes/latex-notes.org")
+  (nicemacs-visit maxima-notes "Maxima notes" "/home/aez/public-site/org/notes/maxima-notes.org")
+  (nicemacs-visit nicemacs "nicemacs README" "~/Documents/nicemacs/README.org")
   (nicemacs-visit nix-notes "Nix notes" "/home/aez/public-site/org/notes/nix-notes.org")
+  (nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
   (nicemacs-visit python-notes "Python notes" "/home/aez/public-site/org/notes/python-notes.org")
   (nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
   (nicemacs-visit ubuntu-notes "Ubuntu/Linux notes" "/home/aez/public-site/org/notes/linux-notes.org")
-  (nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
   (nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review2/review.org")
   (nicemacs-visit review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
   (nicemacs-visit review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
+  (nicemacs-visit spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
   (nicemacs-visit statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
 #+end_src
 
 There are some visitor functions that we want that are easier just to define
-manually.
+manually because they require slightly different behaviour.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun nvf-journal ()
@@ -1138,9 +1141,11 @@ And finally we need to writing keybindings for these.
   "ovj" 'nvf-journal
   "ovl" 'nvf-reading-list
   "ovnb" 'nvf-beast-notes
+  "ovng" 'nvf-git-notes
   "ovnh" 'nvf-haskell-notes
   "ovnj" 'nvf-java-notes
   "ovnl" 'nvf-latex-notes
+  "ovnm" 'nvf-maxima-notes
   "ovnn" 'nvf-nix-notes
   "ovno" 'nvf-org-mode-notes
   "ovnp" 'nvf-python-notes
