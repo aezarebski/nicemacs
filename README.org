@@ -3,9 +3,38 @@
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet-dark.css" />
 
+#+attr_org: :width 300px
+#+attr_html: :width 300px
 [[./resources/nicemacs-logo.png]]
 
 * Emacs
+
+** Build you an Emacs
+
+1. Get the source code from [[http://savannah.gnu.org/projects/emacs/][=http://savannah.gnu.org/projects/emacs/=]]
+
+#+begin_src sh
+wget https://ftp.gnu.org/gnu/emacs/emacs-VERSION.tar.xz
+tar -xf emacs-VERSION.tar.xz
+#+end_src
+
+Alternatively, you can get clone the [[https://github.com/emacs-mirror/emacs][emacs mirror]] from GitHub and check out the
+=emacs-28= branch (or whatever version you want).
+
+2. Follow the instructions in the =INSTALL= file to build emacs.
+   - There may be some issues with permissions and dependencies so pay
+     attention.
+   - If you cannot find the =configure= script, you may need to run =autogen.sh=
+     first.
+
+*** Notes
+
+- =emacs-28.0.60= requested =libacl1-dev= and =libharfbuzz-dev= be installed but
+  worked perfectly after that. It does feel snappier. It told me that my current
+  version of GTK+ leads to a bug but I couldn't figure out how to update GTK+
+  and it seemed to be an up to date version anyway. This hasn't caused problems
+  though... yet.
+ =emacs-27.2= build and installs without issue.
 
 ** Recursive grep
 
