@@ -44,6 +44,19 @@ results are presented in a buffer which links to the matches found.
 
 * Spacemacs configuration
 
+** System
+
+*** Display battery percentage
+
+To toggle the display of the battery there is the shortcut =SPC t m b= which runs
+the command =spacemacs/toggle-mode-line-battery=.
+
+*** Display time
+
+To toggle the display of the time there is the shortcut =SPC t m t= which runs the
+command =spacemacs/toggle-display-time=. Note that you can configure the way in
+which the time is displayed.
+
 ** Spacemacs shortcuts
 
 | Keys      | Description                         |
