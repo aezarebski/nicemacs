@@ -1370,6 +1370,33 @@ And now to specify the actual keybindings
     "ouo" 'nag-omega-small)
 #+end_src
 
+** TODO XML editing
+
+It looks like nxml-mode is what you want for editing XML. The following is some
+useful configuration, but it needs streamlining!
+
+#+begin_src emacs-lisp
+  (require 'hideshow)
+  (require 'sgml-mode)
+  (require 'nxml-mode)
+
+  (add-to-list 'hs-special-modes-alist
+               '(nxml-mode
+                 "<!--\\|<[^/>]*[^/]>"
+                 "-->\\|</[^/>]*[^/]>"
+
+                 "<!--"
+                 sgml-skip-tag-forward
+                 nil))
+
+  (add-hook 'nxml-mode-hook 'hs-minor-mode)
+
+  ;; TODO this should be done in a more sensible way!
+  (define-key nxml-mode-map (kbd "C-c h") 'hs-toggle-hiding)
+  (define-key nxml-mode-map (kbd "C-c b") 'sgml-skip-tag-backward)
+  (define-key nxml-mode-map (kbd "C-c f") 'sgml-skip-tag-forward)
+#+end_src
+
 * Yasnippet snippets
 
 Snippets usually live in =~/.emacs.d/private/snippets= in a directory which is
