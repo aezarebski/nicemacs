@@ -1006,10 +1006,18 @@ different backend adjust your layer config with the following
 
 *** TODO Fix the buffer display settings so that help covers the REPL
 
-The following might be useful as a starting point for this
+The following might be useful as a starting point for this:
 
 #+begin_src emacs-lisp
 (info "(ess) Controlling buffer display")
+#+end_src
+
+*** TODO Setting the REPL starting directory
+
+The following might be useful as a starting point for this:
+
+#+begin_src emacs-lisp
+  (setq ess-startup-directory-function '(lambda nil default-directory))
 #+end_src
 
 *** Setting up =lintr= for static analysis
@@ -1679,4 +1687,4 @@ args <- parser$parse_args()
 list, this should only be used in configuration code; use =push= to add elements
 to a list in emacs-lisp.
 
-#  LocalWords:  nicemacs Spacemacs spacemacs SPC
+#  LocalWords:  nicemacs Spacemacs spacemacs SPC REPL
