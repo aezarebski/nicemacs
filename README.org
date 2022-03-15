@@ -761,35 +761,37 @@ committing it to github so it goes live. To enable this page to be copied to a
 file with a more sensible name and to have easier access to the logo there are
 some additional commands.
 
-There are two functions here, the first, =publish-my-site=, is bound to =SPC
-oop= runs the publishing and the second, =publish-my-site-and-magit=, bound to
-=SPC ooP= runs the publishing and opens the magit buffer to commit and push the
-changes.
+There are two functions here, the first, =publish-my-site=, is bound to =SPC oop=
+runs the publishing (and moves a couple of files around in a sensible way) and
+the second, =publish-my-site-and-magit=, bound to =SPC ooP= runs the publishing and
+opens the magit buffer to commit and push the changes.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defun publish-my-site ()
-  (interactive)
-  (org-publish "org")
-  (let ((readme "~/aezarebski.github.io/misc/nicemacs/README.html")
-        (index "~/aezarebski.github.io/misc/nicemacs/index.html"))
-    (if (file-exists-p readme)
-        (copy-file readme index t)))
-  (copy-file "~/Documents/nicemacs/resources/nicemacs-logo.png"
-             "~/aezarebski.github.io/misc/nicemacs/resources/nicemacs-logo.png"
-             t)
-  (copy-file "~/public-site/org/scratch.html"
-             "~/aezarebski.github.io/index.html"
-             t)
-  )
+  (defun publish-my-site ()
+    (interactive)
+    (org-publish "org")
+    (rename-file "~/aezarebski.github.io/misc/nicemacs/README.html"
+                 "~/aezarebski.github.io/misc/nicemacs/index.html"
+                 t)
+    (copy-file "~/Documents/nicemacs/resources/nicemacs-logo.png"
+               "~/aezarebski.github.io/misc/nicemacs/resources/nicemacs-logo.png"
+               t)
+    (copy-file "~/public-site/org/scratch.html"
+               "~/aezarebski.github.io/index.html"
+               t)
+    (copy-file "~/.aspell.en.pws"
+               "~/Documents/nicemacs/resources/aspell.en.pws"
+               t)
+    )
 
-(defun publish-my-site-and-magit ()
-  (interactive)
-  (publish-my-site)
-  (magit-status "~/aezarebski.github.io")
-  )
+  (defun publish-my-site-and-magit ()
+    (interactive)
+    (publish-my-site)
+    (magit-status "~/aezarebski.github.io")
+    )
 
-(spacemacs/set-leader-keys "oop" 'publish-my-site)
-(spacemacs/set-leader-keys "ooP" 'publish-my-site-and-magit)
+  (spacemacs/set-leader-keys "oop" 'publish-my-site)
+  (spacemacs/set-leader-keys "ooP" 'publish-my-site-and-magit)
 #+end_src
 
 The following function is useful for going to the root of my notes site which is

@@ -280,15 +280,17 @@ makes a copy of the one from one week ago."
 (defun publish-my-site ()
   (interactive)
   (org-publish "org")
-  (let ((readme "~/aezarebski.github.io/misc/nicemacs/README.html")
-        (index "~/aezarebski.github.io/misc/nicemacs/index.html"))
-    (if (file-exists-p readme)
-        (copy-file readme index t)))
+  (rename-file "~/aezarebski.github.io/misc/nicemacs/README.html"
+               "~/aezarebski.github.io/misc/nicemacs/index.html"
+               t)
   (copy-file "~/Documents/nicemacs/resources/nicemacs-logo.png"
              "~/aezarebski.github.io/misc/nicemacs/resources/nicemacs-logo.png"
              t)
   (copy-file "~/public-site/org/scratch.html"
              "~/aezarebski.github.io/index.html"
+             t)
+  (copy-file "~/.aspell.en.pws"
+             "~/Documents/nicemacs/resources/aspell.en.pws"
              t)
   )
 
