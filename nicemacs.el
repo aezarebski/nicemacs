@@ -443,7 +443,7 @@ makes a copy of the one from one week ago."
 (nicemacs-visit python-notes "Python notes" "/home/aez/public-site/org/notes/python-notes.org")
 (nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
 (nicemacs-visit ubuntu-notes "Ubuntu/Linux notes" "/home/aez/public-site/org/notes/linux-notes.org")
-(nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review2/review.org")
+(nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review2/reading-list.org")
 (nicemacs-visit review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
 (nicemacs-visit review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
 (nicemacs-visit spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
