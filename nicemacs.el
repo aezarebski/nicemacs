@@ -150,6 +150,7 @@ file. TODO Add error message if there are no RIS files."
 '(org-table ((t (:inherit fixed-pitch))))
 '(org-tag ((t (:inherit fixed-pitch))))
 '(org-verbatim ((t (:inherit fixed-pitch))))
+'(font-lock-comment-face ((t (:inherit fixed-pitch))))
 '(variable-pitch ((t (:family "Noto Serif")))))
 
 (require 'writeroom-mode)
