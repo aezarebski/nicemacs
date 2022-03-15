@@ -444,6 +444,7 @@ makes a copy of the one from one week ago."
 (nicemacs-visit review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
 (nicemacs-visit spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
 (nicemacs-visit statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
+(nicemacs-visit wikipedia-notes "Wikipedia notes" "/home/aez/public-site/org/notes/wikipedia-notes.org")
 
 (defun nvf-journal ()
   (interactive)
@@ -479,6 +480,7 @@ makes a copy of the one from one week ago."
   "ovnr" 'nvf-r-notes
   "ovns" 'nvf-statistics-notes
   "ovnu" 'nvf-ubuntu-notes
+  "ovnw" 'nvf-wikipedia-notes
   "ovp" 'nvf-professional
   "ovrr" 'nvf-review-references
   "ovrp" 'nvf-review-phylodynamics

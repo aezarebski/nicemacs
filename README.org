@@ -1154,6 +1154,7 @@ Then we need to define the actual files that we want listed
   (nicemacs-visit review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
   (nicemacs-visit spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
   (nicemacs-visit statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
+  (nicemacs-visit wikipedia-notes "Wikipedia notes" "/home/aez/public-site/org/notes/wikipedia-notes.org")
 #+end_src
 
 There are some visitor functions that we want that are easier just to define
@@ -1198,6 +1199,7 @@ And finally we need to writing keybindings for these.
   "ovnr" 'nvf-r-notes
   "ovns" 'nvf-statistics-notes
   "ovnu" 'nvf-ubuntu-notes
+  "ovnw" 'nvf-wikipedia-notes
   "ovp" 'nvf-professional
   "ovrr" 'nvf-review-references
   "ovrp" 'nvf-review-phylodynamics
