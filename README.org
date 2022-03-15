@@ -1073,7 +1073,7 @@ And some useful examples should be bound to shortcuts.
 (spacemacs/set-leader-keys "ocj" 'ncf-journal)
  #+end_src
 
-** File and buffer manipulation
+** TODO File and buffer manipulation
 
 If you want to kill buffers with names that match a regex there is the
 =kill-matching-buffers= function.
@@ -1264,7 +1264,7 @@ The Ibuffer menu provides a more featureful dired-like menu for buffers.
 The navigation mode for ibuffer needs to be adjusted to work nicely with vim
 keybindings.
 
-*** Misc
+*** TODO Misc
 
 Sometimes it is useful to get the fullpath of the file shown in a buffer. This
 is bound to =SPC o f d= for owner-files-directory. This also writes the path to
@@ -1312,7 +1312,6 @@ it a key binding just yet.
                        1)))
       (message "No file found in ~/Downloads/"))))
 #+end_src
-
 
 ** treemacs
 
@@ -1385,7 +1384,7 @@ And now to specify the actual keybindings
 It looks like nxml-mode is what you want for editing XML. The following is some
 useful configuration, but it needs streamlining!
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle nicemacs.el
   (require 'hideshow)
   (require 'sgml-mode)
   (require 'nxml-mode)

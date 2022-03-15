@@ -598,5 +598,25 @@ makes a copy of the one from one week ago."
   "oup" 'nag-psi-small
   "ouo" 'nag-omega-small)
 
+(require 'hideshow)
+(require 'sgml-mode)
+(require 'nxml-mode)
+
+(add-to-list 'hs-special-modes-alist
+             '(nxml-mode
+               "<!--\\|<[^/>]*[^/]>"
+               "-->\\|</[^/>]*[^/]>"
+
+               "<!--"
+               sgml-skip-tag-forward
+               nil))
+
+(add-hook 'nxml-mode-hook 'hs-minor-mode)
+
+;; TODO this should be done in a more sensible way!
+(define-key nxml-mode-map (kbd "C-c h") 'hs-toggle-hiding)
+(define-key nxml-mode-map (kbd "C-c b") 'sgml-skip-tag-backward)
+(define-key nxml-mode-map (kbd "C-c f") 'sgml-skip-tag-forward)
+
 (files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/python-mode")
