@@ -1,4 +1,4 @@
-personal_ws-1.1 en 38
+personal_ws-1.1 en 42 
 BDSIR
 BDSky
 CTMC
@@ -15,6 +15,8 @@ Stadler
 Stadler's
 Zarebski
 cephalopod
+clade
+clades
 covariates
 dataset
 datasets
@@ -34,6 +36,8 @@ phylogenies
 polytomies
 scalability
 superspreading
+topologies
 transmissibility
 tuple
+ultrametric
 virions
