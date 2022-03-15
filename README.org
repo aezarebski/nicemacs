@@ -322,7 +322,8 @@ always a bash shell available too. See
 - Use =SPC S b= to spellcheck the buffer.
 - Use =SPC S s= to open spelling suggestions for the work under the cursor.
 - It appears that when you add a word to a personal dictionary it is saved in
-  =~/.aspell.en.pws=.
+  =~/.aspell.en.pws=. A (probably outdated) version of my personal dictionary is
+  [[file:./resources/aspell.en.pws][here]].
 
 ** Latex and Bibtex
 
