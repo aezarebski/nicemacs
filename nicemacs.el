@@ -28,6 +28,10 @@
 (setenv "PATH" (concat (getenv "PATH") "/home/aez/.nvm/versions/node/v17.3.1/bin"))
 (setq exec-path (append exec-path '("/home/aez/.nvm/versions/node/v17.3.1/bin")))
 
+(spacemacs/declare-prefix "op" "paragraph-modification-menu")
+(spacemacs/set-leader-keys "opf" 'org-fill-paragraph)
+(spacemacs/set-leader-keys "opu" 'unfill-paragraph)
+
 (add-to-list 'auto-mode-alist '("\\.bibtex\\'" . bibtex-mode))
 
 (spacemacs/declare-prefix "ol" "latex")

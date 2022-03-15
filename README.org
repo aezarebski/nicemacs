@@ -312,9 +312,21 @@ always a bash shell available too. See
 
 ** TODO Miscellaneous configuration for prose
 
-- There are the =org-fill-paragraph= and =unfill-paragraph= functions which are
-  useful to switch between representations of paragraphs when copying between
-  editors.
+- A neat way to change a block of text from upper to lower case is to select the
+  appropriate region and use =u= and =U= to toggle the case.
+
+*** Toggling paragraph filling
+
+There are the =org-fill-paragraph= and =unfill-paragraph= functions which are useful
+to switch between representations of paragraphs when copying between editors. I
+think a suitable binding for these command is =SPC o p f= for fill and =SPC o p u=
+for unfill.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (spacemacs/declare-prefix "op" "paragraph-modification-menu")
+  (spacemacs/set-leader-keys "opf" 'org-fill-paragraph)
+  (spacemacs/set-leader-keys "opu" 'unfill-paragraph)
+#+end_src
 
 *** Spell checking
 
