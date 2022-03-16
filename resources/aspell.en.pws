@@ -1,4 +1,4 @@
-personal_ws-1.1 en 42 
+personal_ws-1.1 en 47
 BDSIR
 BDSky
 CTMC
@@ -23,11 +23,14 @@ datasets
 decapod
 differentiable
 discretization
+dissolvable
 genomic
 heterochronous
 identifiability
 misspecification
-parametrised
+parameterisation
+parameterisations
+parameterised
 phenotypic
 phylodynamic
 phylodynamics
@@ -40,4 +43,5 @@ topologies
 transmissibility
 tuple
 ultrametric
+univariate
 virions
