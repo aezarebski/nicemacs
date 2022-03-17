@@ -1,7 +1,7 @@
 #+title: NICEMACS
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
-#+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet-dark.css" />
+#+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../css/stylesheet.css" />
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -91,7 +91,7 @@ To tangle the =nicemacs.el= file from the command line execute the following
 command:
 
 #+begin_src sh
-emacs README.org --batch --eval="(org-babel-tangle)"
+emacs nicemacs.org --batch --eval="(org-babel-tangle)"
 #+end_src
 
 Then to include this in your spacemacs configuration add the following
@@ -723,7 +723,7 @@ used to specify which files to ignore using a regular expression.
           ("org-nicemacs"
            :base-directory "~/Documents/nicemacs/"
            :base-extension "org"
-           :publishing-directory "~/aezarebski.github.io/misc/nicemacs/"
+           :publishing-directory "~/aezarebski.github.io/misc/"
            :recursive ()
            :publishing-function org-html-publish-to-html
            )
@@ -770,11 +770,8 @@ opens the magit buffer to commit and push the changes.
   (defun publish-my-site ()
     (interactive)
     (org-publish "org")
-    (rename-file "~/aezarebski.github.io/misc/nicemacs/README.html"
-                 "~/aezarebski.github.io/misc/nicemacs/index.html"
-                 t)
     (copy-file "~/Documents/nicemacs/resources/nicemacs-logo.png"
-               "~/aezarebski.github.io/misc/nicemacs/resources/nicemacs-logo.png"
+               "~/aezarebski.github.io/misc/resources/nicemacs-logo.png"
                t)
     (copy-file "~/public-site/org/scratch.html"
                "~/aezarebski.github.io/index.html"
@@ -883,6 +880,15 @@ It is useful to have a prefix for more involved shell related commands
 (spacemacs/declare-prefix "os" "sheila-menu")
 #+end_src
 
+*** Bash
+
+Sometimes it is useful to just be able to open a regular bash shell. The
+following binding helps with this.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/set-leader-keys "osb" 'shell)
+#+end_src
+
 *** Eshell
 
 To make =eshell= the default shell in spacemacs add the following to the
@@ -918,8 +924,8 @@ The following is for searching the shell history, but I rarely use it.
 #+end_src
 
 It is useful to be able to look at what aliases are currently defined for
-eshell. The following function visits this file. Although the preferred way to
-edit the aliases in the eshell is using the definitions below!
+Eshell. The following function visits this file. Although the preferred way to
+edit the aliases in the Eshell is using the definitions below!
 
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
   (defun eshell-aliases ()
@@ -931,7 +937,7 @@ edit the aliases in the eshell is using the definitions below!
 #+END_SRC
 
 The following expressions set up some useful aliases to have in the shell. Note
-that while the shell is indespensible, =dired= is also a good solution in many
+that while the shell is indispensable, =dired= is also a good solution in many
 situations.
 
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
@@ -950,23 +956,23 @@ variable in the shell to ignore case during tab completion.
 (setq eshell-cmpl-ignore-case t)
 #+END_SRC
 
-The value of =exec-path= is the list of locations that emacs will look for
-executables on. The =executable-find= function plays the role of =which= for
-emacs. We need to add =~/.local/bin= so that it knows where to find haskell
-executables and the =.nvm= path is so that it knows where to find javascript
-programs that have been installed from npm.
+The value of =exec-path= is the list of locations that Emacs will look for
+executables on. The =executable-find= function plays the role of =which= for Emacs.
+We need to add =~/.local/bin= so that it knows where to find Haskell executables
+and the =.nvm= path is so that it knows where to find JavaScript programs that
+have been installed from npm.
 
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
   (setq exec-path (append exec-path '("/home/aez/.local/bin")))
 #+END_SRC
 
-*** Bash
+*** =ielm=
 
-Sometimes it is useful to just be able to open a regular bash shell. The
-following binding helps with this.
+Yes, Eshell can handle Emacs lisp, but it would also be nice to be able to have
+a binding to open =ielm=.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/set-leader-keys "osb" 'shell)
+(spacemacs/set-leader-keys "osi" 'ielm)
 #+end_src
 
 ** Monitoring processes
@@ -1159,7 +1165,7 @@ Then we need to define the actual files that we want listed
   (nicemacs-visit java-notes "Java notes" "/home/aez/public-site/org/notes/java-notes.org")
   (nicemacs-visit latex-notes "LaTeX notes" "/home/aez/public-site/org/notes/latex-notes.org")
   (nicemacs-visit maxima-notes "Maxima notes" "/home/aez/public-site/org/notes/maxima-notes.org")
-  (nicemacs-visit nicemacs "nicemacs README" "~/Documents/nicemacs/README.org")
+  (nicemacs-visit nicemacs "nicemacs" "~/Documents/nicemacs/nicemacs.org")
   (nicemacs-visit nix-notes "Nix notes" "/home/aez/public-site/org/notes/nix-notes.org")
   (nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
   (nicemacs-visit python-notes "Python notes" "/home/aez/public-site/org/notes/python-notes.org")
@@ -1704,4 +1710,4 @@ args <- parser$parse_args()
 list, this should only be used in configuration code; use =push= to add elements
 to a list in emacs-lisp.
 
-#  LocalWords:  nicemacs Spacemacs spacemacs SPC REPL
+#  LocalWords:  nicemacs Spacemacs spacemacs SPC REPL Eshell npm

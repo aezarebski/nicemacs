@@ -245,7 +245,7 @@ makes a copy of the one from one week ago."
         ("org-nicemacs"
          :base-directory "~/Documents/nicemacs/"
          :base-extension "org"
-         :publishing-directory "~/aezarebski.github.io/misc/nicemacs/"
+         :publishing-directory "~/aezarebski.github.io/misc/"
          :recursive ()
          :publishing-function org-html-publish-to-html
          )
@@ -280,11 +280,8 @@ makes a copy of the one from one week ago."
 (defun publish-my-site ()
   (interactive)
   (org-publish "org")
-  (rename-file "~/aezarebski.github.io/misc/nicemacs/README.html"
-               "~/aezarebski.github.io/misc/nicemacs/index.html"
-               t)
   (copy-file "~/Documents/nicemacs/resources/nicemacs-logo.png"
-             "~/aezarebski.github.io/misc/nicemacs/resources/nicemacs-logo.png"
+             "~/aezarebski.github.io/misc/resources/nicemacs-logo.png"
              t)
   (copy-file "~/public-site/org/scratch.html"
              "~/aezarebski.github.io/index.html"
@@ -326,6 +323,8 @@ makes a copy of the one from one week ago."
 
 (spacemacs/declare-prefix "os" "sheila-menu")
 
+(spacemacs/set-leader-keys "osb" 'shell)
+
 (defun shell-and-delete-windows ()
   (interactive)
   (spacemacs/default-pop-shell)
@@ -354,7 +353,7 @@ makes a copy of the one from one week ago."
 
 (setq exec-path (append exec-path '("/home/aez/.local/bin")))
 
-(spacemacs/set-leader-keys "osb" 'shell)
+(spacemacs/set-leader-keys "osi" 'ielm)
 
 (setq proced-auto-update-flag t)
 (setq proced-auto-update-interval 1)
@@ -440,7 +439,7 @@ makes a copy of the one from one week ago."
 (nicemacs-visit java-notes "Java notes" "/home/aez/public-site/org/notes/java-notes.org")
 (nicemacs-visit latex-notes "LaTeX notes" "/home/aez/public-site/org/notes/latex-notes.org")
 (nicemacs-visit maxima-notes "Maxima notes" "/home/aez/public-site/org/notes/maxima-notes.org")
-(nicemacs-visit nicemacs "nicemacs README" "~/Documents/nicemacs/README.org")
+(nicemacs-visit nicemacs "nicemacs" "~/Documents/nicemacs/nicemacs.org")
 (nicemacs-visit nix-notes "Nix notes" "/home/aez/public-site/org/notes/nix-notes.org")
 (nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
 (nicemacs-visit python-notes "Python notes" "/home/aez/public-site/org/notes/python-notes.org")
