@@ -2,6 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../css/stylesheet.css" />
+#+Time-stamp: <Last modified: 2022-03-21 17:57:18>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -1122,6 +1123,17 @@ If you want to kill buffers with names that match a regex there is the
 (spacemacs/declare-prefix "of" "file-stuff")
 (spacemacs/set-leader-keys "off" 'find-file-at-point)
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
+#+end_src
+
+*** Time stamping files
+
+Add =Time-stamp: <>= somewhere in the first eight lines of a file and add the
+=time-stamp= function as a before save hook and it will put the current time on
+that line before saving. This way you will know when you last edited a file in a
+way that is a bit simpler than git.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(add-hook 'before-save-hook 'time-stamp)
 #+end_src
 
 *** Handling large files
