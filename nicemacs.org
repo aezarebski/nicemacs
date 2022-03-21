@@ -872,7 +872,7 @@ We know that we need to =(require 'ol)= here by looking at the end of the file
 in which =org-link-frame-setup= is defined and seeing what it "provides" at the
 end.
 
-** Shells
+** Shells and REPLs
 
 It is useful to have a prefix for more involved shell related commands
 
@@ -973,6 +973,14 @@ a binding to open =ielm=.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/set-leader-keys "osi" 'ielm)
+#+end_src
+
+*** R
+
+Sometimes you just need an R REPL!
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/set-leader-keys "osr" 'R)
 #+end_src
 
 ** Monitoring processes

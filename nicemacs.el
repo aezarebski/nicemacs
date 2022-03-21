@@ -355,6 +355,8 @@ makes a copy of the one from one week ago."
 
 (spacemacs/set-leader-keys "osi" 'ielm)
 
+(spacemacs/set-leader-keys "osr" 'R)
+
 (setq proced-auto-update-flag t)
 (setq proced-auto-update-interval 1)
 
