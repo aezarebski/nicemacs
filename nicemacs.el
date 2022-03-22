@@ -450,8 +450,9 @@ makes a copy of the one from one week ago."
 (nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
 (nicemacs-visit ubuntu-notes "Ubuntu/Linux notes" "/home/aez/public-site/org/notes/linux-notes.org")
 (nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review2/reading-list.org")
-(nicemacs-visit review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
+(nicemacs-visit review-engineering "Literature review: Software engineering" "/home/aez/Documents/bibliography/review/software.tex")
 (nicemacs-visit review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
+(nicemacs-visit review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
 (nicemacs-visit spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
 (nicemacs-visit statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
 (nicemacs-visit wikipedia-notes "Wikipedia notes" "/home/aez/public-site/org/notes/wikipedia-notes.org")
@@ -492,6 +493,7 @@ makes a copy of the one from one week ago."
   "ovnu" 'nvf-ubuntu-notes
   "ovnw" 'nvf-wikipedia-notes
   "ovp" 'nvf-professional
+  "ovre" 'nvf-review-engineering
   "ovrr" 'nvf-review-references
   "ovrp" 'nvf-review-phylodynamics
   "ovs" 'nvf-spelling

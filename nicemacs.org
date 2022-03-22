@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-03-21 17:57:18>
+#+Time-stamp: <Last modified: 2022-03-22 11:39:14>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -1192,8 +1192,9 @@ Then we need to define the actual files that we want listed
   (nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
   (nicemacs-visit ubuntu-notes "Ubuntu/Linux notes" "/home/aez/public-site/org/notes/linux-notes.org")
   (nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review2/reading-list.org")
-  (nicemacs-visit review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
+  (nicemacs-visit review-engineering "Literature review: Software engineering" "/home/aez/Documents/bibliography/review/software.tex")
   (nicemacs-visit review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
+  (nicemacs-visit review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
   (nicemacs-visit spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
   (nicemacs-visit statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
   (nicemacs-visit wikipedia-notes "Wikipedia notes" "/home/aez/public-site/org/notes/wikipedia-notes.org")
@@ -1223,30 +1224,31 @@ manually because they require slightly different behaviour.
 And finally we need to writing keybindings for these.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/set-leader-keys
-  "ovb" 'nvf-last-bib
-  "ovc" 'nvf-colleagues
-  "ove" 'nvf-nicemacs
-  "ovj" 'nvf-journal
-  "ovl" 'nvf-reading-list
-  "ovnb" 'nvf-beast-notes
-  "ovng" 'nvf-git-notes
-  "ovnh" 'nvf-haskell-notes
-  "ovnj" 'nvf-java-notes
-  "ovnl" 'nvf-latex-notes
-  "ovnm" 'nvf-maxima-notes
-  "ovnn" 'nvf-nix-notes
-  "ovno" 'nvf-org-mode-notes
-  "ovnp" 'nvf-python-notes
-  "ovnr" 'nvf-r-notes
-  "ovns" 'nvf-statistics-notes
-  "ovnu" 'nvf-ubuntu-notes
-  "ovnw" 'nvf-wikipedia-notes
-  "ovp" 'nvf-professional
-  "ovrr" 'nvf-review-references
-  "ovrp" 'nvf-review-phylodynamics
-  "ovs" 'nvf-spelling
-  "ovw" 'nvf-website)
+  (spacemacs/set-leader-keys
+    "ovb" 'nvf-last-bib
+    "ovc" 'nvf-colleagues
+    "ove" 'nvf-nicemacs
+    "ovj" 'nvf-journal
+    "ovl" 'nvf-reading-list
+    "ovnb" 'nvf-beast-notes
+    "ovng" 'nvf-git-notes
+    "ovnh" 'nvf-haskell-notes
+    "ovnj" 'nvf-java-notes
+    "ovnl" 'nvf-latex-notes
+    "ovnm" 'nvf-maxima-notes
+    "ovnn" 'nvf-nix-notes
+    "ovno" 'nvf-org-mode-notes
+    "ovnp" 'nvf-python-notes
+    "ovnr" 'nvf-r-notes
+    "ovns" 'nvf-statistics-notes
+    "ovnu" 'nvf-ubuntu-notes
+    "ovnw" 'nvf-wikipedia-notes
+    "ovp" 'nvf-professional
+    "ovre" 'nvf-review-engineering
+    "ovrr" 'nvf-review-references
+    "ovrp" 'nvf-review-phylodynamics
+    "ovs" 'nvf-spelling
+    "ovw" 'nvf-website)
 #+end_src
 
 *** TODO Searching by filename
