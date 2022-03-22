@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-03-22 11:39:14>
+#+Time-stamp: <Last modified: 2022-03-22 18:45:44>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -1479,6 +1479,9 @@ so this might be something javascript specific, in which case, it is probably
 easier just to call =yas-insert-snippet= directly when editing JSON.
 
 ** TODO Org-mode
+
+For some reason I found it difficult to get this to load and still have the
+default snippets...
 
 #+BEGIN_SRC snippet
 # -*- mode: snippet -*-
