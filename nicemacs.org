@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-03-22 18:45:44>
+#+Time-stamp: <2022-03-26 12:35:41 aez>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -300,16 +300,36 @@ setting the =lsp-haskell-server-path= to the executable solved things.
 
 See [[https://github.com/dalanicolai/maxima-layer][maxima-layer]] by [[https://dalanicolai.github.io/][Daniel Nicolai]].
 
-** Javascript and Typescript
+** JavaScript and Typescript
 
-The following needs to be included for eshell to be able to find node and npm.
-I'm not sure why you need to do it twice, but if this doesn't work there is
-always a bash shell available too. See
+At the time of writing, the path to node is
+=/home/aez/.nvm/versions/node/v17.3.1/bin=, since this is used a few times we
+should define this as a constant.
 
-#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
-  (setenv "PATH" (concat (getenv "PATH") "/home/aez/.nvm/versions/node/v17.3.1/bin"))
-  (setq exec-path (append exec-path '("/home/aez/.nvm/versions/node/v17.3.1/bin")))
-#+END_SRC
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (defvar my-node-path "/home/aez/.nvm/versions/node/v17.3.1/bin"
+    "The path to node on my machine.")
+#+end_src
+
+The following needs to be included for Eshell to be able to find node and npm.
+I'm not sure why you need to do it twice.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (setenv "PATH" (concat (getenv "PATH") my-node-path))
+  (setq exec-path (append exec-path '(my-node-path)))
+#+end_src
+
+By default the REPL used is geared towards front end work. To get it to use the
+node REPL add the following to the configuration so that the correct command is
+called.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (defun my-nodejs-repl-command ()
+    (concat my-node-path "/node"))
+
+  (setq nodejs-repl-command 'my-nodejs-repl-command)
+#+end_src
+
 
 ** TODO Miscellaneous configuration for prose
 

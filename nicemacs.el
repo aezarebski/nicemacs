@@ -25,8 +25,16 @@
 (setq exec-path (append exec-path '("/home/aez/.ghcup/bin")))
 (setq lsp-haskell-server-path "/home/aez/.ghcup/bin/haskell-language-server-8.10.4")
 
-(setenv "PATH" (concat (getenv "PATH") "/home/aez/.nvm/versions/node/v17.3.1/bin"))
-(setq exec-path (append exec-path '("/home/aez/.nvm/versions/node/v17.3.1/bin")))
+(defvar my-node-path "/home/aez/.nvm/versions/node/v17.3.1/bin"
+  "The path to node on my machine.")
+
+(setenv "PATH" (concat (getenv "PATH") my-node-path))
+(setq exec-path (append exec-path '(my-node-path)))
+
+(defun my-nodejs-repl-command ()
+  (concat my-node-path "/node"))
+
+(setq nodejs-repl-command 'my-nodejs-repl-command)
 
 (spacemacs/declare-prefix "op" "paragraph-modification-menu")
 (spacemacs/set-leader-keys "opf" 'org-fill-paragraph)
