@@ -297,6 +297,9 @@ makes a copy of the one from one week ago."
   (copy-file "~/.aspell.en.pws"
              "~/Documents/nicemacs/resources/aspell.en.pws"
              t)
+  (copy-file "~/.spacemacs"
+             "~/Documents/nicemacs/resources/spacemacs"
+             t)
   )
 
 (defun publish-my-site-and-magit ()

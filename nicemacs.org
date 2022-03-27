@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../css/stylesheet.css" />
-#+Time-stamp: <2022-03-26 12:35:41 aez>
+#+Time-stamp: <2022-03-27 18:46:24 aez>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -799,6 +799,9 @@ opens the magit buffer to commit and push the changes.
                t)
     (copy-file "~/.aspell.en.pws"
                "~/Documents/nicemacs/resources/aspell.en.pws"
+               t)
+    (copy-file "~/.spacemacs"
+               "~/Documents/nicemacs/resources/spacemacs"
                t)
     )
 
