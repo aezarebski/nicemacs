@@ -2,15 +2,13 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-03-30 11:14:04>
+#+Time-stamp: <Last modified: 2022-03-30 11:15:55>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
 [[./resources/nicemacs-logo.png]]
 
-* Emacs
-
-** Build you an Emacs
+* Build you an Emacs
 
 1. Get the source code from [[http://savannah.gnu.org/projects/emacs/][=http://savannah.gnu.org/projects/emacs/=]]
 
@@ -36,14 +34,14 @@ Alternatively, you can get clone the [[https://github.com/emacs-mirror/emacs][em
   to be an up to date version anyway.
 - =emacs-27.2= build and installs without issue.
 
+* Spacemacs configuration
+
 ** Recursive grep
 
 The =rgrep= function is used to recursively search files matching a given pattern.
 After running =rgrep= you will be asked for the search term, a pattern to specify
 the filenames to search and finally the root directory of the search. The
 results are presented in a buffer which links to the matches found.
-
-* Spacemacs configuration
 
 ** System
 
