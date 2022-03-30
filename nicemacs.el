@@ -25,8 +25,16 @@
 (setq exec-path (append exec-path '("/home/aez/.ghcup/bin")))
 (setq lsp-haskell-server-path "/home/aez/.ghcup/bin/haskell-language-server-8.10.4")
 
-(setenv "PATH" (concat (getenv "PATH") "/home/aez/.nvm/versions/node/v17.3.1/bin"))
-(setq exec-path (append exec-path '("/home/aez/.nvm/versions/node/v17.3.1/bin")))
+(defvar my-node-path "/home/aez/.nvm/versions/node/v17.3.1/bin"
+  "The path to node on my machine.")
+
+(setenv "PATH" (concat (getenv "PATH") my-node-path))
+(setq exec-path (append exec-path '(my-node-path)))
+
+(defun my-nodejs-repl-command ()
+  (concat my-node-path "/node"))
+
+(setq nodejs-repl-command 'my-nodejs-repl-command)
 
 (spacemacs/declare-prefix "op" "paragraph-modification-menu")
 (spacemacs/set-leader-keys "opf" 'org-fill-paragraph)
@@ -277,6 +285,10 @@ makes a copy of the one from one week ago."
                             "review2-org"
                             "review2-static"))))
 
+;; TODO There are options for =org-publish= that allow you to force
+;; re-publication of all files and to run the publishing asynchronously. Also,
+;; there is mention of generating a sitemap but I haven't figured that out yet.
+
 (defun publish-my-site ()
   (interactive)
   (org-publish "org")
@@ -288,6 +300,9 @@ makes a copy of the one from one week ago."
              t)
   (copy-file "~/.aspell.en.pws"
              "~/Documents/nicemacs/resources/aspell.en.pws"
+             t)
+  (copy-file "~/.spacemacs"
+             "~/Documents/nicemacs/resources/spacemacs"
              t)
   )
 
