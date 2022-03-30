@@ -1,4 +1,4 @@
-personal_ws-1.1 en 60 
+personal_ws-1.1 en 63 
 BDSIR
 BDSky
 CTMC
@@ -10,6 +10,7 @@ HMC
 LLHD
 MCMC
 Newick
+PDE
 README
 SDE
 Speciation
@@ -34,6 +35,7 @@ executables
 genomic
 heterochronous
 identifiability
+inhomogeneous
 misspecification
 monophyletic
 parameterisation
@@ -58,4 +60,5 @@ tuple
 ultrametric
 univariate
 untick
+vectorised
 virions

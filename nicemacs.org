@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-03-22 18:45:44>
+#+Time-stamp: <Last modified: 2022-03-28 11:26:16>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -70,12 +70,12 @@ which the time is displayed.
 | =SPC w d=   | Kill /current/ window                 |
 | =SPC w D=   | Kill all /other/ windows              |
 | =SPC b b=   | List buffers                        |
-| =SPC b [n]= | Move the current buffer to window =n= |
 | =SPC b n=   | Next buffer                         |
 | =SPC b p=   | Previous buffer                     |
 | =SPC b k=   | Kill buffer                         |
 | =SPC T n=   | Toggle the theme                    |
 | =SPC q r=   | Restart emacs                       |
+| =SPC v=     | Selects outwards sensibly           |
 
 *** Owner menu
 
