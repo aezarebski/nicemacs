@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-03-28 11:26:16>
+#+Time-stamp: <Last modified: 2022-03-30 11:14:04>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -300,16 +300,36 @@ setting the =lsp-haskell-server-path= to the executable solved things.
 
 See [[https://github.com/dalanicolai/maxima-layer][maxima-layer]] by [[https://dalanicolai.github.io/][Daniel Nicolai]].
 
-** Javascript and Typescript
+** JavaScript and Typescript
 
-The following needs to be included for eshell to be able to find node and npm.
-I'm not sure why you need to do it twice, but if this doesn't work there is
-always a bash shell available too. See
+At the time of writing, the path to node is
+=/home/aez/.nvm/versions/node/v17.3.1/bin=, since this is used a few times we
+should define this as a constant.
 
-#+BEGIN_SRC emacs-lisp :tangle nicemacs.el
-  (setenv "PATH" (concat (getenv "PATH") "/home/aez/.nvm/versions/node/v17.3.1/bin"))
-  (setq exec-path (append exec-path '("/home/aez/.nvm/versions/node/v17.3.1/bin")))
-#+END_SRC
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (defvar my-node-path "/home/aez/.nvm/versions/node/v17.3.1/bin"
+    "The path to node on my machine.")
+#+end_src
+
+The following needs to be included for Eshell to be able to find node and npm.
+I'm not sure why you need to do it twice.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (setenv "PATH" (concat (getenv "PATH") my-node-path))
+  (setq exec-path (append exec-path '(my-node-path)))
+#+end_src
+
+By default the REPL used is geared towards front end work. To get it to use the
+node REPL add the following to the configuration so that the correct command is
+called.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (defun my-nodejs-repl-command ()
+    (concat my-node-path "/node"))
+
+  (setq nodejs-repl-command 'my-nodejs-repl-command)
+#+end_src
+
 
 ** TODO Miscellaneous configuration for prose
 
@@ -695,6 +715,8 @@ To make it easy to access these we will bind them to come convenient keys.
 
 *** Website
 
+**** Declare which files need to be published
+
 Set up for publishing my website, note that this will write the output directly
 to the github repository for the site. Note that the =:exclude= variable can be
 used to specify which files to ignore using a regular expression.
@@ -757,6 +779,8 @@ used to specify which files to ignore using a regular expression.
                               "review2-static"))))
 #+end_src
 
+**** Declare how to trigger the publishing
+
 The following function simplifies the process of compiling the site and
 committing it to github so it goes live. To enable this page to be copied to a
 file with a more sensible name and to have easier access to the logo there are
@@ -768,6 +792,10 @@ the second, =publish-my-site-and-magit=, bound to =SPC ooP= runs the publishing 
 opens the magit buffer to commit and push the changes.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
+  ;; TODO There are options for =org-publish= that allow you to force
+  ;; re-publication of all files and to run the publishing asynchronously. Also,
+  ;; there is mention of generating a sitemap but I haven't figured that out yet.
+
   (defun publish-my-site ()
     (interactive)
     (org-publish "org")
@@ -779,6 +807,9 @@ opens the magit buffer to commit and push the changes.
                t)
     (copy-file "~/.aspell.en.pws"
                "~/Documents/nicemacs/resources/aspell.en.pws"
+               t)
+    (copy-file "~/.spacemacs"
+               "~/Documents/nicemacs/resources/spacemacs"
                t)
     )
 
