@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../css/stylesheet.css" />
-#+Time-stamp: <2022-03-27 18:46:24 aez>
+#+Time-stamp: <2022-03-30 08:26:00 aez>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -715,6 +715,8 @@ To make it easy to access these we will bind them to come convenient keys.
 
 *** Website
 
+**** Declare which files need to be published
+
 Set up for publishing my website, note that this will write the output directly
 to the github repository for the site. Note that the =:exclude= variable can be
 used to specify which files to ignore using a regular expression.
@@ -777,6 +779,8 @@ used to specify which files to ignore using a regular expression.
                               "review2-static"))))
 #+end_src
 
+**** Declare how to trigger the publishing
+
 The following function simplifies the process of compiling the site and
 committing it to github so it goes live. To enable this page to be copied to a
 file with a more sensible name and to have easier access to the logo there are
@@ -788,6 +792,10 @@ the second, =publish-my-site-and-magit=, bound to =SPC ooP= runs the publishing 
 opens the magit buffer to commit and push the changes.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
+  ;; TODO There are options for =org-publish= that allow you to force
+  ;; re-publication of all files and to run the publishing asynchronously. Also,
+  ;; there is mention of generating a sitemap but I haven't figured that out yet.
+
   (defun publish-my-site ()
     (interactive)
     (org-publish "org")

@@ -285,6 +285,10 @@ makes a copy of the one from one week ago."
                             "review2-org"
                             "review2-static"))))
 
+;; TODO There are options for =org-publish= that allow you to force
+;; re-publication of all files and to run the publishing asynchronously. Also,
+;; there is mention of generating a sitemap but I haven't figured that out yet.
+
 (defun publish-my-site ()
   (interactive)
   (org-publish "org")
