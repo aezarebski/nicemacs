@@ -28,8 +28,8 @@
 (defvar my-node-path "/home/aez/.nvm/versions/node/v17.3.1/bin"
   "The path to node on my machine.")
 
-(setenv "PATH" (concat (getenv "PATH") my-node-path))
-(setq exec-path (append exec-path '(my-node-path)))
+(setenv "PATH" (concat (getenv "PATH") ":" my-node-path))
+(setq exec-path (append exec-path (list my-node-path)))
 
 (defun my-nodejs-repl-command ()
   (concat my-node-path "/node"))
@@ -253,7 +253,7 @@ makes a copy of the one from one week ago."
         ("org-nicemacs"
          :base-directory "~/Documents/nicemacs/"
          :base-extension "org"
-         :publishing-directory "~/aezarebski.github.io/misc/"
+         :publishing-directory "~/aezarebski.github.io/misc/nicemacs/"
          :recursive ()
          :publishing-function org-html-publish-to-html
          )
@@ -291,9 +291,9 @@ makes a copy of the one from one week ago."
 
 (defun publish-my-site ()
   (interactive)
-  (org-publish "org")
+  (org-publish "org" nil nil)
   (copy-file "~/Documents/nicemacs/resources/nicemacs-logo.png"
-             "~/aezarebski.github.io/misc/resources/nicemacs-logo.png"
+             "~/aezarebski.github.io/misc/nicemacs/resources/nicemacs-logo.png"
              t)
   (copy-file "~/public-site/org/scratch.html"
              "~/aezarebski.github.io/index.html"
@@ -459,6 +459,7 @@ makes a copy of the one from one week ago."
 (nicemacs-visit latex-notes "LaTeX notes" "/home/aez/public-site/org/notes/latex-notes.org")
 (nicemacs-visit maxima-notes "Maxima notes" "/home/aez/public-site/org/notes/maxima-notes.org")
 (nicemacs-visit nicemacs "nicemacs" "~/Documents/nicemacs/nicemacs.org")
+(nicemacs-visit nicemacs-el "nicemacs" "~/Documents/nicemacs/nicemacs.el")
 (nicemacs-visit nix-notes "Nix notes" "/home/aez/public-site/org/notes/nix-notes.org")
 (nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
 (nicemacs-visit python-notes "Python notes" "/home/aez/public-site/org/notes/python-notes.org")
@@ -484,6 +485,10 @@ makes a copy of the one from one week ago."
   (interactive)
   (dired-jump nil "/home/aez/public-site/org/index.org"))
 
+(defun nvf-website-github ()
+  (interactive)
+  (dired-jump nil "/home/aez/aezarebski.github.io/index.html"))
+
 (defun nvf-professional ()
   (interactive)
   (dired-jump nil "/home/aez/Documents/professional/README.org"))
@@ -492,6 +497,7 @@ makes a copy of the one from one week ago."
   "ovb" 'nvf-last-bib
   "ovc" 'nvf-colleagues
   "ove" 'nvf-nicemacs
+  "ovE" 'nvf-nicemacs-el
   "ovj" 'nvf-journal
   "ovl" 'nvf-reading-list
   "ovnb" 'nvf-beast-notes
@@ -512,6 +518,7 @@ makes a copy of the one from one week ago."
   "ovrr" 'nvf-review-references
   "ovrp" 'nvf-review-phylodynamics
   "ovs" 'nvf-spelling
+  "ovW" 'nvf-website-github
   "ovw" 'nvf-website)
 
 (defun nsg-notes ()

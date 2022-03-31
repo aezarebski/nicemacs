@@ -1,8 +1,8 @@
 #+title: NICEMACS
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
-#+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-03-30 11:15:55>
+#+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+#+Time-stamp: <2022-03-31 01:34:06 aez>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
