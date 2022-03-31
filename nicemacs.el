@@ -285,13 +285,9 @@ makes a copy of the one from one week ago."
                             "review2-org"
                             "review2-static"))))
 
-;; TODO There are options for =org-publish= that allow you to force
-;; re-publication of all files and to run the publishing asynchronously. Also,
-;; there is mention of generating a sitemap but I haven't figured that out yet.
-
 (defun publish-my-site ()
   (interactive)
-  (org-publish "org" nil nil)
+  (org-publish "org" nil t)
   (copy-file "~/Documents/nicemacs/resources/nicemacs-logo.png"
              "~/aezarebski.github.io/misc/nicemacs/resources/nicemacs-logo.png"
              t)
@@ -306,14 +302,15 @@ makes a copy of the one from one week ago."
              t)
   )
 
-(defun publish-my-site-and-magit ()
+(defun force-publish-and-magit ()
   (interactive)
   (publish-my-site)
+  (org-publish "org" t nil)
   (magit-status "~/aezarebski.github.io")
   )
 
 (spacemacs/set-leader-keys "oop" 'publish-my-site)
-(spacemacs/set-leader-keys "ooP" 'publish-my-site-and-magit)
+(spacemacs/set-leader-keys "ooP" 'force-publish-and-magit)
 
 (defun visit-my-site-index ()
   (interactive)
