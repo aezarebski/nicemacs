@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
-#+Time-stamp: <2022-03-31 01:55:09 aez>
+#+Time-stamp: <2022-03-31 01:58:25 aez>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -1238,20 +1238,25 @@ manually because they require slightly different behaviour.
   (defun nvf-last-bib ()
     (interactive)
     (last-bib))
+#+end_src
 
+Then there are some visitor functions where we do not want to visit a particular
+file but are more interested in navigating to a particular directory in either
+dired or magit.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
   (defun nvf-website ()
     (interactive)
     (dired-jump nil "/home/aez/public-site/org/index.org"))
 
   (defun nvf-website-github ()
     (interactive)
-    (dired-jump nil "/home/aez/aezarebski.github.io/index.html"))
+    (magit-status "/home/aez/aezarebski.github.io"))
 
   (defun nvf-professional ()
     (interactive)
     (dired-jump nil "/home/aez/Documents/professional/README.org"))
 #+end_src
-
 And finally we need to writing keybindings for these.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
@@ -1768,4 +1773,4 @@ args <- parser$parse_args()
 list, this should only be used in configuration code; use =push= to add elements
 to a list in emacs-lisp.
 
-#  LocalWords:  nicemacs Spacemacs spacemacs SPC REPL Eshell npm
+#  LocalWords:  nicemacs Spacemacs spacemacs SPC REPL Eshell npm magit dired

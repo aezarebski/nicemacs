@@ -484,7 +484,7 @@ makes a copy of the one from one week ago."
 
 (defun nvf-website-github ()
   (interactive)
-  (dired-jump nil "/home/aez/aezarebski.github.io/index.html"))
+  (magit-status "/home/aez/aezarebski.github.io"))
 
 (defun nvf-professional ()
   (interactive)
