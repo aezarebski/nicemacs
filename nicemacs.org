@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
-#+Time-stamp: <2022-03-31 01:58:25 aez>
+#+Time-stamp: <Last modified: 2022-03-31 12:32:35>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -34,7 +34,15 @@ Alternatively, you can get clone the [[https://github.com/emacs-mirror/emacs][em
   to be an up to date version anyway.
 - =emacs-27.2= build and installs without issue.
 
-* Spacemacs configuration
+* Nicemacs
+
+** HELP
+
+There are a couple of help menus that are useful to be able to access easily:
+
+- /GNU Emacs NEWS/ can be summoned with =view-emacs-news=.
+- /Spacemacs documentation/ can be summoned with =helm-spacemacs-help-docs=.
+- /GNU Emacs Manual/ can be summoned with =info-display-manual=.
 
 ** Recursive grep
 
@@ -328,7 +336,6 @@ called.
   (setq nodejs-repl-command 'my-nodejs-repl-command)
 #+end_src
 
-
 ** TODO Miscellaneous configuration for prose
 
 - A neat way to change a block of text from upper to lower case is to select the
@@ -346,6 +353,11 @@ for unfill.
   (spacemacs/set-leader-keys "opf" 'org-fill-paragraph)
   (spacemacs/set-leader-keys "opu" 'unfill-paragraph)
 #+end_src
+
+*** TODO Dictionary
+
+There is a dictionary mode which provides the =dictionary= function and the
+=dictionary-tooltip-mode=.
 
 *** Spell checking
 
@@ -1488,7 +1500,7 @@ useful configuration, but it needs streamlining!
   (define-key nxml-mode-map (kbd "C-c f") 'sgml-skip-tag-forward)
 #+end_src
 
-* Yasnippet snippets
+** Yasnippet snippets
 
 Snippets usually live in =~/.emacs.d/private/snippets= in a directory which is
 named after the major mode for them to be used in. You need to
@@ -1509,14 +1521,14 @@ not already exist.
 (files--ensure-directory "~/.emacs.d/private/snippets/python-mode")
 #+end_src
 
-** Yasnippet configuration
+*** Yasnippet configuration
 
 For some unknown reason, when I try to insert a snippet in the JSON mode I get
 an error, "No JavaScript AST available". Things are working fine in other modes
 so this might be something javascript specific, in which case, it is probably
 easier just to call =yas-insert-snippet= directly when editing JSON.
 
-** TODO Org-mode
+*** TODO Org-mode
 
 For some reason I found it difficult to get this to load and still have the
 default snippets...
@@ -1533,7 +1545,7 @@ default snippets...
 [[./path/to/image.png]]
 #+END_SRC
 
-** Python
+*** Python
 
 Here are a bunch of standard packages for statistical work
 
@@ -1550,14 +1562,14 @@ import statsmodels.formula.api as smf
 import matplotlib.pyplot as plt
 #+END_SRC
 
-** R
+*** R
 
 The R snippets can be roughly devided into those that provide useful [[*Useful
 package collections]] and those that provide [[*Useful programming snippets]]. Those
 that provide packages have a key which starts with =rpack-= and those that
 provide programming constructs start with =rhelp-=.
 
-*** Useful package collections
+**** Useful package collections
 
 A snippet to include the basic packages which are pretty safe to import by
 default.
@@ -1610,9 +1622,9 @@ library(mcmc)
 library(coda)
 #+END_SRC
 
-*** Useful programming snippets
+**** Useful programming snippets
 
-**** Saving ggplot2 figures
+***** Saving ggplot2 figures
 
 This snippet offers some sensible default values for saving =ggplot2= figures.
 
@@ -1632,7 +1644,7 @@ ggsave(filename = $1,
 $0
 #+END_SRC
 
-**** Writing CSV
+***** Writing CSV
 
 A snippet with sensible defaults for writing a data frame to CSV
 
@@ -1650,7 +1662,7 @@ write.table(x = $1,
 $0
 #+END_SRC
 
-**** Writing JSON
+***** Writing JSON
 
 #+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rjsonoutput
 # -*- mode: snippet -*-
@@ -1667,7 +1679,7 @@ jsonlite::write_json(
 $0
 #+END_SRC
 
-**** Writing HTML
+***** Writing HTML
 
 #+begin_src snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rhtml
 # -*- mode: snippet -*-
@@ -1704,7 +1716,7 @@ html_body <-
 save_html(html_body, file = "index.html")
 #+end_src
 
-**** Main function
+***** Main function
 
 A snippet to provide a main function which only runs when the script is called
 from the command line and passes any command line arguments through.
@@ -1727,7 +1739,7 @@ if (!interactive()) {
 }
 #+END_SRC
 
-**** Parse command line arguments
+***** Parse command line arguments
 
 The [[https://cran.r-project.org/web/packages/argparse/index.html][argparse]] library, inspired by the python equivalent, provides a simple way
 to build up CLIs.
