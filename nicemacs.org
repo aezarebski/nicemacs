@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
-#+Time-stamp: <2022-03-31 01:34:06 aez>
+#+Time-stamp: <2022-03-31 01:55:09 aez>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -313,8 +313,8 @@ The following needs to be included for Eshell to be able to find node and npm.
 I'm not sure why you need to do it twice.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-  (setenv "PATH" (concat (getenv "PATH") my-node-path))
-  (setq exec-path (append exec-path '(my-node-path)))
+  (setenv "PATH" (concat (getenv "PATH") ":" my-node-path))
+  (setq exec-path (append exec-path (list my-node-path)))
 #+end_src
 
 By default the REPL used is geared towards front end work. To get it to use the
@@ -744,7 +744,7 @@ used to specify which files to ignore using a regular expression.
           ("org-nicemacs"
            :base-directory "~/Documents/nicemacs/"
            :base-extension "org"
-           :publishing-directory "~/aezarebski.github.io/misc/"
+           :publishing-directory "~/aezarebski.github.io/misc/nicemacs/"
            :recursive ()
            :publishing-function org-html-publish-to-html
            )
@@ -790,15 +790,11 @@ the second, =publish-my-site-and-magit=, bound to =SPC ooP= runs the publishing 
 opens the magit buffer to commit and push the changes.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-  ;; TODO There are options for =org-publish= that allow you to force
-  ;; re-publication of all files and to run the publishing asynchronously. Also,
-  ;; there is mention of generating a sitemap but I haven't figured that out yet.
-
   (defun publish-my-site ()
     (interactive)
-    (org-publish "org")
+    (org-publish "org" nil t)
     (copy-file "~/Documents/nicemacs/resources/nicemacs-logo.png"
-               "~/aezarebski.github.io/misc/resources/nicemacs-logo.png"
+               "~/aezarebski.github.io/misc/nicemacs/resources/nicemacs-logo.png"
                t)
     (copy-file "~/public-site/org/scratch.html"
                "~/aezarebski.github.io/index.html"
@@ -811,14 +807,15 @@ opens the magit buffer to commit and push the changes.
                t)
     )
 
-  (defun publish-my-site-and-magit ()
+  (defun force-publish-and-magit ()
     (interactive)
     (publish-my-site)
+    (org-publish "org" t nil)
     (magit-status "~/aezarebski.github.io")
     )
 
   (spacemacs/set-leader-keys "oop" 'publish-my-site)
-  (spacemacs/set-leader-keys "ooP" 'publish-my-site-and-magit)
+  (spacemacs/set-leader-keys "ooP" 'force-publish-and-magit)
 #+end_src
 
 The following function is useful for going to the root of my notes site which is
@@ -1215,6 +1212,7 @@ Then we need to define the actual files that we want listed
   (nicemacs-visit latex-notes "LaTeX notes" "/home/aez/public-site/org/notes/latex-notes.org")
   (nicemacs-visit maxima-notes "Maxima notes" "/home/aez/public-site/org/notes/maxima-notes.org")
   (nicemacs-visit nicemacs "nicemacs" "~/Documents/nicemacs/nicemacs.org")
+  (nicemacs-visit nicemacs-el "nicemacs emacs lisp" "~/Documents/nicemacs/nicemacs.el")
   (nicemacs-visit nix-notes "Nix notes" "/home/aez/public-site/org/notes/nix-notes.org")
   (nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
   (nicemacs-visit python-notes "Python notes" "/home/aez/public-site/org/notes/python-notes.org")
@@ -1233,21 +1231,25 @@ There are some visitor functions that we want that are easier just to define
 manually because they require slightly different behaviour.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defun nvf-journal ()
-  (interactive)
-  (nicemacs-visit-journal))
+  (defun nvf-journal ()
+    (interactive)
+    (nicemacs-visit-journal))
 
-(defun nvf-last-bib ()
-  (interactive)
-  (last-bib))
+  (defun nvf-last-bib ()
+    (interactive)
+    (last-bib))
 
-(defun nvf-website ()
-  (interactive)
-  (dired-jump nil "/home/aez/public-site/org/index.org"))
+  (defun nvf-website ()
+    (interactive)
+    (dired-jump nil "/home/aez/public-site/org/index.org"))
 
-(defun nvf-professional ()
-  (interactive)
-  (dired-jump nil "/home/aez/Documents/professional/README.org"))
+  (defun nvf-website-github ()
+    (interactive)
+    (dired-jump nil "/home/aez/aezarebski.github.io/index.html"))
+
+  (defun nvf-professional ()
+    (interactive)
+    (dired-jump nil "/home/aez/Documents/professional/README.org"))
 #+end_src
 
 And finally we need to writing keybindings for these.
@@ -1257,6 +1259,7 @@ And finally we need to writing keybindings for these.
     "ovb" 'nvf-last-bib
     "ovc" 'nvf-colleagues
     "ove" 'nvf-nicemacs
+    "ovE" 'nvf-nicemacs-el
     "ovj" 'nvf-journal
     "ovl" 'nvf-reading-list
     "ovnb" 'nvf-beast-notes
@@ -1277,6 +1280,7 @@ And finally we need to writing keybindings for these.
     "ovrr" 'nvf-review-references
     "ovrp" 'nvf-review-phylodynamics
     "ovs" 'nvf-spelling
+    "ovW" 'nvf-website-github
     "ovw" 'nvf-website)
 #+end_src
 

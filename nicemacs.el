@@ -456,7 +456,7 @@ makes a copy of the one from one week ago."
 (nicemacs-visit latex-notes "LaTeX notes" "/home/aez/public-site/org/notes/latex-notes.org")
 (nicemacs-visit maxima-notes "Maxima notes" "/home/aez/public-site/org/notes/maxima-notes.org")
 (nicemacs-visit nicemacs "nicemacs" "~/Documents/nicemacs/nicemacs.org")
-(nicemacs-visit nicemacs-el "nicemacs" "~/Documents/nicemacs/nicemacs.el")
+(nicemacs-visit nicemacs-el "nicemacs emacs lisp" "~/Documents/nicemacs/nicemacs.el")
 (nicemacs-visit nix-notes "Nix notes" "/home/aez/public-site/org/notes/nix-notes.org")
 (nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
 (nicemacs-visit python-notes "Python notes" "/home/aez/public-site/org/notes/python-notes.org")
