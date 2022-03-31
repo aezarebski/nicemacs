@@ -432,7 +432,16 @@ makes a copy of the one from one week ago."
 (spacemacs/set-leader-keys "off" 'find-file-at-point)
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 
+
+
+
+;; Define the desired format for the time stamp.
+;; In org-mode this might look like #+Time-stamp: <Last modified: 2022-03-31 12:25:22>
+(setq time-stamp-format "Last modified: %Y-%02m-%02d %02H:%02M:%02S")
 (add-hook 'before-save-hook 'time-stamp)
+
+
+
 
 (spacemacs/set-leader-keys "ofv" 'view-file)
 (spacemacs/set-leader-keys "ofl" 'find-file-literally)
