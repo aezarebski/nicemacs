@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-03-31 12:32:35>
+#+Time-stamp: <Last modified: 2022-04-01 11:42:15>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -1033,7 +1033,7 @@ specifies that the display should be updated every second.
   (setq proced-auto-update-interval 1)
 #+END_SRC
 
-** Emacs Speaks Statistics
+** Emacs Speaks Statistics (ESS)
 
 There are some useful materials about ESS which I have contributed to in the [[https://ess-intro.github.io/][ESS
 intro]].
@@ -1088,6 +1088,10 @@ The following might be useful as a starting point for this:
 #+begin_src emacs-lisp
   (setq ess-startup-directory-function '(lambda nil default-directory))
 #+end_src
+
+*** Restarting the REPL
+
+Run =inferior-ess-reload= to reset the REPL.
 
 *** Setting up =lintr= for static analysis
 
@@ -1475,30 +1479,11 @@ And now to specify the actual keybindings
 
 ** TODO XML editing
 
-It looks like nxml-mode is what you want for editing XML. The following is some
-useful configuration, but it needs streamlining!
+*** Useful bindings
 
-#+begin_src emacs-lisp :tangle nicemacs.el
-  (require 'hideshow)
-  (require 'sgml-mode)
-  (require 'nxml-mode)
-
-  (add-to-list 'hs-special-modes-alist
-               '(nxml-mode
-                 "<!--\\|<[^/>]*[^/]>"
-                 "-->\\|</[^/>]*[^/]>"
-
-                 "<!--"
-                 sgml-skip-tag-forward
-                 nil))
-
-  (add-hook 'nxml-mode-hook 'hs-minor-mode)
-
-  ;; TODO this should be done in a more sensible way!
-  (define-key nxml-mode-map (kbd "C-c h") 'hs-toggle-hiding)
-  (define-key nxml-mode-map (kbd "C-c b") 'sgml-skip-tag-backward)
-  (define-key nxml-mode-map (kbd "C-c f") 'sgml-skip-tag-forward)
-#+end_src
+- =, z= will do code folding for web-mode.
+- =%= will jump between matching tags: evil-mode provides it.
+- =SPC t l= will toggle long lines.
 
 ** Yasnippet snippets
 
