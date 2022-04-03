@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-04-01 11:42:15>
+#+Time-stamp: <Last modified: 2022-04-03 18:08:34>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -10,23 +10,26 @@
 
 * Build you an Emacs
 
-1. Get the source code from [[http://savannah.gnu.org/projects/emacs/][=http://savannah.gnu.org/projects/emacs/=]]
+Get the source code from [[http://git.savannah.gnu.org/cgit/emacs.git/][here]] with
 
 #+begin_src sh
-wget https://ftp.gnu.org/gnu/emacs/emacs-VERSION.tar.xz
-tar -xf emacs-VERSION.tar.xz
+  wget http://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-VERSION.tar.gz
+  tar -xf emacs-VERSION.tar.xz
 #+end_src
 
 Alternatively, you can get clone the [[https://github.com/emacs-mirror/emacs][emacs mirror]] from GitHub and check out the
 =emacs-28= branch (or whatever version you want).
 
-2. Follow the instructions in the =INSTALL= file to build emacs.
-   - This seems to just be =./configure= then =make= then =sudo make install=.
-   - If you cannot find the =configure= script, you may need to run =autogen.sh=
-     first.
+Follow the instructions in the =INSTALL= file to build emacs.
+- This seems to just be =./configure= then =make= then =sudo make install=.
+- If you cannot find the =configure= script, you may need to run =autogen.sh= first.
+- If you have spare compute you can use multiple jobs to speed up the
+  compilation with =make -j [N]= to use =N= jobs during compilation
 
 *** Notes
 
+- =emacs-28.1=. I also installed =libgccjit= and used =./configure
+  --with-native-compilation= during the compilation, it does feel snappier.
 - =emacs-28.0.91= requested =mailutils= to be installed during configuration.
 - =emacs-28.0.60= requested =libacl1-dev= and =libharfbuzz-dev= be installed during
   configuration. It does feel snappier. It told me that my current version of
