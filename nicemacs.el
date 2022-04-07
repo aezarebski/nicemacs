@@ -432,7 +432,16 @@ makes a copy of the one from one week ago."
 (spacemacs/set-leader-keys "off" 'find-file-at-point)
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 
+
+
+
+;; Define the desired format for the time stamp.
+;; In org-mode this might look like #+Time-stamp: <Last modified: 2022-03-31 12:25:22>
+(setq time-stamp-format "Last modified: %Y-%02m-%02d %02H:%02M:%02S")
 (add-hook 'before-save-hook 'time-stamp)
+
+
+
 
 (spacemacs/set-leader-keys "ofv" 'view-file)
 (spacemacs/set-leader-keys "ofl" 'find-file-literally)
@@ -628,26 +637,6 @@ makes a copy of the one from one week ago."
   "ouS" 'nag-sigma-capital
   "oup" 'nag-psi-small
   "ouo" 'nag-omega-small)
-
-(require 'hideshow)
-(require 'sgml-mode)
-(require 'nxml-mode)
-
-(add-to-list 'hs-special-modes-alist
-             '(nxml-mode
-               "<!--\\|<[^/>]*[^/]>"
-               "-->\\|</[^/>]*[^/]>"
-
-               "<!--"
-               sgml-skip-tag-forward
-               nil))
-
-(add-hook 'nxml-mode-hook 'hs-minor-mode)
-
-;; TODO this should be done in a more sensible way!
-(define-key nxml-mode-map (kbd "C-c h") 'hs-toggle-hiding)
-(define-key nxml-mode-map (kbd "C-c b") 'sgml-skip-tag-backward)
-(define-key nxml-mode-map (kbd "C-c f") 'sgml-skip-tag-forward)
 
 (files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/python-mode")
