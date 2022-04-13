@@ -1246,6 +1246,8 @@ Then we need to define the actual files that we want listed
   (nicemacs-visit wikipedia-notes "Wikipedia notes" "/home/aez/public-site/org/notes/wikipedia-notes.org")
 #+end_src
 
+**** Special visiting functions
+
 There are some visitor functions that we want that are easier just to define
 manually because they require slightly different behaviour.
 
@@ -1259,11 +1261,20 @@ manually because they require slightly different behaviour.
     (last-bib))
 #+end_src
 
+**** Visiting directories
+
 Then there are some visitor functions where we do not want to visit a particular
 file but are more interested in navigating to a particular directory in either
 dired or magit.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
+  ;; TODO This code could certainly be abstracted with a macro similar to the
+  ;; visitors above!
+
+  (defun nvf-library ()
+    (interactive)
+    (dired-jump nil "/home/aez/Documents/library/README.org"))
+
   (defun nvf-website ()
     (interactive)
     (dired-jump nil "/home/aez/public-site/org/index.org"))
@@ -1276,6 +1287,9 @@ dired or magit.
     (interactive)
     (dired-jump nil "/home/aez/Documents/professional/README.org"))
 #+end_src
+
+**** Keybindings
+
 And finally we need to writing keybindings for these.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
@@ -1285,7 +1299,7 @@ And finally we need to writing keybindings for these.
     "ove" 'nvf-nicemacs
     "ovE" 'nvf-nicemacs-el
     "ovj" 'nvf-journal
-    "ovl" 'nvf-reading-list
+    "ovl" 'nvf-library
     "ovnb" 'nvf-beast-notes
     "ovng" 'nvf-git-notes
     "ovnh" 'nvf-haskell-notes
@@ -1301,6 +1315,7 @@ And finally we need to writing keybindings for these.
     "ovnw" 'nvf-wikipedia-notes
     "ovp" 'nvf-professional
     "ovre" 'nvf-review-engineering
+    "ovrl" 'nvf-reading-list
     "ovrr" 'nvf-review-references
     "ovrp" 'nvf-review-phylodynamics
     "ovs" 'nvf-spelling

@@ -487,6 +487,13 @@ makes a copy of the one from one week ago."
   (interactive)
   (last-bib))
 
+;; TODO This code could certainly be abstracted with a macro similar to the
+;; visitors above!
+
+(defun nvf-library ()
+  (interactive)
+  (dired-jump nil "/home/aez/Documents/library/README.org"))
+
 (defun nvf-website ()
   (interactive)
   (dired-jump nil "/home/aez/public-site/org/index.org"))
@@ -505,7 +512,7 @@ makes a copy of the one from one week ago."
   "ove" 'nvf-nicemacs
   "ovE" 'nvf-nicemacs-el
   "ovj" 'nvf-journal
-  "ovl" 'nvf-reading-list
+  "ovl" 'nvf-library
   "ovnb" 'nvf-beast-notes
   "ovng" 'nvf-git-notes
   "ovnh" 'nvf-haskell-notes
@@ -521,6 +528,7 @@ makes a copy of the one from one week ago."
   "ovnw" 'nvf-wikipedia-notes
   "ovp" 'nvf-professional
   "ovre" 'nvf-review-engineering
+  "ovrl" 'nvf-reading-list
   "ovrr" 'nvf-review-references
   "ovrp" 'nvf-review-phylodynamics
   "ovs" 'nvf-spelling
