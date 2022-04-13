@@ -40,7 +40,6 @@ This function should only modify configuration layer settings."
           ess-r-backend 'ess)
      git
      graphviz
-     floobits
      (haskell :variables
               haskell-completion-backend 'lsp
               haskell-process-type 'stack-ghci
@@ -56,8 +55,12 @@ This function should only modify configuration layer settings."
             julia-backend 'lsp)
      latex
      lsp
+     markdown
+     maxima
      org
-     python
+     (python :variables
+             python-backend 'lsp
+             python-indent-offset 4)
      semantic
      (shell :variables
             shell-default-shell 'eshell
@@ -69,6 +72,7 @@ This function should only modify configuration layer settings."
      syntax-checking
      version-control
      treemacs
+     web-beautify
      typescript)
 
 
