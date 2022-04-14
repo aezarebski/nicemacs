@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-04-03 18:08:34>
+#+Time-stamp: <Last modified: 2022-04-14 20:43:33>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -1204,6 +1204,10 @@ description can be obtained by modifying the =dired-listing-switches= variable.
 (setq dired-listing-switches "-alh")
 #+end_src
 
+A very useful keybinding to know about in dired is =W= which will open the file
+under the cursor using an external program suggested by the OS. Surprisingly
+this calls the function =browse-url-of-dired-file=.
+
 *** Visiting friends
 
 The following functionality is useful for defining visitors of frequently needed
@@ -1428,6 +1432,8 @@ it a key binding just yet.
                        1)))
       (message "No file found in ~/Downloads/"))))
 #+end_src
+
+**** TODO Implement a similar function =ls-most-recent-download=
 
 ** treemacs
 
