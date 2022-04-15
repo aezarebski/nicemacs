@@ -124,6 +124,7 @@ file. TODO Add error message if there are no RIS files."
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 
 (custom-set-faces
+ '(font-lock-comment-face ((t (:inherit fixed-pitch))))
  '(font-lock-keyword-face ((t (:inherit fixed-pitch))))
  '(font-latex-sectioning-2-face ((t (:inherit bold :foreground "#3a81c3" :height 1.3 :family "Noto Sans"))))
  '(font-latex-sectioning-3-face ((t (:inherit bold :foreground "#2d9574" :height 1.2 :family "Noto Sans")))))
@@ -432,16 +433,8 @@ makes a copy of the one from one week ago."
 (spacemacs/set-leader-keys "off" 'find-file-at-point)
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 
-
-
-
-;; Define the desired format for the time stamp.
-;; In org-mode this might look like #+Time-stamp: <Last modified: 2022-03-31 12:25:22>
 (setq time-stamp-format "Last modified: %Y-%02m-%02d %02H:%02M:%02S")
 (add-hook 'before-save-hook 'time-stamp)
-
-
-
 
 (spacemacs/set-leader-keys "ofv" 'view-file)
 (spacemacs/set-leader-keys "ofl" 'find-file-literally)
@@ -487,6 +480,13 @@ makes a copy of the one from one week ago."
   (interactive)
   (last-bib))
 
+;; TODO This code could certainly be abstracted with a macro similar to the
+;; visitors above!
+
+(defun nvf-library ()
+  (interactive)
+  (dired-jump nil "/home/aez/Documents/library/README.org"))
+
 (defun nvf-website ()
   (interactive)
   (dired-jump nil "/home/aez/public-site/org/index.org"))
@@ -505,7 +505,7 @@ makes a copy of the one from one week ago."
   "ove" 'nvf-nicemacs
   "ovE" 'nvf-nicemacs-el
   "ovj" 'nvf-journal
-  "ovl" 'nvf-reading-list
+  "ovl" 'nvf-library
   "ovnb" 'nvf-beast-notes
   "ovng" 'nvf-git-notes
   "ovnh" 'nvf-haskell-notes
@@ -521,6 +521,7 @@ makes a copy of the one from one week ago."
   "ovnw" 'nvf-wikipedia-notes
   "ovp" 'nvf-professional
   "ovre" 'nvf-review-engineering
+  "ovrl" 'nvf-reading-list
   "ovrr" 'nvf-review-references
   "ovrp" 'nvf-review-phylodynamics
   "ovs" 'nvf-spelling
