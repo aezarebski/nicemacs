@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-04-15 15:20:37>
+#+Time-stamp: <Last modified: 2022-04-15 15:22:18>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -1179,7 +1179,8 @@ that line before saving. This way you will know when you last edited a file in a
 way that is a bit simpler than git.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(add-hook 'before-save-hook 'time-stamp)
+  (setq time-stamp-format "Last modified: %Y-%02m-%02d %02H:%02M:%02S")
+  (add-hook 'before-save-hook 'time-stamp)
 #+end_src
 
 *** Handling large files
