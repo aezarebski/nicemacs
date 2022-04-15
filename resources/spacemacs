@@ -35,6 +35,7 @@ This function should only modify configuration layer settings."
    '(auto-completion
      better-defaults
      bibtex
+     csv
      emacs-lisp
      (ess :variables
           ess-r-backend 'ess)
@@ -66,6 +67,7 @@ This function should only modify configuration layer settings."
             shell-default-shell 'eshell
             shell-default-position 'right
             shell-default-width 50)
+     speed-reading
      (spell-checking :variables
                      spell-checking-enable-by-default nil
                      enable-flyspell-auto-completion t)
@@ -334,7 +336,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.4
+   dotspacemacs-which-key-delay 0.7
 
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the

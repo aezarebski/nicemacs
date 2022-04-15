@@ -124,6 +124,7 @@ file. TODO Add error message if there are no RIS files."
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 
 (custom-set-faces
+ '(font-lock-comment-face ((t (:inherit fixed-pitch))))
  '(font-lock-keyword-face ((t (:inherit fixed-pitch))))
  '(font-latex-sectioning-2-face ((t (:inherit bold :foreground "#3a81c3" :height 1.3 :family "Noto Sans"))))
  '(font-latex-sectioning-3-face ((t (:inherit bold :foreground "#2d9574" :height 1.2 :family "Noto Sans")))))
