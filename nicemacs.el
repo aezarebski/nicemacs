@@ -591,6 +591,23 @@ makes a copy of the one from one week ago."
                        1)))
       (message "No file found in ~/Downloads/"))))
 
+(defun ls-most-recent-download ()
+  (interactive)
+  (let* ((all-files (directory-files-and-attributes "~/Downloads"
+                                                    t ".*" "ctime"))
+         (path-and-time (lambda (x)
+                          (list (first x)
+                                (eighth x))))
+         (time-order (lambda (a b)
+                       (time-less-p (second b)
+                                    (second a))))
+         (most-recent (car (car (sort (mapcar path-and-time all-files)
+                                      time-orderime-order)))))
+    (if (not (null all-files))
+        (progn (message (concat "newest file in ~/Downloads: " most-recent))
+               most-recent)
+      (message "No file found in ~/Downloads/"))))
+
 (defmacro nicemacs-greek (lname)
     (list 'progn
           (list 'defun (intern (format "nag-%s-small" lname)) ()

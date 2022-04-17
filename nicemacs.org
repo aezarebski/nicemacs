@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-04-15 15:22:18>
+#+Time-stamp: <Last modified: 2022-04-17 15:04:43>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -1411,31 +1411,46 @@ it a key binding just yet.
 **** TODO Clean up this rather ugly function and consider merging with =last-bib=.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defun cp-most-recent-download ()
-  (interactive)
-  (let* ((all-files (directory-files-and-attributes "~/Downloads"
-                                                    t ".*" "ctime"))
-         (path-and-time (lambda (x)
-                          (list (first x)
-                                (eighth x))))
-         (time-order (lambda (a b)
-                       (time-less-p (second b)
-                                    (second a))))
-         (most-recent (lambda (files)
-                        (car (car (sort (mapcar path-and-time files)
-                                        time-order))))))
-    (if (not (null all-files))
-        (let ((most-recent-file (funcall most-recent all-files)))
-          (progn
-            (message (concat "copying file: " most-recent-file))
-            (copy-file most-recent-file
-                       (concat default-directory
-                               (file-name-nondirectory most-recent-file))
-                       1)))
-      (message "No file found in ~/Downloads/"))))
-#+end_src
+  (defun cp-most-recent-download ()
+    (interactive)
+    (let* ((all-files (directory-files-and-attributes "~/Downloads"
+                                                      t ".*" "ctime"))
+           (path-and-time (lambda (x)
+                            (list (first x)
+                                  (eighth x))))
+           (time-order (lambda (a b)
+                         (time-less-p (second b)
+                                      (second a))))
+           (most-recent (lambda (files)
+                          (car (car (sort (mapcar path-and-time files)
+                                          time-order))))))
+      (if (not (null all-files))
+          (let ((most-recent-file (funcall most-recent all-files)))
+            (progn
+              (message (concat "copying file: " most-recent-file))
+              (copy-file most-recent-file
+                         (concat default-directory
+                                 (file-name-nondirectory most-recent-file))
+                         1)))
+        (message "No file found in ~/Downloads/"))))
 
-**** TODO Implement a similar function =ls-most-recent-download=
+  (defun ls-most-recent-download ()
+    (interactive)
+    (let* ((all-files (directory-files-and-attributes "~/Downloads"
+                                                      t ".*" "ctime"))
+           (path-and-time (lambda (x)
+                            (list (first x)
+                                  (eighth x))))
+           (time-order (lambda (a b)
+                         (time-less-p (second b)
+                                      (second a))))
+           (most-recent (car (car (sort (mapcar path-and-time all-files)
+                                        time-orderime-order)))))
+      (if (not (null all-files))
+          (progn (message (concat "newest file in ~/Downloads: " most-recent))
+                 most-recent)
+        (message "No file found in ~/Downloads/"))))
+#+end_src
 
 ** treemacs
 
