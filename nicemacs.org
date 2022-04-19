@@ -2,11 +2,13 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-04-17 15:04:43>
+#+Time-stamp: <Last modified: 2022-04-19 15:56:46>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
 [[./resources/nicemacs-logo.png]]
+
+#+TOC: headlines 2
 
 * Build you an Emacs
 
@@ -1085,13 +1087,18 @@ The following might be useful as a starting point for this:
 (info "(ess) Controlling buffer display")
 #+end_src
 
-*** TODO Setting the REPL starting directory
+*** Setting the REPL starting directory
 
 The following might be useful as a starting point for this:
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle nicemacs.el
   (setq ess-startup-directory-function '(lambda nil default-directory))
 #+end_src
+
+*** Swithing REPL linked to source file
+
+Suppose you have a couple of REPLs going and you want to use a different one
+with a particular buffer. The =ess-switch-process= has you covered.
 
 *** Restarting the REPL
 
