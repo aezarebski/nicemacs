@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-04-19 15:56:46>
+#+Time-stamp: <Last modified: 2022-04-22 14:50:24>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -1529,6 +1529,7 @@ And now to specify the actual keybindings
 
 *** Useful bindings
 
+- ~M = =~ will run the relevant web-beautify function[fn:2].
 - =, z= will do code folding for web-mode.
 - =%= will jump between matching tags: evil-mode provides it.
 - =SPC t l= will toggle long lines.
@@ -1817,5 +1818,7 @@ args <- parser$parse_args()
 [fn:1] The =add-to-list= function is used to add elements to the start of a
 list, this should only be used in configuration code; use =push= to add elements
 to a list in emacs-lisp.
+
+[fn:2] You can use a =.jsbeautifyrc= file to configure the formatting.
 
 #  LocalWords:  nicemacs Spacemacs spacemacs SPC REPL Eshell npm magit dired
