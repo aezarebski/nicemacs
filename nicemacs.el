@@ -465,6 +465,7 @@ makes a copy of the one from one week ago."
 (nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
 (nicemacs-visit ubuntu-notes "Ubuntu/Linux notes" "/home/aez/public-site/org/notes/linux-notes.org")
 (nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review2/reading-list.org")
+(nicemacs-visit review-2 "Review 2" "/home/aez/Documents/bibliography/review2/review.org")
 (nicemacs-visit review-engineering "Literature review: Software engineering" "/home/aez/Documents/bibliography/review/software.tex")
 (nicemacs-visit review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
 (nicemacs-visit review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
@@ -522,6 +523,7 @@ makes a copy of the one from one week ago."
   "ovp" 'nvf-professional
   "ovre" 'nvf-review-engineering
   "ovrl" 'nvf-reading-list
+  "ovr2" 'nvf-review-2
   "ovrr" 'nvf-review-references
   "ovrp" 'nvf-review-phylodynamics
   "ovs" 'nvf-spelling
