@@ -602,7 +602,7 @@ makes a copy of the one from one week ago."
                        (time-less-p (second b)
                                     (second a))))
          (most-recent (car (car (sort (mapcar path-and-time all-files)
-                                      time-orderime-order)))))
+                                      time-order)))))
     (if (not (null all-files))
         (progn (message (concat "newest file in ~/Downloads: " most-recent))
                most-recent)

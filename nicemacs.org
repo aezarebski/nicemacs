@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-04-22 14:50:24>
+#+Time-stamp: <Last modified: 2022-04-26 10:19:13>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -1452,7 +1452,7 @@ it a key binding just yet.
                          (time-less-p (second b)
                                       (second a))))
            (most-recent (car (car (sort (mapcar path-and-time all-files)
-                                        time-orderime-order)))))
+                                        time-order)))))
       (if (not (null all-files))
           (progn (message (concat "newest file in ~/Downloads: " most-recent))
                  most-recent)
