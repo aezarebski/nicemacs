@@ -2,11 +2,13 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-04-15 15:22:18>
+#+Time-stamp: <Last modified: 2022-04-26 10:27:29>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
 [[./resources/nicemacs-logo.png]]
+
+#+TOC: headlines 2
 
 * Build you an Emacs
 
@@ -1085,13 +1087,18 @@ The following might be useful as a starting point for this:
 (info "(ess) Controlling buffer display")
 #+end_src
 
-*** TODO Setting the REPL starting directory
+*** Setting the REPL starting directory
 
 The following might be useful as a starting point for this:
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle nicemacs.el
   (setq ess-startup-directory-function '(lambda nil default-directory))
 #+end_src
+
+*** Swithing REPL linked to source file
+
+Suppose you have a couple of REPLs going and you want to use a different one
+with a particular buffer. The =ess-switch-process= has you covered.
 
 *** Restarting the REPL
 
@@ -1212,7 +1219,10 @@ this calls the function =browse-url-of-dired-file=.
 
 *** Visiting friends
 
-The following functionality is useful for defining visitors of frequently needed
+There is a package, =treemacs=, which provides a graphical way to visit frequently
+used directories, but after using it for a little while I did not find it that
+comfortable. The following method combined with dired seems much nicer. The
+following functionality is useful for defining visitors of frequently needed
 files.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
@@ -1244,6 +1254,7 @@ Then we need to define the actual files that we want listed
   (nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
   (nicemacs-visit ubuntu-notes "Ubuntu/Linux notes" "/home/aez/public-site/org/notes/linux-notes.org")
   (nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review2/reading-list.org")
+  (nicemacs-visit review-2 "Review 2" "/home/aez/Documents/bibliography/review2/review.org")
   (nicemacs-visit review-engineering "Literature review: Software engineering" "/home/aez/Documents/bibliography/review/software.tex")
   (nicemacs-visit review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
   (nicemacs-visit review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
@@ -1322,6 +1333,7 @@ And finally we need to writing keybindings for these.
     "ovp" 'nvf-professional
     "ovre" 'nvf-review-engineering
     "ovrl" 'nvf-reading-list
+    "ovr2" 'nvf-review-2
     "ovrr" 'nvf-review-references
     "ovrp" 'nvf-review-phylodynamics
     "ovs" 'nvf-spelling
@@ -1411,37 +1423,46 @@ it a key binding just yet.
 **** TODO Clean up this rather ugly function and consider merging with =last-bib=.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defun cp-most-recent-download ()
-  (interactive)
-  (let* ((all-files (directory-files-and-attributes "~/Downloads"
-                                                    t ".*" "ctime"))
-         (path-and-time (lambda (x)
-                          (list (first x)
-                                (eighth x))))
-         (time-order (lambda (a b)
-                       (time-less-p (second b)
-                                    (second a))))
-         (most-recent (lambda (files)
-                        (car (car (sort (mapcar path-and-time files)
-                                        time-order))))))
-    (if (not (null all-files))
-        (let ((most-recent-file (funcall most-recent all-files)))
-          (progn
-            (message (concat "copying file: " most-recent-file))
-            (copy-file most-recent-file
-                       (concat default-directory
-                               (file-name-nondirectory most-recent-file))
-                       1)))
-      (message "No file found in ~/Downloads/"))))
+  (defun cp-most-recent-download ()
+    (interactive)
+    (let* ((all-files (directory-files-and-attributes "~/Downloads"
+                                                      t ".*" "ctime"))
+           (path-and-time (lambda (x)
+                            (list (first x)
+                                  (eighth x))))
+           (time-order (lambda (a b)
+                         (time-less-p (second b)
+                                      (second a))))
+           (most-recent (lambda (files)
+                          (car (car (sort (mapcar path-and-time files)
+                                          time-order))))))
+      (if (not (null all-files))
+          (let ((most-recent-file (funcall most-recent all-files)))
+            (progn
+              (message (concat "copying file: " most-recent-file))
+              (copy-file most-recent-file
+                         (concat default-directory
+                                 (file-name-nondirectory most-recent-file))
+                         1)))
+        (message "No file found in ~/Downloads/"))))
+
+  (defun ls-most-recent-download ()
+    (interactive)
+    (let* ((all-files (directory-files-and-attributes "~/Downloads"
+                                                      t ".*" "ctime"))
+           (path-and-time (lambda (x)
+                            (list (first x)
+                                  (eighth x))))
+           (time-order (lambda (a b)
+                         (time-less-p (second b)
+                                      (second a))))
+           (most-recent (car (car (sort (mapcar path-and-time all-files)
+                                        time-order)))))
+      (if (not (null all-files))
+          (progn (message (concat "newest file in ~/Downloads: " most-recent))
+                 most-recent)
+        (message "No file found in ~/Downloads/"))))
 #+end_src
-
-**** TODO Implement a similar function =ls-most-recent-download=
-
-** treemacs
-
-Treemacs provides a file and project explorer. To summon treemacs use =SPC f t=
-(=treemacs=). To edit the directories it tracks use the
-=treemacs-edit-workspaces= function.
 
 ** Unicode and Greek letters
 
@@ -1507,6 +1528,7 @@ And now to specify the actual keybindings
 
 *** Useful bindings
 
+- ~M = =~ will run the relevant web-beautify function[fn:2].
 - =, z= will do code folding for web-mode.
 - =%= will jump between matching tags: evil-mode provides it.
 - =SPC t l= will toggle long lines.
@@ -1796,4 +1818,7 @@ args <- parser$parse_args()
 list, this should only be used in configuration code; use =push= to add elements
 to a list in emacs-lisp.
 
+[fn:2] You can use a =.jsbeautifyrc= file to configure the formatting.
+
 #  LocalWords:  nicemacs Spacemacs spacemacs SPC REPL Eshell npm magit dired
+#  LocalWords:  defmacro

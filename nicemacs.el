@@ -465,6 +465,7 @@ makes a copy of the one from one week ago."
 (nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
 (nicemacs-visit ubuntu-notes "Ubuntu/Linux notes" "/home/aez/public-site/org/notes/linux-notes.org")
 (nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review2/reading-list.org")
+(nicemacs-visit review-2 "Review 2" "/home/aez/Documents/bibliography/review2/review.org")
 (nicemacs-visit review-engineering "Literature review: Software engineering" "/home/aez/Documents/bibliography/review/software.tex")
 (nicemacs-visit review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
 (nicemacs-visit review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
@@ -522,6 +523,7 @@ makes a copy of the one from one week ago."
   "ovp" 'nvf-professional
   "ovre" 'nvf-review-engineering
   "ovrl" 'nvf-reading-list
+  "ovr2" 'nvf-review-2
   "ovrr" 'nvf-review-references
   "ovrp" 'nvf-review-phylodynamics
   "ovs" 'nvf-spelling
@@ -589,6 +591,23 @@ makes a copy of the one from one week ago."
                        (concat default-directory
                                (file-name-nondirectory most-recent-file))
                        1)))
+      (message "No file found in ~/Downloads/"))))
+
+(defun ls-most-recent-download ()
+  (interactive)
+  (let* ((all-files (directory-files-and-attributes "~/Downloads"
+                                                    t ".*" "ctime"))
+         (path-and-time (lambda (x)
+                          (list (first x)
+                                (eighth x))))
+         (time-order (lambda (a b)
+                       (time-less-p (second b)
+                                    (second a))))
+         (most-recent (car (car (sort (mapcar path-and-time all-files)
+                                      time-order)))))
+    (if (not (null all-files))
+        (progn (message (concat "newest file in ~/Downloads: " most-recent))
+               most-recent)
       (message "No file found in ~/Downloads/"))))
 
 (defmacro nicemacs-greek (lname)
