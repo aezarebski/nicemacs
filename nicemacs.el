@@ -179,7 +179,8 @@ file. TODO Add error message if there are no RIS files."
 
 (org-babel-do-load-languages
 'org-babel-load-languages
-'((maxima . t)))
+'((maxima . t)
+  (R . t)))
 
 (defvar nicemacs-journal-directory "" "The directory for nicemacs journal files.")
 (setq nicemacs-journal-directory "~/Documents/journal")

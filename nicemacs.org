@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-04-26 10:27:29>
+#+Time-stamp: <Last modified: 2022-05-02 11:24:59>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -643,12 +643,13 @@ To use org-mode as a notebook, you need to have the corresponding language
 included in =org-babel-load-languages=.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
- (org-babel-do-load-languages
- 'org-babel-load-languages
- '((maxima . t)))
+  (org-babel-do-load-languages
+  'org-babel-load-languages
+  '((maxima . t)
+    (R . t)))
 #+end_src
 
-- There is an example of using org-mode for Maxima notebooks [[https://www.orgmode.org/worg/org-contrib/babel/languages/ob-doc-maxima.html][here]].
+There is an example of using org-mode for Maxima notebooks [[https://www.orgmode.org/worg/org-contrib/babel/languages/ob-doc-maxima.html][here]].
 
 *** Nicemacs journal
 
@@ -734,10 +735,13 @@ To make it easy to access these we will bind them to come convenient keys.
 **** Declare which files need to be published
 
 Set up for publishing my website, note that this will write the output directly
-to the github repository for the site. Note that the =:exclude= variable can be
-used to specify which files to ignore using a regular expression.
+to the GitHub repository for the site. Note that the =:exclude= variable can be
+used to specify which files to ignore using a regular expression. The =htmlize=
+package seems to need to be manually imported to get syntax highlighting to
+work.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
+  (require 'htmlize)
   (require 'ox-publish)
 
   (setq org-publish-project-alist
@@ -798,7 +802,7 @@ used to specify which files to ignore using a regular expression.
 **** Declare how to trigger the publishing
 
 The following function simplifies the process of compiling the site and
-committing it to github so it goes live. To enable this page to be copied to a
+committing it to GitHub so it goes live. To enable this page to be copied to a
 file with a more sensible name and to have easier access to the logo there are
 some additional commands.
 
