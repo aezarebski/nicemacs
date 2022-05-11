@@ -179,7 +179,8 @@ file. TODO Add error message if there are no RIS files."
 
 (org-babel-do-load-languages
 'org-babel-load-languages
-'((maxima . t)))
+'((maxima . t)
+  (R . t)))
 
 (defvar nicemacs-journal-directory "" "The directory for nicemacs journal files.")
 (setq nicemacs-journal-directory "~/Documents/journal")
@@ -230,6 +231,7 @@ makes a copy of the one from one week ago."
 (spacemacs/set-leader-keys "ooa" 'nicemacs-visit-agenda)
 (spacemacs/set-leader-keys "oos" 'org-schedule)
 
+(require 'htmlize)
 (require 'ox-publish)
 
 (setq org-publish-project-alist
@@ -391,6 +393,8 @@ makes a copy of the one from one week ago."
 
 ;; make documentation open in a useful mode in ess
 (evil-set-initial-state 'ess-r-help-mode 'motion)
+
+(setq ess-startup-directory-function '(lambda nil default-directory))
 
 (setq ess-use-flymake nil)
 (use-package flycheck
