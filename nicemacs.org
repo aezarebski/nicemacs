@@ -1,8 +1,9 @@
 #+title: NICEMACS
+#+Time-stamp: <Last modified: 2022-05-12 10:22:47>
+#+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-05-02 11:24:59>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -49,6 +50,11 @@ There are a couple of help menus that are useful to be able to access easily:
 - /Spacemacs documentation/ can be summoned with =helm-spacemacs-help-docs=.
 - /GNU Emacs Manual/ can be summoned with =info-display-manual=.
 
+*** Broken dot file?
+
+There is =SPC f e D= to help you debug your dot file if an update means it is out
+of date.
+
 ** Recursive grep
 
 The =rgrep= function is used to recursively search files matching a given pattern.
@@ -71,22 +77,23 @@ which the time is displayed.
 
 ** Spacemacs shortcuts
 
-| Keys      | Description                         |
-|-----------+-------------------------------------|
-| =SPC f e d= | Open =.spacemacs=                     |
-| =SPC f e R= | Reload =.spacemacs=                   |
-| =SPC TAB=   | Switch to last buffer               |
-| =SPC f s=   | Save file                           |
-| =SPC f f=   | Find (visit) file                   |
-| =SPC w d=   | Kill /current/ window                 |
-| =SPC w D=   | Kill all /other/ windows              |
-| =SPC b b=   | List buffers                        |
-| =SPC b n=   | Next buffer                         |
-| =SPC b p=   | Previous buffer                     |
-| =SPC b k=   | Kill buffer                         |
-| =SPC T n=   | Toggle the theme                    |
-| =SPC q r=   | Restart emacs                       |
-| =SPC v=     | Selects outwards sensibly           |
+| Keys        | Description                                        |
+|-------------+----------------------------------------------------|
+| =SPC b b=     | List buffers                                       |
+| =SPC b d=     | Kill buffer                                        |
+| =SPC f e d=   | Open =.spacemacs=                                    |
+| =SPC f e D=   | Diff your =.spacemacs= against default               |
+| =SPC f e R=   | Reload =.spacemacs=                                  |
+| =SPC TAB=     | Switch to last buffer                              |
+| =SPC f s=     | Save file                                          |
+| =SPC f f=     | Find (visit) file                                  |
+| =SPC f l=     | Find (visit) file /literally/                        |
+| =SPC h d <x>= | Help describe thing, e.g. key-binding, or variable |
+| =SPC w d=     | Kill the /current/ window (not the frame)            |
+| =SPC T n=     | Toggle the theme                                   |
+| =SPC q r=     | Restart emacs                                      |
+| =SPC q q=     | Quit emacs                                         |
+| =SPC v=       | Selects outwards sensibly                          |
 
 *** Owner menu
 
@@ -1621,16 +1628,6 @@ library(reshape2)
 library(ggplot2)
 library(magrittr)
 library(purrr)
-#+END_SRC
-
-A snippet to include some extra packages that are often useful but probably
-aren't needed enough to be imported by default.
-
-#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rpacks-extra
-# -*- mode: snippet -*-
-# name: Extra R packages
-# key: rpacks-extra
-# --
 library(jsonlite)
 library(stringr)
 library(cowplot)
