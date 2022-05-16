@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-05-12 10:22:47>
+#+Time-stamp: <Last modified: 2022-05-16 11:35:07>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -40,9 +40,22 @@ Follow the instructions in the =INSTALL= file to build emacs.
   to be an up to date version anyway.
 - =emacs-27.2= build and installs without issue.
 
-* Nicemacs
+** Running you an Emacs
 
-** HELP
+The following command demonstrates how to run emacs as a daemon in the
+foreground (use =--daemon= to run it in the background)
+
+#+begin_example
+emacs --fg-daemon
+#+end_example
+
+Then to create a new frame (or visit a file)
+
+#+begin_example
+emacsclient --no-wait --create-frame
+#+end_example
+
+** Getting HELP
 
 There are a couple of help menus that are useful to be able to access easily:
 
@@ -50,7 +63,9 @@ There are a couple of help menus that are useful to be able to access easily:
 - /Spacemacs documentation/ can be summoned with =helm-spacemacs-help-docs=.
 - /GNU Emacs Manual/ can be summoned with =info-display-manual=.
 
-*** Broken dot file?
+* Nicemacs
+
+** Broken spacemacs dot file?
 
 There is =SPC f e D= to help you debug your dot file if an update means it is out
 of date.
@@ -123,7 +138,7 @@ expression to =dotspacemacs/user-config=:
 *** Emacs-LISP REPL
 
 From time to time it will be useful to have access to an emacs lisp REPL. To
-start this repl run the =ielm= command.
+start this REPL run the =ielm= command.
 
 *** Configuration layers
 
@@ -187,7 +202,7 @@ default bindings.)
 *** Start up/splash page
 
 I prefer the startup banner number 100, to use this put =100= for the
-=dotspacemacs-startup-banner= value in =.spacemacs=. To avoide having unnecesary
+=dotspacemacs-startup-banner= value in =.spacemacs=. To avoid having unnecessary
 icons displayed, the following can be used.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
@@ -291,7 +306,7 @@ Even after installing the =haskell-language-server= using [[https://github.com/h
 method]] there were some issues because emacs could not find it. It appears that
 setting the =lsp-haskell-server-path= to the executable solved things.
 
-1. Install =ghcup=, which will also offer to install the haskell language server
+1. Install =ghcup=, which will also offer to install the Haskell language server
    for you.
 
 [[https://github.com/haskell/haskell-language-server#installation][GHCUP installation instructions are here]]
@@ -418,7 +433,7 @@ This is a /latex/ file for my /reviews/ so the binding is =olr=.
 (spacemacs/set-leader-keys "olr" 'review-tex-file)
 #+end_src
 
-This is a /bibtex/ file for my /references/ so the binding is =obr=.
+This is a /Bibtex/ file for my /references/ so the binding is =obr=.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun references-bib-file ()
@@ -429,7 +444,7 @@ This is a /bibtex/ file for my /references/ so the binding is =obr=.
 (spacemacs/set-leader-keys "obr" 'references-bib-file)
 #+end_src
 
-The =last-bib= function opens the most recent bibtex file in the Downloads
+The =last-bib= function opens the most recent Bibtex file in the Downloads
 directory in a new buffer. If there is no such file then a message is given to
 indicate this.
 
@@ -454,7 +469,7 @@ indicate this.
 
 Bibtex requires that capital letters in the title be surrounded by braces to
 ensure that they are capitalised correctly. The following function is a way to
-quickly add these braces to long titles. Just hightlight the relevant text and
+quickly add these braces to long titles. Just highlight the relevant text and
 run the function.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
@@ -556,7 +571,7 @@ Bindings for org-mode functionality start with =o o= for "owner org".
 (spacemacs/declare-prefix "oo" "org-menu")
 #+end_src
 
-for toggle style functions we will have a submenu.
+for toggle style functions we will have a sub-menu.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/declare-prefix "oot" "org-toggle-menu")
@@ -894,8 +909,8 @@ yasnippet). There is also =org-table-transpose-table-at-point=
 
 *** Inline Latex and image display
 
-Orgmode can display images inline, however it is useful to be able to toggle
-this feature occassionally, particularly if there are large images which take up
+Org-mode can display images inline, however it is useful to be able to toggle
+this feature occasionally, particularly if there are large images which take up
 too much space. There is a function =org-toggle-inline-images= which does this.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
@@ -1083,7 +1098,7 @@ there is very little need to do any additional configuration for a nice R
 experience. You just need to remember to install =languageserver= from CRAN.
 
 *HOWEVER* I have found it laggy so if you want to disable this and use a
-different backend adjust your layer config with the following
+different backend adjust your layer configuration with the following
 
 #+begin_src emacs-lisp
      (ess :variables
@@ -1106,7 +1121,7 @@ The following might be useful as a starting point for this:
   (setq ess-startup-directory-function '(lambda nil default-directory))
 #+end_src
 
-*** Swithing REPL linked to source file
+*** Switching REPL linked to source file
 
 Suppose you have a couple of REPLs going and you want to use a different one
 with a particular buffer. The =ess-switch-process= has you covered.
@@ -1822,4 +1837,4 @@ to a list in emacs-lisp.
 [fn:2] You can use a =.jsbeautifyrc= file to configure the formatting.
 
 #  LocalWords:  nicemacs Spacemacs spacemacs SPC REPL Eshell npm magit dired
-#  LocalWords:  defmacro
+#  LocalWords:  defmacro backend LSP Bibtex
