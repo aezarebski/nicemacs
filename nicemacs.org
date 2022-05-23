@@ -1,8 +1,9 @@
 #+title: NICEMACS
+#+Time-stamp: <Last modified: 2022-05-17 12:55:42>
+#+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
-#+Time-stamp: <Last modified: 2022-05-02 11:24:59>
 
 #+attr_org: :width 300px
 #+attr_html: :width 300px
@@ -39,15 +40,35 @@ Follow the instructions in the =INSTALL= file to build emacs.
   to be an up to date version anyway.
 - =emacs-27.2= build and installs without issue.
 
-* Nicemacs
+** Running you an Emacs
 
-** HELP
+The following command demonstrates how to run emacs as a daemon in the
+foreground (use =--daemon= to run it in the background)
+
+#+begin_example
+emacs --fg-daemon
+#+end_example
+
+Then to create a new frame (or visit a file)
+
+#+begin_example
+emacsclient --no-wait --create-frame
+#+end_example
+
+** Getting HELP
 
 There are a couple of help menus that are useful to be able to access easily:
 
 - /GNU Emacs NEWS/ can be summoned with =view-emacs-news=.
 - /Spacemacs documentation/ can be summoned with =helm-spacemacs-help-docs=.
 - /GNU Emacs Manual/ can be summoned with =info-display-manual=.
+
+* Nicemacs
+
+** Broken spacemacs dot file?
+
+There is =SPC f e D= to help you debug your dot file if an update means it is out
+of date.
 
 ** Recursive grep
 
@@ -71,22 +92,23 @@ which the time is displayed.
 
 ** Spacemacs shortcuts
 
-| Keys      | Description                         |
-|-----------+-------------------------------------|
-| =SPC f e d= | Open =.spacemacs=                     |
-| =SPC f e R= | Reload =.spacemacs=                   |
-| =SPC TAB=   | Switch to last buffer               |
-| =SPC f s=   | Save file                           |
-| =SPC f f=   | Find (visit) file                   |
-| =SPC w d=   | Kill /current/ window                 |
-| =SPC w D=   | Kill all /other/ windows              |
-| =SPC b b=   | List buffers                        |
-| =SPC b n=   | Next buffer                         |
-| =SPC b p=   | Previous buffer                     |
-| =SPC b k=   | Kill buffer                         |
-| =SPC T n=   | Toggle the theme                    |
-| =SPC q r=   | Restart emacs                       |
-| =SPC v=     | Selects outwards sensibly           |
+| Keys        | Description                                        |
+|-------------+----------------------------------------------------|
+| =SPC b b=     | List buffers                                       |
+| =SPC b d=     | Kill buffer                                        |
+| =SPC f e d=   | Open =.spacemacs=                                    |
+| =SPC f e D=   | Diff your =.spacemacs= against default               |
+| =SPC f e R=   | Reload =.spacemacs=                                  |
+| =SPC TAB=     | Switch to last buffer                              |
+| =SPC f s=     | Save file                                          |
+| =SPC f f=     | Find (visit) file                                  |
+| =SPC f l=     | Find (visit) file /literally/                        |
+| =SPC h d <x>= | Help describe thing, e.g. key-binding, or variable |
+| =SPC w d=     | Kill the /current/ window (not the frame)            |
+| =SPC T n=     | Toggle the theme                                   |
+| =SPC q r=     | Restart emacs                                      |
+| =SPC q q=     | Quit emacs                                         |
+| =SPC v=       | Selects outwards sensibly                          |
 
 *** Owner menu
 
@@ -116,7 +138,7 @@ expression to =dotspacemacs/user-config=:
 *** Emacs-LISP REPL
 
 From time to time it will be useful to have access to an emacs lisp REPL. To
-start this repl run the =ielm= command.
+start this REPL run the =ielm= command.
 
 *** Configuration layers
 
@@ -180,7 +202,7 @@ default bindings.)
 *** Start up/splash page
 
 I prefer the startup banner number 100, to use this put =100= for the
-=dotspacemacs-startup-banner= value in =.spacemacs=. To avoide having unnecesary
+=dotspacemacs-startup-banner= value in =.spacemacs=. To avoid having unnecessary
 icons displayed, the following can be used.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
@@ -284,7 +306,7 @@ Even after installing the =haskell-language-server= using [[https://github.com/h
 method]] there were some issues because emacs could not find it. It appears that
 setting the =lsp-haskell-server-path= to the executable solved things.
 
-1. Install =ghcup=, which will also offer to install the haskell language server
+1. Install =ghcup=, which will also offer to install the Haskell language server
    for you.
 
 [[https://github.com/haskell/haskell-language-server#installation][GHCUP installation instructions are here]]
@@ -411,7 +433,7 @@ This is a /latex/ file for my /reviews/ so the binding is =olr=.
 (spacemacs/set-leader-keys "olr" 'review-tex-file)
 #+end_src
 
-This is a /bibtex/ file for my /references/ so the binding is =obr=.
+This is a /Bibtex/ file for my /references/ so the binding is =obr=.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun references-bib-file ()
@@ -422,7 +444,7 @@ This is a /bibtex/ file for my /references/ so the binding is =obr=.
 (spacemacs/set-leader-keys "obr" 'references-bib-file)
 #+end_src
 
-The =last-bib= function opens the most recent bibtex file in the Downloads
+The =last-bib= function opens the most recent Bibtex file in the Downloads
 directory in a new buffer. If there is no such file then a message is given to
 indicate this.
 
@@ -447,7 +469,7 @@ indicate this.
 
 Bibtex requires that capital letters in the title be surrounded by braces to
 ensure that they are capitalised correctly. The following function is a way to
-quickly add these braces to long titles. Just hightlight the relevant text and
+quickly add these braces to long titles. Just highlight the relevant text and
 run the function.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
@@ -549,7 +571,7 @@ Bindings for org-mode functionality start with =o o= for "owner org".
 (spacemacs/declare-prefix "oo" "org-menu")
 #+end_src
 
-for toggle style functions we will have a submenu.
+for toggle style functions we will have a sub-menu.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/declare-prefix "oot" "org-toggle-menu")
@@ -887,8 +909,8 @@ yasnippet). There is also =org-table-transpose-table-at-point=
 
 *** Inline Latex and image display
 
-Orgmode can display images inline, however it is useful to be able to toggle
-this feature occassionally, particularly if there are large images which take up
+Org-mode can display images inline, however it is useful to be able to toggle
+this feature occasionally, particularly if there are large images which take up
 too much space. There is a function =org-toggle-inline-images= which does this.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
@@ -1076,7 +1098,7 @@ there is very little need to do any additional configuration for a nice R
 experience. You just need to remember to install =languageserver= from CRAN.
 
 *HOWEVER* I have found it laggy so if you want to disable this and use a
-different backend adjust your layer config with the following
+different backend adjust your layer configuration with the following
 
 #+begin_src emacs-lisp
      (ess :variables
@@ -1099,7 +1121,7 @@ The following might be useful as a starting point for this:
   (setq ess-startup-directory-function '(lambda nil default-directory))
 #+end_src
 
-*** Swithing REPL linked to source file
+*** Switching REPL linked to source file
 
 Suppose you have a couple of REPLs going and you want to use a different one
 with a particular buffer. The =ess-switch-process= has you covered.
@@ -1181,6 +1203,10 @@ If you want to kill buffers with names that match a regex there is the
 (spacemacs/set-leader-keys "off" 'find-file-at-point)
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 #+end_src
+
+*** Permissions
+
+To visit a file with sudo rights use =SPC f E= which calls =spacemacs/sudo-edit=.
 
 *** Time stamping files
 
@@ -1555,6 +1581,7 @@ not already exist.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
+(files--ensure-directory "~/.emacs.d/private/snippets/org-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/python-mode")
 #+end_src
 
@@ -1565,22 +1592,37 @@ an error, "No JavaScript AST available". Things are working fine in other modes
 so this might be something javascript specific, in which case, it is probably
 easier just to call =yas-insert-snippet= directly when editing JSON.
 
-*** TODO Org-mode
+*** Org-mode
 
-For some reason I found it difficult to get this to load and still have the
-default snippets...
+**** Figures and Images
 
-#+BEGIN_SRC snippet
+#+begin_src snippet :tangle ~/.emacs.d/private/snippets/org-mode/nicemacs-image
 # -*- mode: snippet -*-
 # name: Include image with caption and label
-# key: include-image
+# key: nicemacs-image
 # --
-\#+caption: WRITE A CAPTION!
-\#+name: fig:thing
-\#+attr_org: :width 500px
-\#+attr_html: :width 400px
+
+#+caption: WRITE A CAPTION!
+#+name: fig:thing
+#+attr_org: :width 500px
+#+attr_html: :width 400px
 [[./path/to/image.png]]
-#+END_SRC
+
+Here is a link to [[fig:thing][that thing]].
+#+end_src
+
+**** Tasks
+
+Sadly this task gets mangled on HTML output, but hopefully is still readable
+from source.
+
+#+begin_src snippet :tangle ~/.emacs.d/private/snippets/org-mode/nicemacs-task
+# -*- mode: snippet -*-
+# name: Include a task for the journal
+# key: nicemacs-task
+# --
+** TODO [#B] do this thing
+#+end_src
 
 *** Python
 
@@ -1621,16 +1663,6 @@ library(reshape2)
 library(ggplot2)
 library(magrittr)
 library(purrr)
-#+END_SRC
-
-A snippet to include some extra packages that are often useful but probably
-aren't needed enough to be imported by default.
-
-#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rpacks-extra
-# -*- mode: snippet -*-
-# name: Extra R packages
-# key: rpacks-extra
-# --
 library(jsonlite)
 library(stringr)
 library(cowplot)
@@ -1825,4 +1857,4 @@ to a list in emacs-lisp.
 [fn:2] You can use a =.jsbeautifyrc= file to configure the formatting.
 
 #  LocalWords:  nicemacs Spacemacs spacemacs SPC REPL Eshell npm magit dired
-#  LocalWords:  defmacro
+#  LocalWords:  defmacro backend LSP Bibtex

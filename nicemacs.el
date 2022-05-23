@@ -663,4 +663,5 @@ makes a copy of the one from one week ago."
   "ouo" 'nag-omega-small)
 
 (files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
+(files--ensure-directory "~/.emacs.d/private/snippets/org-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/python-mode")
