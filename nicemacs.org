@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-05-17 12:55:42>
+#+Time-stamp: <Last modified: 2022-05-23 18:01:01>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -1594,6 +1594,10 @@ easier just to call =yas-insert-snippet= directly when editing JSON.
 
 *** Org-mode
 
+I have had trouble getting my own org-mode snippets to play well with the
+default ones in the past. The solution I arrived at was to just copy all of the
+default ones into my snippet folder.
+
 **** Figures and Images
 
 #+begin_src snippet :tangle ~/.emacs.d/private/snippets/org-mode/nicemacs-image
@@ -1609,19 +1613,6 @@ easier just to call =yas-insert-snippet= directly when editing JSON.
 [[./path/to/image.png]]
 
 Here is a link to [[fig:thing][that thing]].
-#+end_src
-
-**** Tasks
-
-Sadly this task gets mangled on HTML output, but hopefully is still readable
-from source.
-
-#+begin_src snippet :tangle ~/.emacs.d/private/snippets/org-mode/nicemacs-task
-# -*- mode: snippet -*-
-# name: Include a task for the journal
-# key: nicemacs-task
-# --
-** TODO [#B] do this thing
 #+end_src
 
 *** Python
