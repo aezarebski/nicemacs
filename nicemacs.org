@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-05-23 18:01:01>
+#+Time-stamp: <Last modified: 2022-05-25 09:37:01>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -1635,51 +1635,44 @@ import matplotlib.pyplot as plt
 *** R
 
 The R snippets can be roughly devided into those that provide useful [[*Useful
-package collections]] and those that provide [[*Useful programming snippets]]. Those
-that provide packages have a key which starts with =rpack-= and those that
-provide programming constructs start with =rhelp-=.
+package collections]] and those that provide [[*Useful programming snippets]].
 
 **** Useful package collections
 
-A snippet to include the basic packages which are pretty safe to import by
-default.
+Here are some basic packages and configuration that are useful to import at the
+start.
 
 #+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rpacks
 # -*- mode: snippet -*-
 # name: Standard R packages
 # key: rpacks
 # --
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 library(reshape2)
 library(ggplot2)
 library(magrittr)
-library(purrr)
+suppressPackageStartupMessages(library(purrr))
 library(jsonlite)
 library(stringr)
 library(cowplot)
-library(whisker)
+library(xml2)
+set.seed(1)
 #+END_SRC
 
-A snippet to include packages that are useful when working with geographic data
+Here is a collection of packages that are useful for some of the statistical
+work I do.
 
-#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rpacks-geo
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/extra-rpacks
 # -*- mode: snippet -*-
-# name: R packages for computational geography
-# key: rpacks-geo
+# name: Extra R packages
+# key: extra-rpacks
 # --
-library(countrycode)
-library(sf)
-#+END_SRC
-
-A snippet to include packages that are useful for doing MCMC
-
-#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rpacks-mcmc
-# -*- mode: snippet -*-
-# name: R packages for MCMC
-# key: rpacks-mcmc
-# --
-library(mcmc)
+library(ape)
 library(coda)
+library(countrycode)
+library(mcmc)
+library(phangorn)
+library(sf)
 #+END_SRC
 
 **** Useful programming snippets
