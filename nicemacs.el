@@ -135,7 +135,7 @@ file. TODO Add error message if there are no RIS files."
 
 (require 'oc-csl)
 
-(setq org-hide-emphasis-markers t)
+(setq org-hide-emphasis-markers nil)
 
 (add-hook 'org-mode-hook 'variable-pitch-mode)
 (add-hook 'org-mode-hook 'visual-line-mode)

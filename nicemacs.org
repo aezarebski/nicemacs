@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-05-25 09:37:01>
+#+Time-stamp: <Last modified: 2022-05-27 18:04:46>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -577,7 +577,13 @@ for toggle style functions we will have a sub-menu.
 (spacemacs/declare-prefix "oot" "org-toggle-menu")
 #+end_src
 
-*** TODO Citation engine
+*** Writing
+
+**** Footnotes
+
+To include a footnote, there is =, i f= which calls the function =org-footnote-new=.
+
+**** Citation engine
 
 The following package is required to use CSL with org-mode citations
 
@@ -585,12 +591,12 @@ The following package is required to use CSL with org-mode citations
 (require 'oc-csl)
 #+end_src
 
-*** Writing prose
+**** Fonts
 
-The following can be used to hide extra markup symbols
+The following can be used to hide extra markup symbols[fn:3].
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-  (setq org-hide-emphasis-markers t)
+  (setq org-hide-emphasis-markers nil)
 #+end_src
 
 We can use a hook to switch to proportional font for org-mode, because lines now
@@ -1833,6 +1839,9 @@ args <- parser$parse_args()
 #+end_src
 
 * Footnotes
+[fn:3] While hiding the delimiters improves the reading experience, I found that
+while editing text having them there but not visible was frustrating.
+Consequently I now have them visible.
 
 [fn:1] The =add-to-list= function is used to add elements to the start of a
 list, this should only be used in configuration code; use =push= to add elements
