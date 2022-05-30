@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-05-25 09:37:01>
+#+Time-stamp: <Last modified: 2022-05-30 10:16:41>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -1142,11 +1142,22 @@ Run =inferior-ess-reload= to reset the REPL.
 
 ** Version control via magit
 
-The following setting makes magit use the full frame when visiting the status.
+The following setting makes magit use the full frame when visiting the status. I
+like this because it helps me to focus on this particular task.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
 #+end_src
+
+*** Resolving conflicts
+
+There is functionality to help you resolve merge conflicts. When in the magit
+buffer, put the cursor over the offending conflict and us =x=, as you might to
+discard the chunk normally. This should then prompt you to choose between the
+available options. The "ours"/"theirs" terminology I find a little unclear, but
+they also let you know "upper" or "lower" to select which version.
+
+*** Commit helper functions
 
 There are a few projects where the same commit message use used often. It would
 be nice to have a macro to fill this in each time for me. Since this is working
@@ -1162,9 +1173,17 @@ easier to define.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defmacro nicemacs-commits (fname cmessage)
-  (list 'defun (intern (format "ncf-%s" fname)) ()
+  (list 'defun
+        (intern (format "ncf-%s" fname))
+        ()
         (list 'interactive)
-        (list 'magit-commit-create `(list "--edit" ,(list 'format "-m %s %s" cmessage (list 'downcase (list 'format-time-string "%A %l:%M %p")))))))
+        (list 'magit-commit-create
+              `(list "--edit"
+                     ,(list 'format
+                            "-m %s %s"
+                            cmessage
+                            (list 'downcase
+                                  (list 'format-time-string "%A %l:%M %p")))))))
  #+end_src
 
 And some useful examples should be bound to shortcuts.

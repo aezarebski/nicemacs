@@ -407,9 +407,17 @@ makes a copy of the one from one week ago."
 (spacemacs/declare-prefix "oc" "commits-menu")
 
 (defmacro nicemacs-commits (fname cmessage)
-  (list 'defun (intern (format "ncf-%s" fname)) ()
+  (list 'defun
+        (intern (format "ncf-%s" fname))
+        ()
         (list 'interactive)
-        (list 'magit-commit-create `(list "--edit" ,(list 'format "-m %s %s" cmessage (list 'downcase (list 'format-time-string "%A %l:%M %p")))))))
+        (list 'magit-commit-create
+              `(list "--edit"
+                     ,(list 'format
+                            "-m %s %s"
+                            cmessage
+                            (list 'downcase
+                                  (list 'format-time-string "%A %l:%M %p")))))))
 
 (nicemacs-commits network "update citation network")
 (spacemacs/set-leader-keys "ocn" 'ncf-network)
