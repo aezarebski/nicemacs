@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-06-03 21:45:17>
+#+Time-stamp: <Last modified: 2022-06-03 21:56:08>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -363,7 +363,7 @@ called.
   (setq nodejs-repl-command 'my-nodejs-repl-command)
 #+end_src
 
-** TODO Miscellaneous configuration for prose
+** Miscellaneous configuration for writing
 
 - A neat way to change a block of text from upper to lower case is to select the
   appropriate region and use =u= and =U= to toggle the case.
@@ -381,19 +381,21 @@ for unfill.
   (spacemacs/set-leader-keys "opu" 'unfill-paragraph)
 #+end_src
 
-*** TODO Dictionary
+** Spelling and Dictionaries
 
 There is a dictionary mode which provides the =dictionary= function and the
-=dictionary-tooltip-mode=.
+=dictionary-tooltip-mode=. Finding a suitable offline dictionary is challenging
+though.
 
 *** Spell checking
 
 - Highlight the text and use =SPC S r= to spellcheck that region.
-- Use =SPC S b= to spellcheck the buffer.
+- Use =SPC S b= to spellcheck the buffer (it calls =flyspell-buffer=)
 - Use =SPC S s= to open spelling suggestions for the work under the cursor.
-- It appears that when you add a word to a personal dictionary it is saved in
+- When you add a word to a personal dictionary it is saved in
   =~/.aspell.en.pws=. A (probably outdated) version of my personal dictionary is
-  [[file:./resources/aspell.en.pws][here]].
+  [[file:./resources/aspell.en.pws][here]]. Alternatively you can add it to a buffer specific list of words at the
+  bottom of the file.
 
 ** Latex and Bibtex
 
