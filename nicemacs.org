@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-06-03 21:56:08>
+#+Time-stamp: <Last modified: 2022-06-03 22:00:17>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -558,11 +558,14 @@ And then to get the faces looking good for the various elements of the display
 we have the following configuration
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-  (custom-set-faces
-   '(font-lock-comment-face ((t (:inherit fixed-pitch))))
-   '(font-lock-keyword-face ((t (:inherit fixed-pitch))))
-   '(font-latex-sectioning-2-face ((t (:inherit bold :foreground "#3a81c3" :height 1.3 :family "Noto Sans"))))
-   '(font-latex-sectioning-3-face ((t (:inherit bold :foreground "#2d9574" :height 1.2 :family "Noto Sans")))))
+  (custom-set-faces '(font-lock-comment-face ((t (:inherit fixed-pitch))))
+                    '(font-lock-keyword-face ((t (:inherit fixed-pitch))))
+                    '(font-latex-sectioning-2-face ((t (:inherit bold :foreground "#3a81c3"
+                                                                 :height 1.3
+                                                                 :family "Noto Sans"))))
+                    '(font-latex-sectioning-3-face ((t (:inherit bold :foreground "#2d9574"
+                                                                 :height 1.2
+                                                                 :family "Noto Sans")))))
  #+end_src
 
 ** Org-mode
@@ -1286,10 +1289,13 @@ files.
 (spacemacs/declare-prefix "ov" "visit friendly files")
 
 (defmacro nicemacs-visit (fname pname path)
-  (list 'defun (intern (format "nvf-%s" fname)) ()
+  (list 'defun
+        (intern (format "nvf-%s" fname))
+        ()
         (list 'interactive)
         (list 'progn
-              (list 'message (format "Visiting %s" pname))
+              (list 'message
+                    (format "Visiting %s" pname))
               (list 'find-file path))))
 #+end_src
 

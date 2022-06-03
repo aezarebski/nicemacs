@@ -123,11 +123,14 @@ file. TODO Add error message if there are no RIS files."
 (add-hook 'LaTeX-mode-hook 'variable-pitch-mode)
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 
-(custom-set-faces
- '(font-lock-comment-face ((t (:inherit fixed-pitch))))
- '(font-lock-keyword-face ((t (:inherit fixed-pitch))))
- '(font-latex-sectioning-2-face ((t (:inherit bold :foreground "#3a81c3" :height 1.3 :family "Noto Sans"))))
- '(font-latex-sectioning-3-face ((t (:inherit bold :foreground "#2d9574" :height 1.2 :family "Noto Sans")))))
+(custom-set-faces '(font-lock-comment-face ((t (:inherit fixed-pitch))))
+                  '(font-lock-keyword-face ((t (:inherit fixed-pitch))))
+                  '(font-latex-sectioning-2-face ((t (:inherit bold :foreground "#3a81c3"
+                                                               :height 1.3
+                                                               :family "Noto Sans"))))
+                  '(font-latex-sectioning-3-face ((t (:inherit bold :foreground "#2d9574"
+                                                               :height 1.2
+                                                               :family "Noto Sans")))))
 
 (spacemacs/declare-prefix "oo" "org-menu")
 
@@ -456,10 +459,13 @@ makes a copy of the one from one week ago."
 (spacemacs/declare-prefix "ov" "visit friendly files")
 
 (defmacro nicemacs-visit (fname pname path)
-  (list 'defun (intern (format "nvf-%s" fname)) ()
+  (list 'defun
+        (intern (format "nvf-%s" fname))
+        ()
         (list 'interactive)
         (list 'progn
-              (list 'message (format "Visiting %s" pname))
+              (list 'message
+                    (format "Visiting %s" pname))
               (list 'find-file path))))
 
 (nicemacs-visit beast-notes "BEAST2 notes" "/home/aez/public-site/org/notes/beast2-notes.org")
