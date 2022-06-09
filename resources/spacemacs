@@ -36,11 +36,16 @@ This function should only modify configuration layer settings."
      better-defaults
      bibtex
      csv
+     dhall
+     docker
      emacs-lisp
      (ess :variables
-          ess-r-backend 'ess)
+          ess-r-backend 'lsp)
      git
      graphviz
+     (groovy :variables
+             groovy-backend 'lsp
+             groovy-lsp-jar-path "/home/aez/tools/groovy-language-server/build/libs/groovy-language-server-all.jar")
      (haskell :variables
               haskell-completion-backend 'lsp
               haskell-process-type 'stack-ghci
