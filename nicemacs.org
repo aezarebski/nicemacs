@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-06-03 22:00:17>
+#+Time-stamp: <Last modified: 2022-06-09 11:07:24>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -367,13 +367,17 @@ called.
 
 - A neat way to change a block of text from upper to lower case is to select the
   appropriate region and use =u= and =U= to toggle the case.
+- If you want a word count there is the =count-words= function. This is used so
+  infrequently though that it is not really worth adding a binding for it. By
+  default it counts the words in the current buffer, but if you have selected a
+  region of text it will count the words and characters there.
 
 *** Toggling paragraph filling
 
-There are the =org-fill-paragraph= and =unfill-paragraph= functions which are useful
-to switch between representations of paragraphs when copying between editors. I
-think a suitable binding for these command is =SPC o p f= for fill and =SPC o p u=
-for unfill.
+There are the =org-fill-paragraph= and =unfill-paragraph= functions which are
+useful to switch between representations of paragraphs when copying between
+editors. I think a suitable binding for these command is =SPC o p f= for fill
+and =SPC o p u= for unfill.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
   (spacemacs/declare-prefix "op" "paragraph-modification-menu")
@@ -411,63 +415,52 @@ to explicitly request this
 (spacemacs/declare-prefix "ob" "bibtex-menu")
 #+end_src
 
-There are a couple of files that I want to have easy access to for reference and
-to make minor edits. Having a function to access such a file easily is useful
-for this.
+Here are the keybindings for the bibtex functionality, the leader sequence is
+*Owner* *Bibtex* *X* where
 
-#+begin_src emacs-lisp :tangle nicemacs.el
-(defun visit-bib-and-tex-file (path-template)
-  (interactive)
-  (progn
-    (find-file path-template)
-    (goto-char 1)
-    (recenter-top-bottom)))
+- *B* for /braces/ around upper case characters,
+- *C* for /convert/ between RIS and bibtex,
+- *F* for /format/ the current buffer,
+- *L* for /last/ bibtex file in =Downloads= and
+
+#+name: bibtex-keybindings
+#+begin_src emacs-lisp
+(spacemacs/set-leader-keys "obl" 'last-bib)
+(spacemacs/set-leader-keys "obf" 'bibtex-reformat)
+(spacemacs/set-leader-keys "obb" 'bibtex-braces)
+(spacemacs/set-leader-keys "obc" 'bibtex-ris2bib)
 #+end_src
 
-This is a /latex/ file for my /reviews/ so the binding is =olr=.
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(defun review-tex-file ()
-  "Open my review.tex file"
-  (interactive)
-  (visit-bib-and-tex-file "~/Documents/bibliography/review/review.tex"))
-
-(spacemacs/set-leader-keys "olr" 'review-tex-file)
-#+end_src
-
-This is a /Bibtex/ file for my /references/ so the binding is =obr=.
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(defun references-bib-file ()
-  "Opens my bibtex references."
-  (interactive)
-  (visit-bib-and-tex-file "~/Documents/bibliography/references.bib"))
-
-(spacemacs/set-leader-keys "obr" 'references-bib-file)
-#+end_src
+*** Visiting most recent bib file
 
 The =last-bib= function opens the most recent Bibtex file in the Downloads
 directory in a new buffer. If there is no such file then a message is given to
 indicate this.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defun last-bib ()
-  (interactive)
-  (let* ((bib-files (directory-files-and-attributes "~/Downloads"
-                                                    t ".*bib" "ctime"))
-         (path-and-time (lambda (x)
-                          (list (first x)
-                                (eighth x))))
-         (time-order (lambda (a b)
-                       (time-less-p (second b)
-                                    (second a))))
-         (most-recent (lambda (files)
-                        (car (car (sort (mapcar path-and-time files)
-                                        time-order))))))
-    (if (not (null bib-files))
-        (find-file (funcall most-recent bib-files))
-      (message "No bib files found in ~/Downloads/"))))
+  (defun last-bib ()
+    "Visit the most recent BIB file in Downloads. TODO There should
+  be a fall back such that if there is a TXT file that is younger
+  than the last BIB file then copy it to a new file with the same
+  basename but a BIB extension and open that instead."
+    (interactive)
+    (let* ((bib-files (directory-files-and-attributes "~/Downloads"
+                                                      t ".*bib" "ctime"))
+           (path-and-time (lambda (x)
+                            (list (first x)
+                                  (eighth x))))
+           (time-order (lambda (a b)
+                         (time-less-p (second b)
+                                      (second a))))
+           (most-recent (lambda (files)
+                          (car (car (sort (mapcar path-and-time files)
+                                          time-order))))))
+      (if (not (null bib-files))
+          (find-file (funcall most-recent bib-files))
+        (message "No bib files found in ~/Downloads/"))))
 #+end_src
+
+*** Formatting references
 
 Bibtex requires that capital letters in the title be surrounded by braces to
 ensure that they are capitalised correctly. The following function is a way to
@@ -480,6 +473,8 @@ run the function.
   (interactive)
   (evil-ex "'<,'>s/\\([A-Z]+\\)/\\{\\1\\}/g"))
 #+end_src
+
+*** Converting RIS files
 
 Some places seem reluctant to provide a bibtex file for a citation, but they all
 seem to have RIS files available for download. There are tools to convert
@@ -507,42 +502,6 @@ file. TODO Add error message if there are no RIS files."
     (shell-command ris2xml-command)))
 #+end_src
 
-Now we need some sensible key-bindings for this functionality. The following aim
-to follow the naming used for the functionality because this is easier to
-remember. *Owner* *Bibtex* *X* where
-
-- *B* for /braces/ around upper case characters,
-- *C* for /convert/ between RIS and bibtex,
-- *F* for /format/ the current buffer,
-- *L* for /last/ bibtex file in =Downloads= and
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/set-leader-keys "obl" 'last-bib)
-(spacemacs/set-leader-keys "obf" 'bibtex-reformat)
-(spacemacs/set-leader-keys "obb" 'bibtex-braces)
-(spacemacs/set-leader-keys "obc" 'bibtex-ris2bib)
-#+end_src
-
-I often want to be able to open my reading notes quickly so it would be useful
-to have a function to do that. This will be bound to =olp= because it is opening
-/the/ PDF.
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(defun nicemacs-open-review-pdf ()
-  "Open PDF of reading notes in evince."
-  (interactive)
-  (let ((pdf-viewer "evince")
-        (review-path "/home/aez/Documents/bibliography/review/review.pdf"))
-    (shell-command (concat pdf-viewer " " review-path " &"))))
-
-(spacemacs/set-leader-keys "olp" 'nicemacs-open-review-pdf)
-#+end_src
-
-If you want a word count there is the =count-words= function. This is used so
-infrequently though that it is not really worth adding a binding for it. By
-default it counts the words in the current buffer, but if you have selected a
-region of text it will count the words and characters there.
-
 *** Appearance
 
 We can use a hook to switch to proportional font for org-mode, because lines now
@@ -567,6 +526,12 @@ we have the following configuration
                                                                  :height 1.2
                                                                  :family "Noto Sans")))))
  #+end_src
+
+*** Miscellaneous
+
+#+begin_src emacs-lisp :noweb yes :tangle nicemacs.el
+  <<bibtex-keybindings>>
+#+end_src
 
 ** Org-mode
 

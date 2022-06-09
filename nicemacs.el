@@ -45,28 +45,11 @@
 (spacemacs/declare-prefix "ol" "latex")
 (spacemacs/declare-prefix "ob" "bibtex-menu")
 
-(defun visit-bib-and-tex-file (path-template)
-  (interactive)
-  (progn
-    (find-file path-template)
-    (goto-char 1)
-    (recenter-top-bottom)))
-
-(defun review-tex-file ()
-  "Open my review.tex file"
-  (interactive)
-  (visit-bib-and-tex-file "~/Documents/bibliography/review/review.tex"))
-
-(spacemacs/set-leader-keys "olr" 'review-tex-file)
-
-(defun references-bib-file ()
-  "Opens my bibtex references."
-  (interactive)
-  (visit-bib-and-tex-file "~/Documents/bibliography/references.bib"))
-
-(spacemacs/set-leader-keys "obr" 'references-bib-file)
-
 (defun last-bib ()
+  "Visit the most recent BIB file in Downloads. TODO There should
+be a fall back such that if there is a TXT file that is younger
+than the last BIB file then copy it to a new file with the same
+basename but a BIB extension and open that instead."
   (interactive)
   (let* ((bib-files (directory-files-and-attributes "~/Downloads"
                                                     t ".*bib" "ctime"))
@@ -106,20 +89,6 @@ file. TODO Add error message if there are no RIS files."
                                   target-bib)))
     (shell-command ris2xml-command)))
 
-(spacemacs/set-leader-keys "obl" 'last-bib)
-(spacemacs/set-leader-keys "obf" 'bibtex-reformat)
-(spacemacs/set-leader-keys "obb" 'bibtex-braces)
-(spacemacs/set-leader-keys "obc" 'bibtex-ris2bib)
-
-(defun nicemacs-open-review-pdf ()
-  "Open PDF of reading notes in evince."
-  (interactive)
-  (let ((pdf-viewer "evince")
-        (review-path "/home/aez/Documents/bibliography/review/review.pdf"))
-    (shell-command (concat pdf-viewer " " review-path " &"))))
-
-(spacemacs/set-leader-keys "olp" 'nicemacs-open-review-pdf)
-
 (add-hook 'LaTeX-mode-hook 'variable-pitch-mode)
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 
@@ -131,6 +100,11 @@ file. TODO Add error message if there are no RIS files."
                   '(font-latex-sectioning-3-face ((t (:inherit bold :foreground "#2d9574"
                                                                :height 1.2
                                                                :family "Noto Sans")))))
+
+(spacemacs/set-leader-keys "obl" 'last-bib)
+(spacemacs/set-leader-keys "obf" 'bibtex-reformat)
+(spacemacs/set-leader-keys "obb" 'bibtex-braces)
+(spacemacs/set-leader-keys "obc" 'bibtex-ris2bib)
 
 (spacemacs/declare-prefix "oo" "org-menu")
 
