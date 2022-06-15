@@ -39,6 +39,7 @@ covariates
 dataset
 datasets
 decapod
+deconvolution
 demes
 differentiable
 discretised
@@ -59,6 +60,7 @@ lockdown
 misspecification
 monadic
 monads
+monkeypox
 monophyletic
 parameterisation
 parameterisations
@@ -74,12 +76,14 @@ phylogeography
 polymorphism
 polytomies
 preprocessing
+priori
 reproducibility
 rescaling
 scalability
 serotype
 shish
 stochasticity
+subcritical
 superspreading
 surveil
 topologies
