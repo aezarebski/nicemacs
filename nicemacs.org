@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-06-09 11:07:24>
+#+Time-stamp: <Last modified: 2022-06-15 13:27:38>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -1674,6 +1674,17 @@ library(sf)
 #+END_SRC
 
 **** Useful programming snippets
+
+***** Comment to break up sections of a file
+
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/horizontal-line
+# -*- mode: snippet -*-
+# name: Use a comment to put a horizontal line across the file
+# key: rhelp-horizontal-line
+# --
+
+# ==============================================================================
+#+END_SRC
 
 ***** Saving ggplot2 figures
 
