@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-06-19 12:14:12>
+#+Time-stamp: <Last modified: 2022-06-19 12:21:38>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -244,6 +244,33 @@ icons displayed, the following can be used.
 #+begin_src emacs-lisp :tangle nicemacs.el
 (setq dotspacemacs-startup-buffer-show-icons nil)
 #+end_src
+
+To put your own image on the splash screen you need to modify
+=dotspacemacs/init=, specifically you need to set the variable
+=dotspacemacs-startup=banner= to be a string of the full path to the desired
+PNG. A sensible place to put the image is =~/.emacs.d/core/banners/img=. You can
+reduce the size of PNG to get a better fit with the following command.
+
+#+begin_src sh
+convert -resize 50% foo.png bar.png
+#+end_src
+
+This is a banner that I like.
+
+#+begin_src
+Welcome to
+███████╗███╗   ███╗ █████╗  ██████╗███████╗
+██╔════╝████╗ ████║██╔══██╗██╔════╝██╔════╝
+█████╗  ██╔████╔██║███████║██║     ███████╗
+██╔══╝  ██║╚██╔╝██║██╔══██║██║     ╚════██║
+███████╗██║ ╚═╝ ██║██║  ██║╚██████╗███████║
+╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝╚══════╝
+#+end_src
+
+*** Default colour schemes
+
+The hexcodes for the default colour schemes used by Spacemacs can be found in
+=spacemacs/core/libs/spacemacs-theme/spacemacs-common.el=
 
 *** Scratch buffer
 
@@ -1213,6 +1240,21 @@ And some useful examples should be bound to shortcuts.
 (nicemacs-commits journal "update journal")
 (spacemacs/set-leader-keys "ocj" 'ncf-journal)
  #+end_src
+
+** Spray
+
+Speed reader for emacs.
+Enable this by adding =speed-reading= to your configuration.
+
+| Keys      | Description         |
+|-----------+---------------------|
+| =SPC a R= | Start spray         |
+| =SPC=     | Pause               |
+| =f=       | faster              |
+| =s=       | slower              |
+| =h=       | back (vim left)     |
+| =l=       | forward (vim right) |
+| =q=       | quit                |
 
 ** TODO File and buffer manipulation
 
