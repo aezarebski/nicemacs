@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-06-15 13:27:38>
+#+Time-stamp: <Last modified: 2022-06-19 12:14:12>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -11,7 +11,9 @@
 
 #+TOC: headlines 2
 
-* Build you an Emacs
+* Vanilla Emacs
+
+** Build you an Emacs
 
 Get the source code from [[http://git.savannah.gnu.org/cgit/emacs.git/][here]] with
 
@@ -55,6 +57,20 @@ Then to create a new frame (or visit a file)
 emacsclient --no-wait --create-frame
 #+end_example
 
+** Recording keyboard macros
+
+1. Start recording with =C-x (= (which calls =kmacro-start-macro=).
+2. Stop recording with =C-x )= (which calls =kmacro-end-macro=).
+3. Execute the recording with =C-x e= (which calls =kmacro-end-and-call-macro=).
+
+If you want to save a macro for later use, you can get a emacs-lisp definition
+of it with =insert-kbd-macro=.
+
+** Jargon
+
+There is a [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Glossary.html][glossary]] in the manuals, the nodes are =Emacs > Glossary=. The regex
+search entered with =s= is very useful here.
+
 ** Getting HELP
 
 There are a couple of help menus that are useful to be able to access easily:
@@ -62,6 +78,26 @@ There are a couple of help menus that are useful to be able to access easily:
 - /GNU Emacs NEWS/ can be summoned with =view-emacs-news=.
 - /Spacemacs documentation/ can be summoned with =helm-spacemacs-help-docs=.
 - /GNU Emacs Manual/ can be summoned with =info-display-manual=.
+- /Emacs Lisp Intro/ has a section on debugging.
+
+Running the =info= function will load the manuals. Although, =C-h i= brings you
+there much quicker. To start with you are in vim keybindings so can move around
+with =hjkl=, but apart from that you'll want to jump to emacs keybindings so you
+can use =dubnpmlrsf[]<SPC>= for greater flexibility navigation.
+
+*** Info navigation
+
+- =n= next node
+- =p= previous node
+- =[= and =]= are for up and down levels of nodes
+- =b= to go to the start of a node
+- =SPC= to go to the end o a node
+- =l= last node before this one
+- =s= search with a regex
+- =f= find a node linked from here
+- =m= is a menu of linked nodes
+- =u= up a level of nodes
+- =d= go to the root node
 
 * Nicemacs
 
