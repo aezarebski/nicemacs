@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-06-15 13:27:38>
+#+Time-stamp: <Last modified: 2022-07-17 22:45:17>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -198,6 +198,12 @@ should also document the configuration layers that I use.
 
 To quickly toggle between the default spacemacs themes use =SPC T n= (the
 default bindings.)
+
+*** Supported image formats
+
+To test if an image format is supported there is the =image-type-availability-p=
+function. For example, to check if you can view SVG, you would evaluate
+=(image-type-availability-p 'svg)=.
 
 *** Start up/splash page
 
@@ -1554,12 +1560,17 @@ And now to specify the actual keybindings
 
 ** TODO XML editing
 
+- Web-mode seems to be the default used by spacemacs, but this struggles with
+  BEAST XML at times, the =nxml-mode= seems to be sufficient for this though.
+
 *** Useful bindings
 
 - ~M = =~ will run the relevant web-beautify function[fn:2].
 - =, z= will do code folding for web-mode.
 - =%= will jump between matching tags: evil-mode provides it.
 - =SPC t l= will toggle long lines.
+- When viewing SVG, if your emacs supports it, you can switch between source and
+  a rendered version with =C-c C-c=.
 
 ** Yasnippet snippets
 
