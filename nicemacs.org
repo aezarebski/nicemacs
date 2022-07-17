@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-07-17 22:45:17>
+#+Time-stamp: <Last modified: 2022-07-17 23:15:34>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -31,6 +31,8 @@ Follow the instructions in the =INSTALL= file to build emacs.
 
 *** Notes
 
+- =emacs-28.1.90= configured with =--with-native-compilation= and =--with-rsvg=.
+  Building this one seemed to take longer than normal.
 - =emacs-28.1=. I also installed =libgccjit= and used =./configure
   --with-native-compilation= during the compilation, it does feel snappier.
 - =emacs-28.0.91= requested =mailutils= to be installed during configuration.
