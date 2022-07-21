@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-06-19 12:21:38>
+#+Time-stamp: <Last modified: 2022-07-21 10:28:59>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -1195,6 +1195,11 @@ buffer, put the cursor over the offending conflict and us =x=, as you might to
 discard the chunk normally. This should then prompt you to choose between the
 available options. The "ours"/"theirs" terminology I find a little unclear, but
 they also let you know "upper" or "lower" to select which version.
+
+*** Staging only part of a hunk
+
+If you only want to stage a couple of lines from a hunk you can do this by
+selecting the lines and =s=.
 
 *** Commit helper functions
 
