@@ -1,3 +1,5 @@
+(setq user-full-name "Alexander E. Zarebski")
+
 (spacemacs/declare-prefix "o" "own-menu")
 
 (setq dotspacemacs-startup-buffer-show-icons nil)

@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-07-17 23:15:34>
+#+Time-stamp: <Last modified: 2022-07-24 12:21:02>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -80,6 +80,16 @@ the filenames to search and finally the root directory of the search. The
 results are presented in a buffer which links to the matches found.
 
 ** System
+
+*** Set the user name
+
+The =user-full-name= variable is what org-mode uses as the author name when it
+exports to HTML. Setting this variable here is a way to ensure that a sensible
+author name is produced.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(setq user-full-name "Alexander E. Zarebski")
+#+end_src
 
 *** Display battery percentage
 
