@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-07-24 12:21:02>
+#+Time-stamp: <Last modified: 2022-07-25 21:50:52>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -245,6 +245,17 @@ remove the advice to do this!
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (advice-remove 'mwheel-scroll #'spacemacs//scroll-bar-show-delayed-hide)
+#+end_src
+
+*** Stop undo-tree-mode scattering files
+
+The =undo-tree-mode= will save a history of actions to a file so they are not
+lost when you close emacs. You can customise where these files get stored, but
+in the interest of keeping things snappy, I think it is probably nicer just to
+avoid this feature by editing the =undo-tree-auto-save-history=.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (setq undo-tree-auto-save-history nil)
 #+end_src
 
 ** Completion
@@ -746,15 +757,71 @@ To make it easy to access these we will bind them to come convenient keys.
 (spacemacs/set-leader-keys "oos" 'org-schedule)
 #+end_src
 
-*** Website
+*** Miscellaneous
 
-**** Declare which files need to be published
+#+begin_src emacs-lisp :tangle nicemacs.el
+;; open the export menu
+(spacemacs/set-leader-keys "ooe" 'org-export-dispatch)
 
-Set up for publishing my website, note that this will write the output directly
-to the GitHub repository for the site. Note that the =:exclude= variable can be
-used to specify which files to ignore using a regular expression. The =htmlize=
-package seems to need to be manually imported to get syntax highlighting to
-work.
+;; Make sure org files open with lines truncated
+(add-hook 'org-mode-hook 'spacemacs/toggle-truncate-lines-on)
+#+end_src
+
+There is a variable in spacemacs, =dotspacemacs-whitespace-cleanup=, which if
+you set to ='trailing= will remove trailing whitespace each time a file is
+saved. It appears in the =.spacemacs= file with some documentation.
+
+*** Tables
+
+The org-mode support for tables is strong. There is the a neat snippet for
+inserting tables and then in spacemacs, using =, t= will bring up some available
+functions (including =, t n= which creates a new table for those that don't like
+yasnippet). There is also =org-table-transpose-table-at-point=
+
+*** Inline Latex and image display
+
+Org-mode can display images inline, however it is useful to be able to toggle
+this feature occasionally, particularly if there are large images which take up
+too much space. There is a function =org-toggle-inline-images= which does this.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/set-leader-keys "ooi" 'org-toggle-inline-images)
+#+end_src
+
+The =org-latex-preview= function will show a preview of the latex fragment under
+the mark. Running the command a second time will revert to the plain text.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/set-leader-keys "ool" 'org-latex-preview)
+#+end_src
+
+To adjust the size of the figures, adjust the attribute =:scale= in the variable
+=org-format-latex-options=.
+
+*** Hyperlinking in org-mode
+
+By default, when you follow a link it will open in a new window in the current
+frame. To follow links in the same window, you need to adjust the
+=org-link-frame-setup= variable[fn:1].
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(require 'ol)
+
+(add-to-list 'org-link-frame-setup '(file . find-file))
+#+end_src
+
+We know that we need to =(require 'ol)= here by looking at the end of the file
+in which =org-link-frame-setup= is defined and seeing what it "provides" at the
+end.
+
+** Website
+
+*** Declare which files need to be published
+
+The =:exclude= variable can be used to specify which files to ignore using a
+regular expression. The =htmlize= package seems to need to be manually imported
+to get syntax highlighting to work, but even then it doesn't always work, I'm
+not sure what is going on here.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
   (require 'htmlize)
@@ -765,6 +832,7 @@ work.
           ("org-notes"
            :base-directory "~/public-site/org/"
            :base-extension "org"
+           :exclude ".*~undo-tree~"
            :publishing-directory "~/aezarebski.github.io/"
            :recursive t
            :publishing-function org-html-publish-to-html
@@ -879,64 +947,6 @@ setting =org-adapt-indentation= to =nil=.
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
 (setq org-adapt-indentation nil)
 #+END_SRC
-
-*** Miscellaneous
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-;; open the export menu
-(spacemacs/set-leader-keys "ooe" 'org-export-dispatch)
-
-;; Make sure org files open with lines truncated
-(add-hook 'org-mode-hook 'spacemacs/toggle-truncate-lines-on)
-#+end_src
-
-There is a variable in spacemacs, =dotspacemacs-whitespace-cleanup=, which if
-you set to ='trailing= will remove trailing whitespace each time a file is
-saved. It appears in the =.spacemacs= file with some documentation.
-
-*** Tables
-
-The org-mode support for tables is strong. There is the a neat snippet for
-inserting tables and then in spacemacs, using =, t= will bring up some available
-functions (including =, t n= which creates a new table for those that don't like
-yasnippet). There is also =org-table-transpose-table-at-point=
-
-*** Inline Latex and image display
-
-Org-mode can display images inline, however it is useful to be able to toggle
-this feature occasionally, particularly if there are large images which take up
-too much space. There is a function =org-toggle-inline-images= which does this.
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/set-leader-keys "ooi" 'org-toggle-inline-images)
-#+end_src
-
-The =org-latex-preview= function will show a preview of the latex fragment under
-the mark. Running the command a second time will revert to the plain text.
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/set-leader-keys "ool" 'org-latex-preview)
-#+end_src
-
-To adjust the size of the figures, adjust the attribute =:scale= in the variable
-=org-format-latex-options=.
-
-*** Hyperlinking in org-mode
-
-By default, when you follow a link it will open in a new window in the current
-frame. To follow links in the same window, you need to adjust the
-=org-link-frame-setup= variable[fn:1].
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(require 'ol)
-
-(add-to-list 'org-link-frame-setup '(file . find-file))
-#+end_src
-
-We know that we need to =(require 'ol)= here by looking at the end of the file
-in which =org-link-frame-setup= is defined and seeing what it "provides" at the
-end.
-
 ** Shells and REPLs
 
 It is useful to have a prefix for more involved shell related commands

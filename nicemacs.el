@@ -8,6 +8,8 @@
 
 (advice-remove 'mwheel-scroll #'spacemacs//scroll-bar-show-delayed-hide)
 
+(setq undo-tree-auto-save-history nil)
+
 (setq company-idle-delay 0.5)
 (setq company-minimum-prefix-length 3)
 
@@ -210,6 +212,20 @@ makes a copy of the one from one week ago."
 (spacemacs/set-leader-keys "ooa" 'nicemacs-visit-agenda)
 (spacemacs/set-leader-keys "oos" 'org-schedule)
 
+;; open the export menu
+(spacemacs/set-leader-keys "ooe" 'org-export-dispatch)
+
+;; Make sure org files open with lines truncated
+(add-hook 'org-mode-hook 'spacemacs/toggle-truncate-lines-on)
+
+(spacemacs/set-leader-keys "ooi" 'org-toggle-inline-images)
+
+(spacemacs/set-leader-keys "ool" 'org-latex-preview)
+
+(require 'ol)
+
+(add-to-list 'org-link-frame-setup '(file . find-file))
+
 (require 'htmlize)
 (require 'ox-publish)
 
@@ -218,6 +234,7 @@ makes a copy of the one from one week ago."
         ("org-notes"
          :base-directory "~/public-site/org/"
          :base-extension "org"
+         :exclude ".*~undo-tree~"
          :publishing-directory "~/aezarebski.github.io/"
          :recursive t
          :publishing-function org-html-publish-to-html
@@ -300,20 +317,6 @@ makes a copy of the one from one week ago."
 (spacemacs/set-leader-keys "oov" 'visit-my-site-index)
 
 (setq org-adapt-indentation nil)
-
-;; open the export menu
-(spacemacs/set-leader-keys "ooe" 'org-export-dispatch)
-
-;; Make sure org files open with lines truncated
-(add-hook 'org-mode-hook 'spacemacs/toggle-truncate-lines-on)
-
-(spacemacs/set-leader-keys "ooi" 'org-toggle-inline-images)
-
-(spacemacs/set-leader-keys "ool" 'org-latex-preview)
-
-(require 'ol)
-
-(add-to-list 'org-link-frame-setup '(file . find-file))
 
 (spacemacs/declare-prefix "os" "sheila-menu")
 
