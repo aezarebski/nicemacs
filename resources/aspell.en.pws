@@ -24,7 +24,9 @@ PNG
 PRNG
 README
 RGB
+REPL
 SDE
+SVG
 Speciation
 Stadler
 Stadler's
@@ -41,6 +43,7 @@ connectedness
 covariates
 dataset
 datasets
+datatypes
 decapod
 deconvolution
 demes

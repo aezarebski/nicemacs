@@ -1,5 +1,6 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-07-21 10:28:59>
+#+Time-stamp: <Last modified: 2022-07-27 10:19:48>
+#+Time-stamp: <Last modified: 2022-07-25 21:50:52>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -33,6 +34,8 @@ Follow the instructions in the =INSTALL= file to build emacs.
 
 *** Notes
 
+- =emacs-28.1.90= configured with =--with-native-compilation= and =--with-rsvg=.
+  Building this one seemed to take longer than normal.
 - =emacs-28.1=. I also installed =libgccjit= and used =./configure
   --with-native-compilation= during the compilation, it does feel snappier.
 - =emacs-28.0.91= requested =mailutils= to be installed during configuration.
@@ -114,6 +117,16 @@ the filenames to search and finally the root directory of the search. The
 results are presented in a buffer which links to the matches found.
 
 ** System
+
+*** Set the user name
+
+The =user-full-name= variable is what org-mode uses as the author name when it
+exports to HTML. Setting this variable here is a way to ensure that a sensible
+author name is produced.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(setq user-full-name "Alexander E. Zarebski")
+#+end_src
 
 *** Display battery percentage
 
@@ -235,6 +248,12 @@ should also document the configuration layers that I use.
 To quickly toggle between the default spacemacs themes use =SPC T n= (the
 default bindings.)
 
+*** Supported image formats
+
+To test if an image format is supported there is the =image-type-availability-p=
+function. For example, to check if you can view SVG, you would evaluate
+=(image-type-availability-p 'svg)=.
+
 *** Start up/splash page
 
 I prefer the startup banner number 100, to use this put =100= for the
@@ -290,6 +309,17 @@ remove the advice to do this!
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (advice-remove 'mwheel-scroll #'spacemacs//scroll-bar-show-delayed-hide)
+#+end_src
+
+*** Stop undo-tree-mode scattering files
+
+The =undo-tree-mode= will save a history of actions to a file so they are not
+lost when you close emacs. You can customise where these files get stored, but
+in the interest of keeping things snappy, I think it is probably nicer just to
+avoid this feature by editing the =undo-tree-auto-save-history=.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (setq undo-tree-auto-save-history nil)
 #+end_src
 
 ** Completion
@@ -791,15 +821,71 @@ To make it easy to access these we will bind them to come convenient keys.
 (spacemacs/set-leader-keys "oos" 'org-schedule)
 #+end_src
 
-*** Website
+*** Miscellaneous
 
-**** Declare which files need to be published
+#+begin_src emacs-lisp :tangle nicemacs.el
+;; open the export menu
+(spacemacs/set-leader-keys "ooe" 'org-export-dispatch)
 
-Set up for publishing my website, note that this will write the output directly
-to the GitHub repository for the site. Note that the =:exclude= variable can be
-used to specify which files to ignore using a regular expression. The =htmlize=
-package seems to need to be manually imported to get syntax highlighting to
-work.
+;; Make sure org files open with lines truncated
+(add-hook 'org-mode-hook 'spacemacs/toggle-truncate-lines-on)
+#+end_src
+
+There is a variable in spacemacs, =dotspacemacs-whitespace-cleanup=, which if
+you set to ='trailing= will remove trailing whitespace each time a file is
+saved. It appears in the =.spacemacs= file with some documentation.
+
+*** Tables
+
+The org-mode support for tables is strong. There is the a neat snippet for
+inserting tables and then in spacemacs, using =, t= will bring up some available
+functions (including =, t n= which creates a new table for those that don't like
+yasnippet). There is also =org-table-transpose-table-at-point=
+
+*** Inline Latex and image display
+
+Org-mode can display images inline, however it is useful to be able to toggle
+this feature occasionally, particularly if there are large images which take up
+too much space. There is a function =org-toggle-inline-images= which does this.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/set-leader-keys "ooi" 'org-toggle-inline-images)
+#+end_src
+
+The =org-latex-preview= function will show a preview of the latex fragment under
+the mark. Running the command a second time will revert to the plain text.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/set-leader-keys "ool" 'org-latex-preview)
+#+end_src
+
+To adjust the size of the figures, adjust the attribute =:scale= in the variable
+=org-format-latex-options=.
+
+*** Hyperlinking in org-mode
+
+By default, when you follow a link it will open in a new window in the current
+frame. To follow links in the same window, you need to adjust the
+=org-link-frame-setup= variable[fn:1].
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(require 'ol)
+
+(add-to-list 'org-link-frame-setup '(file . find-file))
+#+end_src
+
+We know that we need to =(require 'ol)= here by looking at the end of the file
+in which =org-link-frame-setup= is defined and seeing what it "provides" at the
+end.
+
+** Website
+
+*** Declare which files need to be published
+
+The =:exclude= variable can be used to specify which files to ignore using a
+regular expression. The =htmlize= package seems to need to be manually imported
+to get syntax highlighting to work, but even then it doesn't always work, I'm
+not sure what is going on here.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
   (require 'htmlize)
@@ -810,6 +896,7 @@ work.
           ("org-notes"
            :base-directory "~/public-site/org/"
            :base-extension "org"
+           :exclude ".*~undo-tree~"
            :publishing-directory "~/aezarebski.github.io/"
            :recursive t
            :publishing-function org-html-publish-to-html
@@ -924,64 +1011,6 @@ setting =org-adapt-indentation= to =nil=.
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
 (setq org-adapt-indentation nil)
 #+END_SRC
-
-*** Miscellaneous
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-;; open the export menu
-(spacemacs/set-leader-keys "ooe" 'org-export-dispatch)
-
-;; Make sure org files open with lines truncated
-(add-hook 'org-mode-hook 'spacemacs/toggle-truncate-lines-on)
-#+end_src
-
-There is a variable in spacemacs, =dotspacemacs-whitespace-cleanup=, which if
-you set to ='trailing= will remove trailing whitespace each time a file is
-saved. It appears in the =.spacemacs= file with some documentation.
-
-*** Tables
-
-The org-mode support for tables is strong. There is the a neat snippet for
-inserting tables and then in spacemacs, using =, t= will bring up some available
-functions (including =, t n= which creates a new table for those that don't like
-yasnippet). There is also =org-table-transpose-table-at-point=
-
-*** Inline Latex and image display
-
-Org-mode can display images inline, however it is useful to be able to toggle
-this feature occasionally, particularly if there are large images which take up
-too much space. There is a function =org-toggle-inline-images= which does this.
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/set-leader-keys "ooi" 'org-toggle-inline-images)
-#+end_src
-
-The =org-latex-preview= function will show a preview of the latex fragment under
-the mark. Running the command a second time will revert to the plain text.
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/set-leader-keys "ool" 'org-latex-preview)
-#+end_src
-
-To adjust the size of the figures, adjust the attribute =:scale= in the variable
-=org-format-latex-options=.
-
-*** Hyperlinking in org-mode
-
-By default, when you follow a link it will open in a new window in the current
-frame. To follow links in the same window, you need to adjust the
-=org-link-frame-setup= variable[fn:1].
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(require 'ol)
-
-(add-to-list 'org-link-frame-setup '(file . find-file))
-#+end_src
-
-We know that we need to =(require 'ol)= here by looking at the end of the file
-in which =org-link-frame-setup= is defined and seeing what it "provides" at the
-end.
-
 ** Shells and REPLs
 
 It is useful to have a prefix for more involved shell related commands
@@ -1637,12 +1666,17 @@ And now to specify the actual keybindings
 
 ** TODO XML editing
 
+- Web-mode seems to be the default used by spacemacs, but this struggles with
+  BEAST XML at times, the =nxml-mode= seems to be sufficient for this though.
+
 *** Useful bindings
 
 - ~M = =~ will run the relevant web-beautify function[fn:2].
 - =, z= will do code folding for web-mode.
 - =%= will jump between matching tags: evil-mode provides it.
 - =SPC t l= will toggle long lines.
+- When viewing SVG, if your emacs supports it, you can switch between source and
+  a rendered version with =C-c C-c=.
 
 ** Yasnippet snippets
 
