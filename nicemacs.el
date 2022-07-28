@@ -560,7 +560,8 @@ makes a copy of the one from one week ago."
 (evil-set-initial-state 'ibuffer-mode 'motion)
 
 (defun message-buffer-file-name ()
-  "Print the full path of the current buffer and store this on the kill ring."
+  "Print the full path of the current buffer's file to the
+minibuffer and store this on the kill ring."
   (interactive)
   (kill-new buffer-file-name)
   (message buffer-file-name))

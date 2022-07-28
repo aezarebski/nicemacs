@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-07-27 10:19:48>
+#+Time-stamp: <Last modified: 2022-07-28 10:48:53>
 #+Time-stamp: <Last modified: 2022-07-25 21:50:52>
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1311,10 +1311,6 @@ If you want to kill buffers with names that match a regex there is the
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 #+end_src
 
-*** Permissions
-
-To visit a file with sudo rights use =SPC f E= which calls =spacemacs/sudo-edit=.
-
 *** Time stamping files
 
 Add =Time-stamp: <>= somewhere in the first eight lines of a file and add the
@@ -1343,6 +1339,8 @@ the file being in fundamental mode.
 
 *** Dired
 
+**** Configuration
+
 By default dired displays the size of files in bytes, a more human friendly
 description can be obtained by modifying the =dired-listing-switches= variable.
 
@@ -1350,9 +1348,32 @@ description can be obtained by modifying the =dired-listing-switches= variable.
 (setq dired-listing-switches "-alh")
 #+end_src
 
+**** Opening files outside of emacs
+
 A very useful keybinding to know about in dired is =W= which will open the file
 under the cursor using an external program suggested by the OS. Surprisingly
 this calls the function =browse-url-of-dired-file=.
+
+**** Changing file permissions
+
+There is a =chmod= function in Emacs. When invoked, you will be prompted to
+select a file from the current directory and the code for the new permissions.
+Recall that the permissions use the following coding for user, group, and other.
+The codes =750= and =444= are the most useful I have found.
+
+| RWX   | Code |
+|-------+------|
+| =rwx= |    7 |
+| =rw-= |    6 |
+| =r-x= |    5 |
+| =r--= |    4 |
+| =-wx= |    3 |
+| =-w-= |    2 |
+| =--x= |    1 |
+| =---= |    0 |
+
+To visit a file with sudo rights use =SPC f E= which calls
+=spacemacs/sudo-edit=.
 
 *** Visiting friends
 
@@ -1538,16 +1559,17 @@ The Ibuffer menu provides a more featureful dired-like menu for buffers.
 The navigation mode for ibuffer needs to be adjusted to work nicely with vim
 keybindings.
 
-*** TODO Misc
+*** Misc
 
-Sometimes it is useful to get the fullpath of the file shown in a buffer. This
+Sometimes it is useful to get the full path of the file shown in a buffer. This
 is bound to =SPC o f d= for owner-files-directory. This also writes the path to
 the kill ring because often when you need this information it is because you are
 about to include it in a buffer.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun message-buffer-file-name ()
-  "Print the full path of the current buffer and store this on the kill ring."
+  "Print the full path of the current buffer's file to the
+minibuffer and store this on the kill ring."
   (interactive)
   (kill-new buffer-file-name)
   (message buffer-file-name))
@@ -1557,7 +1579,7 @@ about to include it in a buffer.
 
 Suppose that you want to get a copy of the last file you downloaded in the
 current directory, this is a pretty common thing to do so a function would be
-helpful. This will probably be most useful to call from eshell so I won't give
+helpful. This will probably be most useful to call from Eshell so I won't give
 it a key binding just yet.
 
 **** TODO Clean up this rather ugly function and consider merging with =last-bib=.
