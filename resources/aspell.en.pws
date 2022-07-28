@@ -1,4 +1,5 @@
 personal_ws-1.1 en 100 
+AIC
 BDSIR
 BDSky
 Bonferroni
@@ -20,6 +21,8 @@ LLHD
 MCMC
 Newick
 PDE
+PDEs
+PHEIC
 PNG
 PRNG
 README
@@ -90,6 +93,7 @@ rescaling
 scalability
 serotype
 shish
+speciation
 stochasticity
 subcritical
 superspreading
