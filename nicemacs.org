@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-07-28 10:48:53>
+#+Time-stamp: <Last modified: 2022-07-28 10:57:07>
 #+Time-stamp: <Last modified: 2022-07-25 21:50:52>
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1690,15 +1690,31 @@ And now to specify the actual keybindings
 
 - Web-mode seems to be the default used by spacemacs, but this struggles with
   BEAST XML at times, the =nxml-mode= seems to be sufficient for this though.
+- When viewing SVG, if your emacs supports it, you can switch between source and
+  a rendered version with =C-c C-c=.
 
-*** Useful bindings
+*** nXML configuration
+
+=nxml-mode= seems to be more performant when working with large files such as
+BEAST analysis files.
+
+- =z c= will close/fold the current tag.
+- =z o= will open/unfold the current tag.
+
+For folding to work, you need to have a folding minor mode enabled. The
+following snippet means that =origami-mode= will be enabled each time that
+=nxml-mode= is enabled.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (add-hook 'nxml-mode-hook 'origami-mode)
+#+end_src
+
+*** Useful bindings in =web-mode=
 
 - ~M = =~ will run the relevant web-beautify function[fn:2].
 - =, z= will do code folding for web-mode.
 - =%= will jump between matching tags: evil-mode provides it.
 - =SPC t l= will toggle long lines.
-- When viewing SVG, if your emacs supports it, you can switch between source and
-  a rendered version with =C-c C-c=.
 
 ** Yasnippet snippets
 

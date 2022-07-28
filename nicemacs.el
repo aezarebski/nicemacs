@@ -656,6 +656,8 @@ minibuffer and store this on the kill ring."
   "oup" 'nag-psi-small
   "ouo" 'nag-omega-small)
 
+(add-hook 'nxml-mode-hook 'origami-mode)
+
 (files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/org-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/python-mode")
