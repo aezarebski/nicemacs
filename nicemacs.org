@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-07-28 10:57:07>
+#+Time-stamp: <Last modified: 2022-07-29 11:30:57>
 #+Time-stamp: <Last modified: 2022-07-25 21:50:52>
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1355,6 +1355,10 @@ under the cursor using an external program suggested by the OS. Surprisingly
 this calls the function =browse-url-of-dired-file=.
 
 **** Changing file permissions
+
+If you are in Dired, there is a function =dired-do-chmod= bound to =M=. This is
+probably the simplest (read recommended) way to change file permissions. There
+are of course alternatives...
 
 There is a =chmod= function in Emacs. When invoked, you will be prompted to
 select a file from the current directory and the code for the new permissions.
