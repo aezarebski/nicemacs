@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-07-30 14:20:22>
+#+Time-stamp: <Last modified: 2022-07-30 17:47:28>
 #+Time-stamp: <Last modified: 2022-07-25 21:50:52>
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -141,23 +141,24 @@ which the time is displayed.
 
 ** Spacemacs shortcuts
 
-| Keys        | Description                                        |
-|-------------+----------------------------------------------------|
+| Keys          | Description                                        |
+|---------------+----------------------------------------------------|
 | =SPC b b=     | List buffers                                       |
 | =SPC b d=     | Kill buffer                                        |
-| =SPC f e d=   | Open =.spacemacs=                                    |
-| =SPC f e D=   | Diff your =.spacemacs= against default               |
-| =SPC f e R=   | Reload =.spacemacs=                                  |
+| =SPC f e d=   | Open =.spacemacs=                                  |
+| =SPC f e D=   | Diff your =.spacemacs= against default             |
+| =SPC f e R=   | Reload =.spacemacs=                                |
 | =SPC TAB=     | Switch to last buffer                              |
 | =SPC f s=     | Save file                                          |
 | =SPC f f=     | Find (visit) file                                  |
-| =SPC f l=     | Find (visit) file /literally/                        |
+| =SPC f l=     | Find (visit) file /literally/                      |
 | =SPC h d <x>= | Help describe thing, e.g. key-binding, or variable |
-| =SPC w d=     | Kill the /current/ window (not the frame)            |
+| =SPC w d=     | Kill the /current/ window (not the frame)          |
 | =SPC T n=     | Toggle the theme                                   |
 | =SPC q r=     | Restart emacs                                      |
 | =SPC q q=     | Quit emacs                                         |
 | =SPC v=       | Selects outwards sensibly                          |
+| =SPC t l=     | Will toggle truncation (wrapping) of (long) lines. |
 
 *** Owner menu
 
@@ -1722,7 +1723,6 @@ Here are some useful keybindings for =origami-mode=:
 - ~M = =~ will run the relevant web-beautify function[fn:2].
 - =, z= will do code folding for web-mode.
 - =%= will jump between matching tags: evil-mode provides it.
-- =SPC t l= will toggle long lines.
 
 ** Yasnippet snippets
 
