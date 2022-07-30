@@ -656,6 +656,9 @@ minibuffer and store this on the kill ring."
   "oup" 'nag-psi-small
   "ouo" 'nag-omega-small)
 
+(add-to-list 'auto-mode-alist '("\\.xml\\'" . nxml-mode))
+(add-to-list 'auto-mode-alist '("\\.x[ms]l\\'" . nxml-mode))
+
 (add-hook 'nxml-mode-hook 'origami-mode)
 
 (files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
