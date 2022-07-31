@@ -435,9 +435,9 @@ makes a copy of the one from one week ago."
 
 (setq dired-listing-switches "-alh")
 
-(spacemacs/declare-prefix "ov" "visit friendly files")
+(spacemacs/declare-prefix "ov" "visit friends")
 
-(defmacro nicemacs-visit (fname pname path)
+(defmacro nicemacs-visit-file (fname pname path)
   (list 'defun
         (intern (format "nvf-%s" fname))
         ()
@@ -447,28 +447,28 @@ makes a copy of the one from one week ago."
                     (format "Visiting %s" pname))
               (list 'find-file path))))
 
-(nicemacs-visit beast-notes "BEAST2 notes" "/home/aez/public-site/org/notes/beast2-notes.org")
-(nicemacs-visit colleagues "Colleagues notes" "~/Documents/professional/colleague-details.org")
-(nicemacs-visit git-notes "Git notes" "/home/aez/public-site/org/notes/git-notes.org")
-(nicemacs-visit haskell-notes "Haskell notes" "/home/aez/public-site/org/notes/haskell-notes.org")
-(nicemacs-visit java-notes "Java notes" "/home/aez/public-site/org/notes/java-notes.org")
-(nicemacs-visit latex-notes "LaTeX notes" "/home/aez/public-site/org/notes/latex-notes.org")
-(nicemacs-visit maxima-notes "Maxima notes" "/home/aez/public-site/org/notes/maxima-notes.org")
-(nicemacs-visit nicemacs "nicemacs" "~/Documents/nicemacs/nicemacs.org")
-(nicemacs-visit nicemacs-el "nicemacs emacs lisp" "~/Documents/nicemacs/nicemacs.el")
-(nicemacs-visit nix-notes "Nix notes" "/home/aez/public-site/org/notes/nix-notes.org")
-(nicemacs-visit org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
-(nicemacs-visit python-notes "Python notes" "/home/aez/public-site/org/notes/python-notes.org")
-(nicemacs-visit r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
-(nicemacs-visit ubuntu-notes "Ubuntu/Linux notes" "/home/aez/public-site/org/notes/linux-notes.org")
-(nicemacs-visit reading-list "Reading list" "/home/aez/Documents/bibliography/review2/reading-list.org")
-(nicemacs-visit review-2 "Review 2" "/home/aez/Documents/bibliography/review2/review.org")
-(nicemacs-visit review-engineering "Literature review: Software engineering" "/home/aez/Documents/bibliography/review/software.tex")
-(nicemacs-visit review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
-(nicemacs-visit review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
-(nicemacs-visit spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
-(nicemacs-visit statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
-(nicemacs-visit wikipedia-notes "Wikipedia notes" "/home/aez/public-site/org/notes/wikipedia-notes.org")
+(nicemacs-visit-file beast-notes "BEAST2 notes" "/home/aez/public-site/org/notes/beast2-notes.org")
+(nicemacs-visit-file colleagues "Colleagues notes" "~/Documents/professional/colleague-details.org")
+(nicemacs-visit-file git-notes "Git notes" "/home/aez/public-site/org/notes/git-notes.org")
+(nicemacs-visit-file haskell-notes "Haskell notes" "/home/aez/public-site/org/notes/haskell-notes.org")
+(nicemacs-visit-file java-notes "Java notes" "/home/aez/public-site/org/notes/java-notes.org")
+(nicemacs-visit-file latex-notes "LaTeX notes" "/home/aez/public-site/org/notes/latex-notes.org")
+(nicemacs-visit-file maxima-notes "Maxima notes" "/home/aez/public-site/org/notes/maxima-notes.org")
+(nicemacs-visit-file nicemacs "nicemacs" "~/Documents/nicemacs/nicemacs.org")
+(nicemacs-visit-file nicemacs-el "nicemacs emacs lisp" "~/Documents/nicemacs/nicemacs.el")
+(nicemacs-visit-file org-mode-notes "org-mode notes" "/home/aez/public-site/org/notes/org-mode-notes.org")
+(nicemacs-visit-file python-notes "Python notes" "/home/aez/public-site/org/notes/python-notes.org")
+(nicemacs-visit-file r-notes "R notes" "/home/aez/public-site/org/notes/r-notes.org")
+(nicemacs-visit-file ubuntu-notes "Ubuntu/Linux notes" "/home/aez/public-site/org/notes/linux-notes.org")
+(nicemacs-visit-file reading-list "Reading list" "/home/aez/Documents/bibliography/review2/reading-list.org")
+(nicemacs-visit-file review-2 "Review 2" "/home/aez/Documents/bibliography/review2/review.org")
+(nicemacs-visit-file review-engineering "Literature review: Software engineering" "/home/aez/Documents/bibliography/review/software.tex")
+(nicemacs-visit-file review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
+(nicemacs-visit-file review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
+(nicemacs-visit-file spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
+(nicemacs-visit-file statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
+(nicemacs-visit-file wikipedia-notes "Wikipedia notes" "/home/aez/public-site/org/notes/wikipedia-notes.org")
+(nicemacs-visit-file xml-notes "XML notes" "/home/aez/public-site/org/notes/xml-notes.org")
 
 (defun nvf-journal ()
   (interactive)
@@ -478,24 +478,21 @@ makes a copy of the one from one week ago."
   (interactive)
   (last-bib))
 
-;; TODO This code could certainly be abstracted with a macro similar to the
-;; visitors above!
+(defmacro nicemacs-visit-dir (dname pname path)
+  (list 'defun
+        (intern (format "nvd-%s" dname))
+        ()
+        (list 'interactive)
+        (list 'progn
+              (list 'message
+                    (format "Visiting %s" pname))
+              (list 'dired-jump nil path)
+              (list 'revert-buffer))))
 
-(defun nvf-library ()
-  (interactive)
-  (dired-jump nil "/home/aez/Documents/library/README.org"))
-
-(defun nvf-website ()
-  (interactive)
-  (dired-jump nil "/home/aez/public-site/org/index.org"))
-
-(defun nvf-website-github ()
-  (interactive)
-  (magit-status "/home/aez/aezarebski.github.io"))
-
-(defun nvf-professional ()
-  (interactive)
-  (dired-jump nil "/home/aez/Documents/professional/README.org"))
+(nicemacs-visit-dir library "Library" "/home/aez/Documents/library/fake.org")
+(nicemacs-visit-dir website-org "Website (org files)" "/home/aez/public-site/org/fake.org")
+(nicemacs-visit-dir website-html "Website (HTML files)" "/home/aez/aezarebski.github.io/fake.org")
+(nicemacs-visit-dir notes "My notes" "/home/aez/public-site/org/notes/fake.org")
 
 (spacemacs/set-leader-keys
   "ovb" 'nvf-last-bib
@@ -503,29 +500,30 @@ makes a copy of the one from one week ago."
   "ove" 'nvf-nicemacs
   "ovE" 'nvf-nicemacs-el
   "ovj" 'nvf-journal
-  "ovl" 'nvf-library
+  "ovdl" 'nvd-library
+  "ovdw" 'nvd-website-org
+  "ovdW" 'nvd-website-html
+  "ovdn" 'nvd-notes
   "ovnb" 'nvf-beast-notes
   "ovng" 'nvf-git-notes
   "ovnh" 'nvf-haskell-notes
   "ovnj" 'nvf-java-notes
   "ovnl" 'nvf-latex-notes
   "ovnm" 'nvf-maxima-notes
-  "ovnn" 'nvf-nix-notes
   "ovno" 'nvf-org-mode-notes
   "ovnp" 'nvf-python-notes
   "ovnr" 'nvf-r-notes
   "ovns" 'nvf-statistics-notes
   "ovnu" 'nvf-ubuntu-notes
   "ovnw" 'nvf-wikipedia-notes
+  "ovnx" 'nvf-xml-notes
   "ovp" 'nvf-professional
   "ovre" 'nvf-review-engineering
   "ovrl" 'nvf-reading-list
   "ovr2" 'nvf-review-2
   "ovrr" 'nvf-review-references
   "ovrp" 'nvf-review-phylodynamics
-  "ovs" 'nvf-spelling
-  "ovW" 'nvf-website-github
-  "ovw" 'nvf-website)
+  "ovs" 'nvf-spelling)
 
 (defun nsg-notes ()
   (interactive)
@@ -655,6 +653,9 @@ minibuffer and store this on the kill ring."
   "ouS" 'nag-sigma-capital
   "oup" 'nag-psi-small
   "ouo" 'nag-omega-small)
+
+(add-to-list 'auto-mode-alist '("\\.xml\\'" . nxml-mode))
+(add-to-list 'auto-mode-alist '("\\.x[ms]l\\'" . nxml-mode))
 
 (add-hook 'nxml-mode-hook 'origami-mode)
 
