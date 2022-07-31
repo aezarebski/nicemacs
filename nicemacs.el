@@ -435,7 +435,7 @@ makes a copy of the one from one week ago."
 
 (setq dired-listing-switches "-alh")
 
-(spacemacs/declare-prefix "ov" "visit friendly files")
+(spacemacs/declare-prefix "ov" "visit friends")
 
 (defmacro nicemacs-visit-file (fname pname path)
   (list 'defun
