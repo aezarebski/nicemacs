@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-07-31 10:01:15>
+#+Time-stamp: <Last modified: 2022-07-31 10:05:31>
 #+Time-stamp: <Last modified: 2022-07-25 21:50:52>
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1445,6 +1445,10 @@ Then there are some visitor functions where we do not want to visit a particular
 file but are more interested in navigating to a particular directory in either
 dired or magit.
 
+The following macro provides a simple way to visit dired buffers for directories
+that I regularly want to look at. The use of =revert-buffer= is to ensure that
+the contents being shown are up to date.
+
 #+begin_src emacs-lisp :tangle nicemacs.el
   (defmacro nicemacs-visit-dir (dname pname path)
     (list 'defun
@@ -1458,6 +1462,11 @@ dired or magit.
                 (list 'revert-buffer))))
 #+end_src
 
+The following uses the =nicemacs-visit-dir= macro to write functions to visit
+the specified directories. Note that there is a =fake.org= file in each of
+these, this is ignored, but it seemed to require there to be a file path rather
+than the path of a directory.
+
 #+begin_src emacs-lisp :tangle nicemacs.el
   (nicemacs-visit-dir library "Library" "/home/aez/Documents/library/fake.org")
   (nicemacs-visit-dir website-org "Website (org files)" "/home/aez/public-site/org/fake.org")
@@ -1467,7 +1476,10 @@ dired or magit.
 
 **** Keybindings
 
-And finally we need to writing keybindings for these.
+And finally we need to writing keybindings for these. For directories I will use
+the prefix =ovd= and for the files I keep notes on specific topics in I will
+attempt to use the previx =ovn= unless it is someting that I use multiple times
+a day everyday.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
   (spacemacs/set-leader-keys
