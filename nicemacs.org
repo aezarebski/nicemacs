@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-07-31 13:13:41>
+#+Time-stamp: <Last modified: 2022-08-04 16:04:59>
 #+Time-stamp: <Last modified: 2022-07-25 21:50:52>
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1473,6 +1473,7 @@ than the path of a directory.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
   (nicemacs-visit-dir library "Library" "/home/aez/Documents/library/fake.org")
+  (nicemacs-visit-dir documents "Documents" "/home/aez/Documents/fake.org")
   (nicemacs-visit-dir website-org "Website (org files)" "/home/aez/public-site/org/fake.org")
   (nicemacs-visit-dir website-html "Website (HTML files)" "/home/aez/aezarebski.github.io/fake.org")
   (nicemacs-visit-dir notes "My notes" "/home/aez/public-site/org/notes/fake.org")
@@ -1492,6 +1493,7 @@ a day everyday.
     "ove" 'nvf-nicemacs
     "ovE" 'nvf-nicemacs-el
     "ovj" 'nvf-journal
+    "ovdd" 'nvd-documents
     "ovdl" 'nvd-library
     "ovdw" 'nvd-website-org
     "ovdW" 'nvd-website-html
