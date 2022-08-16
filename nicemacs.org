@@ -1390,6 +1390,10 @@ this calls the function =browse-url-of-dired-file=.
 
 **** Changing file permissions
 
+If you are in Dired, there is a function =dired-do-chmod= bound to =M=. This is
+probably the simplest (read recommended) way to change file permissions. There
+are of course alternatives...
+
 There is a =chmod= function in Emacs. When invoked, you will be prompted to
 select a file from the current directory and the code for the new permissions.
 Recall that the permissions use the following coding for user, group, and other.
@@ -1502,6 +1506,7 @@ than the path of a directory.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
   (nicemacs-visit-dir library "Library" "/home/aez/Documents/library/fake.org")
+  (nicemacs-visit-dir documents "Documents" "/home/aez/Documents/fake.org")
   (nicemacs-visit-dir website-org "Website (org files)" "/home/aez/public-site/org/fake.org")
   (nicemacs-visit-dir website-html "Website (HTML files)" "/home/aez/aezarebski.github.io/fake.org")
   (nicemacs-visit-dir notes "My notes" "/home/aez/public-site/org/notes/fake.org")
@@ -1521,6 +1526,7 @@ a day everyday.
     "ove" 'nvf-nicemacs
     "ovE" 'nvf-nicemacs-el
     "ovj" 'nvf-journal
+    "ovdd" 'nvd-documents
     "ovdl" 'nvd-library
     "ovdw" 'nvd-website-org
     "ovdW" 'nvd-website-html
