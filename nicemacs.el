@@ -491,6 +491,7 @@ makes a copy of the one from one week ago."
 
 (nicemacs-visit-dir library "Library" "/home/aez/Documents/library/fake.org")
 (nicemacs-visit-dir documents "Documents" "/home/aez/Documents/fake.org")
+(nicemacs-visit-dir professional "Professional" "/home/aez/Documents/professional/README.org")
 (nicemacs-visit-dir website-org "Website (org files)" "/home/aez/public-site/org/fake.org")
 (nicemacs-visit-dir website-html "Website (HTML files)" "/home/aez/aezarebski.github.io/fake.org")
 (nicemacs-visit-dir notes "My notes" "/home/aez/public-site/org/notes/fake.org")
@@ -503,9 +504,10 @@ makes a copy of the one from one week ago."
   "ovj" 'nvf-journal
   "ovdd" 'nvd-documents
   "ovdl" 'nvd-library
+  "ovdn" 'nvd-notes
+  "ovdp" 'nvd-professional
   "ovdw" 'nvd-website-org
   "ovdW" 'nvd-website-html
-  "ovdn" 'nvd-notes
   "ovnb" 'nvf-beast-notes
   "ovng" 'nvf-git-notes
   "ovnh" 'nvf-haskell-notes
