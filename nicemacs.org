@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-08-04 16:04:59>
+#+Time-stamp: <Last modified: 2022-08-16 09:58:11>
 #+Time-stamp: <Last modified: 2022-07-25 21:50:52>
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -141,24 +141,25 @@ which the time is displayed.
 
 ** Spacemacs shortcuts
 
-| Keys          | Description                                        |
-|---------------+----------------------------------------------------|
-| =SPC b b=     | List buffers                                       |
-| =SPC b d=     | Kill buffer                                        |
-| =SPC f e d=   | Open =.spacemacs=                                  |
-| =SPC f e D=   | Diff your =.spacemacs= against default             |
-| =SPC f e R=   | Reload =.spacemacs=                                |
-| =SPC TAB=     | Switch to last buffer                              |
-| =SPC f s=     | Save file                                          |
-| =SPC f f=     | Find (visit) file                                  |
-| =SPC f l=     | Find (visit) file /literally/                      |
-| =SPC h d <x>= | Help describe thing, e.g. key-binding, or variable |
-| =SPC w d=     | Kill the /current/ window (not the frame)          |
-| =SPC T n=     | Toggle the theme                                   |
-| =SPC q r=     | Restart emacs                                      |
-| =SPC q q=     | Quit emacs                                         |
-| =SPC v=       | Selects outwards sensibly                          |
-| =SPC t l=     | Will toggle truncation (wrapping) of (long) lines. |
+| Keys          | Function        | Description                                        |
+|---------------+-----------------+----------------------------------------------------|
+| =SPC b b=     |                 | List buffers                                       |
+| =SPC b d=     |                 | Kill buffer                                        |
+| =SPC f e d=   |                 | Open =.spacemacs=                                  |
+| =SPC f e D=   |                 | Diff your =.spacemacs= against default             |
+| =SPC f e R=   |                 | Reload =.spacemacs=                                |
+| =SPC TAB=     |                 | Switch to last buffer                              |
+| =SPC f s=     |                 | Save file                                          |
+| =SPC f f=     |                 | Find (visit) file                                  |
+| =SPC f l=     |                 | Find (visit) file /literally/                      |
+| =SPC h d <x>= |                 | Help describe thing, e.g. key-binding, or variable |
+| =SPC w d=     |                 | Kill the /current/ window (not the frame)          |
+| =SPC T n=     |                 | Toggle the theme                                   |
+| =SPC q r=     |                 | Restart emacs                                      |
+| =SPC q q=     |                 | Quit emacs                                         |
+| =SPC v=       |                 | Selects outwards sensibly                          |
+| =SPC t l=     |                 | Will toggle truncation (wrapping) of (long) lines. |
+| =<f10>=       | =menu-bar-open= | Opens a menu bar (good for feature discovery)      |
 
 *** Owner menu
 
@@ -168,6 +169,38 @@ a prefix of "o" for owner.
 #+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/declare-prefix "o" "own-menu")
 #+end_src
+
+Here are some of my key bindings
+
+| Keys       | Function                   | Description |
+|------------+----------------------------+-------------|
+| =SPC ohr=  | =haskell-process-restart=  |             |
+| =SPC ohu=  | =set-input-method=         |             |
+| =SPC opf=  | =org-fill-paragraph=       |             |
+| =SPC opu=  | =unfill-paragraph=         |             |
+| =SPC obl=  | =last-bib=                 |             |
+| =SPC obf=  | =bibtex-reformat=          |             |
+| =SPC obb=  | =bibtex-braces=            |             |
+| =SPC obc=  | =bibtex-ris2bib=           |             |
+| =SPC ootw= | =toggle-writeroom=         |             |
+| =SPC ooa=  | =nicemacs-visit-agenda=    |             |
+| =SPC oos=  | =org-schedule=             |             |
+| =SPC ooe=  | =org-export-dispatch=      |             |
+| =SPC ooi=  | =org-toggle-inline-images= |             |
+| =SPC ool=  | =org-latex-preview=        |             |
+| =SPC oop=  | =publish-my-site=          |             |
+| =SPC ooP=  | =force-publish-and-magit=  |             |
+| =SPC oov=  | =visit-my-site-index=      |             |
+| =SPC osb=  | =shell=                    |             |
+| =SPC "=    | =shell-and-delete-windows= |             |
+| =SPC osh=  | =helm-eshell-history=      |             |
+| =SPC osa=  | =eshell-aliases=           |             |
+| =SPC osi=  | =ielm=                     |             |
+| =SPC osr=  | =R=                        |             |
+| =SPC ocn=  | =ncf-network=              |             |
+| =SPC ocr=  | =ncf-review=               |             |
+| =SPC ocw=  | =ncf-website=              |             |
+| =SPC ocj=  | =ncf-journal=              |             |
 
 ** Usage notes
 
