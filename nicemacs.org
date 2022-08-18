@@ -1262,7 +1262,8 @@ they also let you know "upper" or "lower" to select which version.
 *** Staging only part of a hunk
 
 If you only want to stage a couple of lines from a hunk you can do this by
-selecting the lines and =s=.
+selecting the lines and =s=. If this doesn't work for some unknown reason, you
+can select the lines and call =magit-stage=.
 
 *** Commit helper functions
 
