@@ -490,6 +490,7 @@ makes a copy of the one from one week ago."
               (list 'revert-buffer))))
 
 (nicemacs-visit-dir library "Library" "/home/aez/Documents/library/fake.org")
+(nicemacs-visit-dir music "Music" "/home/aez/Music/fake.org") ; default in Ubuntu 20.04.4
 (nicemacs-visit-dir documents "Documents" "/home/aez/Documents/fake.org")
 (nicemacs-visit-dir professional "Professional" "/home/aez/Documents/professional/README.org")
 (nicemacs-visit-dir website-org "Website (org files)" "/home/aez/public-site/org/fake.org")
@@ -504,6 +505,7 @@ makes a copy of the one from one week ago."
   "ovj" 'nvf-journal
   "ovdd" 'nvd-documents
   "ovdl" 'nvd-library
+  "ovdm" 'nvd-music
   "ovdn" 'nvd-notes
   "ovdp" 'nvd-professional
   "ovdw" 'nvd-website-org
