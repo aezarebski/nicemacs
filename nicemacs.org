@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-08-16 09:58:11>
+#+Time-stamp: <Last modified: 2022-09-01 14:58:42>
 #+Time-stamp: <Last modified: 2022-07-25 21:50:52>
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -488,6 +488,25 @@ called.
     (concat my-node-path "/node"))
 
   (setq nodejs-repl-command 'my-nodejs-repl-command)
+#+end_src
+
+The following snippet demonstrates how you might copy the files here to a new
+directory to start a D3 based project.
+
+#+begin_src emacs-lisp
+(defvar nicemacs-resources "~/Documents/nicemacs/resources"
+  "The path to nicemacs on my machine.")
+
+(defvar nicemacs-d3-files (list "d3.js" "demo.js" "demo.org" "index.html"
+                                "blah.csv")
+  "Useful files for starting a D3 project.")
+
+(make-directory "~/sandbox4/d3-demo")
+(mapc (lambda (x)
+        (copy-file (concat nicemacs-resources "/d3-template/"
+                           x)
+                   (concat "~/sandbox4/d3-demo/" x)))
+      nicemacs-d3-files)
 #+end_src
 
 ** Miscellaneous configuration for writing
