@@ -1,13 +1,6 @@
 
-To start the server from the current directory at =127.0.0.1:8080= use
+To start the server from the current directory at =http://0.0.0.0:8000/= use
 
 #+begin_src sh
-  busybox httpd -h . -p 8080
-#+end_src
-
-To kill the server
-
-#+begin_src sh
-  pidof busybox
-  kill -9 <pid>
+  python3 -m http.server
 #+end_src
