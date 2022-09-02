@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-09-01 14:58:42>
+#+Time-stamp: <Last modified: 2022-09-02 11:12:14>
 #+Time-stamp: <Last modified: 2022-07-25 21:50:52>
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -946,7 +946,7 @@ not sure what is going on here.
 
   (setq org-publish-project-alist
         '(
-          ("org-notes"
+          ("org-notes-org-files"
            :base-directory "~/public-site/org/"
            :base-extension "org"
            :exclude ".*~undo-tree~"
@@ -956,9 +956,9 @@ not sure what is going on here.
            :headline-levels 4
            :auto-preamble t
            )
-          ("org-static"
+          ("org-notes-static"
            :base-directory "~/public-site/org/"
-           :base-extension "css\\|js\\|png\\|jpg\\|jpeg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|txt\\|cur\\|svg\\|csv\\|html\\|json\\|webp"
+           :base-extension "css\\|js\\|png\\|jpg\\|jpeg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|txt\\|cur\\|svg\\|csv\\|html\\|json\\|bib\\|webp"
            :exclude "~/public-site/org/misc/matplotlib/ven.*"
            :publishing-directory "~/aezarebski.github.io/"
            :recursive t
@@ -992,8 +992,8 @@ not sure what is going on here.
            :recursive t
            :publishing-function org-publish-attachment
            )
-          ("org" :components ("org-notes"
-                              "org-static"
+          ("org" :components ("org-notes-org-files"
+                              "org-notes-static"
                               "org-nicemacs"
                               "org-bibliography"
                               "review2-org"

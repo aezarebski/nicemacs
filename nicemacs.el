@@ -231,7 +231,7 @@ makes a copy of the one from one week ago."
 
 (setq org-publish-project-alist
       '(
-        ("org-notes"
+        ("org-notes-org-files"
          :base-directory "~/public-site/org/"
          :base-extension "org"
          :exclude ".*~undo-tree~"
@@ -241,9 +241,9 @@ makes a copy of the one from one week ago."
          :headline-levels 4
          :auto-preamble t
          )
-        ("org-static"
+        ("org-notes-static"
          :base-directory "~/public-site/org/"
-         :base-extension "css\\|js\\|png\\|jpg\\|jpeg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|txt\\|cur\\|svg\\|csv\\|html\\|json\\|webp"
+         :base-extension "css\\|js\\|png\\|jpg\\|jpeg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|txt\\|cur\\|svg\\|csv\\|html\\|json\\|bib\\|webp"
          :exclude "~/public-site/org/misc/matplotlib/ven.*"
          :publishing-directory "~/aezarebski.github.io/"
          :recursive t
@@ -277,8 +277,8 @@ makes a copy of the one from one week ago."
          :recursive t
          :publishing-function org-publish-attachment
          )
-        ("org" :components ("org-notes"
-                            "org-static"
+        ("org" :components ("org-notes-org-files"
+                            "org-notes-static"
                             "org-nicemacs"
                             "org-bibliography"
                             "review2-org"
