@@ -1,5 +1,8 @@
 (setq user-full-name "Alexander E. Zarebski")
 
+(defvar nicemacs-resources-dir "~/Documents/nicemacs/resources"
+  "The path to nicemacs on my machine.")
+
 (spacemacs/declare-prefix "o" "own-menu")
 
 (setq dotspacemacs-startup-buffer-show-icons nil)
@@ -39,6 +42,21 @@
   (concat my-node-path "/node"))
 
 (setq nodejs-repl-command 'my-nodejs-repl-command)
+
+(defun nicemacs-d3-setup (dir)
+  "Set up a minimal D3 project"
+  (interactive "Where should the D3 project go? ")
+  (progn
+    (make-directory dir)
+    (let ((d3-files (list "d3.js" "demo.js" "demo.org" "index.html"
+                          "blah.csv")))
+      (mapc (lambda (x)
+              (copy-file (concat nicemacs-resources-dir "/d3-template/"
+                                 x)
+                         (concat dir "/" x)))
+            d3-files))))
+
+(spacemacs/set-leader-keys "ofj" 'nicemacs-d3-setup)
 
 (spacemacs/declare-prefix "op" "paragraph-modification-menu")
 (spacemacs/set-leader-keys "opf" 'org-fill-paragraph)

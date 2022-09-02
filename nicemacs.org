@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-09-02 11:12:14>
+#+Time-stamp: <Last modified: 2022-09-02 17:54:50>
 #+Time-stamp: <Last modified: 2022-07-25 21:50:52>
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -126,6 +126,13 @@ author name is produced.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (setq user-full-name "Alexander E. Zarebski")
+#+end_src
+
+*** Some helpful variables to define early on
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (defvar nicemacs-resources-dir "~/Documents/nicemacs/resources"
+    "The path to nicemacs on my machine.")
 #+end_src
 
 *** Display battery percentage
@@ -490,23 +497,26 @@ called.
   (setq nodejs-repl-command 'my-nodejs-repl-command)
 #+end_src
 
+*** D3: data driven documents basic set up
+
 The following snippet demonstrates how you might copy the files here to a new
 directory to start a D3 based project.
 
-#+begin_src emacs-lisp
-(defvar nicemacs-resources "~/Documents/nicemacs/resources"
-  "The path to nicemacs on my machine.")
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (defun nicemacs-d3-setup (dir)
+    "Set up a minimal D3 project"
+    (interactive "Where should the D3 project go? ")
+    (progn
+      (make-directory dir)
+      (let ((d3-files (list "d3.js" "demo.js" "demo.org" "index.html"
+                            "blah.csv")))
+        (mapc (lambda (x)
+                (copy-file (concat nicemacs-resources-dir "/d3-template/"
+                                   x)
+                           (concat dir "/" x)))
+              d3-files))))
 
-(defvar nicemacs-d3-files (list "d3.js" "demo.js" "demo.org" "index.html"
-                                "blah.csv")
-  "Useful files for starting a D3 project.")
-
-(make-directory "~/sandbox4/d3-demo")
-(mapc (lambda (x)
-        (copy-file (concat nicemacs-resources "/d3-template/"
-                           x)
-                   (concat "~/sandbox4/d3-demo/" x)))
-      nicemacs-d3-files)
+  (spacemacs/set-leader-keys "ofj" 'nicemacs-d3-setup)
 #+end_src
 
 ** Miscellaneous configuration for writing
