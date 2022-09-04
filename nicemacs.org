@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-09-02 17:54:50>
+#+Time-stamp: <Last modified: 2022-09-04 15:32:13>
 #+Time-stamp: <Last modified: 2022-07-25 21:50:52>
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -496,6 +496,52 @@ called.
 
   (setq nodejs-repl-command 'my-nodejs-repl-command)
 #+end_src
+
+*** Using Skewer mode and simple HTTPd for browser stuff
+
+The following is based on a StackOverflow [[https://emacs.stackexchange.com/a/2515][answer]]. To start a server out of emacs
+you use the following commands
+
+#+begin_src emacs-lisp
+(require 'simple-httpd)
+;; set root folder for httpd server
+(setq httpd-root "<path/to/foo.html>")
+#+end_src
+
+Then call =httpd-start= to actually start the server.
+
+=skewer-mode= allows you to run a server and interact with the browser from
+emacs. The header of your HTML file needs to include =skewer.js=, for example
+you could have the following as a starter page.
+
+#+begin_src html
+  <!doctype html>
+  <html>
+      <head>
+          <!-- Include skewer.js as a script -->
+          <script src="http://localhost:8080/skewer"></script>
+          <!-- Include my script.js file -->
+          <script src="script.js"></script>
+      </head>
+      <body>
+          <p>Hello world</p>
+      </body>
+  </html>
+#+end_src
+
+An example =script.js= might be
+
+#+begin_src javascript
+alert('hey!');
+#+end_src
+
+Once you have this set up and the page open in your browser, use =skewer-repl=
+to start the REPL and =console.log('hello there')= to test it is actually
+working.
+
+Note, when I first used this there was some old configuration relating to some
+NodeJS work which I needed to remove before it would recognise I was interested
+in browser based JavaScript.
 
 *** D3: data driven documents basic set up
 
@@ -2099,4 +2145,4 @@ to a list in emacs-lisp.
 [fn:2] You can use a =.jsbeautifyrc= file to configure the formatting.
 
 #  LocalWords:  nicemacs Spacemacs spacemacs SPC REPL Eshell npm magit dired
-#  LocalWords:  defmacro backend LSP Bibtex
+#  LocalWords:  defmacro backend LSP Bibtex NodeJS
