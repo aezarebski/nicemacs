@@ -1,6 +1,30 @@
 
+* Python server
+
 To start the server from the current directory at =http://0.0.0.0:8000/= use
 
 #+begin_src sh
   python3 -m http.server
 #+end_src
+
+* Emacs server
+
+The following is based on a StackOverflow [[https://emacs.stackexchange.com/a/2515][answer]]. To start a server out of emacs
+you use the following commands
+
+#+begin_src emacs-lisp
+(require 'simple-httpd)
+;; set root folder for httpd server
+;; (setq httpd-root "<path/to/foo.html>")
+(setq httpd-root "/home/aez/Documents/presentations/phyloseminar-2022/images/algorithm")
+#+end_src
+
+Then call =httpd-start= to actually start the server.
+
+http://localhost:8080/
+
+You may need to edit the HTML file first...
+
+Once you have this set up and the page open in your browser, use =skewer-repl=
+to start the REPL and =console.log('hello there')= to test it is actually
+working.
