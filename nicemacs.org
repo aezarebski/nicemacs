@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-09-04 15:32:13>
+#+Time-stamp: <Last modified: 2022-09-06 09:47:10>
 #+Time-stamp: <Last modified: 2022-07-25 21:50:52>
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -108,6 +108,23 @@ can use =dubnpmlrsf[]<SPC>= for greater flexibility navigation.
 
 There is =SPC f e D= to help you debug your dot file if an update means it is out
 of date.
+
+** Debugging
+
+There is excellent documentation on how to use the debugger in the Spacemacs
+documentation for the emacs lisp layer. Note that there are two debuggers in
+emacs: =debug= and =edebug=. Edebug is the newer one and probably what you want
+to use. The important key bindings in spacemacs are
+
+- =SPC m e f= to evaluate a function,
+- =SPC m d f= (with the cursor on the relevant =defun= keyword to set a
+  breakpoint on a function,
+- =SPC m e e= to evaluate an expression which leads to the function being
+  evaluated.
+
+Once you are in the debugger, use =s= to step to the next thing, and =i= to step
+into the current routine and =o= to step out. Use =a= to abort the debugger.
+While debugging, open an =ielm= REPL to inspect the current values of variables.
 
 ** Recursive grep
 
@@ -2145,4 +2162,4 @@ to a list in emacs-lisp.
 [fn:2] You can use a =.jsbeautifyrc= file to configure the formatting.
 
 #  LocalWords:  nicemacs Spacemacs spacemacs SPC REPL Eshell npm magit dired
-#  LocalWords:  defmacro backend LSP Bibtex NodeJS
+#  LocalWords:  defmacro backend LSP Bibtex NodeJS Edebug edebug defun ielm
