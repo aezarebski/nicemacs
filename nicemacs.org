@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-09-10 10:15:29>
+#+Time-stamp: <Last modified: 2022-09-10 10:31:15>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -128,9 +128,10 @@ While debugging, open an =ielm= REPL to inspect the current values of variables.
 ** Code navigation
 
 Moving around a buffer is important. Use =evil-set-marker= to store a position
-in the mark-ring (a variable that holds locations in a buffer). Use
-=evil-previous-mark= which is bound to =[ `= to navigate through the marks in
-the mark-ring.
+in the mark-ring (a variable that holds locations in a buffer). The evil way to
+use this is to type =m= and then provide a character, eg, =a= to denote this
+mark. Use =evil-previous-mark= which is bound to =[ `= to navigate through the
+marks in the mark-ring.
 
 ** Recursive grep
 
