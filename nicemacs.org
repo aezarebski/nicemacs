@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-09-10 10:31:15>
+#+Time-stamp: <Last modified: 2022-09-12 22:59:31>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -27,12 +27,14 @@ Alternatively, you can get clone the [[https://github.com/emacs-mirror/emacs][em
 
 Follow the instructions in the =INSTALL= file to build emacs.
 - This seems to just be =./configure= then =make= then =sudo make install=.
+  + =./configure --with-native-compilation --with-rsvg=.
 - If you cannot find the =configure= script, you may need to run =autogen.sh= first.
 - If you have spare compute you can use multiple jobs to speed up the
   compilation with =make -j [N]= to use =N= jobs during compilation
 
 *** Notes
 
+- =emacs-28.2=
 - =emacs-28.1.90= configured with =--with-native-compilation= and =--with-rsvg=.
   Building this one seemed to take longer than normal.
 - =emacs-28.1=. I also installed =libgccjit= and used =./configure
