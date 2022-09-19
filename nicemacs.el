@@ -3,6 +3,12 @@
 (defvar nicemacs-resources-dir "~/Documents/nicemacs/resources"
   "The path to nicemacs on my machine.")
 
+(defvar nicemacs-journal-directory "~/Documents/journal"
+  "The directory for nicemacs journal files.")
+
+(defvar nicemacs-quick-links-page "~/Documents/README.html"
+  "The HTML file with some useful in the browser.")
+
 (spacemacs/declare-prefix "o" "own-menu")
 
 (setq dotspacemacs-startup-buffer-show-icons nil)
@@ -180,9 +186,6 @@ file. TODO Add error message if there are no RIS files."
 'org-babel-load-languages
 '((maxima . t)
   (R . t)))
-
-(defvar nicemacs-journal-directory "" "The directory for nicemacs journal files.")
-(setq nicemacs-journal-directory "~/Documents/journal")
 
 (setq org-agenda-start-day "-5d")
 (setq org-agenda-span 30)
@@ -488,11 +491,15 @@ makes a copy of the one from one week ago."
 (nicemacs-visit-file wikipedia-notes "Wikipedia notes" "/home/aez/public-site/org/notes/wikipedia-notes.org")
 (nicemacs-visit-file xml-notes "XML notes" "/home/aez/public-site/org/notes/xml-notes.org")
 
+
 (defun nvf-journal ()
+  "Visit most recent journal."
   (interactive)
   (nicemacs-visit-journal))
 
+
 (defun nvf-last-bib ()
+  "Visit the most recent .bib file downloaded."
   (interactive)
   (last-bib))
 
@@ -548,6 +555,17 @@ makes a copy of the one from one week ago."
   "ovrr" 'nvf-review-references
   "ovrp" 'nvf-review-phylodynamics
   "ovs" 'nvf-spelling)
+
+(defun nicemacs-update-quick-links ()
+  "Update the quick links file to use the one from the journal."
+  (interactive)
+  (copy-file (concat nicemacs-journal-directory "/README.html")
+             nicemacs-quick-links-page
+             1))
+
+(spacemacs/declare-prefix "ofu" "update resource")
+
+(spacemacs/set-leader-keys "ofuq" 'nicemacs-update-quick-links)
 
 (defun nsg-notes ()
   (interactive)
