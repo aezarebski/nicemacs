@@ -39,6 +39,7 @@ This function should only modify configuration layer settings."
      dhall
      docker
      emacs-lisp
+     emoji
      (ess :variables
           ess-r-backend 'lsp)
      git

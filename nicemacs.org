@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-09-19 11:35:09>
+#+Time-stamp: <Last modified: 2022-09-19 11:42:04>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -104,6 +104,15 @@ can use =dubnpmlrsf[]<SPC>= for greater flexibility navigation.
 - =d= go to the root node
 
 * Nicemacs
+
+#+begin_src
+███╗   ██╗██╗ ██████╗███████╗███╗   ███╗ █████╗  ██████╗███████╗
+████╗  ██║██║██╔════╝██╔════╝████╗ ████║██╔══██╗██╔════╝██╔════╝
+██╔██╗ ██║██║██║     █████╗  ██╔████╔██║███████║██║     ███████╗
+██║╚██╗██║██║██║     ██╔══╝  ██║╚██╔╝██║██╔══██║██║     ╚════██║
+██║ ╚████║██║╚██████╗███████╗██║ ╚═╝ ██║██║  ██║╚██████╗███████║
+╚═╝  ╚═══╝╚═╝ ╚═════╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝╚══════╝
+#+end_src
 
 ** Broken spacemacs dot file?
 
@@ -274,9 +283,12 @@ should also document the configuration layers that I use.
   '(auto-completion
     better-defaults
     bibtex
+    (colors :variables
+            colors-enable-nyan-cat-progress-bar t)
     csv
     dhall
     emacs-lisp
+    emoji
     epub
     (ess :variables
          ess-r-backend 'ess)
@@ -319,6 +331,10 @@ should also document the configuration layers that I use.
     treemacs)
 #+end_src
 
+- The =colors= layer makes it easier to understand how far through a file you
+  are.
+- The =emoji= layer makes it easier to use emojies.
+
 ** Stuff
 
 To quickly toggle between the default spacemacs themes use =SPC T n= (the
@@ -338,28 +354,6 @@ icons displayed, the following can be used.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (setq dotspacemacs-startup-buffer-show-icons nil)
-#+end_src
-
-To put your own image on the splash screen you need to modify
-=dotspacemacs/init=, specifically you need to set the variable
-=dotspacemacs-startup=banner= to be a string of the full path to the desired
-PNG. A sensible place to put the image is =~/.emacs.d/core/banners/img=. You can
-reduce the size of PNG to get a better fit with the following command.
-
-#+begin_src sh
-convert -resize 50% foo.png bar.png
-#+end_src
-
-This is a banner that I like.
-
-#+begin_src
-Welcome to
-███████╗███╗   ███╗ █████╗  ██████╗███████╗
-██╔════╝████╗ ████║██╔══██╗██╔════╝██╔════╝
-█████╗  ██╔████╔██║███████║██║     ███████╗
-██╔══╝  ██║╚██╔╝██║██╔══██║██║     ╚════██║
-███████╗██║ ╚═╝ ██║██║  ██║╚██████╗███████║
-╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝╚══════╝
 #+end_src
 
 *** Default colour schemes
