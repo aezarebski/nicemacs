@@ -3,6 +3,12 @@
 (defvar nicemacs-resources-dir "~/Documents/nicemacs/resources"
   "The path to nicemacs on my machine.")
 
+(defvar nicemacs-journal-directory "~/Documents/journal"
+  "The directory for nicemacs journal files.")
+
+(defvar nicemacs-quick-links-page "~/Documents/README.html"
+  "The HTML file with some useful in the browser.")
+
 (spacemacs/declare-prefix "o" "own-menu")
 
 (setq dotspacemacs-startup-buffer-show-icons nil)
@@ -67,7 +73,7 @@
 (spacemacs/declare-prefix "ol" "latex")
 (spacemacs/declare-prefix "ob" "bibtex-menu")
 
-(defun last-bib ()
+(defun nvf-last-bib ()
   "Visit the most recent BIB file in Downloads. TODO There should
 be a fall back such that if there is a TXT file that is younger
 than the last BIB file then copy it to a new file with the same
@@ -123,7 +129,7 @@ file. TODO Add error message if there are no RIS files."
                                                                :height 1.2
                                                                :family "Noto Sans")))))
 
-(spacemacs/set-leader-keys "obl" 'last-bib)
+(spacemacs/set-leader-keys "obl" 'nvf-last-bib)
 (spacemacs/set-leader-keys "obf" 'bibtex-reformat)
 (spacemacs/set-leader-keys "obb" 'bibtex-braces)
 (spacemacs/set-leader-keys "obc" 'bibtex-ris2bib)
@@ -181,9 +187,6 @@ file. TODO Add error message if there are no RIS files."
 '((maxima . t)
   (R . t)))
 
-(defvar nicemacs-journal-directory "" "The directory for nicemacs journal files.")
-(setq nicemacs-journal-directory "~/Documents/journal")
-
 (setq org-agenda-start-day "-5d")
 (setq org-agenda-span 30)
 (setq org-agenda-start-on-weekday nil)
@@ -206,7 +209,7 @@ file. TODO Add error message if there are no RIS files."
          (agenda-file (format filepath-template time-string)))
     agenda-file))
 
-(defun nicemacs-visit-journal ()
+(defun nvf-journal ()
   "Opens the current journal file. If it does not yet exist it
 makes a copy of the one from one week ago."
   (interactive)
@@ -229,6 +232,17 @@ makes a copy of the one from one week ago."
 
 (spacemacs/set-leader-keys "ooa" 'nicemacs-visit-agenda)
 (spacemacs/set-leader-keys "oos" 'org-schedule)
+
+(defun nicemacs-update-quick-links ()
+  "Update the quick links file to use the one from the journal."
+  (interactive)
+  (copy-file (concat nicemacs-journal-directory "/README.html")
+             nicemacs-quick-links-page
+             1))
+
+(spacemacs/declare-prefix "ofu" "update resource")
+
+(spacemacs/set-leader-keys "ofuq" 'nicemacs-update-quick-links)
 
 ;; open the export menu
 (spacemacs/set-leader-keys "ooe" 'org-export-dispatch)
@@ -487,14 +501,6 @@ makes a copy of the one from one week ago."
 (nicemacs-visit-file statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
 (nicemacs-visit-file wikipedia-notes "Wikipedia notes" "/home/aez/public-site/org/notes/wikipedia-notes.org")
 (nicemacs-visit-file xml-notes "XML notes" "/home/aez/public-site/org/notes/xml-notes.org")
-
-(defun nvf-journal ()
-  (interactive)
-  (nicemacs-visit-journal))
-
-(defun nvf-last-bib ()
-  (interactive)
-  (last-bib))
 
 (defmacro nicemacs-visit-dir (dname pname path)
   (list 'defun
