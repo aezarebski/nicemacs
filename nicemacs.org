@@ -1558,6 +1558,7 @@ files[fn:4].
 Then we need to define the actual files that we want listed
 
 #+begin_src emacs-lisp :tangle nicemacs.el
+  (nicemacs-visit-file academia-notes "Academia notes" "/home/aez/public-site/org/notes/academic-journal-notes.org")
   (nicemacs-visit-file beast-notes "BEAST2 notes" "/home/aez/public-site/org/notes/beast2-notes.org")
   (nicemacs-visit-file colleagues "Colleagues notes" "~/Documents/professional/colleague-details.org")
   (nicemacs-visit-file git-notes "Git notes" "/home/aez/public-site/org/notes/git-notes.org")
@@ -1637,6 +1638,7 @@ a day everyday.
     "ovdw" 'nvd-website-org
     "ovdW" 'nvd-website-html
     "ovdn" 'nvd-notes
+    "ovna" 'nvf-academia-notes
     "ovnb" 'nvf-beast-notes
     "ovng" 'nvf-git-notes
     "ovnh" 'nvf-haskell-notes
