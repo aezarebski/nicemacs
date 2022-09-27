@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-09-19 11:42:04>
+#+Time-stamp: <Last modified: 2022-09-27 14:54:48>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -1613,7 +1613,10 @@ than the path of a directory.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
   (nicemacs-visit-dir library "Library" "/home/aez/Documents/library/fake.org")
+  (nicemacs-visit-dir music "Music" "/home/aez/Music/fake.org") ; default in Ubuntu 20.04.4
   (nicemacs-visit-dir documents "Documents" "/home/aez/Documents/fake.org")
+  (nicemacs-visit-dir professional "Professional" "/home/aez/Documents/professional/README.org")
+  (nicemacs-visit-dir timtam "TimTam" "/home/aez/Documents/timtam2/README.org")
   (nicemacs-visit-dir website-org "Website (org files)" "/home/aez/public-site/org/fake.org")
   (nicemacs-visit-dir website-html "Website (HTML files)" "/home/aez/aezarebski.github.io/fake.org")
   (nicemacs-visit-dir notes "My notes" "/home/aez/public-site/org/notes/fake.org")
@@ -1635,10 +1638,12 @@ a day everyday.
     "ovj" 'nvf-journal
     "ovdd" 'nvd-documents
     "ovdl" 'nvd-library
+    "ovdm" 'nvd-music
+    "ovdn" 'nvd-notes
+    "ovdp" 'nvd-professional
+    "ovdt" 'nvd-timtam
     "ovdw" 'nvd-website-org
     "ovdW" 'nvd-website-html
-    "ovdn" 'nvd-notes
-    "ovna" 'nvf-academia-notes
     "ovnb" 'nvf-beast-notes
     "ovng" 'nvf-git-notes
     "ovnh" 'nvf-haskell-notes
