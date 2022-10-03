@@ -476,6 +476,7 @@ makes a copy of the one from one week ago."
                     (format "Visiting %s" pname))
               (list 'find-file path))))
 
+(nicemacs-visit-file academia-notes "Academia notes" "/home/aez/public-site/org/notes/academic-journal-notes.org")
 (nicemacs-visit-file beast-notes "BEAST2 notes" "/home/aez/public-site/org/notes/beast2-notes.org")
 (nicemacs-visit-file colleagues "Colleagues notes" "~/Documents/professional/colleague-details.org")
 (nicemacs-visit-file git-notes "Git notes" "/home/aez/public-site/org/notes/git-notes.org")
@@ -531,6 +532,7 @@ makes a copy of the one from one week ago."
   "ovdp" 'nvd-professional
   "ovdw" 'nvd-website-org
   "ovdW" 'nvd-website-html
+  "ovna" 'nvf-academia-notes
   "ovnb" 'nvf-beast-notes
   "ovng" 'nvf-git-notes
   "ovnh" 'nvf-haskell-notes
