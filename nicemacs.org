@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-10-03 09:11:52>
+#+Time-stamp: <Last modified: 2022-10-03 09:16:47>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -1696,6 +1696,15 @@ minibuffer and store this on the kill ring."
 
 (spacemacs/set-leader-keys "ofd" 'message-buffer-file-name)
 #+end_src
+
+*** TODO Update configuration files
+
+There are a couple of files that get modified programmatically, it would be nice
+to have some helper functions to operate on them so it is easier to keep them in
+line. For example, the dot spacemacs file should be backed up into
+=nicemacs/resources= occassionally.
+
+*** Download helpers
 
 Suppose that you want to get a copy of the last file you downloaded in the
 current directory, this is a pretty common thing to do so a function would be
