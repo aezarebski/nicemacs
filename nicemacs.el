@@ -11,6 +11,19 @@
 
 (spacemacs/declare-prefix "o" "own-menu")
 
+(spacemacs/declare-prefix "ob" "bibtex-menu")
+(spacemacs/declare-prefix "oc" "commits-menu")
+(spacemacs/declare-prefix "of" "file-stuff")
+(spacemacs/declare-prefix "ofu" "update resource")
+(spacemacs/declare-prefix "oh" "haskell-menu")
+(spacemacs/declare-prefix "ol" "latex")
+(spacemacs/declare-prefix "oo" "org-menu")
+(spacemacs/declare-prefix "op" "paragraph-modification-menu")
+(spacemacs/declare-prefix "os" "sheila-menu")
+(spacemacs/declare-prefix "oS" "Search")
+(spacemacs/declare-prefix "ou" "unicode-stuff")
+(spacemacs/declare-prefix "ov" "visit friends")
+
 (setq dotspacemacs-startup-buffer-show-icons nil)
 
 (setq dotspacemacs-scratch-mode 'org-mode)
@@ -27,7 +40,6 @@
 (setq lsp-ui-doc-delay 1.0)
 (setq lsp-ui-sideline-delay 1.0)
 
-(spacemacs/declare-prefix "oh" "haskell-menu")
 (spacemacs/set-leader-keys "ohr" 'haskell-process-restart)
 
 ;; Set the input method to TeX for using unicode. Use C-\ to unset this.
@@ -64,14 +76,10 @@
 
 (spacemacs/set-leader-keys "ofj" 'nicemacs-d3-setup)
 
-(spacemacs/declare-prefix "op" "paragraph-modification-menu")
 (spacemacs/set-leader-keys "opf" 'org-fill-paragraph)
 (spacemacs/set-leader-keys "opu" 'unfill-paragraph)
 
 (add-to-list 'auto-mode-alist '("\\.bibtex\\'" . bibtex-mode))
-
-(spacemacs/declare-prefix "ol" "latex")
-(spacemacs/declare-prefix "ob" "bibtex-menu")
 
 (defun nvf-last-bib ()
   "Visit the most recent BIB file in Downloads. TODO There should
@@ -133,8 +141,6 @@ file. TODO Add error message if there are no RIS files."
 (spacemacs/set-leader-keys "obf" 'bibtex-reformat)
 (spacemacs/set-leader-keys "obb" 'bibtex-braces)
 (spacemacs/set-leader-keys "obc" 'bibtex-ris2bib)
-
-(spacemacs/declare-prefix "oo" "org-menu")
 
 (spacemacs/declare-prefix "oot" "org-toggle-menu")
 
@@ -239,8 +245,6 @@ makes a copy of the one from one week ago."
   (copy-file (concat nicemacs-journal-directory "/README.html")
              nicemacs-quick-links-page
              1))
-
-(spacemacs/declare-prefix "ofu" "update resource")
 
 (spacemacs/set-leader-keys "ofuq" 'nicemacs-update-quick-links)
 
@@ -350,8 +354,6 @@ makes a copy of the one from one week ago."
 
 (setq org-adapt-indentation nil)
 
-(spacemacs/declare-prefix "os" "sheila-menu")
-
 (spacemacs/set-leader-keys "osb" 'shell)
 
 (defun shell-and-delete-windows ()
@@ -418,8 +420,6 @@ makes a copy of the one from one week ago."
 
 (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
 
-(spacemacs/declare-prefix "oc" "commits-menu")
-
 (defmacro nicemacs-commits (fname cmessage)
   (list 'defun
         (intern (format "ncf-%s" fname))
@@ -455,7 +455,6 @@ makes a copy of the one from one week ago."
 (spacemacs/set-leader-keys "wD" 'spacemacs/window-manipulation-transient-state/delete-other-windows)
 
 ;; Define a short cut for following files
-(spacemacs/declare-prefix "of" "file-stuff")
 (spacemacs/set-leader-keys "off" 'find-file-at-point)
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 
@@ -466,8 +465,6 @@ makes a copy of the one from one week ago."
 (spacemacs/set-leader-keys "ofl" 'find-file-literally)
 
 (setq dired-listing-switches "-alh")
-
-(spacemacs/declare-prefix "ov" "visit friends")
 
 (defmacro nicemacs-visit-file (fname pname path)
   (list 'defun
@@ -576,8 +573,6 @@ makes a copy of the one from one week ago."
       (message search-terms)
       (rgrep search-terms "*.tex" "/home/aez/Documents/bibliography/"))))
 
-(spacemacs/declare-prefix "oS" "Search")
-
 (spacemacs/set-leader-keys
   "oSn" 'nsg-notes
   "oSj" 'nsg-journal
@@ -657,8 +652,6 @@ minibuffer and store this on the kill ring."
 (nicemacs-greek sigma)
 (nicemacs-greek psi)
 (nicemacs-greek omega)
-
-(spacemacs/declare-prefix "ou" "unicode-stuff")
 
 (spacemacs/set-leader-keys
   "oua" 'nag-alpha-small

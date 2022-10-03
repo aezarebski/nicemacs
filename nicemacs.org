@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-09-19 11:42:04>
+#+Time-stamp: <Last modified: 2022-10-03 09:11:52>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -116,8 +116,13 @@ can use =dubnpmlrsf[]<SPC>= for greater flexibility navigation.
 
 ** Broken spacemacs dot file?
 
-There is =SPC f e D= to help you debug your dot file if an update means it is out
-of date.
+There is =SPC f e D= (bound to =spacemacs/ediff-dotfile-and-template=) to help
+you debug your dot file if an update means it is out of date. When in this menu,
+use =?= to toggle the display of a cheat-sheet for diffing with =ediff=.
+
+The function =spacemacs/ediff-dotfile-and-template= calls =ediff-files= with the
+current spacemacs dot file and a template that comes with spacemacs. This might
+be of interest for other diffing as an alternative to programs such as [[https://en.wikipedia.org/wiki/Meld_(software)][Meld]].
 
 ** Debugging
 
@@ -218,45 +223,30 @@ The spacemacs documentation recommends that you store all of your shortcuts with
 a prefix of "o" for owner.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/declare-prefix "o" "own-menu")
+  (spacemacs/declare-prefix "o" "own-menu")
 #+end_src
 
-Here are some of my key bindings
+There are then sum submenus that are useful to help group related functions:
 
-| Keys       | Function                   | Description |
-|------------+----------------------------+-------------|
-| =SPC ohr=  | =haskell-process-restart=  |             |
-| =SPC ohu=  | =set-input-method=         |             |
-| =SPC opf=  | =org-fill-paragraph=       |             |
-| =SPC opu=  | =unfill-paragraph=         |             |
-| =SPC obl=  | =nvf-last-bib=             |             |
-| =SPC obf=  | =bibtex-reformat=          |             |
-| =SPC obb=  | =bibtex-braces=            |             |
-| =SPC obc=  | =bibtex-ris2bib=           |             |
-| =SPC ootw= | =toggle-writeroom=         |             |
-| =SPC ooa=  | =nicemacs-visit-agenda=    |             |
-| =SPC oos=  | =org-schedule=             |             |
-| =SPC ooe=  | =org-export-dispatch=      |             |
-| =SPC ooi=  | =org-toggle-inline-images= |             |
-| =SPC ool=  | =org-latex-preview=        |             |
-| =SPC oop=  | =publish-my-site=          |             |
-| =SPC ooP=  | =force-publish-and-magit=  |             |
-| =SPC oov=  | =visit-my-site-index=      |             |
-| =SPC osb=  | =shell=                    |             |
-| =SPC "=    | =shell-and-delete-windows= |             |
-| =SPC osh=  | =helm-eshell-history=      |             |
-| =SPC osa=  | =eshell-aliases=           |             |
-| =SPC osi=  | =ielm=                     |             |
-| =SPC osr=  | =R=                        |             |
-| =SPC ocn=  | =ncf-network=              |             |
-| =SPC ocr=  | =ncf-review=               |             |
-| =SPC ocw=  | =ncf-website=              |             |
-| =SPC ocj=  | =ncf-journal=              |             |
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (spacemacs/declare-prefix "ob" "bibtex-menu")
+  (spacemacs/declare-prefix "oc" "commits-menu")
+  (spacemacs/declare-prefix "of" "file-stuff")
+  (spacemacs/declare-prefix "ofu" "update resource")
+  (spacemacs/declare-prefix "oh" "haskell-menu")
+  (spacemacs/declare-prefix "ol" "latex")
+  (spacemacs/declare-prefix "oo" "org-menu")
+  (spacemacs/declare-prefix "op" "paragraph-modification-menu")
+  (spacemacs/declare-prefix "os" "sheila-menu")
+  (spacemacs/declare-prefix "oS" "Search")
+  (spacemacs/declare-prefix "ou" "unicode-stuff")
+  (spacemacs/declare-prefix "ov" "visit friends")
+#+end_src
 
 ** Usage notes
 
 To tangle the =nicemacs.el= file from the command line execute the following
-command:
+command:j
 
 #+begin_src sh
 emacs nicemacs.org --batch --eval="(org-babel-tangle)"
@@ -427,7 +417,6 @@ sideline display.
 ** Haskell
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/declare-prefix "oh" "haskell-menu")
 (spacemacs/set-leader-keys "ohr" 'haskell-process-restart)
 
 ;; Set the input method to TeX for using unicode. Use C-\ to unset this.
@@ -611,7 +600,6 @@ editors. I think a suitable binding for these command is =SPC o p f= for fill
 and =SPC o p u= for unfill.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-  (spacemacs/declare-prefix "op" "paragraph-modification-menu")
   (spacemacs/set-leader-keys "opf" 'org-fill-paragraph)
   (spacemacs/set-leader-keys "opu" 'unfill-paragraph)
 #+end_src
@@ -639,11 +627,6 @@ to explicitly request this
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (add-to-list 'auto-mode-alist '("\\.bibtex\\'" . bibtex-mode))
-#+end_src
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/declare-prefix "ol" "latex")
-(spacemacs/declare-prefix "ob" "bibtex-menu")
 #+end_src
 
 Here are the keybindings for the bibtex functionality, the leader sequence is
@@ -766,13 +749,8 @@ we have the following configuration
 
 ** Org-mode
 
-Bindings for org-mode functionality start with =o o= for "owner org".
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/declare-prefix "oo" "org-menu")
-#+end_src
-
-for toggle style functions we will have a sub-menu.
+Bindings for org-mode functionality start with =o o= for "owner org". for toggle
+style functions we will have a sub-menu.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/declare-prefix "oot" "org-toggle-menu")
@@ -970,8 +948,6 @@ the most up to date version of this file into a helpful location.
                nicemacs-quick-links-page
                1))
 
-  (spacemacs/declare-prefix "ofu" "update resource")
-
   (spacemacs/set-leader-keys "ofuq" 'nicemacs-update-quick-links)
 #+end_src
 
@@ -1166,12 +1142,6 @@ setting =org-adapt-indentation= to =nil=.
 (setq org-adapt-indentation nil)
 #+END_SRC
 ** Shells and REPLs
-
-It is useful to have a prefix for more involved shell related commands
-
-#+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/declare-prefix "os" "sheila-menu")
-#+end_src
 
 *** Bash
 
@@ -1392,10 +1362,6 @@ be nice to have a macro to fill this in each time for me. Since this is working
 with commits I will use the prefix "c" followed by an indicator of the appropriate
 commit message to use.
 
-#+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/declare-prefix "oc" "commits-menu")
-#+end_src
-
 Apparently, this is [[https://xkcd.com/1205/][worth the time...]] so let's write a macro to make these
 easier to define.
 
@@ -1461,7 +1427,6 @@ If you want to kill buffers with names that match a regex there is the
 (spacemacs/set-leader-keys "wD" 'spacemacs/window-manipulation-transient-state/delete-other-windows)
 
 ;; Define a short cut for following files
-(spacemacs/declare-prefix "of" "file-stuff")
 (spacemacs/set-leader-keys "off" 'find-file-at-point)
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 #+end_src
@@ -1542,8 +1507,6 @@ files[fn:4].
 **** Visiting files
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-  (spacemacs/declare-prefix "ov" "visit friends")
-
   (defmacro nicemacs-visit-file (fname pname path)
     (list 'defun
           (intern (format "nvf-%s" fname))
@@ -1697,8 +1660,6 @@ directories.
 And then we need to bind it to some keys to make it easier to use.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-    (spacemacs/declare-prefix "oS" "Search")
-
     (spacemacs/set-leader-keys
       "oSn" 'nsg-notes
       "oSj" 'nsg-journal
@@ -1818,8 +1779,6 @@ makes this code a little cleaner.
 And now to specify the actual keybindings
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-  (spacemacs/declare-prefix "ou" "unicode-stuff")
-
   (spacemacs/set-leader-keys
     "oua" 'nag-alpha-small
     "ouA" 'nag-alpha-capital
