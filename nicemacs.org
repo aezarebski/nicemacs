@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-10-04 09:29:10>
+#+Time-stamp: <Last modified: 2022-10-06 09:07:22>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -1282,9 +1282,16 @@ intro]].
 
 Spacemacs provides good keybindings out of the box, and after setting up LSP
 there is very little need to do any additional configuration for a nice R
-experience. You just need to remember to install =languageserver= from CRAN.
+experience. You just need to remember to install =languageserver= from CRAN,
+although if you want linting, you may also need to install the =lintr= package
+from CRAN.
 
-*HOWEVER* I have found it laggy so if you want to disable this and use a
+If you are using LSP, linting follows the standard key sequence =SPC m = <x>=
+where =<x>= is either =b= (buffer), or =r= (region).
+
+*** Removing LSP because it is too slow
+
+I have found it will lag at times so if you want to disable this and use a
 different backend adjust your layer configuration with the following
 
 #+begin_src emacs-lisp
@@ -2146,4 +2153,5 @@ to a list in emacs-lisp.
 [fn:2] You can use a =.jsbeautifyrc= file to configure the formatting.
 
 #  LocalWords:  nicemacs Spacemacs spacemacs SPC REPL Eshell npm magit dired
-#  LocalWords:  defmacro backend LSP Bibtex NodeJS Edebug edebug defun ielm
+#  LocalWords:  defmacro backend LSP Bibtex NodeJS Edebug edebug defun ielm ESS
+#  LocalWords:  REPLs
