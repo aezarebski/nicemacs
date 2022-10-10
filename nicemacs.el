@@ -41,8 +41,10 @@
 (defvar my-node-path "/home/aez/.nvm/versions/node/v17.3.1/bin"
   "The path to node on my machine.")
 
-(setenv "PATH" (concat (getenv "PATH") ":" my-node-path))
+(setenv "JAVA_HOME" "/usr/lib/jvm/zulu-fx-17-amd64")
+(setenv "PATH" (concat (getenv "PATH") ":" my-node-path ":" "/usr/lib/jvm/zulu-fx-17-amd64/bin"))
 (setq exec-path (append exec-path (list my-node-path)))
+
 
 (defun my-nodejs-repl-command ()
   (concat my-node-path "/node"))
