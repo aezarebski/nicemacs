@@ -6,7 +6,7 @@
 (defvar nicemacs-journal-directory "~/Documents/journal"
   "The directory for nicemacs journal files.")
 
-(defvar nicemacs-quick-links-page "~/Documents/README.html"
+(defvar nicemacs-quick-links-page "~/Documents/quick-links.html"
   "The HTML file with some useful in the browser.")
 
 (spacemacs/declare-prefix "o" "own-menu")
@@ -244,7 +244,7 @@ makes a copy of the one from one week ago."
 (defun nicemacs-update-quick-links ()
   "Update the quick links file to use the one from the journal."
   (interactive)
-  (copy-file (concat nicemacs-journal-directory "/README.html")
+  (copy-file (concat nicemacs-journal-directory "/" "quick-links.html")
              nicemacs-quick-links-page
              1))
 
@@ -270,23 +270,35 @@ makes a copy of the one from one week ago."
 (setq org-publish-project-alist
       '(
         ("org-notes-org-files"
-         :base-directory "~/public-site/org/"
+         :base-directory "~/public-site/org/notes/"
          :base-extension "org"
          :exclude ".*~undo-tree~"
-         :publishing-directory "~/aezarebski.github.io/"
+         :publishing-directory "~/aezarebski.github.io/notes/"
          :recursive t
          :publishing-function org-html-publish-to-html
          :headline-levels 4
-         :auto-preamble t
-         )
+         :auto-preamble t)
         ("org-notes-static"
-         :base-directory "~/public-site/org/"
-         :base-extension "css\\|js\\|png\\|jpg\\|jpeg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|txt\\|cur\\|svg\\|csv\\|html\\|json\\|bib\\|webp"
-         :exclude "~/public-site/org/misc/matplotlib/ven.*"
-         :publishing-directory "~/aezarebski.github.io/"
+          :base-directory "~/public-site/org/"
+          :base-extension "css\\|js\\|png\\|jpg\\|jpeg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|txt\\|cur\\|svg\\|csv\\|html\\|json\\|bib\\|webp"
+          :exclude "~/public-site/org/misc/matplotlib/.*\\|~/public-site/org/misc/d3/.*"
+          :publishing-directory "~/aezarebski.github.io/"
+          :recursive t
+          :publishing-function org-publish-attachment)
+        ("org-misc-d3-org-files"
+         :base-directory "~/public-site/org/misc/d3/"
+         :base-extension "org"
+         :publishing-directory "~/aezarebski.github.io/misc/d3/"
          :recursive t
-         :publishing-function org-publish-attachment
-         )
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4
+         :auto-preamble t)
+        ("org-misc-d3-extra-files"
+         :base-directory "~/public-site/org/misc/d3/"
+         :base-extension "js\\|png\\|svg\\|csv\\|html\\|json"
+         :publishing-directory "~/aezarebski.github.io/misc/d3/"
+         :recursive t
+         :publishing-function org-publish-attachment)
         ("org-nicemacs"
          :base-directory "~/Documents/nicemacs/"
          :base-extension "org"
@@ -315,6 +327,8 @@ makes a copy of the one from one week ago."
          :recursive t
          :publishing-function org-publish-attachment
          )
+        ("d3" :components ("org-misc-d3-org-files"
+                           "org-misc-d3-extra-files"))
         ("org" :components ("org-notes-org-files"
                             "org-notes-static"
                             "org-nicemacs"
