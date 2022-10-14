@@ -250,6 +250,17 @@ makes a copy of the one from one week ago."
 
 (spacemacs/set-leader-keys "ofuq" 'nicemacs-update-quick-links)
 
+(defun nicemacs-fetch-dotspacemacs ()
+  "Put a copy of the current dotspacemacs file in the resources directory."
+  (interactive)
+  (copy-file (dotspacemacs/location)
+             (concat nicemacs-resources-dir
+                     "/dotspacemacs-"
+                     (user-real-login-name)
+                     "-"
+                     (system-name))
+             1))
+
 ;; open the export menu
 (spacemacs/set-leader-keys "ooe" 'org-export-dispatch)
 
