@@ -929,7 +929,7 @@ To make it easy to access these we will bind them to come convenient keys.
 (spacemacs/set-leader-keys "oos" 'org-schedule)
 #+end_src
 
-*** Nicemacs quicklinks
+*** TODO Nicemacs quicklinks (this needs to live elsewhere)
 
 I keep an HTML file in the journal directory which a bunch of useful links to
 files on my machine and websites. The following function makes it easier to copy
@@ -946,6 +946,7 @@ the most up to date version of this file into a helpful location.
   (spacemacs/set-leader-keys "ofuq" 'nicemacs-update-quick-links)
 #+end_src
 
+*** TODO Update a copy of the dotspacemacs file (this needs to live elsewhere)
 *** Miscellaneous
 
 #+begin_src emacs-lisp :tangle nicemacs.el
