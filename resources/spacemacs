@@ -35,6 +35,8 @@ This function should only modify configuration layer settings."
    '(auto-completion
      better-defaults
      bibtex
+     (colors :variables
+             colors-enable-nyan-cat-progress-bar t)
      csv
      dhall
      docker
@@ -70,12 +72,13 @@ This function should only modify configuration layer settings."
      (python :variables
              python-backend 'lsp
              python-indent-offset 4)
+     (scheme :variables
+             scheme-implementations '(racket))
      semantic
      (shell :variables
             shell-default-shell 'eshell
             shell-default-position 'right
             shell-default-width 50)
-     speed-reading
      (spell-checking :variables
                      spell-checking-enable-by-default nil
                      enable-flyspell-auto-completion t)
@@ -226,7 +229,9 @@ It should only modify the values of Spacemacs settings."
    ;; pair of numbers, e.g. `(recents-by-project . (7 .  5))', where the first
    ;; number is the project limit and the second the limit on the recent files
    ;; within a project.
-   dotspacemacs-startup-lists nil
+   ;; dotspacemacs-startup-lists '((recents . 5)
+   ;;                              (projects . 7))
+   dotspacemacs-startup-lists '()
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
