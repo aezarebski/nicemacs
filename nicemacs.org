@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-10-10 18:13:16>
+#+Time-stamp: <Last modified: 2022-10-14 21:29:53>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -605,6 +605,14 @@ There is a dictionary mode which provides the =dictionary= function and the
 =dictionary-tooltip-mode=. Finding a suitable offline dictionary is challenging
 though.
 
+*** Apell dictionary
+
+- The personal Aspell dictionary file (which is probably =.aspell.en.pws=) has a
+  number in the header which is used to hint the dictionary size but does not
+  need to be exactly correct.
+
+**** TODO Write a function that updates this file and bind it to =ofud=
+
 *** Spell checking
 
 - Highlight the text and use =SPC S r= to spellcheck that region.
@@ -947,6 +955,8 @@ the most up to date version of this file into a helpful location.
 #+end_src
 
 *** TODO Update a copy of the dotspacemacs file (this needs to live elsewhere)
+
+
 *** Miscellaneous
 
 #+begin_src emacs-lisp :tangle nicemacs.el
