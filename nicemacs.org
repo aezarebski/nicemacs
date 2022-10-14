@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-10-10 18:13:16>
+#+Time-stamp: <Last modified: 2022-10-14 16:02:55>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -2013,6 +2013,34 @@ ggsave(filename = $1,
        ## A6 height = 10.5, width = 14.8,
        ## A7 height = 7.4, width = 10.5,
        units = "cm")
+
+$0
+#+END_SRC
+
+***** Saving ggplot2 figures only when run in batch
+
+This snippet offers some sensible default values for saving =ggplot2= figures.
+
+#+BEGIN_SRC snippet :tangle ~/.emacs.d/private/snippets/ess-r-mode/rggsave-batch
+# -*- mode: snippet -*-
+# name: Save a ggplot2 figure to default paper sizes only when run in batch
+# key: rhelp-ggsave-batch
+# --
+
+if (interactive()) {
+  warning(
+    "Printing the figure without saving. If you want this saved ",
+    "run this script non-interactively."
+  )
+  print($1)
+} else {
+  ggsave(filename = $2,
+         plot = $1,
+         ## A5 height = 14.8, width = 21.0,
+         ## A6 height = 10.5, width = 14.8,
+         ## A7 height = 7.4, width = 10.5,
+         units = "cm")
+}
 
 $0
 #+END_SRC
