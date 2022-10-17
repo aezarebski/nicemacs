@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-10-14 21:29:53>
+#+Time-stamp: <Last modified: 2022-10-17 18:19:34>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -227,6 +227,7 @@ There are then sum submenus that are useful to help group related functions:
   (spacemacs/declare-prefix "ob" "bibtex-menu")
   (spacemacs/declare-prefix "oc" "commits-menu")
   (spacemacs/declare-prefix "of" "file-stuff")
+  (spacemacs/declare-prefix "off" "fetch resource")
   (spacemacs/declare-prefix "ofu" "update resource")
   (spacemacs/declare-prefix "oh" "haskell-menu")
   (spacemacs/declare-prefix "ol" "latex")
@@ -952,6 +953,37 @@ the most up to date version of this file into a helpful location.
                1))
 
   (spacemacs/set-leader-keys "ofuq" 'nicemacs-update-quick-links)
+
+  (defun nicemacs-fetch-dotspacemacs ()
+    "Put a copy of the current dotspacemacs file in the resources directory."
+    (interactive)
+    (copy-file (dotspacemacs/location)
+               (concat nicemacs-resources-dir
+                       "/dotspacemacs-"
+                       (user-real-login-name)
+                       "-"
+                       (system-name))
+               1))
+
+  (spacemacs/set-leader-keys "offd" 'nicemacs-fetch-dotspacemacs)
+
+  (defun nicemacs-fetch-aspell ()
+    "Put a copy of the aspell personal word list in the resources directory."
+    (interactive)
+    (copy-file "~/.aspell.en.pws"
+               (concat nicemacs-resources-dir "/aspell.en.pws")
+               1))
+
+  (spacemacs/set-leader-keys "offs" 'nicemacs-fetch-aspell)
+
+  (defun nicemacs-update-aspell ()
+    "Update the aspell personal word list."
+    (interactive)
+    (copy-file (concat nicemacs-resources-dir "/aspell.en.pws")
+               "~/.aspell.en.pws"
+               1))
+
+  (spacemacs/set-leader-keys "ofus" 'nicemacs-update-aspell)
 #+end_src
 
 *** TODO Update a copy of the dotspacemacs file (this needs to live elsewhere)

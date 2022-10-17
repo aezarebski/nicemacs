@@ -268,8 +268,7 @@ makes a copy of the one from one week ago."
   "Put a copy of the aspell personal word list in the resources directory."
   (interactive)
   (copy-file "~/.aspell.en.pws"
-             (concat nicemacs-resources-dir
-                     "/aspell.en.pws")
+             (concat nicemacs-resources-dir "/aspell.en.pws")
              1))
 
 (spacemacs/set-leader-keys "offs" 'nicemacs-fetch-aspell)
@@ -277,8 +276,7 @@ makes a copy of the one from one week ago."
 (defun nicemacs-update-aspell ()
   "Update the aspell personal word list."
   (interactive)
-  (copy-file (concat nicemacs-resources-dir
-                     "/aspell.en.pws")
+  (copy-file (concat nicemacs-resources-dir "/aspell.en.pws")
              "~/.aspell.en.pws"
              1))
 
