@@ -1454,9 +1454,10 @@ If you want to kill buffers with names that match a regex there is the
 (spacemacs/set-leader-keys "wD" 'spacemacs/window-manipulation-transient-state/delete-other-windows)
 
 ;; Define a short cut for following files
-(spacemacs/set-leader-keys "off" 'find-file-at-point)
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 #+end_src
+
+- =find-file-at-point= is also very useful!
 
 *** Time stamping files
 
