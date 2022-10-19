@@ -736,3 +736,63 @@ minibuffer and store this on the kill ring."
 (files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/org-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/python-mode")
+
+
+
+(add-to-list 'org-latex-classes
+             '("scrartcl" "\\documentclass[11pt,onecolumn]{scrartcl}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+(require 'ox-latex)
+(add-to-list 'org-latex-packages-alist '("" "listings"))
+(add-to-list 'org-latex-packages-alist '("" "xcolor"))
+
+
+;; \usepackage{listings}
+;; \usepackage{xcolor}
+
+;; \definecolor{base03}{HTML}{002b36}
+;; \definecolor{base02}{HTML}{073642}
+;; \definecolor{base01}{HTML}{586e75}
+;; \definecolor{base00}{HTML}{657b83}
+;; \definecolor{base0}{HTML}{839496}
+;; \definecolor{base1}{HTML}{93a1a1}
+;; \definecolor{base2}{HTML}{eee8d5}
+;; \definecolor{base3}{HTML}{fdf6e3}
+;; \definecolor{yellow}{HTML}{b58900}
+;; \definecolor{orange}{HTML}{cb4b16}
+;; \definecolor{red}{HTML}{dc322f}
+;; \definecolor{magenta}{HTML}{d33682}
+;; \definecolor{violet}{HTML}{6c71c4}
+;; \definecolor{blue}{HTML}{268bd2}
+;; \definecolor{cyan}{HTML}{2aa198}
+;; \definecolor{green}{HTML}{859900}
+
+;; \lstset{
+;;   language=R,
+;;   linewidth=0.95\textwidth,
+;;   xleftmargin=0.05\textwidth,
+;;   basicstyle=\small\ttfamily\color{base02},
+;;   backgroundcolor=\color{base3},
+;;   showspaces=false,
+;;   showstringspaces=false,
+;;   showtabs=false,
+;;   frame=single,
+;;   frameround=tttt,
+;;   float=p,
+;;   rulecolor=\color{base03},
+;;   tabsize=2,
+;;   captionpos=b,
+;;   breaklines=true,
+;;   breakatwhitespace=false,
+;;   keywordstyle=\color{base02},
+;;   commentstyle=\color{base02},
+;;   stringstyle=\color{cyan}
+;; }
+
+
+(setq org-latex-listings t)
