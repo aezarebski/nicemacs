@@ -14,6 +14,7 @@
 (spacemacs/declare-prefix "ob" "bibtex-menu")
 (spacemacs/declare-prefix "oc" "commits-menu")
 (spacemacs/declare-prefix "of" "file-stuff")
+(spacemacs/declare-prefix "off" "fetch resource")
 (spacemacs/declare-prefix "ofu" "update resource")
 (spacemacs/declare-prefix "oh" "haskell-menu")
 (spacemacs/declare-prefix "ol" "latex")
@@ -250,6 +251,37 @@ makes a copy of the one from one week ago."
 
 (spacemacs/set-leader-keys "ofuq" 'nicemacs-update-quick-links)
 
+(defun nicemacs-fetch-dotspacemacs ()
+  "Put a copy of the current dotspacemacs file in the resources directory."
+  (interactive)
+  (copy-file (dotspacemacs/location)
+             (concat nicemacs-resources-dir
+                     "/dotspacemacs-"
+                     (user-real-login-name)
+                     "-"
+                     (system-name))
+             1))
+
+(spacemacs/set-leader-keys "offd" 'nicemacs-fetch-dotspacemacs)
+
+(defun nicemacs-fetch-aspell ()
+  "Put a copy of the aspell personal word list in the resources directory."
+  (interactive)
+  (copy-file "~/.aspell.en.pws"
+             (concat nicemacs-resources-dir "/aspell.en.pws")
+             1))
+
+(spacemacs/set-leader-keys "offs" 'nicemacs-fetch-aspell)
+
+(defun nicemacs-update-aspell ()
+  "Update the aspell personal word list."
+  (interactive)
+  (copy-file (concat nicemacs-resources-dir "/aspell.en.pws")
+             "~/.aspell.en.pws"
+             1))
+
+(spacemacs/set-leader-keys "ofus" 'nicemacs-update-aspell)
+
 ;; open the export menu
 (spacemacs/set-leader-keys "ooe" 'org-export-dispatch)
 
@@ -471,7 +503,6 @@ makes a copy of the one from one week ago."
 (spacemacs/set-leader-keys "wD" 'spacemacs/window-manipulation-transient-state/delete-other-windows)
 
 ;; Define a short cut for following files
-(spacemacs/set-leader-keys "off" 'find-file-at-point)
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 
 (setq time-stamp-format "Last modified: %Y-%02m-%02d %02H:%02M:%02S")

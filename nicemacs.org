@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-10-14 16:02:55>
+#+Time-stamp: <Last modified: 2022-10-19 10:20:33>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -227,6 +227,7 @@ There are then sum submenus that are useful to help group related functions:
   (spacemacs/declare-prefix "ob" "bibtex-menu")
   (spacemacs/declare-prefix "oc" "commits-menu")
   (spacemacs/declare-prefix "of" "file-stuff")
+  (spacemacs/declare-prefix "off" "fetch resource")
   (spacemacs/declare-prefix "ofu" "update resource")
   (spacemacs/declare-prefix "oh" "haskell-menu")
   (spacemacs/declare-prefix "ol" "latex")
@@ -605,6 +606,14 @@ There is a dictionary mode which provides the =dictionary= function and the
 =dictionary-tooltip-mode=. Finding a suitable offline dictionary is challenging
 though.
 
+*** Apell dictionary
+
+- The personal Aspell dictionary file (which is probably =.aspell.en.pws=) has a
+  number in the header which is used to hint the dictionary size but does not
+  need to be exactly correct.
+
+**** TODO Write a function that updates this file and bind it to =ofud=
+
 *** Spell checking
 
 - Highlight the text and use =SPC S r= to spellcheck that region.
@@ -929,7 +938,7 @@ To make it easy to access these we will bind them to come convenient keys.
 (spacemacs/set-leader-keys "oos" 'org-schedule)
 #+end_src
 
-*** Nicemacs quicklinks
+*** TODO Nicemacs quicklinks (this needs to live elsewhere)
 
 I keep an HTML file in the journal directory which a bunch of useful links to
 files on my machine and websites. The following function makes it easier to copy
@@ -944,7 +953,41 @@ the most up to date version of this file into a helpful location.
                1))
 
   (spacemacs/set-leader-keys "ofuq" 'nicemacs-update-quick-links)
+
+  (defun nicemacs-fetch-dotspacemacs ()
+    "Put a copy of the current dotspacemacs file in the resources directory."
+    (interactive)
+    (copy-file (dotspacemacs/location)
+               (concat nicemacs-resources-dir
+                       "/dotspacemacs-"
+                       (user-real-login-name)
+                       "-"
+                       (system-name))
+               1))
+
+  (spacemacs/set-leader-keys "offd" 'nicemacs-fetch-dotspacemacs)
+
+  (defun nicemacs-fetch-aspell ()
+    "Put a copy of the aspell personal word list in the resources directory."
+    (interactive)
+    (copy-file "~/.aspell.en.pws"
+               (concat nicemacs-resources-dir "/aspell.en.pws")
+               1))
+
+  (spacemacs/set-leader-keys "offs" 'nicemacs-fetch-aspell)
+
+  (defun nicemacs-update-aspell ()
+    "Update the aspell personal word list."
+    (interactive)
+    (copy-file (concat nicemacs-resources-dir "/aspell.en.pws")
+               "~/.aspell.en.pws"
+               1))
+
+  (spacemacs/set-leader-keys "ofus" 'nicemacs-update-aspell)
 #+end_src
+
+*** TODO Update a copy of the dotspacemacs file (this needs to live elsewhere)
+
 
 *** Miscellaneous
 
@@ -1443,9 +1486,10 @@ If you want to kill buffers with names that match a regex there is the
 (spacemacs/set-leader-keys "wD" 'spacemacs/window-manipulation-transient-state/delete-other-windows)
 
 ;; Define a short cut for following files
-(spacemacs/set-leader-keys "off" 'find-file-at-point)
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 #+end_src
+
+- =find-file-at-point= is also very useful!
 
 *** Time stamping files
 
