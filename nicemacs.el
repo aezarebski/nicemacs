@@ -191,6 +191,22 @@ file. TODO Add error message if there are no RIS files."
 
 (spacemacs/set-leader-keys "ootw" 'toggle-writeroom)
 
+(add-to-list 'org-latex-classes
+             '("scrartcl" "\\documentclass[11pt,onecolumn]{scrartcl}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+(require 'ox-latex)
+(setq org-latex-packages-alist nil)
+(add-to-list 'org-latex-packages-alist
+             '("" "listings"))
+(add-to-list 'org-latex-packages-alist
+             '("" "xcolor"))
+(setq org-latex-listings t)
+
 (org-babel-do-load-languages
 'org-babel-load-languages
 '((maxima . t)
@@ -736,19 +752,3 @@ minibuffer and store this on the kill ring."
 (files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/org-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/python-mode")
-
-
-
-(add-to-list 'org-latex-classes
-             '("scrartcl" "\\documentclass[11pt,onecolumn]{scrartcl}"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-(require 'ox-latex)
-(setq org-latex-packages-alist nil)
-(add-to-list 'org-latex-packages-alist '("" "listings"))
-(add-to-list 'org-latex-packages-alist '("" "xcolor"))
-(setq org-latex-listings t)
