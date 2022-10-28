@@ -1,5 +1,6 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-10-28 09:50:59>
+#+Time-stamp: <Last modified: 2022-10-28 14:54:28>
+#+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
