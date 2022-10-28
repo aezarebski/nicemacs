@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-10-19 10:20:33>
+#+Time-stamp: <Last modified: 2022-10-28 09:50:59>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -272,12 +272,13 @@ should also document the configuration layers that I use.
     (colors :variables
             colors-enable-nyan-cat-progress-bar t)
     csv
+    dap
     dhall
     emacs-lisp
     emoji
     epub
     (ess :variables
-         ess-r-backend 'ess)
+         ess-r-backend 'lsp)
     git
     graphviz
     (hackernews :variables
@@ -289,18 +290,22 @@ should also document the configuration layers that I use.
     helm
     html
     hy
+    (java :variables
+          java-backend 'lsp)
     (javascript :variables
-                javascript-import-tool 'import-js
-                javascript-repl 'nodejs
-                javascript-backend 'tern
-                javascript-fmt-tool 'web-beautify)
+                javascript-repl `skewer
+                javascript-backend 'lsp)
     latex
     lsp
     maxima
     multiple-cursors
     nixos
     org
-    python
+    plantuml
+    (python :variables
+            python-backend 'lsp
+            python-indent-offset 4)
+    racket
     semantic
     (shell :variables
            shell-default-shell 'eshell
@@ -311,10 +316,9 @@ should also document the configuration layers that I use.
                     spell-checking-enable-by-default nil
                     enable-flyspell-auto-completion t)
     syntax-checking
-    web-beautify
-    yaml
     version-control
-    treemacs)
+    web-beautify
+    yaml)
 #+end_src
 
 - The =colors= layer makes it easier to understand how far through a file you
@@ -840,6 +844,40 @@ how wide the display should be.
   )
 
 (spacemacs/set-leader-keys "ootw" 'toggle-writeroom)
+#+end_src
+
+*** Exporting to LaTeX
+
+By default org-mode exports to a pretty safe article document. The following
+configuration adds the option to export a =scrartcl= document with some
+additional useful packages. To use this you need to add =#+latex_class:
+scrartcl= to the start of the document. Also, keep in mind that you can use
+=#+latex_header:= to add additional lines to the pre-amble of the TeX file
+generated.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (add-to-list 'org-latex-classes
+               '("scrartcl" "\\documentclass[11pt,onecolumn]{scrartcl}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+end_src
+
+If you want more control over colours and to be able to do syntax highlighting
+for code, it is useful to have a couple of extra packages included. The
+following snippet configures which additional packages will be included in the
+export.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (require 'ox-latex)
+  (setq org-latex-packages-alist nil)
+  (add-to-list 'org-latex-packages-alist
+               '("" "listings"))
+  (add-to-list 'org-latex-packages-alist
+               '("" "xcolor"))
+  (setq org-latex-listings t)
 #+end_src
 
 *** Literate programming

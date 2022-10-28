@@ -737,7 +737,8 @@ minibuffer and store this on the kill ring."
 (files--ensure-directory "~/.emacs.d/private/snippets/org-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/python-mode")
 
-
+;; This needs to go at the end of the file because otherwise things do not load
+;; in the correct order...
 
 (add-to-list 'org-latex-classes
              '("scrartcl" "\\documentclass[11pt,onecolumn]{scrartcl}"
@@ -749,6 +750,8 @@ minibuffer and store this on the kill ring."
 
 (require 'ox-latex)
 (setq org-latex-packages-alist nil)
-(add-to-list 'org-latex-packages-alist '("" "listings"))
-(add-to-list 'org-latex-packages-alist '("" "xcolor"))
+(add-to-list 'org-latex-packages-alist
+             '("" "listings"))
+(add-to-list 'org-latex-packages-alist
+             '("" "xcolor"))
 (setq org-latex-listings t)
