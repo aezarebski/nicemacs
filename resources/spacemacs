@@ -33,8 +33,11 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(auto-completion
+   '(perl5
+     auto-completion
      better-defaults
      bibtex
+     common-lisp
      (colors :variables
              colors-enable-nyan-cat-progress-bar t)
      csv
