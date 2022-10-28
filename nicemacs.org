@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-10-21 16:24:13>
+#+Time-stamp: <Last modified: 2022-10-28 09:50:59>
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
@@ -272,12 +272,13 @@ should also document the configuration layers that I use.
     (colors :variables
             colors-enable-nyan-cat-progress-bar t)
     csv
+    dap
     dhall
     emacs-lisp
     emoji
     epub
     (ess :variables
-         ess-r-backend 'ess)
+         ess-r-backend 'lsp)
     git
     graphviz
     (hackernews :variables
@@ -289,18 +290,22 @@ should also document the configuration layers that I use.
     helm
     html
     hy
+    (java :variables
+          java-backend 'lsp)
     (javascript :variables
-                javascript-import-tool 'import-js
-                javascript-repl 'nodejs
-                javascript-backend 'tern
-                javascript-fmt-tool 'web-beautify)
+                javascript-repl `skewer
+                javascript-backend 'lsp)
     latex
     lsp
     maxima
     multiple-cursors
     nixos
     org
-    python
+    plantuml
+    (python :variables
+            python-backend 'lsp
+            python-indent-offset 4)
+    racket
     semantic
     (shell :variables
            shell-default-shell 'eshell
@@ -311,10 +316,9 @@ should also document the configuration layers that I use.
                     spell-checking-enable-by-default nil
                     enable-flyspell-auto-completion t)
     syntax-checking
-    web-beautify
-    yaml
     version-control
-    treemacs)
+    web-beautify
+    yaml)
 #+end_src
 
 - The =colors= layer makes it easier to understand how far through a file you
