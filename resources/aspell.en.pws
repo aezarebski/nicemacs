@@ -1,4 +1,4 @@
-personal_ws-1.1 en 100 
+personal_ws-1.1 en 119 
 AIC
 BDSIR
 BDSky
@@ -15,10 +15,12 @@ FASTA
 FFX
 GISAID
 GLM
+GPUs
 Genotype
 Gnuplot
 HCV
 HMC
+HPC
 JSON
 LLHD
 MCMC
@@ -30,8 +32,8 @@ PHEIC
 PNG
 PRNG
 README
-RGB
 REPL
+RGB
 SDE
 SVG
 Scalable
@@ -39,6 +41,7 @@ Speciation
 Stadler
 Stadler's
 Troublingly
+Voronoi
 XSLT
 Zarebski
 bioinformatic
@@ -92,6 +95,7 @@ phylogenetic
 phylogenetics
 phylogenies
 phylogeography
+pixelation
 polymorphism
 polytomies
 polytomy
