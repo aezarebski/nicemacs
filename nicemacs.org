@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-10-28 14:54:28>
+#+Time-stamp: <Last modified: 2022-10-29 15:17:19>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -2005,6 +2005,22 @@ default ones into my snippet folder.
 [[./path/to/image.png]]
 
 Here is a link to [[fig:thing][that thing]].
+#+end_src
+
+**** Equations
+
+#+begin_src snippet :tangle ~/.emacs.d/private/snippets/org-mode/nicemacs-equation
+# -*- mode: snippet -*-
+# name: Include equation with name and label
+# key: nicemacs-equation
+# --
+
+#+name: eq:thing
+\[
+e = m c^{2}
+\]
+
+Here is a link to Equation [[eq:thing]].
 #+end_src
 
 *** Python
