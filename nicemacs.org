@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-10-29 15:17:19>
+#+Time-stamp: <Last modified: 2022-10-29 16:50:46>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -849,6 +849,10 @@ how wide the display should be.
 
 *** Exporting to LaTeX
 
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (require 'ox-latex)
+#+end_src
+
 By default org-mode exports to a pretty safe article document. The following
 configuration adds the option to export a =scrartcl= document with some
 additional useful packages. To use this you need to add =#+latex_class:
@@ -872,7 +876,6 @@ following snippet configures which additional packages will be included in the
 export.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-  (require 'ox-latex)
   (setq org-latex-packages-alist nil)
   (add-to-list 'org-latex-packages-alist
                '("" "listings"))
