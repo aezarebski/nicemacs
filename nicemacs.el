@@ -124,7 +124,7 @@ file. TODO Add error message if there are no RIS files."
                                        (lambda (x y)
                                          (> (car x) (car y)))))))
          (target-bib "/home/aez/Downloads/new.bib")
-         (ris2xml-command (format "ris2xml %s | xml2bib > %s" ris-filepath
+         (ris2xml-command (format "ris2xml \"%s\" | xml2bib > %s" ris-filepath
                                   target-bib)))
     (shell-command ris2xml-command)))
 
