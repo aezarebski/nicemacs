@@ -55,7 +55,7 @@
   "The path to node on my machine.")
 
 (setenv "JAVA_HOME" "/usr/lib/jvm/zulu-fx-17-amd64")
-(setenv "PATH" (concat (getenv "PATH") ":" my-node-path ":" "/usr/lib/jvm/zulu-fx-17-amd64/bin"))
+(setenv "PATH" (concat (getenv "JAVA_HOME") ":" (getenv "PATH") ":" my-node-path))
 (setq exec-path (append exec-path (list my-node-path)))
 
 
