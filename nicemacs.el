@@ -23,7 +23,11 @@
 (spacemacs/declare-prefix "os" "sheila-menu")
 (spacemacs/declare-prefix "oS" "Search")
 (spacemacs/declare-prefix "ou" "unicode-stuff")
+
 (spacemacs/declare-prefix "ov" "visit friends")
+(spacemacs/declare-prefix "ovd" "directories")
+(spacemacs/declare-prefix "ovn" "notes")
+(spacemacs/declare-prefix "ovr" "reviews")
 
 (setq dotspacemacs-startup-buffer-show-icons nil)
 
@@ -559,6 +563,7 @@ makes a copy of the one from one week ago."
 (nicemacs-visit-file review-engineering "Literature review: Software engineering" "/home/aez/Documents/bibliography/review/software.tex")
 (nicemacs-visit-file review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
 (nicemacs-visit-file review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
+(nicemacs-visit-file zarebski-bib "Bibliography: Zarebski" "/home/aez/Documents/bibliography/zarebski/zarebski.bib")
 (nicemacs-visit-file spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
 (nicemacs-visit-file statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
 (nicemacs-visit-file wikipedia-notes "Wikipedia notes" "/home/aez/public-site/org/notes/wikipedia-notes.org")
@@ -618,6 +623,7 @@ makes a copy of the one from one week ago."
   "ovr2" 'nvf-review-2
   "ovrr" 'nvf-review-references
   "ovrp" 'nvf-review-phylodynamics
+  "ovrz" 'nvf-zarebski-bib
   "ovs" 'nvf-spelling)
 
 (defun nsg-notes ()
