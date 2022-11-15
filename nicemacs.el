@@ -205,11 +205,21 @@ file. TODO Add error message if there are no RIS files."
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
+(add-to-list 'org-latex-classes
+             '("scrartcl2" "\\documentclass[11pt,twocolumn]{scrartcl}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
 (setq org-latex-packages-alist nil)
 (add-to-list 'org-latex-packages-alist
              '("" "listings"))
 (add-to-list 'org-latex-packages-alist
              '("" "xcolor"))
+(add-to-list 'org-latex-packages-alist
+             '("right" "lineno"))
 (setq org-latex-listings t)
 
 (org-babel-do-load-languages
@@ -217,7 +227,7 @@ file. TODO Add error message if there are no RIS files."
 '((maxima . t)
   (R . t)))
 
-(setq org-agenda-start-day "-5d")
+(setq org-agenda-start-day "-7d")
 (setq org-agenda-span 30)
 (setq org-agenda-start-on-weekday nil)
 
