@@ -544,6 +544,7 @@ makes a copy of the one from one week ago."
                     (format "Visiting %s" pname))
               (list 'find-file path))))
 
+
 (nicemacs-visit-file academia-notes "Academia notes" "/home/aez/public-site/org/notes/academic-journal-notes.org")
 (nicemacs-visit-file beast-notes "BEAST2 notes" "/home/aez/public-site/org/notes/beast2-notes.org")
 (nicemacs-visit-file colleagues "Colleagues notes" "~/Documents/professional/colleague-details.org")
@@ -563,11 +564,12 @@ makes a copy of the one from one week ago."
 (nicemacs-visit-file review-engineering "Literature review: Software engineering" "/home/aez/Documents/bibliography/review/software.tex")
 (nicemacs-visit-file review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
 (nicemacs-visit-file review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
-(nicemacs-visit-file zarebski-bib "Bibliography: Zarebski" "/home/aez/Documents/bibliography/zarebski/zarebski.bib")
 (nicemacs-visit-file spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
 (nicemacs-visit-file statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
+(nicemacs-visit-file timtam-manuscript "TimTam manuscript" "/home/aez/Documents/manuscripts/zarebski2022xxx/README.org")
 (nicemacs-visit-file wikipedia-notes "Wikipedia notes" "/home/aez/public-site/org/notes/wikipedia-notes.org")
 (nicemacs-visit-file xml-notes "XML notes" "/home/aez/public-site/org/notes/xml-notes.org")
+(nicemacs-visit-file zarebski-bib "Bibliography: Zarebski" "/home/aez/Documents/bibliography/zarebski/zarebski.bib")
 
 (defmacro nicemacs-visit-dir (dname pname path)
   (list 'defun
@@ -623,6 +625,7 @@ makes a copy of the one from one week ago."
   "ovr2" 'nvf-review-2
   "ovrr" 'nvf-review-references
   "ovrp" 'nvf-review-phylodynamics
+  "ovt" 'nvf-timtam-manuscript
   "ovrz" 'nvf-zarebski-bib
   "ovs" 'nvf-spelling)
 
