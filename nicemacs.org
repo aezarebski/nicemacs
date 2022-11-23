@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-10-29 16:50:46>
+#+Time-stamp: <Last modified: 2022-11-23 10:33:53>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -604,6 +604,16 @@ and =SPC o p u= for unfill.
   (spacemacs/set-leader-keys "opf" 'org-fill-paragraph)
   (spacemacs/set-leader-keys "opu" 'unfill-paragraph)
 #+end_src
+
+*** Emoji
+
+I always forget the names of various emoji, and it is easier to add them to text
+quickly if you know what they are called.
+
+#+caption: Names of some emoji...
+| Emoji | Name |
+|-------+------|
+| 🎉    | tada |
 
 ** Spelling and Dictionaries
 
