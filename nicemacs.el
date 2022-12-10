@@ -14,6 +14,7 @@
 (spacemacs/declare-prefix "ob" "bibtex-menu")
 (spacemacs/declare-prefix "oc" "commits-menu")
 (spacemacs/declare-prefix "of" "file-stuff")
+(spacemacs/declare-prefix "og" "GO!!!")
 (spacemacs/declare-prefix "off" "fetch resource")
 (spacemacs/declare-prefix "ofu" "update resource")
 (spacemacs/declare-prefix "oh" "haskell-menu")
@@ -36,6 +37,8 @@
 (advice-remove 'mwheel-scroll #'spacemacs//scroll-bar-show-delayed-hide)
 
 (setq undo-tree-auto-save-history nil)
+
+(spacemacs/set-leader-keys "ogg" 'rgrep)
 
 (setq company-idle-delay 0.5)
 (setq company-minimum-prefix-length 3)

@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-11-23 10:33:53>
+#+Time-stamp: <Last modified: 2022-12-10 16:23:15>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -228,6 +228,7 @@ There are then sum submenus that are useful to help group related functions:
   (spacemacs/declare-prefix "ob" "bibtex-menu")
   (spacemacs/declare-prefix "oc" "commits-menu")
   (spacemacs/declare-prefix "of" "file-stuff")
+  (spacemacs/declare-prefix "og" "GO!!!")
   (spacemacs/declare-prefix "off" "fetch resource")
   (spacemacs/declare-prefix "ofu" "update resource")
   (spacemacs/declare-prefix "oh" "haskell-menu")
@@ -381,6 +382,12 @@ avoid this feature by editing the =undo-tree-auto-save-history=.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
   (setq undo-tree-auto-save-history nil)
+#+end_src
+
+*** Run rgrep
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (spacemacs/set-leader-keys "ogg" 'rgrep)
 #+end_src
 
 ** Completion
