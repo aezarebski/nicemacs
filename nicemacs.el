@@ -481,7 +481,7 @@ makes a copy of the one from one week ago."
 (spacemacs/set-leader-keys "osr" 'R)
 
 (setq proced-auto-update-flag t)
-(setq proced-auto-update-interval 1)
+(setq proced-auto-update-interval 3)
 
 (setq spacemacs/ess-config
       '(progn

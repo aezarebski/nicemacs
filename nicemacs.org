@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-12-11 13:07:39>
+#+Time-stamp: <Last modified: 2022-12-11 13:14:46>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -239,6 +239,9 @@ There are then sum submenus that are useful to help group related functions:
   (spacemacs/declare-prefix "oS" "Search")
   (spacemacs/declare-prefix "ou" "unicode-stuff")
   (spacemacs/declare-prefix "ov" "visit friends")
+  (spacemacs/declare-prefix "ovd" "directories")
+  (spacemacs/declare-prefix "ovn" "notes")
+  (spacemacs/declare-prefix "ovr" "reviews")
 #+end_src
 
 ** Usage notes
@@ -885,6 +888,14 @@ generated.
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+  (add-to-list 'org-latex-classes
+               '("scrartcl2" "\\documentclass[11pt,twocolumn]{scrartcl}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 #+end_src
 
 If you want more control over colours and to be able to do syntax highlighting
@@ -898,6 +909,8 @@ export.
                '("" "listings"))
   (add-to-list 'org-latex-packages-alist
                '("" "xcolor"))
+  (add-to-list 'org-latex-packages-alist
+               '("right" "lineno"))
   (setq org-latex-listings t)
 #+end_src
 
@@ -929,7 +942,7 @@ that these are my variables and functions I will try to maintain =nicemacs-=
 prefixes. We will also define some decent settings here.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(setq org-agenda-start-day "-5d")
+(setq org-agenda-start-day "-7d")
 (setq org-agenda-span 30)
 (setq org-agenda-start-on-weekday nil)
 #+end_src
@@ -1129,6 +1142,15 @@ not sure what is going on here.
          :publishing-function org-html-publish-to-html
          :headline-levels 4
          :auto-preamble t)
+        ("org-lists-org-files"
+         :base-directory "~/public-site/org/lists/"
+         :base-extension "org"
+         :exclude ".*~undo-tree~"
+         :publishing-directory "~/aezarebski.github.io/lists/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4
+         :auto-preamble nil)
         ("org-notes-static"
           :base-directory "~/public-site/org/"
           :base-extension "css\\|js\\|png\\|jpg\\|jpeg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|txt\\|cur\\|svg\\|csv\\|html\\|json\\|bib\\|webp"
@@ -1180,7 +1202,8 @@ not sure what is going on here.
          )
         ("d3" :components ("org-misc-d3-org-files"
                            "org-misc-d3-extra-files"))
-        ("org" :components ("org-notes-org-files"
+        ("org" :components ("org-lists-org-files"
+                            "org-notes-org-files"
                             "org-notes-static"
                             "org-nicemacs"
                             "org-bibliography"
@@ -1664,8 +1687,10 @@ Then we need to define the actual files that we want listed
   (nicemacs-visit-file review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
   (nicemacs-visit-file spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
   (nicemacs-visit-file statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
+  (nicemacs-visit-file timtam-manuscript "TimTam manuscript" "/home/aez/Documents/manuscripts/zarebski2022xxx/README.org")
   (nicemacs-visit-file wikipedia-notes "Wikipedia notes" "/home/aez/public-site/org/notes/wikipedia-notes.org")
   (nicemacs-visit-file xml-notes "XML notes" "/home/aez/public-site/org/notes/xml-notes.org")
+  (nicemacs-visit-file zarebski-bib "Bibliography: Zarebski" "/home/aez/Documents/bibliography/zarebski/zarebski.bib")
 #+end_src
 
 **** Visiting directories
@@ -1749,6 +1774,8 @@ a day everyday.
     "ovr2" 'nvf-review-2
     "ovrr" 'nvf-review-references
     "ovrp" 'nvf-review-phylodynamics
+    "ovt" 'nvf-timtam-manuscript
+    "ovrz" 'nvf-zarebski-bib
     "ovs" 'nvf-spelling)
 #+end_src
 
