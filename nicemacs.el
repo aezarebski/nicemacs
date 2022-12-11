@@ -344,6 +344,15 @@ makes a copy of the one from one week ago."
        :publishing-function org-html-publish-to-html
        :headline-levels 4
        :auto-preamble t)
+      ("org-lists-org-files"
+       :base-directory "~/public-site/org/lists/"
+       :base-extension "org"
+       :exclude ".*~undo-tree~"
+       :publishing-directory "~/aezarebski.github.io/lists/"
+       :recursive t
+       :publishing-function org-html-publish-to-html
+       :headline-levels 4
+       :auto-preamble nil)
       ("org-notes-static"
         :base-directory "~/public-site/org/"
         :base-extension "css\\|js\\|png\\|jpg\\|jpeg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|txt\\|cur\\|svg\\|csv\\|html\\|json\\|bib\\|webp"
@@ -395,7 +404,8 @@ makes a copy of the one from one week ago."
        )
       ("d3" :components ("org-misc-d3-org-files"
                          "org-misc-d3-extra-files"))
-      ("org" :components ("org-notes-org-files"
+      ("org" :components ("org-lists-org-files"
+                          "org-notes-org-files"
                           "org-notes-static"
                           "org-nicemacs"
                           "org-bibliography"
