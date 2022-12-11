@@ -1,4 +1,4 @@
-personal_ws-1.1 en 119 
+personal_ws-1.1 en 126 
 AIC
 BDSIR
 BDSky
@@ -40,6 +40,7 @@ Scalable
 Speciation
 Stadler
 Stadler's
+TODO
 Troublingly
 Voronoi
 XSLT
@@ -66,6 +67,7 @@ discretised
 discretization
 dissolvable
 emacs
+epidemiologically
 executables
 formatter
 frequentist
@@ -76,10 +78,12 @@ heterochronous
 identifiability
 impactful
 inhomogeneous
+interpretable
 invariants
 isochronous
 lockdown
 misspecification
+modularity
 monadic
 monads
 monkeypox
@@ -95,6 +99,7 @@ phylogenetic
 phylogenetics
 phylogenies
 phylogeography
+piecewise
 pixelation
 polymorphism
 polytomies
@@ -118,4 +123,5 @@ ultrametric
 univariate
 untick
 vectorised
+vectorize
 virions
