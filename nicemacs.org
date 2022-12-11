@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-12-10 16:23:15>
+#+Time-stamp: <Last modified: 2022-12-11 13:07:39>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1360,12 +1360,15 @@ Sometimes you just need an R REPL!
 ** Monitoring processes
 
 There is an emacs function for monitoring the processes you are running called
-=proced=. In spacemacs this is bound to =SPC a P=. The following configuration
-specifies that the display should be updated every second.
+=proced=. It is similar to =htop= and you can click on the column headers to
+sort by those variables. It doesn't seem to have =evil= keybindings though, but
+otherwise is a bit like =dired=. In spacemacs this is bound to =SPC a P=. The
+following configuration specifies that the display should be updated every
+second.
 
 #+BEGIN_SRC emacs-lisp :tangle nicemacs.el
   (setq proced-auto-update-flag t)
-  (setq proced-auto-update-interval 1)
+  (setq proced-auto-update-interval 3)
 #+END_SRC
 
 ** Emacs Speaks Statistics (ESS)
