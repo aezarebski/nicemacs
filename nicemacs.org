@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-12-12 20:14:24>
+#+Time-stamp: <Last modified: 2022-12-17 11:17:40>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -963,10 +963,10 @@ list of files to use.
       agenda-file))
 #+end_src
 
-I want functions to quickly visit our current journal file and to visit the
-current agenda because this is something I do several times a day. If the
-journal file does not exist then we just need to copy over the previous one. To
-do this we look for one with a date from a week ago.
+I want functions to quickly visit our current journal file because this is
+something I do several times a day. If the journal file does not exist then we
+just need to copy over the previous one. To do this we look for one with a date
+from a week ago.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun nvf-journal ()
@@ -983,20 +983,17 @@ makes a copy of the one from one week ago."
           (find-file current-journal-file)
           (goto-char 1)
           (recenter-top-bottom)))
-
-(defun nicemacs-visit-agenda ()
-  "Opens the agenda after checking it has been set correctly."
-  (interactive)
-  (let ((agenda-file (nicemacs-journal-filepath)))
-    (org-agenda-list)))
 #+end_src
 
 To make it easy to access these we will bind them to come convenient keys.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/set-leader-keys "ooa" 'nicemacs-visit-agenda)
 (spacemacs/set-leader-keys "oos" 'org-schedule)
 #+end_src
+
+Note that if you want to check the agenda, you use the function
+=org-agenda-list=, which is bound by default to =SPC a o a=. This is because we
+are looking in *Applications* then *Org* and then *Agenda*.
 
 *** TODO Nicemacs quicklinks (this needs to live elsewhere)
 
