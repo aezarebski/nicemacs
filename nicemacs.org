@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-12-17 11:17:40>
+#+Time-stamp: <Last modified: 2022-12-20 01:00:32>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -75,6 +75,40 @@ of it with =insert-kbd-macro=.
 
 There is a [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Glossary.html][glossary]] in the manuals, the nodes are =Emacs > Glossary=. The regex
 search entered with =s= is very useful here.
+
+** Mastering Emacs
+
+Here are some notes from reading /Mastering Emacs/.
+
+*** Chapter 2
+
+- "In Emacs, /the buffer is the data structure/."
+- A /window/ is a tiled portion of a /frame/.
+- The /modeline/ is the portion at the bottom of a window that displays
+  information such as the name of the buffer displayed and the major mode.
+- The /minibuffer/ is the below the modeline and displays messages.
+- The /point/ is the current position of the cursor.
+- The /region/ is a selection of text which has the point at one end and the
+  /mark/ at the other. The region is visually displayed with the /transient mark
+  mode/ (TMM).
+- /killing/ is cutting text, /yanking/ is pasting it, and /saving to the kill
+  ring/ is copying.
+- /font locking/ is syntax highlighting.
+
+*** Chapter 3
+
+- In order for a function to be executed by =M-x=, it needs to be made
+  /interactive/.
+- /apropos/ is a system to for discovery:
+  + =apropos= searches everything,
+  + =apropos-command= searches commands,
+  + and =apropos-documentation= searches documentation.
+- The /describe/ system is a collection of functions that allow you to obtain
+  information about known items:
+  + =describe-mode=,
+  + =describe-function=,
+  + =describe-variable=,
+  + and =describe-key=.
 
 ** Getting HELP
 
@@ -2313,4 +2347,4 @@ to a list in emacs-lisp.
 
 #  LocalWords:  nicemacs Spacemacs spacemacs SPC REPL Eshell npm magit dired
 #  LocalWords:  defmacro backend LSP Bibtex NodeJS Edebug edebug defun ielm ESS
-#  LocalWords:  REPLs
+#  LocalWords:  REPLs modeline minibuffer
