@@ -14,7 +14,6 @@
 (spacemacs/declare-prefix "ob" "bibtex-menu")
 (spacemacs/declare-prefix "oc" "commits-menu")
 (spacemacs/declare-prefix "of" "file-stuff")
-(spacemacs/declare-prefix "og" "GO!!!")
 (spacemacs/declare-prefix "off" "fetch resource")
 (spacemacs/declare-prefix "ofu" "update resource")
 (spacemacs/declare-prefix "oh" "haskell-menu")
@@ -38,7 +37,7 @@
 
 (setq undo-tree-auto-save-history nil)
 
-(spacemacs/set-leader-keys "ogg" 'rgrep)
+(spacemacs/set-leader-keys "oSg" 'rgrep)
 
 (setq company-idle-delay 0.5)
 (setq company-minimum-prefix-length 3)
@@ -267,13 +266,6 @@ makes a copy of the one from one week ago."
           (goto-char 1)
           (recenter-top-bottom)))
 
-(defun nicemacs-visit-agenda ()
-  "Opens the agenda after checking it has been set correctly."
-  (interactive)
-  (let ((agenda-file (nicemacs-journal-filepath)))
-    (org-agenda-list)))
-
-(spacemacs/set-leader-keys "ooa" 'nicemacs-visit-agenda)
 (spacemacs/set-leader-keys "oos" 'org-schedule)
 
 (defun nicemacs-update-quick-links ()
@@ -566,7 +558,6 @@ makes a copy of the one from one week ago."
               (list 'message
                     (format "Visiting %s" pname))
               (list 'find-file path))))
-
 
 (nicemacs-visit-file academia-notes "Academia notes" "/home/aez/public-site/org/notes/academic-journal-notes.org")
 (nicemacs-visit-file beast-notes "BEAST2 notes" "/home/aez/public-site/org/notes/beast2-notes.org")

@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-12-11 13:14:46>
+#+Time-stamp: <Last modified: 2022-12-23 16:18:53>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -75,6 +75,40 @@ of it with =insert-kbd-macro=.
 
 There is a [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Glossary.html][glossary]] in the manuals, the nodes are =Emacs > Glossary=. The regex
 search entered with =s= is very useful here.
+
+** Mastering Emacs
+
+Here are some notes from reading /Mastering Emacs/.
+
+*** Chapter 2
+
+- "In Emacs, /the buffer is the data structure/."
+- A /window/ is a tiled portion of a /frame/.
+- The /modeline/ is the portion at the bottom of a window that displays
+  information such as the name of the buffer displayed and the major mode.
+- The /minibuffer/ is the below the modeline and displays messages.
+- The /point/ is the current position of the cursor.
+- The /region/ is a selection of text which has the point at one end and the
+  /mark/ at the other. The region is visually displayed with the /transient mark
+  mode/ (TMM).
+- /killing/ is cutting text, /yanking/ is pasting it, and /saving to the kill
+  ring/ is copying.
+- /font locking/ is syntax highlighting.
+
+*** Chapter 3
+
+- In order for a function to be executed by =M-x=, it needs to be made
+  /interactive/.
+- /apropos/ is a system to for discovery:
+  + =apropos= searches everything,
+  + =apropos-command= searches commands,
+  + and =apropos-documentation= searches documentation.
+- The /describe/ system is a collection of functions that allow you to obtain
+  information about known items:
+  + =describe-mode=,
+  + =describe-function=,
+  + =describe-variable=,
+  + and =describe-key=.
 
 ** Getting HELP
 
@@ -228,7 +262,6 @@ There are then sum submenus that are useful to help group related functions:
   (spacemacs/declare-prefix "ob" "bibtex-menu")
   (spacemacs/declare-prefix "oc" "commits-menu")
   (spacemacs/declare-prefix "of" "file-stuff")
-  (spacemacs/declare-prefix "og" "GO!!!")
   (spacemacs/declare-prefix "off" "fetch resource")
   (spacemacs/declare-prefix "ofu" "update resource")
   (spacemacs/declare-prefix "oh" "haskell-menu")
@@ -389,8 +422,10 @@ avoid this feature by editing the =undo-tree-auto-save-history=.
 
 *** Run rgrep
 
+The key-binding for =rgrep= should sit under the search leader key.
+
 #+begin_src emacs-lisp :tangle nicemacs.el
-  (spacemacs/set-leader-keys "ogg" 'rgrep)
+  (spacemacs/set-leader-keys "oSg" 'rgrep)
 #+end_src
 
 ** Completion
@@ -975,10 +1010,10 @@ list of files to use.
       agenda-file))
 #+end_src
 
-I want functions to quickly visit our current journal file and to visit the
-current agenda because this is something I do several times a day. If the
-journal file does not exist then we just need to copy over the previous one. To
-do this we look for one with a date from a week ago.
+I want functions to quickly visit our current journal file because this is
+something I do several times a day. If the journal file does not exist then we
+just need to copy over the previous one. To do this we look for one with a date
+from a week ago.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
 (defun nvf-journal ()
@@ -995,20 +1030,17 @@ makes a copy of the one from one week ago."
           (find-file current-journal-file)
           (goto-char 1)
           (recenter-top-bottom)))
-
-(defun nicemacs-visit-agenda ()
-  "Opens the agenda after checking it has been set correctly."
-  (interactive)
-  (let ((agenda-file (nicemacs-journal-filepath)))
-    (org-agenda-list)))
 #+end_src
 
 To make it easy to access these we will bind them to come convenient keys.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/set-leader-keys "ooa" 'nicemacs-visit-agenda)
 (spacemacs/set-leader-keys "oos" 'org-schedule)
 #+end_src
+
+Note that if you want to check the agenda, you use the function
+=org-agenda-list=, which is bound by default to =SPC a o a=. This is because we
+are looking in *Applications* then *Org* and then *Agenda*.
 
 *** TODO Nicemacs quicklinks (this needs to live elsewhere)
 
@@ -2345,4 +2377,4 @@ to a list in emacs-lisp.
 
 #  LocalWords:  nicemacs Spacemacs spacemacs SPC REPL Eshell npm magit dired
 #  LocalWords:  defmacro backend LSP Bibtex NodeJS Edebug edebug defun ielm ESS
-#  LocalWords:  REPLs
+#  LocalWords:  REPLs modeline minibuffer
