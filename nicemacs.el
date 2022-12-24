@@ -599,6 +599,7 @@ makes a copy of the one from one week ago."
 (nicemacs-visit-dir library "Library" "/home/aez/Documents/library/fake.org")
 (nicemacs-visit-dir music "Music" "/home/aez/Music/fake.org") ; default in Ubuntu 20.04.4
 (nicemacs-visit-dir documents "Documents" "/home/aez/Documents/fake.org")
+(nicemacs-visit-dir downloads "Downloads" "/home/aez/Downloads/fake.org")
 (nicemacs-visit-dir professional "Professional" "/home/aez/Documents/professional/README.org")
 (nicemacs-visit-dir timtam "TimTam" "/home/aez/Documents/timtam2/README.org")
 (nicemacs-visit-dir website-org "Website (org files)" "/home/aez/public-site/org/fake.org")
@@ -612,6 +613,7 @@ makes a copy of the one from one week ago."
   "ovE" 'nvf-nicemacs-el
   "ovj" 'nvf-journal
   "ovdd" 'nvd-documents
+  "ovdD" 'nvd-downloads
   "ovdl" 'nvd-library
   "ovdm" 'nvd-music
   "ovdn" 'nvd-notes
