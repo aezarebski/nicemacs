@@ -1,3 +1,8 @@
+(defun nicemacs-launch-firefox ()
+  "Launch firefox asynchronously"
+  (interactive)
+  (shell-command "firefox &"))
+
 (setq user-full-name "Alexander E. Zarebski")
 
 (defvar nicemacs-resources-dir "~/Documents/nicemacs/resources"
@@ -11,6 +16,7 @@
 
 (spacemacs/declare-prefix "o" "own-menu")
 
+(spacemacs/declare-prefix "oa" "applications-menu")
 (spacemacs/declare-prefix "ob" "bibtex-menu")
 (spacemacs/declare-prefix "oc" "commits-menu")
 (spacemacs/declare-prefix "of" "file-stuff")
@@ -23,11 +29,12 @@
 (spacemacs/declare-prefix "os" "sheila-menu")
 (spacemacs/declare-prefix "oS" "Search")
 (spacemacs/declare-prefix "ou" "unicode-stuff")
-
 (spacemacs/declare-prefix "ov" "visit friends")
 (spacemacs/declare-prefix "ovd" "directories")
 (spacemacs/declare-prefix "ovn" "notes")
 (spacemacs/declare-prefix "ovr" "reviews")
+
+(spacemacs/set-leader-keys "oaf" 'nicemacs-launch-firefox)
 
 (setq dotspacemacs-startup-buffer-show-icons nil)
 
