@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-12-28 11:41:06>
+#+Time-stamp: <Last modified: 2022-12-29 10:07:19>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -158,6 +158,8 @@ The following are key-bindings for emacs mode (use =\= to call
 
 ** Applications
 
+*** Browser (Firefox)
+
 The following function will launch a firefox process asynchronously. This
 function is bound to =owner > applications > firefox=.
 
@@ -165,7 +167,16 @@ function is bound to =owner > applications > firefox=.
   (defun nicemacs-launch-firefox ()
     "Launch firefox asynchronously"
     (interactive)
-    (shell-command "firefox &"))
+    (async-shell-command "firefox"))
+#+end_src
+
+*** Password manager
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (defun nicemacs-launch-seahorse ()
+    "Launch seahorse asynchronously"
+    (interactive)
+    (async-shell-command "seahorse"))
 #+end_src
 
 ** Broken spacemacs dot file?
@@ -306,6 +317,7 @@ Here we bind a function to the application menu.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
   (spacemacs/set-leader-keys "oaf" 'nicemacs-launch-firefox)
+  (spacemacs/set-leader-keys "oap" 'nicemacs-launch-seahorse)
 #+end_src
 
 ** Usage notes

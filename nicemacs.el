@@ -1,7 +1,12 @@
 (defun nicemacs-launch-firefox ()
   "Launch firefox asynchronously"
   (interactive)
-  (shell-command "firefox &"))
+  (async-shell-command "firefox"))
+
+(defun nicemacs-launch-seahorse ()
+  "Launch seahorse asynchronously"
+  (interactive)
+  (async-shell-command "seahorse"))
 
 (setq user-full-name "Alexander E. Zarebski")
 
@@ -35,6 +40,7 @@
 (spacemacs/declare-prefix "ovr" "reviews")
 
 (spacemacs/set-leader-keys "oaf" 'nicemacs-launch-firefox)
+(spacemacs/set-leader-keys "oap" 'nicemacs-launch-seahorse)
 
 (setq dotspacemacs-startup-buffer-show-icons nil)
 
