@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2022-12-29 10:07:19>
+#+Time-stamp: <Last modified: 2023-01-02 17:27:24>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1856,9 +1856,20 @@ a day everyday.
     "ovs" 'nvf-spelling)
 #+end_src
 
-*** TODO Searching by filename
+*** Searching by filename
 
 There is the =find-dired= function to help with this.
+
+This can also be done with =find-name-dired= from the Eshell.
+
+#+begin_example
+find-name-dired <dir> <regex>
+#+end_example
+
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+(spacemacs/set-leader-keys "oSf" 'find-dired)
+#+end_src
 
 *** TODO Searching within files
 

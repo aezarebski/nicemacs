@@ -658,6 +658,8 @@ makes a copy of the one from one week ago."
   "ovrz" 'nvf-zarebski-bib
   "ovs" 'nvf-spelling)
 
+(spacemacs/set-leader-keys "oSf" 'find-dired)
+
 (defun nsg-notes ()
   (interactive)
   (let ((search-terms (read-string "Search term: ")))
