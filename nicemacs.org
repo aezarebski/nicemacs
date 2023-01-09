@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-01-02 17:27:24>
+#+Time-stamp: <Last modified: 2023-01-09 18:17:54>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -498,9 +498,18 @@ seconds and this also leads to an unnecessary amount of communication. To
 improve this we can increase the delay for both the documentation and the
 sideline display.
 
-#+begin_src emacs-lisp :tangle nicemacs.el
+#+begin_src emacs-lisp
 (setq lsp-ui-doc-delay 1.0)
 (setq lsp-ui-sideline-delay 1.0)
+#+end_src
+
+Alternatively, setting the following variables will allow you to remove UI
+displays entirely:
+
+#+begin_src emacs-lisp
+  (lsp :variabless
+       lsp-ui-doc nil
+       lsp-ui-doc-enable nil)
 #+end_src
 
 ** Haskell

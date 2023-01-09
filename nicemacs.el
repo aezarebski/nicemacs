@@ -57,9 +57,6 @@
 
 (setq lsp-headerline-breadcrumb-enable nil)
 
-(setq lsp-ui-doc-delay 1.0)
-(setq lsp-ui-sideline-delay 1.0)
-
 (spacemacs/set-leader-keys "ohr" 'haskell-process-restart)
 
 ;; Set the input method to TeX for using unicode. Use C-\ to unset this.
