@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-01-09 18:17:54>
+#+Time-stamp: <Last modified: 2023-01-12 13:40:42>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1811,7 +1811,7 @@ than the path of a directory.
   (nicemacs-visit-dir documents "Documents" "/home/aez/Documents/fake.org")
   (nicemacs-visit-dir downloads "Downloads" "/home/aez/Downloads/fake.org")
   (nicemacs-visit-dir professional "Professional" "/home/aez/Documents/professional/README.org")
-  (nicemacs-visit-dir timtam "TimTam" "/home/aez/Documents/timtam2/README.org")
+  (nicemacs-visit-dir timtam "TimTam" "/home/aez/Documents/timtam-dev/fake.org")
   (nicemacs-visit-dir website-org "Website (org files)" "/home/aez/public-site/org/fake.org")
   (nicemacs-visit-dir website-html "Website (HTML files)" "/home/aez/aezarebski.github.io/fake.org")
   (nicemacs-visit-dir notes "My notes" "/home/aez/public-site/org/notes/fake.org")
