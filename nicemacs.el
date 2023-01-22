@@ -441,6 +441,8 @@ makes a copy of the one from one week ago."
 (spacemacs/set-leader-keys "oop" 'publish-my-site)
 (spacemacs/set-leader-keys "ooP" 'force-publish-and-magit)
 
+(spacemacs/set-leader-keys "oof" 'org-publish-current-file)
+
 (defun visit-my-site-index ()
   (interactive)
   (find-file "~/public-site/org/index.org"))

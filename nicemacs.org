@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-01-12 13:40:42>
+#+Time-stamp: <Last modified: 2023-01-22 23:59:06>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1334,6 +1334,13 @@ opens the magit buffer to commit and push the changes.
 
   (spacemacs/set-leader-keys "oop" 'publish-my-site)
   (spacemacs/set-leader-keys "ooP" 'force-publish-and-magit)
+#+end_src
+
+The following is a nifty function if you only want to publish a single file
+without needing to publish a whole project.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (spacemacs/set-leader-keys "oof" 'org-publish-current-file)
 #+end_src
 
 The following function is useful for going to the root of my notes site which is
