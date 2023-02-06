@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-01-22 23:59:06>
+#+Time-stamp: <Last modified: 2023-02-07 10:41:15>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -311,6 +311,8 @@ There are then sum submenus that are useful to help group related functions:
   (spacemacs/declare-prefix "ovd" "directories")
   (spacemacs/declare-prefix "ovn" "notes")
   (spacemacs/declare-prefix "ovr" "reviews")
+  (spacemacs/declare-prefix "ow" "window management")
+  (spacemacs/declare-prefix "owf" "frame management")
 #+end_src
 
 Here we bind a function to the application menu.
@@ -1645,6 +1647,31 @@ Enable this by adding =speed-reading= to your configuration.
 | =h=       | back (vim left)     |
 | =l=       | forward (vim right) |
 | =q=       | quit                |
+
+** Window and frame manipulation
+
+The =nicemacs-pop-out-window= function is useful if you want more space for a
+particular window. It breaks the current window out into a new frame. The prefix
+=ow= is so we know this is vaguely window related stuff. We also add a
+keybinding for the =delete-frame= function which is useful as a way to easily
+close a frame.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (defun nicemacs-pop-out-window ()
+    "Pop the current window out into a new frame.
+
+  If there is only a single window then do nothing because it is
+  already in its own frame."
+    (interactive)
+    (if (one-window-p)
+        (message "No need to pop out window because it is the only one!")
+      (let ((curr-buffer (current-buffer)))
+        (delete-window)
+        (display-buffer-pop-up-frame curr-buffer nil))))
+
+  (spacemacs/set-leader-keys "owp" 'nicemacs-pop-out-window)
+  (spacemacs/set-leader-keys "owfd" 'delete-frame)
+#+end_src
 
 ** TODO File and buffer manipulation
 

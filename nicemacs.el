@@ -36,10 +36,10 @@
 (spacemacs/declare-prefix "ou" "unicode-stuff")
 (spacemacs/declare-prefix "ov" "visit friends")
 (spacemacs/declare-prefix "ovd" "directories")
-(spacemacs/declare-prefix "ow" "window management")
-(spacemacs/declare-prefix "owf" "frame management")
 (spacemacs/declare-prefix "ovn" "notes")
 (spacemacs/declare-prefix "ovr" "reviews")
+(spacemacs/declare-prefix "ow" "window management")
+(spacemacs/declare-prefix "owf" "frame management")
 
 (spacemacs/set-leader-keys "oaf" 'nicemacs-launch-firefox)
 (spacemacs/set-leader-keys "oap" 'nicemacs-launch-seahorse)
@@ -543,6 +543,21 @@ makes a copy of the one from one week ago."
 (nicemacs-commits journal "update journal")
 (spacemacs/set-leader-keys "ocj" 'ncf-journal)
 
+(defun nicemacs-pop-out-window ()
+  "Pop the current window out into a new frame.
+
+If there is only a single window then do nothing because it is
+already in its own frame."
+  (interactive)
+  (if (one-window-p)
+      (message "No need to pop out window because it is the only one!")
+    (let ((curr-buffer (current-buffer)))
+      (delete-window)
+      (display-buffer-pop-up-frame curr-buffer nil))))
+
+(spacemacs/set-leader-keys "owp" 'nicemacs-pop-out-window)
+(spacemacs/set-leader-keys "owfd" 'delete-frame)
+
 (defun kill-all-other-buffers ()
   "Kill all the buffers other than the current one."
   (interactive)
@@ -794,18 +809,3 @@ minibuffer and store this on the kill ring."
 (files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/org-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/python-mode")
-
-(defun nicemacs-pop-out-window ()
-  "Pop the current window out into a new frame.
-
-If there is only a single window then do nothing because it is
-already in its own frame."
-  (interactive)
-  (if (one-window-p)
-      (message "No need to pop out window because it is the only one!")
-    (let ((curr-buffer (current-buffer)))
-      (delete-window)
-      (display-buffer-pop-up-frame curr-buffer nil))))
-
-(spacemacs/set-leader-keys "owp" 'nicemacs-pop-out-window)
-(spacemacs/set-leader-keys "owfd" 'delete-frame)
