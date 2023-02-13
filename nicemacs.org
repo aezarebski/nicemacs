@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-02-07 10:41:15>
+#+Time-stamp: <Last modified: 2023-02-14 09:26:28>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1376,7 +1376,7 @@ Sometimes it is useful to just be able to open a regular bash shell. The
 following binding helps with this.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(spacemacs/set-leader-keys "osb" 'shell)
+(spacemacs/set-leader-keys "osb" 'ansi-term)
 #+end_src
 
 *** Eshell

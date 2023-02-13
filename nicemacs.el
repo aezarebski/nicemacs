@@ -452,7 +452,7 @@ makes a copy of the one from one week ago."
 
 (setq org-adapt-indentation nil)
 
-(spacemacs/set-leader-keys "osb" 'shell)
+(spacemacs/set-leader-keys "osb" 'ansi-term)
 
 (defun shell-and-delete-windows ()
   (interactive)
