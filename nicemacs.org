@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-02-14 09:26:28>
+#+Time-stamp: <Last modified: 2023-02-14 11:47:09>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1378,6 +1378,9 @@ following binding helps with this.
 #+begin_src emacs-lisp :tangle nicemacs.el
 (spacemacs/set-leader-keys "osb" 'ansi-term)
 #+end_src
+
+Note that we are using =ansi-term= here rather than the slightly simpler =shell=
+so that we don't get issues because of a "dumb" shell.
 
 *** Eshell
 
