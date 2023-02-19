@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-02-14 11:47:09>
+#+Time-stamp: <Last modified: 2023-02-20 10:06:46>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1304,13 +1304,18 @@ committing it to GitHub so it goes live. To enable this page to be copied to a
 file with a more sensible name and to have easier access to the logo there are
 some additional commands.
 
-There are two functions here, the first, =publish-my-site=, is bound to =SPC oop=
+There are two functions here, the first, =nicemacs-publish-site=, is bound to =SPC oop=
 runs the publishing (and moves a couple of files around in a sensible way) and
-the second, =publish-my-site-and-magit=, bound to =SPC ooP= runs the publishing and
+the second, =nicemacs-publish-site-and-magit=, bound to =SPC ooP= runs the publishing and
 opens the magit buffer to commit and push the changes.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-  (defun publish-my-site ()
+  (defun nicemacs-copy-homepage ()
+    (interactive)
+    (copy-file "~/public-site/org/scratch.html"
+               "~/aezarebski.github.io/index.html" t))
+
+  (defun nicemacs-publish-site ()
     (interactive)
     (org-publish "org" nil t)
     (copy-file "~/Documents/nicemacs/resources/nicemacs-logo.png"
@@ -1329,12 +1334,12 @@ opens the magit buffer to commit and push the changes.
 
   (defun force-publish-and-magit ()
     (interactive)
-    (publish-my-site)
+    (nicemacs-publish-site)
     (org-publish "org" t nil)
     (magit-status "~/aezarebski.github.io")
     )
 
-  (spacemacs/set-leader-keys "oop" 'publish-my-site)
+  (spacemacs/set-leader-keys "oop" 'nicemacs-publish-site)
   (spacemacs/set-leader-keys "ooP" 'force-publish-and-magit)
 #+end_src
 

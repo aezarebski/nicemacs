@@ -416,14 +416,16 @@ makes a copy of the one from one week ago."
                           "review2-org"
                           "review2-static"))))
 
-(defun publish-my-site ()
+(defun nicemacs-copy-homepage ()
+  (interactive)
+  (copy-file "~/public-site/org/scratch.html"
+             "~/aezarebski.github.io/index.html" t))
+
+(defun nicemacs-publish-site ()
   (interactive)
   (org-publish "org" nil t)
   (copy-file "~/Documents/nicemacs/resources/nicemacs-logo.png"
              "~/aezarebski.github.io/misc/nicemacs/resources/nicemacs-logo.png"
-             t)
-  (copy-file "~/public-site/org/scratch.html"
-             "~/aezarebski.github.io/index.html"
              t)
   (copy-file "~/.aspell.en.pws"
              "~/Documents/nicemacs/resources/aspell.en.pws"
@@ -435,12 +437,12 @@ makes a copy of the one from one week ago."
 
 (defun force-publish-and-magit ()
   (interactive)
-  (publish-my-site)
+  (nicemacs-publish-site)
   (org-publish "org" t nil)
   (magit-status "~/aezarebski.github.io")
   )
 
-(spacemacs/set-leader-keys "oop" 'publish-my-site)
+(spacemacs/set-leader-keys "oop" 'nicemacs-publish-site)
 (spacemacs/set-leader-keys "ooP" 'force-publish-and-magit)
 
 (spacemacs/set-leader-keys "oof" 'org-publish-current-file)
