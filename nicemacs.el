@@ -510,6 +510,8 @@ makes a copy of the one from one week ago."
 ;; make documentation open in a useful mode in ess
 (evil-set-initial-state 'ess-r-help-mode 'motion)
 
+(add-to-list 'auto-mode-alist '("\\.qmd\\'" . markdown-mode))
+
 (setq ess-startup-directory-function '(lambda nil default-directory))
 
 (setq ess-use-flymake nil)
@@ -611,7 +613,6 @@ already in its own frame."
 (nicemacs-visit-file review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
 (nicemacs-visit-file spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
 (nicemacs-visit-file statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
-(nicemacs-visit-file timtam-manuscript "TimTam manuscript" "/home/aez/Documents/manuscripts/zarebski2022xxx/README.org")
 (nicemacs-visit-file wikipedia-notes "Wikipedia notes" "/home/aez/public-site/org/notes/wikipedia-notes.org")
 (nicemacs-visit-file xml-notes "XML notes" "/home/aez/public-site/org/notes/xml-notes.org")
 (nicemacs-visit-file zarebski-bib "Bibliography: Zarebski" "/home/aez/Documents/bibliography/zarebski/zarebski.bib")
@@ -633,6 +634,7 @@ already in its own frame."
 (nicemacs-visit-dir downloads "Downloads" "/home/aez/Downloads/fake.org")
 (nicemacs-visit-dir professional "Professional" "/home/aez/Documents/professional/README.org")
 (nicemacs-visit-dir timtam "TimTam" "/home/aez/Documents/timtam-dev/fake.org")
+(nicemacs-visit-dir teaching "Teaching" "/home/aez/Documents/teaching/fake.org")
 (nicemacs-visit-dir website-org "Website (org files)" "/home/aez/public-site/org/fake.org")
 (nicemacs-visit-dir website-html "Website (HTML files)" "/home/aez/aezarebski.github.io/fake.org")
 (nicemacs-visit-dir notes "My notes" "/home/aez/public-site/org/notes/fake.org")
@@ -649,7 +651,7 @@ already in its own frame."
   "ovdm" 'nvd-music
   "ovdn" 'nvd-notes
   "ovdp" 'nvd-professional
-  "ovdt" 'nvd-timtam
+  "ovdt" 'nvd-teaching
   "ovdw" 'nvd-website-org
   "ovdW" 'nvd-website-html
   "ovna" 'nvf-academia-notes

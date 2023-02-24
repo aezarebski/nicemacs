@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-02-20 10:06:46>
+#+Time-stamp: <Last modified: 2023-02-24 13:06:53>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1519,6 +1519,13 @@ intro]].
 
   ;; make documentation open in a useful mode in ess
   (evil-set-initial-state 'ess-r-help-mode 'motion)
+#+end_src
+
+To get Quarto files opening in markdown mode, we need to add this to the
+=auto-mode-alist=.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (add-to-list 'auto-mode-alist '("\\.qmd\\'" . markdown-mode))
 #+end_src
 
 *** LSP with ESS
