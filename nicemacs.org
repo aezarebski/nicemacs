@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-02-24 13:06:53>
+#+Time-stamp: <Last modified: 2023-02-27 14:08:09>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1861,6 +1861,7 @@ than the path of a directory.
   (nicemacs-visit-dir downloads "Downloads" "/home/aez/Downloads/fake.org")
   (nicemacs-visit-dir professional "Professional" "/home/aez/Documents/professional/README.org")
   (nicemacs-visit-dir timtam "TimTam" "/home/aez/Documents/timtam-dev/fake.org")
+  (nicemacs-visit-dir teaching "Teaching" "/home/aez/Documents/teaching/fake.org")
   (nicemacs-visit-dir website-org "Website (org files)" "/home/aez/public-site/org/fake.org")
   (nicemacs-visit-dir website-html "Website (HTML files)" "/home/aez/aezarebski.github.io/fake.org")
   (nicemacs-visit-dir notes "My notes" "/home/aez/public-site/org/notes/fake.org")
@@ -1886,7 +1887,7 @@ a day everyday.
     "ovdm" 'nvd-music
     "ovdn" 'nvd-notes
     "ovdp" 'nvd-professional
-    "ovdt" 'nvd-timtam
+    "ovdt" 'nvd-teaching
     "ovdw" 'nvd-website-org
     "ovdW" 'nvd-website-html
     "ovna" 'nvf-academia-notes
