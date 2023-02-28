@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-02-28 22:23:33>
+#+Time-stamp: <Last modified: 2023-02-28 22:47:32>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1930,42 +1930,36 @@ find-name-dired <dir> <regex>
 (spacemacs/set-leader-keys "oSf" 'find-dired)
 #+end_src
 
-*** TODO Searching within files
+*** Searching within files
 
-Here is an example of a nifty little function to help search my notes. It would
-be nice to abstract this into a macro so we can write similar searches for other
-directories.
+Here is macro that writes functions to search over collections of files.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-  (defun nsg-notes ()
-    (interactive)
-    (let ((search-terms (read-string "Search term: ")))
-      (progn
-        (message search-terms)
-        (rgrep search-terms "*.org" "/home/aez/public-site/org/notes/"))))
-
-  (defun nsg-journal ()
-    (interactive)
-    (let ((search-terms (read-string "Search term: ")))
-      (progn
-        (message search-terms)
-        (rgrep search-terms "*.org" "/home/aez/Documents/journal/"))))
-
-  (defun nsg-review ()
-    (interactive)
-    (let ((search-terms (read-string "Search term: ")))
-      (progn
-        (message search-terms)
-        (rgrep search-terms "*.tex" "/home/aez/Documents/bibliography/"))))
+  (defmacro nicemacs-search-dir (fname path ext)
+    (list 'defun
+          (intern (format "nicemacs-search-%s" fname))
+          ()
+          (list 'interactive)
+          (list 'let
+                (list (list 'search-terms
+                            (list 'read-string "Search term: ")))
+                (list 'progn
+                      (list 'message 'search-terms)
+                      (list 'rgrep 'search-terms ext path)))))
 #+end_src
 
-And then we need to bind it to some keys to make it easier to use.
+We can then use this macro to set up functions to search over some significant
+collections of files and bind these to shortcuts.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-    (spacemacs/set-leader-keys
-      "oSn" 'nsg-notes
-      "oSj" 'nsg-journal
-      "oSr" 'nsg-review)
+  (nicemacs-search-dir notes "/home/aez/public-site/org/notes/" "*.org")
+  (nicemacs-search-dir journal "/home/aez/Documents/journal/" "*.org")
+  (nicemacs-search-dir review "/home/aez/Documents/bibliography/" "*.tex")
+
+  (spacemacs/set-leader-keys
+    "oSn" 'nicemacs-search-notes
+    "oSj" 'nicemacs-search-journal
+    "oSr" 'nicemacs-search-review)
 #+end_src
 
 *** Ibuffer
