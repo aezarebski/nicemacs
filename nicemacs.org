@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-02-27 14:08:09>
+#+Time-stamp: <Last modified: 2023-02-28 22:23:33>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -725,8 +725,8 @@ though.
 - The personal Aspell dictionary file (which is probably =.aspell.en.pws=) has a
   number in the header which is used to hint the dictionary size but does not
   need to be exactly correct.
-
-**** TODO Write a function that updates this file and bind it to =ofud=
+- There is a copy of this in =~/Documents/nicemacs/resources/aspell.en.pws=, and
+  there is a shortcut =SPC offs= which fetches a copy of this file.
 
 *** Spell checking
 
