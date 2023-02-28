@@ -680,31 +680,26 @@ already in its own frame."
 
 (spacemacs/set-leader-keys "oSf" 'find-dired)
 
-(defun nsg-notes ()
-  (interactive)
-  (let ((search-terms (read-string "Search term: ")))
-    (progn
-      (message search-terms)
-      (rgrep search-terms "*.org" "/home/aez/public-site/org/notes/"))))
+(defmacro nicemacs-search-dir (fname path ext)
+  (list 'defun
+        (intern (format "nicemacs-search-%s" fname))
+        ()
+        (list 'interactive)
+        (list 'let
+              (list (list 'search-terms
+                          (list 'read-string "Search term: ")))
+              (list 'progn
+                    (list 'message 'search-terms)
+                    (list 'rgrep 'search-terms ext path)))))
 
-(defun nsg-journal ()
-  (interactive)
-  (let ((search-terms (read-string "Search term: ")))
-    (progn
-      (message search-terms)
-      (rgrep search-terms "*.org" "/home/aez/Documents/journal/"))))
-
-(defun nsg-review ()
-  (interactive)
-  (let ((search-terms (read-string "Search term: ")))
-    (progn
-      (message search-terms)
-      (rgrep search-terms "*.tex" "/home/aez/Documents/bibliography/"))))
+(nicemacs-search-dir notes "/home/aez/public-site/org/notes/" "*.org")
+(nicemacs-search-dir journal "/home/aez/Documents/journal/" "*.org")
+(nicemacs-search-dir review "/home/aez/Documents/bibliography/" "*.tex")
 
 (spacemacs/set-leader-keys
-  "oSn" 'nsg-notes
-  "oSj" 'nsg-journal
-  "oSr" 'nsg-review)
+  "oSn" 'nicemacs-search-notes
+  "oSj" 'nicemacs-search-journal
+  "oSr" 'nicemacs-search-review)
 
 (spacemacs/set-leader-keys "ofb" 'ibuffer)
 ;; Open Ibuffer in the motion state rather than as the default emacs mode.
