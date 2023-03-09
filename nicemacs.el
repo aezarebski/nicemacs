@@ -808,3 +808,14 @@ minibuffer and store this on the kill ring."
 (files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/org-mode")
 (files--ensure-directory "~/.emacs.d/private/snippets/python-mode")
+
+;; Configure `helm-world-time' to show the times of locations I care about.
+(setq display-time-world-list '(("America/Los_Angeles" "Seattle")
+                                ("America/New_York" "New York")
+                                ("Europe/London" "London")
+                                ("Europe/London" "Oxford")
+                                ("Europe/Paris" "Paris")
+                                ("Europe/Zurich" "Basel")
+                                ("Asia/Calcutta" "Bangalore")
+                                ("Asia/Tokyo" "Tokyo")
+                                ("Australia/Melbourne" "Melbourne")))
