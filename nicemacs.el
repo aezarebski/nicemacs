@@ -582,6 +582,10 @@ already in its own frame."
 
 (setq dired-listing-switches "-alh")
 
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (dired-hide-details-mode)))
+
 (defmacro nicemacs-visit-file (fname pname path)
   (list 'defun
         (intern (format "nvf-%s" fname))
