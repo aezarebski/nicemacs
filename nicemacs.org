@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-03-08 16:04:49>
+#+Time-stamp: <Last modified: 2023-03-13 09:21:12>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1746,7 +1746,17 @@ By default dired displays the size of files in bytes, a more human friendly
 description can be obtained by modifying the =dired-listing-switches= variable.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(setq dired-listing-switches "-alh")
+  (setq dired-listing-switches "-alh")
+#+end_src
+
+To have dired start with a less detailed description of the files in the current
+directory we can use the =dired-hide-details-mode=. Keep in mind that if you
+want to display the additional details of the files, use =(=.
+
+#+begin_src emacs-lisp :tangle nicemacs.el
+  (add-hook 'dired-mode-hook
+            (lambda ()
+              (dired-hide-details-mode)))
 #+end_src
 
 **** Opening files outside of emacs
