@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-03-13 09:21:12>
+#+Time-stamp: <Last modified: 2023-03-13 09:25:37>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1693,19 +1693,7 @@ close a frame.
 
 ** TODO File and buffer manipulation
 
-If you want to kill buffers with names that match a regex there is the
-=kill-matching-buffers= function.
-
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defun kill-all-other-buffers ()
-  "Kill all the buffers other than the current one."
-  (interactive)
-  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
-
-;; Define a short cut to close all windows except the current one without killing
-;; their buffers.
-(spacemacs/set-leader-keys "wD" 'spacemacs/window-manipulation-transient-state/delete-other-windows)
-
 ;; Define a short cut for following files
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 #+end_src

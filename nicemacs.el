@@ -562,15 +562,6 @@ already in its own frame."
 (spacemacs/set-leader-keys "owp" 'nicemacs-pop-out-window)
 (spacemacs/set-leader-keys "owfd" 'delete-frame)
 
-(defun kill-all-other-buffers ()
-  "Kill all the buffers other than the current one."
-  (interactive)
-  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
-
-;; Define a short cut to close all windows except the current one without killing
-;; their buffers.
-(spacemacs/set-leader-keys "wD" 'spacemacs/window-manipulation-transient-state/delete-other-windows)
-
 ;; Define a short cut for following files
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
 
