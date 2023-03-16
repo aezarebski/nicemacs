@@ -364,6 +364,20 @@ makes a copy of the one from one week ago."
         :publishing-directory "~/aezarebski.github.io/"
         :recursive t
         :publishing-function org-publish-attachment)
+      ("org-misc-basegraphicsR-org-files"
+       :base-directory "~/public-site/org/misc/basegraphicsR/"
+       :base-extension "org"
+       :publishing-directory "~/aezarebski.github.io/misc/basegraphicsR/"
+       :recursive t
+       :publishing-function org-html-publish-to-html
+       :headline-levels 4
+       :auto-preamble t)
+      ("org-misc-basegraphicsR-extra-files"
+       :base-directory "~/public-site/org/misc/basegraphicsR/"
+       :base-extension "png\\|html"
+       :publishing-directory "~/aezarebski.github.io/misc/basegraphicsR/"
+       :recursive t
+       :publishing-function org-publish-attachment)
       ("org-misc-d3-org-files"
        :base-directory "~/public-site/org/misc/d3/"
        :base-extension "org"
@@ -406,6 +420,8 @@ makes a copy of the one from one week ago."
        :recursive t
        :publishing-function org-publish-attachment
        )
+      ("R" :components ("org-misc-basegraphicsR-org-files"
+                        "org-misc-basegraphicsR-extra-files"))
       ("d3" :components ("org-misc-d3-org-files"
                          "org-misc-d3-extra-files"))
       ("org" :components ("org-lists-org-files"
