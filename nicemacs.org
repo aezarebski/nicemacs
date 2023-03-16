@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-03-13 09:25:37>
+#+Time-stamp: <Last modified: 2023-03-16 12:02:43>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -1247,6 +1247,20 @@ not sure what is going on here.
           :publishing-directory "~/aezarebski.github.io/"
           :recursive t
           :publishing-function org-publish-attachment)
+        ("org-misc-basegraphicsR-org-files"
+          :base-directory "~/public-site/org/misc/basegraphicsR/"
+          :base-extension "org"
+          :publishing-directory "~/aezarebski.github.io/misc/basegraphicsR/"
+          :recursive t
+          :publishing-function org-html-publish-to-html
+          :headline-levels 4
+          :auto-preamble t)
+        ("org-misc-basegraphicsR-extra-files"
+          :base-directory "~/public-site/org/misc/basegraphicsR/"
+          :base-extension "png\\|html"
+          :publishing-directory "~/aezarebski.github.io/misc/basegraphicsR/"
+          :recursive t
+          :publishing-function org-publish-attachment)
         ("org-misc-d3-org-files"
          :base-directory "~/public-site/org/misc/d3/"
          :base-extension "org"
@@ -1289,6 +1303,8 @@ not sure what is going on here.
          :recursive t
          :publishing-function org-publish-attachment
          )
+        ("R" :components ("org-misc-basegraphicsR-org-files"
+                          "org-misc-basegraphicsR-extra-files"))
         ("d3" :components ("org-misc-d3-org-files"
                            "org-misc-d3-extra-files"))
         ("org" :components ("org-lists-org-files"
@@ -1689,6 +1705,7 @@ close a frame.
 
   (spacemacs/set-leader-keys "owp" 'nicemacs-pop-out-window)
   (spacemacs/set-leader-keys "owfd" 'delete-frame)
+  (spacemacs/set-leader-keys "owfn" 'spacemacs/new-empty-buffer-new-frame)
 #+end_src
 
 ** TODO File and buffer manipulation
