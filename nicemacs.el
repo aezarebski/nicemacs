@@ -577,6 +577,7 @@ already in its own frame."
 
 (spacemacs/set-leader-keys "owp" 'nicemacs-pop-out-window)
 (spacemacs/set-leader-keys "owfd" 'delete-frame)
+(spacemacs/set-leader-keys "owfn" 'spacemacs/new-empty-buffer-new-frame)
 
 ;; Define a short cut for following files
 (spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
