@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-03-16 12:02:43>
+#+Time-stamp: <Last modified: 2023-03-23 14:42:02>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -302,6 +302,7 @@ There are then sum submenus that are useful to help group related functions:
   (spacemacs/declare-prefix "ofu" "update resource")
   (spacemacs/declare-prefix "oh" "haskell-menu")
   (spacemacs/declare-prefix "ol" "latex")
+  (spacemacs/declare-prefix "om" "message")
   (spacemacs/declare-prefix "oo" "org-menu")
   (spacemacs/declare-prefix "op" "paragraph-modification-menu")
   (spacemacs/declare-prefix "os" "sheila-menu")
@@ -1710,12 +1711,7 @@ close a frame.
 
 ** TODO File and buffer manipulation
 
-#+begin_src emacs-lisp :tangle nicemacs.el
-;; Define a short cut for following files
-(spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
-#+end_src
-
-- =find-file-at-point= is also very useful!
+- =find-file-at-point= is very useful!
 
 *** Time stamping files
 
@@ -2001,14 +1997,23 @@ the kill ring because often when you need this information it is because you are
 about to include it in a buffer.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(defun message-buffer-file-name ()
-  "Print the full path of the current buffer's file to the
-minibuffer and store this on the kill ring."
-  (interactive)
-  (kill-new buffer-file-name)
-  (message buffer-file-name))
+  (defun message-buffer-file-name ()
+    "Print the full path of the current buffer's file to the
+  minibuffer and store this on the kill ring."
+    (interactive)
+    (kill-new buffer-file-name)
+    (message buffer-file-name))
 
-(spacemacs/set-leader-keys "ofd" 'message-buffer-file-name)
+  (defun message-link-at-point ()
+    "Print the full path of a link at the point so we know where this
+  will take us."
+    (interactive)
+    (let ((link (org-element-context)))
+      (message "%s"
+               (org-element-property :path link))))
+
+  (spacemacs/set-leader-keys "omf" 'message-buffer-file-name)
+  (spacemacs/set-leader-keys "oml" 'message-link-at-point)
 #+end_src
 
 *** TODO Update configuration files

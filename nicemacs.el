@@ -29,6 +29,7 @@
 (spacemacs/declare-prefix "ofu" "update resource")
 (spacemacs/declare-prefix "oh" "haskell-menu")
 (spacemacs/declare-prefix "ol" "latex")
+(spacemacs/declare-prefix "om" "message")
 (spacemacs/declare-prefix "oo" "org-menu")
 (spacemacs/declare-prefix "op" "paragraph-modification-menu")
 (spacemacs/declare-prefix "os" "sheila-menu")
@@ -579,9 +580,6 @@ already in its own frame."
 (spacemacs/set-leader-keys "owfd" 'delete-frame)
 (spacemacs/set-leader-keys "owfn" 'spacemacs/new-empty-buffer-new-frame)
 
-;; Define a short cut for following files
-(spacemacs/set-leader-keys "ofp" 'helm-projectile-find-file)
-
 (setq time-stamp-format "Last modified: %Y-%02m-%02d %02H:%02M:%02S")
 (add-hook 'before-save-hook 'time-stamp)
 
@@ -724,7 +722,16 @@ minibuffer and store this on the kill ring."
   (kill-new buffer-file-name)
   (message buffer-file-name))
 
-(spacemacs/set-leader-keys "ofd" 'message-buffer-file-name)
+(defun message-link-at-point ()
+  "Print the full path of a link at the point so we know where this
+will take us."
+  (interactive)
+  (let ((link (org-element-context)))
+    (message "%s"
+             (org-element-property :path link))))
+
+(spacemacs/set-leader-keys "omf" 'message-buffer-file-name)
+(spacemacs/set-leader-keys "oml" 'message-link-at-point)
 
 (defun cp-most-recent-download ()
   (interactive)
