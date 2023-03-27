@@ -726,9 +726,10 @@ minibuffer and store this on the kill ring."
   "Print the full path of a link at the point so we know where this
 will take us."
   (interactive)
-  (let ((link (org-element-context)))
-    (message "%s"
-             (org-element-property :path link))))
+  (let* ((link (org-element-context))
+         (link-file-name (org-element-property :path link)))
+    (kill-new link-file-name)
+    (message "%s" link-file-name)))
 
 (spacemacs/set-leader-keys "omf" 'message-buffer-file-name)
 (spacemacs/set-leader-keys "oml" 'message-link-at-point)
