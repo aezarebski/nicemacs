@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-03-23 14:42:02>
+#+Time-stamp: <Last modified: 2023-04-03 13:55:38>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -35,6 +35,11 @@ Follow the instructions in the =INSTALL= file to build emacs.
 
 *** Notes
 
+- =emacs-29.0.60= configured with =--with-native-compilation=, and
+  =--with-tree-sitter= . This took a bit of fiddling because it couldn't find
+  the correct version of the JIT library which turned out to be
+  =libgccjit-11-dev= and I couldn't work out how to compile tree-sitter from
+  source.
 - =emacs-28.2=
 - =emacs-28.1.90= configured with =--with-native-compilation= and =--with-rsvg=.
   Building this one seemed to take longer than normal.
@@ -686,6 +691,9 @@ directory to start a D3 based project.
 
 ** Miscellaneous configuration for writing
 
+- There is a conventient function =org-forward-sentence= (bound to =M-e=) which
+  will take the point to the end of the current sentence in org-mode (using
+  =forward-sentence=).
 - A neat way to change a block of text from upper to lower case is to select the
   appropriate region and use =u= and =U= to toggle the case.
 - If you want a word count there is the =count-words= function. This is used so
