@@ -1,5 +1,5 @@
 #+title: NICEMACS
-#+Time-stamp: <Last modified: 2023-04-03 13:55:38>
+#+Time-stamp: <Last modified: 2023-04-05 10:41:14>
 #+startup: noinlineimages
 #+startup: overview
 #+OPTIONS: toc:nil
@@ -2194,9 +2194,9 @@ The =files--ensure-directory= function will create these directories if they do
 not already exist.
 
 #+begin_src emacs-lisp :tangle nicemacs.el
-(files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
-(files--ensure-directory "~/.emacs.d/private/snippets/org-mode")
-(files--ensure-directory "~/.emacs.d/private/snippets/python-mode")
+  (files--ensure-directory 'make-directory "~/.emacs.d/private/snippets/ess-r-mode")
+  (files--ensure-directory 'make-directory "~/.emacs.d/private/snippets/org-mode")
+  (files--ensure-directory 'make-directory "~/.emacs.d/private/snippets/python-mode")
 #+end_src
 
 *** Yasnippet configuration

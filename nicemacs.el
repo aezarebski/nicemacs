@@ -825,9 +825,9 @@ will take us."
 
 (add-hook 'nxml-mode-hook 'origami-mode)
 
-(files--ensure-directory "~/.emacs.d/private/snippets/ess-r-mode")
-(files--ensure-directory "~/.emacs.d/private/snippets/org-mode")
-(files--ensure-directory "~/.emacs.d/private/snippets/python-mode")
+(files--ensure-directory 'make-directory "~/.emacs.d/private/snippets/ess-r-mode")
+(files--ensure-directory 'make-directory "~/.emacs.d/private/snippets/org-mode")
+(files--ensure-directory 'make-directory "~/.emacs.d/private/snippets/python-mode")
 
 ;; Configure `helm-world-time' to show the times of locations I care about.
 (setq display-time-world-list '(("America/Los_Angeles" "Seattle")
