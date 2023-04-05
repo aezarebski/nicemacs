@@ -35,6 +35,9 @@ Follow the instructions in the =INSTALL= file to build emacs.
 
 *** Notes
 
+- =emacs-29.0.60= on a new laptop:
+  =./configure --with-native-compilation --with-tree-sitter --without-x --with-pgtk=
+  because it uses Wayland.
 - =emacs-29.0.60= configured with =--with-native-compilation=, and
   =--with-tree-sitter= . This took a bit of fiddling because it couldn't find
   the correct version of the JIT library which turned out to be
