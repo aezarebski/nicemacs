@@ -4,11 +4,33 @@
 (require 'package)
 (add-to-list 'package-archives  '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
 
 (package-initialize)
 
+(setq user-full-name "Alexander E. Zarebski")
+
+(defvar nice-journal-directory "~/Documents/journal"
+  "The directory for nicemacs journal files.")
+(defvar nice-notes-directory "~/public-site/org/notes"
+  "The directory for nicemacs notes files.")
+(defvar nice-resources-dir "~/Documents/nicemacs/resources"
+  "The path to the nicemacs resources directory on this machine.")
+
+(require 'cl)
+
 ;; Look stunning
 ;; =============
+
+(require 'hl-todo)
+(global-hl-todo-mode)
+(setq hl-todo-keyword-faces
+      '(("TODO"   . "red")
+	("FIXME"  . "magenta")
+	("NOTE"   . "cyan")
+	("DONE"   . "blue")))
+
+(setq fill-column 70)
 
 (add-to-list `custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'solarized-light t)
@@ -35,13 +57,21 @@
     (sit-for 0.1)
     (set-face-background 'mode-line orig-color)))
 
+(add-hook 'emacs-lisp-mode-hook #'rainbow-mode)
+
+(setq inhibit-splash-screen t)
+
 ;; Be evil
 ;; =======
 
+(setq evil-want-keybinding ())
+
 (require 'evil)
 (require 'evil-leader)
+(require 'evil-collection)
 
 (evil-mode 1)
+(evil-collection-init '(magit dired))
 
 ;; Sensible keys
 ;; -------------
@@ -51,22 +81,43 @@
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key "<SPC>" 'execute-extended-command)
 
+(evil-leader/set-key "'" 'eshell)
+
+;; File stuff
+;; ----------
+
 (evil-leader/set-key "f f" 'find-file)
+(evil-leader/set-key "f s" 'save-buffer)
+
+(require 'dired)
+(evil-leader/set-key "f d" 'dired)
+(define-key dired-mode-map "-" 'dired-up-directory)
+(setq dired-listing-switches "-alh")
 
 (evil-leader/set-key "b b" 'switch-to-buffer)
 (evil-leader/set-key "b d" 'kill-buffer)
+(evil-leader/set-key "b s" 'scratch-buffer)
 
 (evil-leader/set-key "w s" 'split-window-below)
 (evil-leader/set-key "w v" 'split-window-right)
 (evil-leader/set-key "TAB" 'next-window-and-pulse)
 (evil-leader/set-key "<backtab>" 'previous-window-and-pulse)
 (evil-leader/set-key "w d" 'delete-window)
+(evil-leader/set-key "w L" 'evil-window-move-far-right)
+(evil-leader/set-key "w H" 'evil-window-move-far-left)
+(evil-leader/set-key "w J" 'evil-window-move-very-bottom)
+(evil-leader/set-key "w K" 'evil-window-move-very-top)
 
 (evil-leader/set-key "h s" 'apropos)
 (evil-leader/set-key "h d f" 'describe-function)
 (evil-leader/set-key "h d m" 'describe-mode)
 (evil-leader/set-key "h d k" 'describe-key)
 (evil-leader/set-key "h d v" 'describe-variable)
+
+(evil-leader/set-key "t l" 'display-fill-column-indicator-mode)
+
+(evil-leader/set-key "q r" 'restart-emacs)
+(evil-leader/set-key "q q" 'kill-emacs)
 
 (evil-leader/set-key "z j" 'text-scale-decrease)
 (evil-leader/set-key "z k" 'text-scale-increase)
@@ -82,27 +133,321 @@
 (setq confirm-kill-emacs #'yes-or-no-p)
 (recentf-mode t)
 
+(setq read-buffer-completion-ignore-case t
+      read-file-name-completion-ignore-case t
+      completion-ignore-case t)
+
+;; Write well
+;; ----------
+
+;; TODO Configure the =dictionary= command so that it works off of a
+;; local copy of Webster's
+
+(require 'flyspell)
+(require 'writegood-mode)
+
+(setq ispell-program-name "aspell")
+(setq ispell-personal-dictionary "~/.aspell.en.pws")
+
+(defun nice-diff-dictionaries ()
+  "Run ediff on the current ispell-personal-dictionary and the
+backup dictionary."
+  (interactive)
+  (let ((backup-dictionary (concat nice-resources-dir "/aspell.en.pws")))
+    (ediff-files ispell-personal-dictionary backup-dictionary)))
+
+(set-face-attribute 'flyspell-duplicate nil
+                    :underline nil
+		    :foreground "white"
+                    :background "red")
+(set-face-attribute 'flyspell-incorrect nil
+                    :underline nil
+		    :foreground "white"
+                    :background "red")
+
+(evil-leader/set-key "t S" 'flyspell-mode) ; toggle flyspell on/off.
+(evil-leader/set-key "S b" 'flyspell-buffer)
+(evil-leader/set-key "S r" 'flyspell-region)
+(evil-leader/set-key "S c" 'flyspell-correct-word-before-point)
+(evil-leader/set-key "S d" 'nice-diff-dictionaries)
+
+(evil-leader/set-key "t w" 'writegood-mode)
+(add-to-list 'writegood-weasel-words "respectively")
+
 ;; Be powerful
 ;; ===========
 
+;; Magit
+;; -----
+
+(require 'magit)
+
+(evil-leader/set-key "g s" 'magit-status)
+
+;; Emacs Lisp
+;; ----------
+
+(evil-leader/set-key-for-mode 'emacs-lisp-mode "m s c" 'eval-last-sexp)
+(evil-leader/set-key-for-mode 'emacs-lisp-mode "m s b" 'eval-buffer)
+(evil-leader/set-key-for-mode 'emacs-lisp-mode "m s r" 'eval-region)
+
 ;; Emacs Speaks Statistics
 ;; -----------------------
+
 (require 'ess-site)
 (setq ess-default-style 'DEFAULT)
 
 (evil-leader/set-key-for-mode 'ess-r-mode "m s b" 'ess-eval-buffer)
 (evil-leader/set-key-for-mode 'ess-r-mode "m s r" 'ess-eval-region)
+(evil-leader/set-key-for-mode 'ess-r-mode "m '" 'ess-switch-to-inferior-or-script-buffer)
 
-;; Custom
-;; ======
+;; LaTeX/BibTeX
+;; ------------
+
+(defun most-recent-file (files)
+  "Sort FILES by modification time and return the most recent file."
+  (car (sort files
+             (lambda (a b)
+               (time-less-p (nth 5 (file-attributes b))
+                            (nth 5 (file-attributes a)))))))
+
+(defun copy-file-with-bib-extension (file-path)
+  "Create a copy of the file at FILE-PATH with a .bib extension."
+  (let* ((file-name (file-name-nondirectory file-path))
+         (file-base-name (file-name-sans-extension file-name))
+         (new-file-name (concat file-base-name ".bib"))
+         (new-file-path (concat (file-name-directory file-path) new-file-name)))
+    (copy-file file-path new-file-path t)
+    new-file-path))
+
+(defun nice-visit-last-bib ()
+  "Visit the most recent BIB file in Downloads. If there is a TXT
+file that is younger than the last BIB file, send a message to
+indicate this."
+  (interactive)
+  (let* ((bib-files (directory-files "~/Downloads" t ".*bib" "ctime"))
+         (most-recent-bib (most-recent-file bib-files))
+         (txt-files (directory-files "~/Downloads" t ".*txt" "ctime"))
+	 (most-recent-txt (most-recent-file txt-files)))
+    (if most-recent-bib
+        (if (and most-recent-txt
+                 (time-less-p (nth 5 (file-attributes most-recent-bib))
+                              (nth 5 (file-attributes most-recent-txt))))
+            (progn (message (concat "A more recent .txt file exists: " most-recent-txt))
+		   (find-file (copy-file-with-bib-extension most-recent-txt)))
+          (find-file most-recent-bib))
+      (message "No bib files found in ~/Downloads/"))))
+
+;; Org-Mode
+;; --------
+
+(defun nice-org-mode-hook ()
+  "Set up org-mode specific keybindings."
+  (local-set-key (kbd "<tab>") #'org-cycle))
+
+(add-hook 'org-mode-hook #'nice-org-mode-hook)
+
+(setq org-agenda-start-day "-7d")
+(setq org-agenda-span 30)
+(setq org-agenda-start-on-weekday nil)
+
+(evil-leader/set-key "a a" 'org-agenda)
+(evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
+
+;; Visitors
+;; ========
+
+(defmacro NVF (fname pname path)
+ "Define a function for visiting a file with a given name and path.
+
+FNAME is the name of the function to define.
+PNAME is a string describing the file being visited.
+PATH is the path to the file to be visited.
+
+The resulting function will display a message indicating that the
+file is being visited, then open the file using `find-file'."
+  `(defun ,(intern (format "nice-visit-%s" fname)) ()
+     (interactive)
+     (progn
+       (message ,(format "Visiting %s" pname))
+       (find-file ,path))))
+
+(defmacro NVNF (fname pname file key)
+  "Macro to define a function for visiting a notes file and set an Evil leader key binding.
+
+  This macro takes in four arguments:
+  - FNAME: A string that will be used to construct the function name.
+  - PNAME: A string that will be used in the message displayed to the user.
+  - FILE: A string that represents the name of the notes file.
+  - KEY: A string that represents the keybinding for the function using the Evil leader.
+
+  The function created by this macro opens the notes file specified by FILE in
+  the directory specified by `nice-notes-directory`. The keybinding is set using
+  the Evil leader, and is constructed using the specified KEY string.
+
+  Example usage:
+  (NVNF \"my-notes\" \"My Notes\" \"my-notes.org\" \"n\")"
+
+  `(progn
+     (defun ,(intern (format "nice-visit-%s" fname)) ()
+       "Visit a notes file."
+       (interactive)
+       (progn
+         (message ,(format "Visiting %s" pname))
+         (find-file ,(concat nice-notes-directory "/" file))))
+     (evil-leader/set-key ,(concat "v n " key) (intern ,(format "nice-visit-%s" fname)))))
+
+(defmacro NVD (dname pname path key)
+  "Macro to define a function for visiting a directory and set an Evil leader key binding.
+
+  This macro takes in four arguments:
+  - DNAME: A string that will be used to construct the function name.
+  - PNAME: A string that will be used in the message displayed to the user.
+  - PATH: A string that represents the path of the directory.
+  - KEY: A string that represents the keybinding for the function using the Evil leader.
+
+  The function created by this macro jumps to the directory specified by PATH using `dired-jump`.
+  The keybinding is set using the Evil leader, and is constructed using the specified KEY string.
+
+  Example usage:
+  (NVD \"my-dir\" \"My Directory\" \"/path/to/directory\" \"d\")"
+
+  `(progn
+     (defun ,(intern (format "nice-visit-%s" dname)) ()
+       "Visit a directory."
+       (interactive)
+       (progn
+         (message ,(format "Visiting %s" pname))
+         (dired-jump nil ,path)
+         (revert-buffer)))
+     (evil-leader/set-key ,(concat "v d " key) (intern ,(format "nice-visit-%s" dname)))))
+
+(NVF colleagues "Colleagues notes" "~/Documents/professional/colleague-details.org")
+(NVNF academia-notes "Academia notes" "academic-journal-notes.org" "a")
+(NVNF beast-notes "BEAST2 notes" "beast2-notes.org" "b")
+(NVNF git-notes "Git notes" "git-notes.org" "g")
+(NVNF haskell-notes "Haskell notes" "haskell-notes.org" "h")
+(NVNF java-notes "Java notes" "java-notes.org" "j")
+(NVNF latex-notes "LaTeX notes" "latex-notes.org" "l")
+(NVNF maxima-notes "Maxima notes" "maxima-notes.org" "m")
+(NVNF org-mode-notes "org-mode notes" "org-mode-notes.org" "o")
+(NVNF python-notes "Python notes" "python-notes.org" "p")
+(NVNF r-notes "R notes" "r-notes.org" "r")
+(NVNF ubuntu-notes "Ubuntu/Linux notes" "linux-notes.org" "u")
+(NVF nicemacs "nicemacs" "~/Documents/nicemacs/nicemacs.org")
+(NVF nicemacs-el "nicemacs emacs lisp" "~/Documents/nicemacs/nicemacs.el")
+(NVF reading-list "Reading list" "/home/aez/Documents/bibliography/review2/reading-list.org")
+(NVF review-2 "Review 2" "/home/aez/Documents/bibliography/review2/review.org")
+(NVF review-engineering "Literature review: Software engineering" "/home/aez/Documents/bibliography/review/software.tex")
+(NVF review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
+(NVF review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
+(NVF spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
+(NVF statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
+(NVF timtam-manuscript "TimTam manuscript" "/home/aez/Documents/manuscripts/zarebski2022xxx/README.org")
+(NVF wikipedia-notes "Wikipedia notes" "/home/aez/public-site/org/notes/wikipedia-notes.org")
+(NVF xml-notes "XML notes" "/home/aez/public-site/org/notes/xml-notes.org")
+(NVF zarebski-bib "Bibliography: Zarebski" "/home/aez/Documents/bibliography/zarebski/zarebski.bib")
+
+(NVD library "Library" "/home/aez/Documents/library/fake.org" "l")
+(NVD music "Music" "/home/aez/Music/fake.org" "m")
+(NVD documents "Documents" "/home/aez/Documents/fake.org" "d")
+(NVD downloads "Downloads" "/home/aez/Downloads/fake.org" "D")
+(NVD professional "Professional" "/home/aez/Documents/professional/README.org" "p")
+(NVD teaching "Teaching" "/home/aez/Documents/teaching/fake.org" "t")
+(NVD website-org "Website (org files)" "~/public-site/org/fake.org" "w")
+(NVD website-html "Website (HTML files)" "/home/aez/aezarebski.github.io/fake.org" "W")
+(NVD notes "My notes" "/home/aez/public-site/org/notes/fake.org" "n")
+
+(defun nice-visit-journal ()
+  "Opens the current journal file. If it does not yet exist, it
+  makes a copy of the one from one week ago."
+  (interactive)
+  (let* ((filepath-template (concat nice-journal-directory "/journal-%s.org"))
+         (curr-file (format filepath-template (format-time-string "%Y-%m")))
+         (prev-file (format filepath-template (format-time-string "%Y-%m" (time-subtract (current-time) (* 7 24 60 60))))))
+    (unless (file-exists-p curr-file)
+      (message "Creating new journal file")
+      (copy-file prev-file curr-file))
+    (message "Opening journal file")
+    (setq org-agenda-files (list curr-file))
+    (find-file curr-file)
+    (goto-char (point-min))
+    (recenter-top-bottom)))
+
+(evil-leader/set-key "v b l" 'nice-visit-last-bib)
+
+(evil-leader/set-key "v b l" 'nvf-last-bib
+                     "v e" 'nice-visit-nicemacs
+                     "v E" 'nice-visit-nicemacs-el
+                     "v j" 'nice-visit-journal
+                     "v n s" 'nice-visit-statistics-notes
+                     "v n w" 'nice-visit-wikipedia-notes
+                     "v n x" 'nice-visit-xml-notes
+                     "v p" 'nice-visit-professional
+                     "v r e" 'nice-visit-review-engineering
+                     "v r l" 'nice-visit-reading-list
+                     "v r 2" 'nice-visit-review-2
+                     "v r r" 'nice-visit-review-references
+                     "v r p" 'nice-visit-review-phylodynamics
+                     "v t" 'nice-visit-timtam-manuscript
+                     "v r z" 'nice-visit-zarebski-bib
+                     "v s" 'nice-visit-spelling)
+
+;; Copilot
+;; =======
+
+;; (add-to-list 'load-path "/home/aez/.emacs.d/copilot.el/")
+
+;; (require 'copilot)
+
+;; (setq copilot-node-executable "/home/aez/.nvm/versions/node/v17.3.1/bin/node")
+;; (add-hook 'python-mode-hook 'copilot-mode)
+;; (add-hook 'ess-r-mode-hook 'copilot-mode)
+
+;; (defun nice/copilot-tab ()
+;;   "Accept the current suggestion from copilot"
+;;   (interactive)
+;;   (or (copilot-accept-completion)
+;;       (indent-for-tab-command)))
+
+;; (with-eval-after-load 'copilot
+;;   (evil-define-key 'insert copilot-mode-map
+;;     (kbd "<tab>") #'nice/copilot-tab))
+
+;; (defun nice/copilot-cycle ()
+;;   "Cycle through suggested completions"
+;;   (interactive)
+;;   (copilot-next-completion))
+
+;; (with-eval-after-load 'copilot
+;;   (evil-define-key 'insert copilot-mode-map
+;;     (kbd "<backtab>") #'nice/copilot-cycle))
+
+;; (evil-leader/set-key "t c" 'copilot-mode)
+
+;; Explore new worlds
+;; ==================
+
+;; TODO Work out how to browse gopher with =gopher.el=.
+
+;; TODO Work out how to configure auth-source.
+
+;; TODO Work out how to use mediawiki-mode to read and edit wikipedia.
+
+;; Customization
+;; =============
+
+;; There be dragons here
+;; ---------------------
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(font-lock-comment-delimiter-face ((t (:background "MediumPurple1" :foreground "purple4" :slant normal))))
- '(font-lock-comment-face ((t (:background "MediumPurple1" :foreground "purple4")))))
+ '(font-lock-comment-delimiter-face ((t (:background "#e4ecda" :foreground "#207e7b" :slant normal))))
+ '(font-lock-comment-face ((t (:background "#e4ecda" :foreground "#207e7b"))))
+ '(show-paren-match ((t (:background "#ffb9a1" :foreground "#8e433d")))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
