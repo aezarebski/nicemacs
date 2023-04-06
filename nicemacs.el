@@ -618,8 +618,6 @@ already in its own frame."
 (nicemacs-visit-file ubuntu-notes "Ubuntu/Linux notes" "~/public-site/org/notes/linux-notes.org")
 (nicemacs-visit-file reading-list "Reading list" "~/Documents/bibliography/review2/reading-list.org")
 (nicemacs-visit-file review-2 "Review 2" "~/Documents/bibliography/review2/review.org")
-(nicemacs-visit-file review-engineering "Literature review: Software engineering" "~/Documents/bibliography/review/software.tex")
-(nicemacs-visit-file review-phylodynamics "Literature review: Phylodynamics" "~/Documents/bibliography/review/phylodynamics.tex")
 (nicemacs-visit-file review-references "Bibtex references" "~/Documents/bibliography/references.bib")
 (nicemacs-visit-file spelling "Spelling list" "~/public-site/org/misc/spelling.org")
 (nicemacs-visit-file statistics-notes "Statistics notes" "~/public-site/org/notes/statistics-notes.org")
