@@ -2,8 +2,8 @@
 ;;; ======================================
 
 (require 'package)
-(add-to-list 'package-archives  '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives  '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
 
 (package-initialize)
@@ -91,7 +91,10 @@ that is visible in both."
     (sit-for 0.1)
     (set-face-background 'mode-line orig-color)))
 
-(add-hook 'emacs-lisp-mode-hook #'rainbow-mode)
+;; Rainbow-mode will highlight strings indicating colours,
+;; e.g. hexcodes in their corresponding colour.
+;; (require 'rainbow-mode)
+(add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
 
 (setq inhibit-splash-screen t)
 
@@ -396,27 +399,27 @@ file is being visited, then open the file using `find-file'."
 (NVNF ubuntu-notes "Ubuntu/Linux notes" "linux-notes.org" "u")
 (NVF nicemacs "nicemacs" "~/Documents/nicemacs/nicemacs.org")
 (NVF nicemacs-el "nicemacs emacs lisp" "~/Documents/nicemacs/nicemacs.el")
-(NVF reading-list "Reading list" "/home/aez/Documents/bibliography/review2/reading-list.org")
-(NVF review-2 "Review 2" "/home/aez/Documents/bibliography/review2/review.org")
-(NVF review-engineering "Literature review: Software engineering" "/home/aez/Documents/bibliography/review/software.tex")
-(NVF review-phylodynamics "Literature review: Phylodynamics" "/home/aez/Documents/bibliography/review/phylodynamics.tex")
-(NVF review-references "Bibtex references" "/home/aez/Documents/bibliography/references.bib")
-(NVF spelling "Spelling list" "/home/aez/public-site/org/misc/spelling.org")
-(NVF statistics-notes "Statistics notes" "/home/aez/public-site/org/notes/statistics-notes.org")
-(NVF timtam-manuscript "TimTam manuscript" "/home/aez/Documents/manuscripts/zarebski2022xxx/README.org")
-(NVF wikipedia-notes "Wikipedia notes" "/home/aez/public-site/org/notes/wikipedia-notes.org")
-(NVF xml-notes "XML notes" "/home/aez/public-site/org/notes/xml-notes.org")
-(NVF zarebski-bib "Bibliography: Zarebski" "/home/aez/Documents/bibliography/zarebski/zarebski.bib")
+(NVF reading-list "Reading list" "~/Documents/bibliography/review2/reading-list.org")
+(NVF review-2 "Review 2" "~/Documents/bibliography/review2/review.org")
+(NVF review-engineering "Literature review: Software engineering" "~/Documents/bibliography/review/software.tex")
+(NVF review-phylodynamics "Literature review: Phylodynamics" "~/Documents/bibliography/review/phylodynamics.tex")
+(NVF review-references "Bibtex references" "~/Documents/bibliography/references.bib")
+(NVF spelling "Spelling list" "~/public-site/org/misc/spelling.org")
+(NVF statistics-notes "Statistics notes" "~/public-site/org/notes/statistics-notes.org")
+(NVF timtam-manuscript "TimTam manuscript" "~/Documents/manuscripts/zarebski2022xxx/README.org")
+(NVF wikipedia-notes "Wikipedia notes" "~/public-site/org/notes/wikipedia-notes.org")
+(NVF xml-notes "XML notes" "~/public-site/org/notes/xml-notes.org")
+(NVF zarebski-bib "Bibliography: Zarebski" "~/Documents/bibliography/zarebski/zarebski.bib")
 
-(NVD library "Library" "/home/aez/Documents/library/fake.org" "l")
-(NVD music "Music" "/home/aez/Music/fake.org" "m")
-(NVD documents "Documents" "/home/aez/Documents/fake.org" "d")
-(NVD downloads "Downloads" "/home/aez/Downloads/fake.org" "D")
-(NVD professional "Professional" "/home/aez/Documents/professional/README.org" "p")
-(NVD teaching "Teaching" "/home/aez/Documents/teaching/fake.org" "t")
+(NVD library "Library" "~/Documents/library/fake.org" "l")
+(NVD music "Music" "~/Music/fake.org" "m")
+(NVD documents "Documents" "~/Documents/fake.org" "d")
+(NVD downloads "Downloads" "~/Downloads/fake.org" "D")
+(NVD professional "Professional" "~/Documents/professional/README.org" "p")
+(NVD teaching "Teaching" "~/Documents/teaching/fake.org" "t")
 (NVD website-org "Website (org files)" "~/public-site/org/fake.org" "w")
-(NVD website-html "Website (HTML files)" "/home/aez/aezarebski.github.io/fake.org" "W")
-(NVD notes "My notes" "/home/aez/public-site/org/notes/fake.org" "n")
+(NVD website-html "Website (HTML files)" "~/aezarebski.github.io/fake.org" "W")
+(NVD notes "My notes" "~/public-site/org/notes/fake.org" "n")
 
 (defun nice-visit-journal ()
   "Opens the current journal file. If it does not yet exist, it
