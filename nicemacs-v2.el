@@ -112,6 +112,12 @@ that is visible in both."
 (evil-leader/set-key "q r" 'restart-emacs)
 (evil-leader/set-key "q q" 'save-buffers-kill-emacs)
 
+;; The which-key package is a great way to be reminded of what keys
+;; are available from the start of a key sequence.
+(require 'which-key)
+(which-key-mode)
+(setq which-key-idle-delay 0.6)
+
 ;; Shell stuff
 ;; -----------
 
@@ -301,6 +307,16 @@ indicate this."
           (find-file most-recent-bib))
       (message "No bib files found in ~/Downloads/"))))
 
+(defun nice-bibtex-braces ()
+  "Wrap upper case letters with brackets for bibtex titles."
+  (interactive)
+  (evil-ex "'<,'>s/\\([A-Z]+\\)/\\{\\1\\}/g"))
+
+(evil-leader/set-key "v b l" 'nice-visit-last-bib)
+
+(evil-leader/set-key-for-mode 'bibtex-mode "m b b" 'nice-bibtex-braces)
+(evil-leader/set-key-for-mode 'bibtex-mode "m b f" 'bibtex-reformat)
+
 ;; Org-Mode
 ;; --------
 
@@ -437,10 +453,7 @@ file is being visited, then open the file using `find-file'."
     (goto-char (point-min))
     (recenter-top-bottom)))
 
-(evil-leader/set-key "v b l" 'nice-visit-last-bib)
-
-(evil-leader/set-key "v b l" 'nvf-last-bib
-                     "v e" 'nice-visit-nicemacs
+(evil-leader/set-key "v e" 'nice-visit-nicemacs
                      "v E" 'nice-visit-nicemacs-el
                      "v j" 'nice-visit-journal
                      "v n s" 'nice-visit-statistics-notes
