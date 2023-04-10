@@ -256,10 +256,26 @@ files FA and FB using SPC f m KEY."
 ;; Learn from your past
 ;; --------------------
 
-;; TODO Configure searching of key files on my machine
+(defmacro nice-rgrep-directory (dname path pattern key)
+  "Create a function that calls `rgrep` on the specified DIRECTORY
+and binds it to a KEY.
 
-;; TODO Configure searching with rgrep of the files in the current directory
+DNAME is the name of the directory used to generate the function
+name.
+PATH is the path to the directory to be searched.
+KEY is the keybinding (as a string) to trigger the rgrep function."
+  `(progn
+     (defun ,(intern (format "nice-rgrep-%s" dname)) ()
+       ,(format "Search for a string in %s using rgrep." dname)
+       (interactive)
+       (rgrep (read-string "Search terms: ") ,pattern ,path))
+     (evil-leader/set-key ,(concat "s g " key) (intern ,(format "nice-rgrep-%s" dname)))))
 
+(nice-rgrep-directory "notes" "~/public-site/org/notes" "*" "n")
+(nice-rgrep-directory "journal" "~/Documents/journal" "*.org" "j")
+(nice-rgrep-directory "reviews" "~/Documents/bibliography" "*" "r")
+
+(evil-leader/set-key "s g ." (lambda () (interactive) (rgrep (read-string "Search terms: ") "*")))
 
 ;; Be virtuous and lead by example 
 ;; =============================== 
@@ -327,8 +343,24 @@ backup dictionary."
 ;; Yasnippet
 ;; ---------
 
-;; TODO Configure yasnippet and organise a way to have my own snippet
-;; collection.
+(require 'yasnippet)
+(yas-global-mode 1)
+
+(defun nice-load-snippets ()
+  (interactive)
+  (let ((snippets-dir "~/.emacs.d/snippets")) 
+    (unless (file-exists-p snippets-dir)
+      (make-directory snippets-dir))
+    (yas-load-directory snippets-dir)))
+
+(nice-load-snippets)
+
+(evil-leader/set-key
+  "y i" 'yas-insert-snippet     ; Insert a snippet
+  "y n" 'yas-new-snippet        ; Create a new snippet
+  "y v" 'yas-visit-snippet-file ; Visit the snippet file for the current mode
+  "y r" 'yas-reload-all         ; Reload all snippets
+  "y l" 'nice-load-snippets)    ; Load your custom snippets
 
 ;; Multiple cursors
 ;; ----------------
