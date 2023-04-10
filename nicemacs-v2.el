@@ -16,6 +16,8 @@
   "The directory for nicemacs notes files.")
 (defvar nice-resources-dir "~/Documents/nicemacs/resources"
   "The path to the nicemacs resources directory on this machine.")
+(defvar nice-nicemacs-directory "~/Documents/nicemacs"
+  "The path to the nicemacs directory on this machine.")
 
 (require 'cl-lib)
 
@@ -38,11 +40,30 @@
 
 (require 'hl-todo)
 (global-hl-todo-mode)
+
+(setq nice-colours-alist
+      '((strong-warning . "red")
+	(weak-warning . "magenta")
+	(weak-note . "cyan")
+	(strong-note . "blue")
+	(light-theme-comment-background . "#e4ecda")
+	(light-theme-comment-foreground . "#207e7b")
+	(light-theme-shadow-background . "#eee8d5")
+	(light-theme-shadow-foreground . "#93a1a1")
+	(dark-theme-comment-background . "#207e7b")
+	(dark-theme-comment-foreground . "#e4ecda")
+	(dark-theme-shadow-background . "#202c2a")
+	(dark-theme-shadow-foreground . "#254d48")))
+
+(defun nice-colour (colour)
+  "Return the colour associated with the symbol COLOUR."
+  (cdr (assoc colour nice-colours-alist)))
+
 (setq hl-todo-keyword-faces
-      '(("TODO"   . "red")
-	("FIXME"  . "magenta")
-	("NOTE"   . "cyan")
-	("DONE"   . "blue")))
+      `(("TODO"   . ,(nice-colour 'strong-warning))
+        ("FIXME"  . ,(nice-colour 'weak-warning))
+        ("NOTE"   . ,(nice-colour 'weak-note))
+        ("DONE"   . ,(nice-colour 'strong-note))))
 
 (setq fill-column 70)
 
@@ -50,6 +71,21 @@
 
 (add-to-list `custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'solarized-light-high-contrast t)
+
+(defun nice-modeline-dark-theme ()
+  (interactive)
+  (set-face-background 'mode-line (nice-colour 'dark-theme-comment-background))
+  (set-face-foreground 'mode-line (nice-colour 'dark-theme-comment-foreground))
+  (set-face-background 'mode-line-inactive (nice-colour 'dark-theme-shadow-background))
+  (set-face-foreground 'mode-line-inactive (nice-colour 'dark-theme-shadow-foreground)))
+
+(defun nice-modeline-light-theme ()
+  (interactive)
+  (set-face-background 'mode-line (nice-colour 'light-theme-comment-background))
+  (set-face-foreground 'mode-line (nice-colour 'light-theme-comment-foreground))
+  (set-face-background 'mode-line-inactive (nice-colour 'light-theme-shadow-background))
+  (set-face-foreground 'mode-line-inactive (nice-colour 'light-theme-shadow-foreground)))
+
 
 (defun nice-toggle-themes ()
   "Toggle between two themes: solarized-light-high-contrast and
@@ -60,11 +96,31 @@ that is visible in both."
       (progn
         (disable-theme 'solarized-light-high-contrast)
         (load-theme 'solarized-dark-high-contrast t)
-	(setq font-lock-comment-face '((t (:background "#207e7b" :foreground "#e4ecda")))))
+	(setq font-lock-comment-delimiter-face
+	      `((t (
+		    :background ,(nice-colour 'dark-theme-comment-background)
+  				:foreground ,(nice-colour 'dark-theme-comment-foreground)
+				:slant normal))))
+	(setq font-lock-comment-face
+	      `((t (
+		    :background ,(nice-colour 'dark-theme-comment-background)
+				:foreground ,(nice-colour 'dark-theme-comment-foreground)
+				:slant normal))))
+	(nice-modeline-dark-theme))
     (progn
       (disable-theme 'solarized-dark-high-contrast)
       (load-theme 'solarized-light-high-contrast t)
-      (setq font-lock-comment-face '((t (:background "#e4ecda" :foreground "#207e7b")))))))
+      (setq font-lock-comment-delimiter-face
+	    `((t (
+		  :background ,(nice-colour 'light-theme-comment-background)
+			      :foreground ,(nice-colour 'light-theme-comment-foreground)
+			      :slant normal))))
+      (setq font-lock-comment-face
+	    `((t (
+		  :background ,(nice-colour 'light-theme-comment-background)
+			      :foreground ,(nice-colour 'light-theme-comment-foreground)
+			      :slant normal)))))
+    (nice-modeline-light-theme)))
 
 (evil-leader/set-key "t t" 'nice-toggle-themes)
 
@@ -118,15 +174,43 @@ that is visible in both."
 (which-key-mode)
 (setq which-key-idle-delay 0.6)
 
+(defmacro nice-meld-files (name fa fb key)
+  "Generate function named nice-meld-NAME which opens meld diff for
+files FA and FB using SPC f m KEY."
+  `(progn
+     (defun ,(intern (format "nice-meld-%s" name)) ()
+       (interactive)
+       (async-shell-command ,(format "meld %s %s &" fa fb)))
+     (evil-leader/set-key ,(concat "f m " key) (intern ,(format "nice-meld-%s" name)))))
+
+(nice-meld-files "init" "~/.emacs.d/init.el" "~/Documents/nicemacs/nicemacs-v2.el" "i")
+(nice-meld-files "aspell" "~/.aspell.en.pws" "~/Documents/nicemacs/resources/aspell.en.pws" "a")
+
 ;; Shell stuff
 ;; -----------
 
 (setq eshell-cmpl-ignore-case t)
 (evil-leader/set-key "s e" 'eshell)
 (evil-leader/set-key "s b" (lambda () (interactive) (ansi-term "/bin/bash")))
+(evil-leader/set-key "s i" 'ielm)
+(evil-leader/set-key "s r" 'R)
+
+;; Buffer stuff
+;; ------------
+
+;; TODO Configure functions to print the put the full path of the
+;; current buffer's file to the kill ring
+
+;; TODO Configure functions to tell me what the link at the point is
+;; pointing to both as a message and by putting the full path on the
+;; kill ring.
 
 ;; File stuff
 ;; ----------
+
+;; TODO Configure functions to move/copy the most recent file in the
+;; ~/Downloads directory to the current directory so that they can be
+;; used from eshell.
 
 (evil-leader/set-key "f f" 'find-file)
 (evil-leader/set-key "f s" 'save-buffer)
@@ -159,8 +243,16 @@ that is visible in both."
 (evil-leader/set-key "h d k" 'describe-key)
 (evil-leader/set-key "h d v" 'describe-variable)
 
-;; Be virtuous
-;; ===========
+;; Learn from your past
+;; --------------------
+
+;; TODO Configure searching of key files on my machine
+
+;; TODO Configure searching with rgrep of the files in the current directory
+
+
+;; Be virtuous and lead by example 
+;; =============================== 
 
 (setq-default major-mode
               (lambda ()
@@ -179,6 +271,9 @@ that is visible in both."
 
 ;; TODO Configure the =dictionary= command so that it works off of a
 ;; local copy of Webster's
+
+;; TODO Configure this so there is a command to meld the current
+;; private dictionary and one that is stored in VC.
 
 (require 'flyspell)
 (require 'writegood-mode)
@@ -211,8 +306,19 @@ backup dictionary."
 (evil-leader/set-key "t w" 'writegood-mode)
 (add-to-list 'writegood-weasel-words "respectively")
 
-;; Be powerful
-;; ===========
+;; Be powerful with packages
+;; =========================
+
+;; NXML
+;; ----
+
+;; TODO Install and configure nxml-mode.
+
+;; Yasnippet
+;; ---------
+
+;; TODO Configure yasnippet and organise a way to have my own snippet
+;; collection.
 
 ;; Magit
 ;; -----
@@ -256,6 +362,8 @@ backup dictionary."
 ;; Emacs Lisp
 ;; ----------
 
+;; TODO Configure a linter
+
 (evil-leader/set-key-for-mode 'emacs-lisp-mode "m s c" 'eval-last-sexp)
 (evil-leader/set-key-for-mode 'emacs-lisp-mode "m s b" 'eval-buffer)
 (evil-leader/set-key-for-mode 'emacs-lisp-mode "m s r" 'eval-region)
@@ -270,8 +378,27 @@ backup dictionary."
 (evil-leader/set-key-for-mode 'ess-r-mode "m s r" 'ess-eval-region)
 (evil-leader/set-key-for-mode 'ess-r-mode "m '" 'ess-switch-to-inferior-or-script-buffer)
 
+;; Scheme/Racket
+;; -------------
+
+;; TODO Work out how to start a repl properly, running the key does
+;; not seem to work, I need to run the command via M-x directly.
+
+(require 'racket-mode)
+(add-to-list 'auto-mode-alist '("\\.rkt\\'" . racket-mode))
+(setq racket-program "/usr/bin/racket")
+
+(evil-leader/set-key-for-mode 'racket-mode "m s b" 'racket-run)
+(evil-leader/set-key-for-mode 'racket-mode "m s r" 'racket-send-region)
+(evil-leader/set-key-for-mode 'racket-mode "m s c" 'racket-send-last-sexp)
+
 ;; LaTeX/BibTeX
 ;; ------------
+
+;; TODO Configure this so that there is a good way to search the key
+;; bibtex files, perhaps with a SQL type search
+
+;; TODO Configure this so there is the command to convert ris to bib.
 
 (defun most-recent-file (files)
   "Sort FILES by modification time and return the most recent file."
@@ -332,6 +459,10 @@ indicate this."
 
 (evil-leader/set-key "a a" 'org-agenda)
 (evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
+
+;; TODO Configure the publishing system so it generates the website :(
+
+;; TODO Configure the publishing system so it generates the nicemacs pages :(
 
 ;; Visitors
 ;; ========
