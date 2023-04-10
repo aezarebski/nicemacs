@@ -1,5 +1,13 @@
 ;;; Nicemacs.v2 -*- lexical-binding: t -*-
 ;;; ======================================
+;;
+;; To update your packages carry out the following steps:
+;;
+;; 1. M-x list-packages
+;; 2. Press `r` to refresh
+;; 3. Press `U` to mark upgradable packages
+;; 4. Press `x` to execute the upgrades
+;;
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
