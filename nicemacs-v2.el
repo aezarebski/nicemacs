@@ -149,7 +149,7 @@ that is visible in both."
 
 ;; Rainbow-mode will highlight strings indicating colours,
 ;; e.g. hexcodes in their corresponding colour.
-;; (require 'rainbow-mode)
+(require 'rainbow-mode)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
 
 (setq inhibit-splash-screen t)
@@ -204,6 +204,8 @@ files FA and FB using SPC f m KEY."
 ;; TODO Configure functions to tell me what the link at the point is
 ;; pointing to both as a message and by putting the full path on the
 ;; kill ring.
+
+(evil-leader/set-key "b r" 'revert-buffer)
 
 ;; File stuff
 ;; ----------
@@ -319,6 +321,38 @@ backup dictionary."
 
 ;; TODO Configure yasnippet and organise a way to have my own snippet
 ;; collection.
+
+;; Multiple cursors
+;; ----------------
+;;
+;; Using mutiple cursors is a little bit tricky but here are some
+;; simple steps you can try on the following example text.
+;;
+;; ```
+;; the cat sat on the mat
+;; catch this ball said pat
+;; the food was eaten by the cat
+;; ```
+;;
+;; 1. Select the an instance of "cat" with the cursor at the start
+;; 2. Use the keys below, e.g. `SPC c n` to select occurrences
+;; 3. Use `evil-insert` (`SPC c i`) to start editing.
+;; 4. Exit using `mc/keyboard-quit` (`SPC c q`)
+
+(require 'multiple-cursors)
+(require 'evil-mc)
+(global-evil-mc-mode 1)
+
+(evil-leader/set-key
+  "c n" 'mc/mark-next-like-this        ; Mark next occurrence
+  "c p" 'mc/mark-previous-like-this    ; Mark previous occurrence
+  "c N" 'mc/skip-to-next-like-this     ; Skip and mark next occurrence
+  "c P" 'mc/skip-to-previous-like-this ; Skip and mark previous occurrence
+  "c u" 'mc/unmark-next-like-this      ; Unmark next cursor
+  "c U" 'mc/unmark-previous-like-this  ; Unmark previous cursor
+  "c i" 'evil-insert                   ; Drop into using the cursors 
+  "c q" 'mc/keyboard-quit              ; Quit multiple-cursors mode
+  )
 
 ;; Magit
 ;; -----
