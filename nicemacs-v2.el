@@ -721,17 +721,3 @@ file is being visited, then open the file using `find-file'."
 ;; There be dragons here
 ;; ---------------------
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(font-lock-comment-delimiter-face ((t (:background "#e4ecda" :foreground "#207e7b" :slant normal))))
- '(show-paren-match ((t (:background "#ffb9a1" :foreground "#8e433d")))))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(ess magit evil-leader solarized-theme evil)))
