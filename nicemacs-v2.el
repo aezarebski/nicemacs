@@ -250,6 +250,7 @@ files FA and FB using SPC f m KEY."
 (evil-leader/set-key "h s" 'apropos)
 (evil-leader/set-key "h d f" 'describe-function)
 (evil-leader/set-key "h d m" 'describe-mode)
+(evil-leader/set-key "h d p" 'describe-package)
 (evil-leader/set-key "h d k" 'describe-key)
 (evil-leader/set-key "h d v" 'describe-variable)
 
@@ -474,6 +475,8 @@ backup dictionary."
 
 ;; TODO Configure this so there is the command to convert ris to bib.
 
+;; TODO Find a better way to search BIB files.
+
 (defun most-recent-file (files)
   "Sort FILES by modification time and return the most recent file."
   (car (sort files
@@ -534,9 +537,42 @@ indicate this."
 (evil-leader/set-key "a a" 'org-agenda)
 (evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
 
-;; TODO Configure the publishing system so it generates the website :(
-
-;; TODO Configure the publishing system so it generates the nicemacs pages :(
+;; The following projects are available for publishing when the
+;; `org-publish' command is given.
+(setq org-publish-project-alist
+      `(("website-notes-org-files"
+	 :base-directory "~/public-site/org/notes/"
+	 :base-extension "org"
+	 :publishing-directory "~/aezarebski.github.io/notes/"
+	 :publishing-function org-html-publish-to-html)
+	("website-images-static"
+	 :base-directory "~/public-site/org/images/"
+	 :base-extension "png"
+	 :publishing-directory "~/aezarebski.github.io/images/"
+	 :publishing-function org-publish-attachment)
+	("website-misc-basegraphicsR-org-files"
+	 :base-directory "~/public-site/org/misc/basegraphicsR/"
+	 :base-extension "(or )rg"
+	 :publishing-directory "~/aezarebski.github.io/misc/basegraphicsR/"
+	 :publishing-function org-html-publish-to-html)
+	("website-misc-basegraphicsR-static"
+	 :base-directory "~/public-site/org/misc/basegraphicsR/"
+	 :base-extension "png\\|jpg\\|pdf"
+	 :publishing-directory "~/aezarebski.github.io/misc/basegraphicsR/"
+	 :publishing-function org-publish-attachment)
+	("nicemacs-org-files"
+	 :base-directory "~/Documents/nicemacs/"
+	 :base-extension "org"
+	 :publishing-directory "~/aezarebski.github.io/misc/nicemacs/"
+	 :publishing-function org-html-publish-to-html)
+	("R"
+	 :components ("website-misc-basegraphicsR-org-files"
+		      "website-misc-basegraphicsR-static"))
+	("website"
+	 :components ("website-notes-org-files"
+		      "website-images-static"
+		      "nicemacs-org-files"
+		      "R"))))
 
 ;; Visitors
 ;; ========
