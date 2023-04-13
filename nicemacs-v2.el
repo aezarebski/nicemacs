@@ -4,9 +4,9 @@
 ;; To update your packages carry out the following steps:
 ;;
 ;; 1. M-x list-packages
-;; 2. Press `r` to refresh
-;; 3. Press `U` to mark upgradable packages
-;; 4. Press `x` to execute the upgrades
+;; 2. Press `r' to refresh
+;; 3. Press `U' to mark upgradable packages
+;; 4. Press `x' to execute the upgrades
 ;;
 
 (require 'package)
@@ -226,9 +226,18 @@ files FA and FB using SPC f m KEY."
 (evil-leader/set-key "f s" 'save-buffer)
 
 (require 'dired)
-(evil-leader/set-key "f d" 'dired)
+(evil-leader/set-key "f d" 'nice-dired)
 (define-key dired-mode-map "-" 'dired-up-directory)
 (setq dired-listing-switches "-alh")
+
+(defun nice-dired ()
+  "Open dired for the current buffer's directory if it
+ corresponds to a file, or the home directory otherwise."
+  (interactive)
+  (let ((dir (if (buffer-file-name)
+                 (file-name-directory (buffer-file-name))
+               (expand-file-name "~/"))))
+    (dired dir)))
 
 (evil-leader/set-key "b b" 'switch-to-buffer)
 (evil-leader/set-key "b d" 'kill-buffer)
@@ -258,7 +267,7 @@ files FA and FB using SPC f m KEY."
 ;; --------------------
 
 (defmacro nice-rgrep-directory (dname path pattern key)
-  "Create a function that calls `rgrep` on the specified DIRECTORY
+  "Create a function that calls `rgrep' on the specified DIRECTORY
 and binds it to a KEY.
 
 DNAME is the name of the directory used to generate the function
@@ -333,6 +342,13 @@ backup dictionary."
 (evil-leader/set-key "t w" 'writegood-mode)
 (add-to-list 'writegood-weasel-words "respectively")
 
+(defun nice-org-unfill-paragraph ()
+  "Unfill the paragraph at point, joining all lines into a single line."
+  (interactive)
+  (let ((fill-column (point-max)))
+    (fill-paragraph nil)))
+
+
 ;; Be powerful with packages
 ;; =========================
 
@@ -377,8 +393,8 @@ backup dictionary."
 ;;
 ;; 1. Select the an instance of "cat" with the cursor at the start
 ;; 2. Use the keys below, e.g. `SPC c n` to select occurrences
-;; 3. Use `evil-insert` (`SPC c i`) to start editing.
-;; 4. Exit using `mc/keyboard-quit` (`SPC c q`)
+;; 3. Use `evil-insert' (`SPC c i`) to start editing.
+;; 4. Exit using `mc/keyboard-quit' (`SPC c q`)
 
 (require 'multiple-cursors)
 (require 'evil-mc)
@@ -412,7 +428,7 @@ backup dictionary."
 
   The function created by this macro generates a commit message with a timestamp by
   concatenating the specified CMESSAGE string with the current day and time. The commit
-  is created using `magit-commit-create`, which is invoked with the `--edit` option to
+  is created using `magit-commit-create', which is invoked with the `--edit` option to
   open the commit message in an editor. The function is bound to the Evil leader key
   sequence `g c KEY`, where `KEY` is the specified key string.
 
@@ -524,6 +540,10 @@ indicate this."
 ;; Org-Mode
 ;; --------
 
+;; FIXME Work out why the configuration based approach does not work!
+(setq org-return-follows-link t) 
+(evil-leader/set-key-for-mode 'org-mode "RET" 'org-open-at-point)
+
 (defun nice-org-mode-hook ()
   "Set up org-mode specific keybindings."
   (local-set-key (kbd "<tab>") #'org-cycle))
@@ -536,6 +556,7 @@ indicate this."
 
 (evil-leader/set-key "a a" 'org-agenda)
 (evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
+(evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
 
 ;; The following projects are available for publishing when the
 ;; `org-publish' command is given.
@@ -550,9 +571,19 @@ indicate this."
 	 :base-extension "png"
 	 :publishing-directory "~/aezarebski.github.io/images/"
 	 :publishing-function org-publish-attachment)
+	("website-misc-ggplot2-org-files"
+	 :base-directory "~/public-site/org/misc/ggplot2/"
+	 :base-extension "org"
+	 :publishing-directory "~/aezarebski.github.io/misc/ggplot2/"
+	 :publishing-function org-html-publish-to-html)
+	("website-misc-ggplot2-static"
+	 :base-directory "~/public-site/org/misc/ggplot2/"
+	 :base-extension "png\\|jpg\\|pdf"
+	 :publishing-directory "~/aezarebski.github.io/misc/ggplot2/"
+	 :publishing-function org-publish-attachment)
 	("website-misc-basegraphicsR-org-files"
 	 :base-directory "~/public-site/org/misc/basegraphicsR/"
-	 :base-extension "(or )rg"
+	 :base-extension "org"
 	 :publishing-directory "~/aezarebski.github.io/misc/basegraphicsR/"
 	 :publishing-function org-html-publish-to-html)
 	("website-misc-basegraphicsR-static"
@@ -567,7 +598,9 @@ indicate this."
 	 :publishing-function org-html-publish-to-html)
 	("R"
 	 :components ("website-misc-basegraphicsR-org-files"
-		      "website-misc-basegraphicsR-static"))
+		      "website-misc-basegraphicsR-static"
+		      "website-misc-ggplot2-org-files"
+		      "website-misc-ggplot2-static"))
 	("website"
 	 :components ("website-notes-org-files"
 		      "website-images-static"
@@ -602,7 +635,7 @@ file is being visited, then open the file using `find-file'."
   - KEY: A string that represents the keybinding for the function using the Evil leader.
 
   The function created by this macro opens the notes file specified by FILE in
-  the directory specified by `nice-notes-directory`. The keybinding is set using
+  the directory specified by `nice-notes-directory'. The keybinding is set using
   the Evil leader, and is constructed using the specified KEY string.
 
   Example usage:
@@ -626,7 +659,7 @@ file is being visited, then open the file using `find-file'."
   - PATH: A string that represents the path of the directory.
   - KEY: A string that represents the keybinding for the function using the Evil leader.
 
-  The function created by this macro jumps to the directory specified by PATH using `dired-jump`.
+  The function created by this macro jumps to the directory specified by PATH using `dired-jump'.
   The keybinding is set using the Evil leader, and is constructed using the specified KEY string.
 
   Example usage:
@@ -669,7 +702,8 @@ file is being visited, then open the file using `find-file'."
 (NVF zarebski-bib "Bibliography: Zarebski" "~/Documents/bibliography/zarebski/zarebski.bib")
 
 (NVD library "Library" "~/Documents/library/fake.org" "l")
-(NVD music "Music" "~/Music/fake.org" "m")
+(NVD manuscripts "Manuscripts" "~/Documents/manuscripts/fake.org" "m")
+(NVD music "Music" "~/Music/fake.org" "M")
 (NVD documents "Documents" "~/Documents/fake.org" "d")
 (NVD downloads "Downloads" "~/Downloads/fake.org" "D")
 (NVD professional "Professional" "~/Documents/professional/README.org" "p")
@@ -712,12 +746,17 @@ file is being visited, then open the file using `find-file'."
 
 ;; Copilot
 ;; =======
+;;
+;; To install this you need to clone the repository and a couple of
+;; dependencies yourself: s, editorconfig which are emacs packages and
+;; node.js.
+;;
 
-;; (add-to-list 'load-path "/home/aez/.emacs.d/copilot.el/")
-
+;; (add-to-list 'load-path "~/.emacs.d/copilot.el/")
 ;; (require 'copilot)
 
-;; (setq copilot-node-executable "/home/aez/.nvm/versions/node/v17.3.1/bin/node")
+;; (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
+;; (setq copilot-node-executable "/usr/bin/node")
 ;; (add-hook 'python-mode-hook 'copilot-mode)
 ;; (add-hook 'ess-r-mode-hook 'copilot-mode)
 
