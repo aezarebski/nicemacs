@@ -206,13 +206,6 @@ files FA and FB using SPC f m KEY."
 ;; Buffer stuff
 ;; ------------
 
-;; TODO Configure functions to print the put the full path of the
-;; current buffer's file to the kill ring
-
-;; TODO Configure functions to tell me what the link at the point is
-;; pointing to both as a message and by putting the full path on the
-;; kill ring.
-
 (evil-leader/set-key "b r" 'revert-buffer)
 
 ;; File stuff
@@ -262,6 +255,26 @@ files FA and FB using SPC f m KEY."
 (evil-leader/set-key "h d p" 'describe-package)
 (evil-leader/set-key "h d k" 'describe-key)
 (evil-leader/set-key "h d v" 'describe-variable)
+
+(defun message-buffer-file-name ()
+  "Print the full path of the current buffer's file to the
+minibuffer and store this on the kill ring."
+  (interactive)
+  (kill-new buffer-file-name)
+  (message buffer-file-name))
+
+(defun message-link-at-point ()
+  "Print the full path of a link at the point so we know where this
+will take us."
+  (interactive)
+  (let* ((link (org-element-context))
+         (link-file-name (org-element-property :path link)))
+    (when (eq (org-element-type link) 'link)
+      (kill-new link-file-name)
+      (message "%s" link-file-name))))
+
+(evil-leader/set-key "h b n" 'message-buffer-file-name)
+(evil-leader/set-key "h l m" 'message-link-at-point)
 
 ;; Learn from your past
 ;; --------------------
@@ -752,34 +765,34 @@ file is being visited, then open the file using `find-file'."
 ;; node.js.
 ;;
 
-;; (add-to-list 'load-path "~/.emacs.d/copilot.el/")
-;; (require 'copilot)
+(add-to-list 'load-path "~/.emacs.d/copilot.el/")
+(require 'copilot)
 
 ;; (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
 ;; (setq copilot-node-executable "/usr/bin/node")
-;; (add-hook 'python-mode-hook 'copilot-mode)
-;; (add-hook 'ess-r-mode-hook 'copilot-mode)
+(add-hook 'python-mode-hook 'copilot-mode)
+(add-hook 'ess-r-mode-hook 'copilot-mode)
 
-;; (defun nice/copilot-tab ()
-;;   "Accept the current suggestion from copilot"
-;;   (interactive)
-;;   (or (copilot-accept-completion)
-;;       (indent-for-tab-command)))
+(defun nice/copilot-tab ()
+  "Accept the current suggestion from copilot"
+  (interactive)
+  (or (copilot-accept-completion)
+      (indent-for-tab-command)))
 
-;; (with-eval-after-load 'copilot
-;;   (evil-define-key 'insert copilot-mode-map
-;;     (kbd "<tab>") #'nice/copilot-tab))
+(with-eval-after-load 'copilot
+  (evil-define-key 'insert copilot-mode-map
+    (kbd "<tab>") #'nice/copilot-tab))
 
-;; (defun nice/copilot-cycle ()
-;;   "Cycle through suggested completions"
-;;   (interactive)
-;;   (copilot-next-completion))
+(defun nice/copilot-cycle ()
+  "Cycle through suggested completions"
+  (interactive)
+  (copilot-next-completion))
 
-;; (with-eval-after-load 'copilot
-;;   (evil-define-key 'insert copilot-mode-map
-;;     (kbd "<backtab>") #'nice/copilot-cycle))
+(with-eval-after-load 'copilot
+  (evil-define-key 'insert copilot-mode-map
+    (kbd "<backtab>") #'nice/copilot-cycle))
 
-;; (evil-leader/set-key "t c" 'copilot-mode)
+(evil-leader/set-key "t c" 'copilot-mode)
 
 ;; Explore new worlds
 ;; ==================
@@ -789,6 +802,11 @@ file is being visited, then open the file using `find-file'."
 ;; TODO Work out how to configure auth-source.
 
 ;; TODO Work out how to use mediawiki-mode to read and edit wikipedia.
+
+;; TODO Explore running spotify through emacs
+
+;; TODO Work out how to search for yasnippets with keywords: do they
+;; have a keyword field?
 
 ;; Customization
 ;; =============
