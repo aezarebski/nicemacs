@@ -8,6 +8,14 @@
 ;; 3. Press `U' to mark upgradable packages
 ;; 4. Press `x' to execute the upgrades
 ;;
+;;
+;;  Maybe just: don't neglect the Elisp manual.  I've read it _far_
+;;  more than the regular Emacs manual, and it's surprisingly fun.
+;;  Seeing Emacs as an interactive lisp machine to be programmed
+;;  rather than an editor to be configured makes many things easier.
+;;
+;;  ~ Tim Vaughan (2023)
+
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -225,11 +233,19 @@ files FA and FB using SPC f m KEY."
 
 (defun nice-dired ()
   "Open dired for the current buffer's directory if it
- corresponds to a file, or the home directory otherwise."
+ corresponds to a file, the working directory of the shell if
+ the current buffer is a shell, or the home directory otherwise."
   (interactive)
-  (let ((dir (if (buffer-file-name)
-                 (file-name-directory (buffer-file-name))
-               (expand-file-name "~/"))))
+  (let* ((buffer-mode (with-current-buffer (current-buffer) major-mode))
+         (dir (cond ((buffer-file-name)
+                     (file-name-directory (buffer-file-name)))
+                    ((or (eq buffer-mode 'term-mode)
+                         (eq buffer-mode 'eshell-mode))
+                     (with-current-buffer (current-buffer)
+                       (if (eq buffer-mode 'term-mode)
+                           (file-name-directory default-directory)
+                         (eshell/pwd))))
+                    (t (expand-file-name "~/")))))
     (dired dir)))
 
 (evil-leader/set-key "b b" 'switch-to-buffer)
@@ -294,6 +310,7 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
        (rgrep (read-string "Search terms: ") ,pattern ,path))
      (evil-leader/set-key ,(concat "s g " key) (intern ,(format "nice-rgrep-%s" dname)))))
 
+(nice-rgrep-directory "website" "~/public-site/org" "*" "w")
 (nice-rgrep-directory "notes" "~/public-site/org/notes" "*" "n")
 (nice-rgrep-directory "journal" "~/Documents/journal" "*.org" "j")
 (nice-rgrep-directory "reviews" "~/Documents/bibliography" "*" "r")
@@ -320,9 +337,6 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 
 ;; TODO Configure the =dictionary= command so that it works off of a
 ;; local copy of Webster's
-
-;; TODO Configure this so there is a command to meld the current
-;; private dictionary and one that is stored in VC.
 
 (require 'flyspell)
 (require 'writegood-mode)
@@ -549,6 +563,14 @@ indicate this."
 
 (evil-leader/set-key-for-mode 'bibtex-mode "m b b" 'nice-bibtex-braces)
 (evil-leader/set-key-for-mode 'bibtex-mode "m b f" 'bibtex-reformat)
+
+;; Markdown-mode
+;; -------------
+
+(require 'markdown-mode)
+
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 
 ;; Org-Mode
 ;; --------
