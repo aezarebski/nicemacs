@@ -1,5 +1,5 @@
 ;;; Nicemacs.v2 -*- lexical-binding: t -*-
-;;; ======================================
+;;; ==================================================================
 ;;
 ;; To update your packages carry out the following steps:
 ;;
@@ -15,6 +15,36 @@
 ;;  rather than an editor to be configured makes many things easier.
 ;;
 ;;  ~ Tim Vaughan (2023)
+;;
+;; Packages used
+;; -------------
+
+;; - `cl-lib'
+;; - `copilot'
+;; - `dired'
+;; - `ess-site'
+;; - `evil'
+;; - `evil-collection'
+;; - `evil-leader'
+;; - `evil-mc'
+;; - `flyspell'
+;; - `hl-todo' to highlight tags
+;; - `magit'
+;; - `markdown-mode'
+;; - `multiple-cursors'
+;; - `quarto-mode'
+;; - `racket-mode'
+;; - `rainbow-mode' to highlight hexcodes
+;; - `which-key' to suggest how to finish a key-chord
+;; - `winum' to help navigate windows
+;; - `writegood-mode' for English suggestions (`SPC t w`)
+;; - `yasnippet'
+;;
+;; Changelog
+;; ---------
+;;
+;;; ==================================================================
+
 
 
 (require 'package)
@@ -218,6 +248,34 @@ files FA and FB using SPC f m KEY."
 (nice-meld-files "init" "~/.emacs.d/init.el" "~/Documents/nicemacs/nicemacs-v2.el" "i")
 (nice-meld-files "aspell" "~/.aspell.en.pws" "~/Documents/nicemacs/resources/aspell.en.pws" "a")
 
+;; The `winum' package facilitates switching between windows using
+;; numbers which appear in the bottom left hand of the window, at the
+;; start of the mode-line.
+(require 'winum)
+(winum-mode)
+(setq winum-format " %s ")
+(custom-set-faces
+ `(winum-face
+   ((t
+     (:foreground ,(nice-colour 'weak-warning)
+      :weight bold
+      :underline nil
+      :height 1.1)))))
+(evil-leader/set-key
+  "0" 'winum-select-window-0
+  "1" 'winum-select-window-1
+  "2" 'winum-select-window-2
+  "3" 'winum-select-window-3
+  "4" 'winum-select-window-4
+  "5" 'winum-select-window-5
+  "6" 'winum-select-window-6
+  "7" 'winum-select-window-7
+  "8" 'winum-select-window-8
+  "9" 'winum-select-window-9)
+
+;; Adjust the windows so that they are all the same size.
+(evil-leader/set-key "w b" 'balance-windows)
+
 ;; Shell stuff
 ;; -----------
 
@@ -353,6 +411,8 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 
 ;; TODO Configure the =dictionary= command so that it works off of a
 ;; local copy of Webster's
+
+(setq sentence-end-double-space nil)
 
 (require 'flyspell)
 (require 'writegood-mode)
@@ -504,8 +564,8 @@ backup dictionary."
 (evil-leader/set-key-for-mode 'emacs-lisp-mode "m s b" 'eval-buffer)
 (evil-leader/set-key-for-mode 'emacs-lisp-mode "m s r" 'eval-region)
 
-;; Emacs Speaks Statistics
-;; -----------------------
+;; Emacs Speaks Statistics (ESS)
+;; -----------------------------
 
 (require 'ess-site)
 (setq ess-default-style 'DEFAULT)
@@ -513,6 +573,10 @@ backup dictionary."
 (evil-leader/set-key-for-mode 'ess-r-mode "m s b" 'ess-eval-buffer)
 (evil-leader/set-key-for-mode 'ess-r-mode "m s r" 'ess-eval-region)
 (evil-leader/set-key-for-mode 'ess-r-mode "m '" 'ess-switch-to-inferior-or-script-buffer)
+
+(require 'quarto-mode)
+
+(evil-leader/set-key-for-mode 'ess-r-mode "m s c" 'ess-eval-region-or-line-visibly-and-step)
 
 ;; Scheme/Racket
 ;; -------------
@@ -663,21 +727,6 @@ indicate this."
 ;; Visitors
 ;; ========
 
-(defmacro NVF (fname pname path)
- "Define a function for visiting a file with a given name and path.
-
-FNAME is the name of the function to define.
-PNAME is a string describing the file being visited.
-PATH is the path to the file to be visited.
-
-The resulting function will display a message indicating that the
-file is being visited, then open the file using `find-file'."
-  `(defun ,(intern (format "nice-visit-%s" fname)) ()
-     (interactive)
-     (progn
-       (message ,(format "Visiting %s" pname))
-       (find-file ,path))))
-
 (defmacro NVNF (fname pname file key)
   "Macro to define a function for visiting a notes file and set an Evil leader key binding.
 
@@ -703,6 +752,16 @@ file is being visited, then open the file using `find-file'."
          (find-file ,(concat nice-notes-directory "/" file))))
      (evil-leader/set-key ,(concat "v n " key) (intern ,(format "nice-visit-%s" fname)))))
 
+(defmacro NVF (fname pname file key)
+  `(progn
+     (defun ,(intern (format "nice-visit-%s" fname)) ()
+       "Visit a file."
+       (interactive)
+       (progn
+	 (message ,(format "Visiting %s" pname))
+	 (find-file ,file)))
+     (evil-leader/set-key ,(concat "v f" key) (intern ,(format "nice-visit-%s" fname)))))
+  
 (defmacro NVD (dname pname path key)
   "Macro to define a function for visiting a directory and set an Evil leader key binding.
 
@@ -728,7 +787,12 @@ file is being visited, then open the file using `find-file'."
          (revert-buffer)))
      (evil-leader/set-key ,(concat "v d " key) (intern ,(format "nice-visit-%s" dname)))))
 
-(NVF colleagues "Colleagues notes" "~/Documents/professional/colleague-details.org")
+(NVF nicemacs2-init "Nicemacs v2 init.el" "~/.emacs.d/init.el" "e 2")
+(NVF nicemacs-init "Nicemacs v1 nicemacs.el" "~/Documents/nicemacs/nicemacs.el" "e 1")
+(NVF nicemacs-org "Nicemacs v1 nicemacs.org" "~/Documents/nicemacs/nicemacs.org" "o 1")
+(NVF review-2 "Review 2" "~/Documents/bibliography/review2/review.org" "r 2")
+(NVF review-references "Bibtex references" "~/Documents/bibliography/references.bib" "r r")
+
 (NVNF academia-notes "Academia notes" "academic-journal-notes.org" "a")
 (NVNF beast-notes "BEAST2 notes" "beast2-notes.org" "b")
 (NVNF git-notes "Git notes" "git-notes.org" "g")
@@ -740,19 +804,6 @@ file is being visited, then open the file using `find-file'."
 (NVNF python-notes "Python notes" "python-notes.org" "p")
 (NVNF r-notes "R notes" "r-notes.org" "r")
 (NVNF ubuntu-notes "Ubuntu/Linux notes" "linux-notes.org" "u")
-(NVF nicemacs "nicemacs" "~/Documents/nicemacs/nicemacs.org")
-(NVF nicemacs-el "nicemacs emacs lisp" "~/Documents/nicemacs/nicemacs.el")
-(NVF reading-list "Reading list" "~/Documents/bibliography/review2/reading-list.org")
-(NVF review-2 "Review 2" "~/Documents/bibliography/review2/review.org")
-(NVF review-engineering "Literature review: Software engineering" "~/Documents/bibliography/review/software.tex")
-(NVF review-phylodynamics "Literature review: Phylodynamics" "~/Documents/bibliography/review/phylodynamics.tex")
-(NVF review-references "Bibtex references" "~/Documents/bibliography/references.bib")
-(NVF spelling "Spelling list" "~/public-site/org/misc/spelling.org")
-(NVF statistics-notes "Statistics notes" "~/public-site/org/notes/statistics-notes.org")
-(NVF timtam-manuscript "TimTam manuscript" "~/Documents/manuscripts/zarebski2022xxx/README.org")
-(NVF wikipedia-notes "Wikipedia notes" "~/public-site/org/notes/wikipedia-notes.org")
-(NVF xml-notes "XML notes" "~/public-site/org/notes/xml-notes.org")
-(NVF zarebski-bib "Bibliography: Zarebski" "~/Documents/bibliography/zarebski/zarebski.bib")
 
 (NVD library "Library" "~/Documents/library/fake.org" "l")
 (NVD manuscripts "Manuscripts" "~/Documents/manuscripts/fake.org" "m")
@@ -781,21 +832,7 @@ file is being visited, then open the file using `find-file'."
     (goto-char (point-min))
     (recenter-top-bottom)))
 
-(evil-leader/set-key "v e" 'nice-visit-nicemacs
-                     "v E" 'nice-visit-nicemacs-el
-                     "v j" 'nice-visit-journal
-                     "v n s" 'nice-visit-statistics-notes
-                     "v n w" 'nice-visit-wikipedia-notes
-                     "v n x" 'nice-visit-xml-notes
-                     "v p" 'nice-visit-professional
-                     "v r e" 'nice-visit-review-engineering
-                     "v r l" 'nice-visit-reading-list
-                     "v r 2" 'nice-visit-review-2
-                     "v r r" 'nice-visit-review-references
-                     "v r p" 'nice-visit-review-phylodynamics
-                     "v t" 'nice-visit-timtam-manuscript
-                     "v r z" 'nice-visit-zarebski-bib
-                     "v s" 'nice-visit-spelling)
+(evil-leader/set-key "v f j" 'nice-visit-journal)
 
 ;; Copilot
 ;; =======
