@@ -184,6 +184,22 @@ that is visible in both."
 (evil-leader/set-key "q r" 'restart-emacs)
 (evil-leader/set-key "q q" 'save-buffers-kill-emacs)
 
+;; Frame related commands will have keys starting with `F'.
+(evil-leader/set-key "F f" 'toggle-frame-fullscreen)
+
+(defun nice-pop-out-window ()
+  "Pop the current window out into a new frame.
+
+If there is only a single window then do nothing because it is
+already in its own frame."
+  (interactive)
+  (unless (one-window-p)
+    (let ((current-buffer (current-buffer)))
+      (delete-window)
+      (display-buffer-pop-up-frame current-buffer nil))))
+
+(evil-leader/set-key "F p" 'nice-pop-out-window)
+
 ;; The which-key package is a great way to be reminded of what keys
 ;; are available from the start of a key sequence.
 (require 'which-key)
