@@ -493,6 +493,8 @@ backup dictionary."
 
 (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
 
+(evil-leader/set-key "g q" 'with-editor-cancel)
+
 ;; Emacs Lisp
 ;; ----------
 
