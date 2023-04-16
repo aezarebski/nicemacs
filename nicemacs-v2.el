@@ -314,11 +314,12 @@ files FA and FB using SPC f m KEY."
          (dir (cond ((buffer-file-name)
                      (file-name-directory (buffer-file-name)))
                     ((or (eq buffer-mode 'term-mode)
-                         (eq buffer-mode 'eshell-mode))
-                     (with-current-buffer (current-buffer)
-                       (if (eq buffer-mode 'term-mode)
-                           (file-name-directory default-directory)
-                         (eshell/pwd))))
+                         (eq buffer-mode 'eshell-mode)
+			 (eq buffer-mode 'inferior-ess-r-mode))
+                     (with-current-buffer (if (eq buffer-mode 'inferior-ess-r-mode)
+					      (process-buffer (ess-get-process ess-current-process-name))
+					    (current-buffer))
+                       (file-name-directory default-directory)))
                     (t (expand-file-name "~/")))))
     (dired dir)))
 
@@ -789,7 +790,7 @@ indicate this."
 
 (NVF nicemacs2-init "Nicemacs v2 init.el" "~/.emacs.d/init.el" "e 2")
 (NVF nicemacs-init "Nicemacs v1 nicemacs.el" "~/Documents/nicemacs/nicemacs.el" "e 1")
-(NVF nicemacs-org "Nicemacs v1 nicemacs.org" "~/Documents/nicemacs/nicemacs.org" "o 1")
+(NVF nicemacs-org "Nicemacs v1 nicemacs.org" "~/Documents/nicemacs/nicemacs.org" "e 1")
 (NVF review-2 "Review 2" "~/Documents/bibliography/review2/review.org" "r 2")
 (NVF review-references "Bibtex references" "~/Documents/bibliography/references.bib" "r r")
 
