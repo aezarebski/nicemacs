@@ -197,6 +197,7 @@ that is visible in both."
 ;; e.g. hexcodes in their corresponding colour.
 (require 'rainbow-mode)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
+(add-hook 'ess-mode-hook 'rainbow-mode)
 
 (setq inhibit-splash-screen t)
 
@@ -275,6 +276,10 @@ files FA and FB using SPC f m KEY."
 
 ;; Adjust the windows so that they are all the same size.
 (evil-leader/set-key "w b" 'balance-windows)
+
+;; TODO Look into the `golden-ratio' package as a way to provide a
+;; more convenient window sizing mechanism. Possibly bind it to `SPC w
+;; g`.
 
 ;; Shell stuff
 ;; -----------
@@ -481,6 +486,7 @@ backup dictionary."
   "y n" 'yas-new-snippet        ; Create a new snippet
   "y v" 'yas-visit-snippet-file ; Visit the snippet file for the current mode
   "y r" 'yas-reload-all         ; Reload all snippets
+  "y c" 'yas-compile-directory  ; Compile all snippets
   "y l" 'nice-load-snippets)    ; Load your custom snippets
 
 ;; Multiple cursors
@@ -658,6 +664,9 @@ indicate this."
 ;; Org-Mode
 ;; --------
 
+;; NOTE It would be nice to have an additional command and key for
+;; moving from level n+1 headers their parent level n header.
+
 ;; FIXME Work out why the configuration based approach does not work!
 (setq org-return-follows-link t) 
 (evil-leader/set-key-for-mode 'org-mode "RET" 'org-open-at-point)
@@ -675,6 +684,13 @@ indicate this."
 (evil-leader/set-key "a a" 'org-agenda)
 (evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
 (evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
+
+;; set an org-mode specific key for org-latex-preview to `o t l`
+(evil-leader/set-key-for-mode 'org-mode "o t l" 'org-latex-preview)
+;; set an org-mode specific key for toggling inline images to `o t i`
+
+(setq org-image-actual-width 500)
+(evil-leader/set-key-for-mode 'org-mode "o t i" 'org-toggle-inline-images)
 
 ;; The following projects are available for publishing when the
 ;; `org-publish' command is given.
