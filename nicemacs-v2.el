@@ -18,7 +18,7 @@
 ;;
 ;; Packages used
 ;; -------------
-
+;;
 ;; - `cl-lib'
 ;; - `copilot'
 ;; - `dired'
@@ -35,6 +35,7 @@
 ;; - `magit' A Git porcelain inside Emacs.
 ;; - `markdown-mode' Major mode for Markdown-formatted text
 ;; - `multiple-cursors' Multiple cursors for Emacs.
+;; - `ligature' Ligature support for Emacs.
 ;; - `quarto-mode' A (poly)mode for https://quarto.org
 ;; - `racket-mode' Racket editing, REPL, and more
 ;; - `rainbow-mode' Colorize color names in buffers
@@ -49,6 +50,8 @@
 ;; Changelog
 ;; ---------
 ;;
+;; - 2023-04-19
+;;   + Use JetBrains Mono as the font with ligatures.
 ;;; ==================================================================
 
 
@@ -89,6 +92,40 @@
 
 ;; Look stunning
 ;; =============
+;;
+;; To install JetBrains Mono, or any other font, follow these steps:
+;;
+;; 1. Download and extract the font, you should have a "ttf" directory
+;;    containing the font files.
+;; 2. Create a font directory if you don't already have one
+;;    $ mkdir -p ~/.local/share/fonts
+;; 3. Copy the font files to the font directory:
+;;    $ cp path/to/extracted/ttf/*.ttf ~/.local/share/fonts
+;; 4. Update the font cache:
+;;    $ fc-cache -f -v
+;;
+
+(set-frame-font "JetBrains Mono" nil t)
+(ligature-set-ligatures 'prog-mode '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->" "///" "/=" "/=="
+                                     "/>" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|" "<||"
+                                     "<|||" "<|>" "<:" "<>" "<-<" "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
+                                     "<<" "<~>" "<=|" "<~~" "<~" "<$>" "<$" "<+>" "<+" "</>" "</" "<*"
+                                     "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=" "=>>"
+                                     "==>" "=/=" "=!=" "=>" "===" "=:=" "==" "!==" "!!" "!=" ">]" ">:"
+                                     ">>-" ">>=" ">=>" ">>>" ">-" ">=" "&&&" "&&" "|||>" "||>" "|>" "|]"
+                                     "|}" "|=>" "|->" "|=" "||-" "|-" "||=" "||" ".." ".?" ".=" ".-" "..<"
+                                     "..." "+++" "+>" "++" "[||]" "[<" "[|" "{|" "??" "?." "?=" "?:" "##"
+                                     "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
+                                     "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
+(global-ligature-mode t)
+
+(defun toggle-ligatures ()
+  "Toggle ligatures on and off."
+  (interactive)
+  (if (bound-and-true-p global-ligature-mode)
+      (global-ligature-mode -1)
+    (global-ligature-mode 1)))
+(evil-leader/set-key "t l" 'toggle-ligatures)
 
 (require 'hl-todo)
 (global-hl-todo-mode)
@@ -118,8 +155,8 @@
         ("DONE"   . ,(nice-colour 'strong-note))))
 
 (setq fill-column 70)
-
-(evil-leader/set-key "t l" 'display-fill-column-indicator-mode)
+;; FIXME the fill column is a bit hard to see, it should be clearer.
+(evil-leader/set-key "t f" 'display-fill-column-indicator-mode)
 
 (add-to-list `custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'solarized-light-high-contrast t)
@@ -836,6 +873,7 @@ indicate this."
 (NVD documents "Documents" "~/Documents/fake.org" "d")
 (NVD downloads "Downloads" "~/Downloads/fake.org" "D")
 (NVD professional "Professional" "~/Documents/professional/README.org" "p")
+(NVD projects "Projects" "~/projects/fake.org" "P")
 (NVD teaching "Teaching" "~/Documents/teaching/fake.org" "t")
 (NVD website-org "Website (org files)" "~/public-site/org/fake.org" "w")
 (NVD website-html "Website (HTML files)" "~/aezarebski.github.io/fake.org" "W")
