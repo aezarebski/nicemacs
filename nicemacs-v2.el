@@ -22,23 +22,29 @@
 ;; - `cl-lib'
 ;; - `copilot'
 ;; - `dired'
+;; - `ess' Emacs Speaks Statistics
 ;; - `ess-site'
-;; - `evil'
-;; - `evil-collection'
-;; - `evil-leader'
+;; - `evil' Extensible Vi layer for Emacs.
+;; - `evil-collection' A set of keybindings for Evil mode
+;; - `evil-leader' let there be <leader>
 ;; - `evil-mc'
+;; - `evil-mc-extras' Extra functionality for evil-mc
 ;; - `flyspell'
-;; - `hl-todo' to highlight tags
-;; - `magit'
-;; - `markdown-mode'
-;; - `multiple-cursors'
-;; - `quarto-mode'
-;; - `racket-mode'
-;; - `rainbow-mode' to highlight hexcodes
-;; - `which-key' to suggest how to finish a key-chord
-;; - `winum' to help navigate windows
-;; - `writegood-mode' for English suggestions (`SPC t w`)
-;; - `yasnippet'
+;; - `hl-todo' Highlight TODO and similar keywords
+;; - `htmlize' Convert buffer text and decorations to HTML.
+;; - `magit' A Git porcelain inside Emacs.
+;; - `markdown-mode' Major mode for Markdown-formatted text
+;; - `multiple-cursors' Multiple cursors for Emacs.
+;; - `quarto-mode' A (poly)mode for https://quarto.org
+;; - `racket-mode' Racket editing, REPL, and more
+;; - `rainbow-mode' Colorize color names in buffers
+;; - `s' The long lost Emacs string manipulation library.
+;; - `solarized-theme' The Solarized color theme
+;; - `which-key' Display available keybindings in popup
+;; - `winum' Navigate windows and frames using numbers.
+;; - `writegood-mode' Polish up poor writing on the fly
+;; - `yasnippet' Yet another snippet extension for Emacs
+;; - `yasnippet-snippets' Collection of yasnippet snippets
 ;;
 ;; Changelog
 ;; ---------
@@ -554,6 +560,8 @@ backup dictionary."
 	 (magit-commit-create (list "--edit" (concat "-m \"" commit-message "\"")))))
      (evil-leader/set-key ,(concat "g c " key) (intern ,(format "nccm-%s" fname)))))
 
+(nice-canned-commit-message emacs "update emacs config" "e")
+(nice-canned-commit-message notes "update notes" "n")
 (nice-canned-commit-message review "update reading list" "r")
 (nice-canned-commit-message website "update website" "w")
 (nice-canned-commit-message journal "update journal" "j")
