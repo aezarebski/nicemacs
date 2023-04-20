@@ -50,8 +50,12 @@
 ;; Changelog
 ;; ---------
 ;;
-;; - 2023-04-19
+;; - 2023-04
+;;   + Edit `message-buffer-file-name' so it works in `dired'.
+;;   + Extend `before-save-hook' to avoid accidental trailing
+;;     whitespace.
 ;;   + Use JetBrains Mono as the font with ligatures.
+;;
 ;;; ==================================================================
 
 
@@ -126,6 +130,19 @@
       (global-ligature-mode -1)
     (global-ligature-mode 1)))
 (evil-leader/set-key "t l" 'toggle-ligatures)
+
+;; I dislike trailing whitespace creeping into my files so the
+;; following will make it visible and automatically remove it upon
+;; saving. NOTE setting `show-trailing-whitespace' globally leads to
+;; some things being highlighted in other buffers such as `calendar'
+;; where they should not be hightlight. Doing it with
+;; `nice-show-trailing-whitespace' ensures it is set locally as
+;; appropriate.
+(defun nice-show-trailing-whitespace ()
+  "Enable trailing whitespace highlighting only when editing a file."
+  (setq show-trailing-whitespace (buffer-file-name)))
+(add-hook 'find-file-hook 'nice-show-trailing-whitespace)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (require 'hl-todo)
 (global-hl-todo-mode)
@@ -396,11 +413,15 @@ files FA and FB using SPC f m KEY."
 (evil-leader/set-key "h d v" 'describe-variable)
 
 (defun message-buffer-file-name ()
-  "Print the full path of the current buffer's file to the
+  "Print the full path of the current buffer's file or directory to the
 minibuffer and store this on the kill ring."
   (interactive)
-  (kill-new buffer-file-name)
-  (message buffer-file-name))
+  (let ((path (or buffer-file-name
+                  (and (eq major-mode 'dired-mode)
+                       (dired-current-directory)))))
+    (when path
+      (kill-new path)
+      (message path))))
 
 (defun message-link-at-point ()
   "Print the full path of a link at the point so we know where this
@@ -440,8 +461,8 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 
 (evil-leader/set-key "s g ." (lambda () (interactive) (rgrep (read-string "Search terms: ") "*")))
 
-;; Be virtuous and lead by example 
-;; =============================== 
+;; Be virtuous and lead by example
+;; ===============================
 
 (setq-default major-mode
               (lambda ()
@@ -517,7 +538,7 @@ backup dictionary."
 
 (defun nice-load-snippets ()
   (interactive)
-  (let ((snippets-dir "~/.emacs.d/snippets")) 
+  (let ((snippets-dir "~/.emacs.d/snippets"))
     (unless (file-exists-p snippets-dir)
       (make-directory snippets-dir))
     (yas-load-directory snippets-dir)))
@@ -560,7 +581,7 @@ backup dictionary."
   "c P" 'mc/skip-to-previous-like-this ; Skip and mark previous occurrence
   "c u" 'mc/unmark-next-like-this      ; Unmark next cursor
   "c U" 'mc/unmark-previous-like-this  ; Unmark previous cursor
-  "c i" 'evil-insert                   ; Drop into using the cursors 
+  "c i" 'evil-insert                   ; Drop into using the cursors
   "c q" 'mc/keyboard-quit              ; Quit multiple-cursors mode
   )
 
@@ -713,7 +734,7 @@ indicate this."
 ;; moving from level n+1 headers their parent level n header.
 
 ;; FIXME Work out why the configuration based approach does not work!
-(setq org-return-follows-link t) 
+(setq org-return-follows-link t)
 (evil-leader/set-key-for-mode 'org-mode "RET" 'org-open-at-point)
 
 (defun nice-org-mode-hook ()
@@ -823,7 +844,7 @@ indicate this."
 	 (message ,(format "Visiting %s" pname))
 	 (find-file ,file)))
      (evil-leader/set-key ,(concat "v f" key) (intern ,(format "nice-visit-%s" fname)))))
-  
+
 (defmacro NVD (dname pname path key)
   "Macro to define a function for visiting a directory and set an Evil leader key binding.
 
@@ -953,4 +974,3 @@ indicate this."
 
 ;; There be dragons here
 ;; ---------------------
-
