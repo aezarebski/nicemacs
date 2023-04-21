@@ -193,7 +193,6 @@
   (set-face-background 'mode-line-inactive (nice-colour 'light-theme-shadow-background))
   (set-face-foreground 'mode-line-inactive (nice-colour 'light-theme-shadow-foreground)))
 
-
 (defun nice-toggle-themes ()
   "Toggle between two themes: solarized-light-high-contrast and
 solarized-dark-high-contrast and adjust the comment face to one
@@ -296,7 +295,35 @@ already in its own frame."
 ;; are available from the start of a key sequence.
 (require 'which-key)
 (which-key-mode)
-(setq which-key-idle-delay 0.6)
+(setq which-key-idle-delay 0.3)
+(require 'which-key)
+(which-key-mode)
+
+(setq key-description-pairs
+      '(("SPC a" . "Agenda (org-mode)")
+        ("SPC b" . "Buffers")
+        ("SPC c" . "Cursors")
+        ("SPC f" . "Files/Dired")
+        ("SPC F" . "Frame")
+        ("SPC g" . "Git (magit)")
+        ("SPC g c" . "Commits")
+        ("SPC h" . "HELP!!!")
+        ("SPC m" . "Major")
+        ("SPC m s" . "REPL")
+        ("SPC q" . "Quit/Exit")
+        ("SPC s" . "Shell/Search")
+        ("SPC S" . "Spelling")
+        ("SPC t" . "Toggles")
+        ("SPC v" . "Visitors")
+        ("SPC v b" . "Bibtex")
+        ("SPC v f" . "Files")
+        ("SPC v d" . "Directories")
+        ("SPC w" . "Windows")
+        ("SPC y" . "Yasnippet")
+        ("SPC z" . "Zoom (without a mouse)")))
+
+(dolist (pair key-description-pairs)
+  (which-key-add-key-based-replacements (car pair) (cdr pair)))
 
 (defmacro nice-meld-files (name fa fb key)
   "Generate function named nice-meld-NAME which opens meld diff for
@@ -701,11 +728,15 @@ backup dictionary."
 ;; TODO Find a better way to search BIB files.
 
 (defun most-recent-file (files)
-  "Sort FILES by modification time and return the most recent file."
-  (car (sort files
-             (lambda (a b)
-               (time-less-p (nth 5 (file-attributes b))
-                            (nth 5 (file-attributes a)))))))
+  "Return the most recent file from a list of FILES.
+FILES should be a list of file paths as strings."
+  (when (and files (every #'stringp files))
+    (cl-flet ((file-mod-time (file)
+                             (nth 5 (file-attributes file)))
+              (mod-time-less-p (a b)
+                               (time-less-p (file-mod-time b)
+                                            (file-mod-time a))))
+      (car (sort files #'mod-time-less-p)))))
 
 (defun copy-file-with-bib-extension (file-path)
   "Create a copy of the file at FILE-PATH with a .bib extension."
@@ -735,9 +766,18 @@ indicate this."
       (message "No bib files found in ~/Downloads/"))))
 
 (defun nice-bibtex-braces ()
-  "Wrap upper case letters with brackets for bibtex titles."
+  "Wrap upper case letters with brackets for bibtex titles within
+the selected region."
   (interactive)
-  (evil-ex "'<,'>s/\\([A-Z]+\\)/\\{\\1\\}/g"))
+  (if (use-region-p)
+      (let ((start (region-beginning))
+            (end (region-end))
+            (case-fold-search nil))
+        (save-excursion
+          (goto-char start)
+          (while (re-search-forward "\\([A-Z]+\\)" end t)
+            (replace-match (format "{%s}" (match-string 0)) t))))
+    (message "No region selected.")))
 
 (evil-leader/set-key "v b l" 'nice-visit-last-bib)
 
@@ -776,9 +816,7 @@ indicate this."
 (evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
 (evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
 
-;; set an org-mode specific key for org-latex-preview to `o t l`
 (evil-leader/set-key-for-mode 'org-mode "o t l" 'org-latex-preview)
-;; set an org-mode specific key for toggling inline images to `o t i`
 
 (setq org-image-actual-width 500)
 (evil-leader/set-key-for-mode 'org-mode "o t i" 'org-toggle-inline-images)
