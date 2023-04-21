@@ -51,6 +51,7 @@
 ;; ---------
 ;;
 ;; - 2023-04
+;;   + Use `SPC b s <x>` to open a scratch buffer in mode<x>
 ;;   + Edit `message-buffer-file-name' so it works in `dired'.
 ;;   + Extend `before-save-hook' to avoid accidental trailing
 ;;     whitespace.
@@ -337,9 +338,19 @@ files FA and FB using SPC f m KEY."
 ;; Adjust the windows so that they are all the same size.
 (evil-leader/set-key "w b" 'balance-windows)
 
-;; TODO Look into the `golden-ratio' package as a way to provide a
-;; more convenient window sizing mechanism. Possibly bind it to `SPC w
-;; g`.
+(defun nice-balance-windows-alt ()
+  "Balance windows such that the current window receives a certain
+amount of the of the frame's width and height."
+  (interactive)
+  (balance-windows)
+  (let* ((proportion 0.7)
+	 (frame-width (frame-width))
+         (frame-height (frame-height))
+         (desired-width (floor (* proportion frame-width)))
+         (desired-height (floor (* proportion frame-height))))
+    (enlarge-window-horizontally (- desired-width (window-width)))
+    (enlarge-window (- desired-height (window-height)))))
+(evil-leader/set-key "w a" 'nice-balance-windows-alt)
 
 ;; Shell stuff
 ;; -----------
@@ -390,7 +401,21 @@ files FA and FB using SPC f m KEY."
 
 (evil-leader/set-key "b b" 'switch-to-buffer)
 (evil-leader/set-key "b d" 'kill-buffer)
-(evil-leader/set-key "b s" 'scratch-buffer)
+
+(defmacro nice-scratch-buffer (mode key)
+  "Create a nice-scratch-buffer function for MODE and bind it to KEY."
+  (let ((func-name (intern (format "nice-scratch-buffer-%s" (symbol-name mode))))
+        (docstring (format "Open the scratch buffer and set the major mode to `%s'." mode)))
+    `(progn
+       (defun ,func-name ()
+         ,docstring
+         (interactive)
+         (switch-to-buffer "*scratch*")
+         (,mode))
+       (evil-leader/set-key ,key ',func-name))))
+(nice-scratch-buffer text-mode "b s t")
+(nice-scratch-buffer org-mode "b s o")
+(nice-scratch-buffer emacs-lisp-mode "b s e")
 
 (evil-leader/set-key "w s" 'split-window-below)
 (evil-leader/set-key "w v" 'split-window-right)
