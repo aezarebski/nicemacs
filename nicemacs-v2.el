@@ -831,6 +831,16 @@ the selected region."
 
 (add-hook 'org-mode-hook #'nice-org-mode-hook)
 
+;; Org-agenda
+;;
+;; - To navigate up and down lines in the agend view use =n/p=.
+;; - =v d= will show the day view.
+;; - =v w= the week view.
+;; - =v m= the month view.
+;; - =v SPC= resets the view.
+;; - =.= goes to today.
+;; - =j= will /jump/ to a date (selected via calendar).
+;;
 (setq org-agenda-start-day "-7d")
 (setq org-agenda-span 30)
 (setq org-agenda-start-on-weekday nil)
