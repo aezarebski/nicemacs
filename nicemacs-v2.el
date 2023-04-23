@@ -862,6 +862,15 @@ the selected region."
 (setq org-image-actual-width 500)
 (evil-leader/set-key-for-mode 'org-mode "o t i" 'org-toggle-inline-images)
 
+(defun nice-publish-homepage ()
+  "Copy my website homepage if it exists."
+  (interactive)
+  (let ((local "~/public-site/org/scratch.html")
+	(remote "~/aezarebski.github.io/index.html"))
+    (unless (not (file-exists-p local))
+      (copy-file local remote t)
+      (message "Copied %s to %s" local remote))))
+
 ;; The following projects are available for publishing when the
 ;; `org-publish' command is given.
 (setq org-publish-project-alist
