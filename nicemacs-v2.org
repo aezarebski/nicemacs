@@ -77,6 +77,8 @@
   ;; ---------
   ;;
   ;; - 2023-04
+  ;;   + Set up an org-mode file for documentation with tangling and
+  ;;     detangling.
   ;;   + Use `SPC b s <x>` to open a scratch buffer in mode<x>
   ;;   + Edit `message-buffer-file-name' so it works in `dired'.
   ;;   + Extend `before-save-hook' to avoid accidental trailing
@@ -841,6 +843,14 @@
   (evil-leader/set-key "a a" 'org-agenda)
   (evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
   (evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
+
+  (defun nice-detangle-nicemacs-v2 ()
+    "Detangle the nicemacs-v2.el file."
+    (interactive)
+    (let ((nicemacs-v2-source (concat nice-nicemacs-directory "/nicemacs-v2.el")))
+      (org-babel-detangle nicemacs-v2-source)))
+
+  (evil-leader/set-key-for-mode 'emacs-lisp-mode "b d" 'nice-detangle-nicemacs-v2)
 
   (evil-leader/set-key-for-mode 'org-mode "o t l" 'org-latex-preview)
 
