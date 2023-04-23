@@ -30,6 +30,7 @@
 ;; - `evil-leader' let there be <leader>
 ;; - `evil-mc'
 ;; - `evil-mc-extras' Extra functionality for evil-mc
+;; - `evil-surround'
 ;; - `flyspell'
 ;; - `hl-todo' Highlight TODO and similar keywords
 ;; - `htmlize' Convert buffer text and decorations to HTML.
@@ -54,6 +55,7 @@
 ;; - 2023-04
 ;;   + Set up an org-mode file for documentation with tangling and
 ;;     detangling.
+;;   + Use `S <x>` in visual mode to surround the region in <x>.
 ;;   + Use `SPC b s <x>` to open a scratch buffer in mode<x>
 ;;   + Edit `message-buffer-file-name' so it works in `dired'.
 ;;   + Extend `before-save-hook' to avoid accidental trailing
@@ -92,11 +94,22 @@
 (require 'evil)
 (require 'evil-leader)
 (require 'evil-collection)
+(require 'evil-surround)
 
 (evil-mode 1)
 (evil-leader-mode 1)
 (global-evil-leader-mode 1)
 (evil-collection-init)
+
+;; Evil surroundings
+;;
+;; 1. Enter visual mode and select the text as the region.
+;; 2. Press `S'.
+;; 3. Type the symbol to surround it (note, if it is part of a opening
+;;    and closing pair, the opening includes a space and the closing
+;;    does not.)
+(global-evil-surround-mode 1)
+(evil-leader/set-key "t s" 'evil-surround-mode)
 
 ;; Look stunning
 ;; =============
