@@ -1,3 +1,4 @@
+;; [[file:nicemacs-v2.org::*Nicemacs v2][Nicemacs v2:1]]
 ;;; Nicemacs.v2 -*- lexical-binding: t -*-
 ;;; ==================================================================
 ;;
@@ -1037,3 +1038,4 @@ the selected region."
 
 ;; There be dragons here
 ;; ---------------------
+;; Nicemacs v2:1 ends here
