@@ -591,8 +591,22 @@ backup dictionary."
 (evil-leader/set-key "S c" 'flyspell-correct-word-before-point)
 (evil-leader/set-key "S d" 'nice-diff-dictionaries)
 
+(setq words-to-add
+      '("many" "various" "very" "quite" "somewhat" "several"
+	"extremely" "exceedingly" "fairly" "rather" "remarkably" "few"
+	"surprisingly" "mostly" "largely" "almost" "nearly"
+	"generally" "virtually" "essentially" "often" "substantially"
+	"significantly" "considerably" "typically" "widely" "really"
+	"actually" "basically" "certainly" "possibly" "probably"
+	"arguably" "likely" "apparently" "clearly" "naturally"
+	"obviously" "seemingly" "surely" "somewhat" "allegedly"
+	"supposedly" "purportedly" "perhaps" "maybe" "kind of"
+	"sort of" "potentially" "ultimately" "respectively"))
+(cl-loop for word in words-to-add
+         unless (member word writegood-weasel-words)
+         do (add-to-list 'writegood-weasel-words word))
+
 (evil-leader/set-key "t w" 'writegood-mode)
-(add-to-list 'writegood-weasel-words "respectively")
 
 (defun nice-org-unfill-paragraph ()
   "Unfill the paragraph at point, joining all lines into a single line."
