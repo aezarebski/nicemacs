@@ -771,12 +771,12 @@
   (defun most-recent-file (files)
     "Return the most recent file from a list of FILES.
   FILES should be a list of file paths as strings."
-    (when (and files (every #'stringp files))
-      (cl-flet ((file-mod-time (file)
-			       (nth 5 (file-attributes file)))
-		(mod-time-less-p (a b)
-				 (time-less-p (file-mod-time b)
-					      (file-mod-time a))))
+    (when (and files (seq-every-p #'stringp files))
+      (cl-flet* ((file-mod-time (file)
+		   (nth 5 (file-attributes file)))
+		 (mod-time-less-p (a b)
+		   (time-less-p (file-mod-time b)
+				(file-mod-time a))))
 	(car (sort files #'mod-time-less-p)))))
 
   (defun copy-file-with-bib-extension (file-path)
@@ -922,6 +922,16 @@
 	   :base-extension "png\\|jpg\\|pdf"
 	   :publishing-directory "~/aezarebski.github.io/misc/basegraphicsR/"
 	   :publishing-function org-publish-attachment)
+	  ("website-misc-tikz-org-files"
+	   :base-directory "~/public-site/org/misc/tikz/"
+	   :base-extension "org"
+	   :publishing-directory "~/aezarebski.github.io/misc/tikz/"
+	   :publishing-function org-html-publish-to-html)
+	  ("website-misc-tikz-static"
+	   :base-directory "~/public-site/org/misc/tikz/"
+	   :base-extension "png\\|jpg\\|pdf"
+	   :publishing-directory "~/aezarebski.github.io/misc/tikz/"
+	   :publishing-function org-publish-attachment)
 	  ("nicemacs-org-files"
 	   :base-directory "~/Documents/nicemacs/"
 	   :base-extension "org"
@@ -932,10 +942,14 @@
 			"website-misc-basegraphicsR-static"
 			"website-misc-ggplot2-org-files"
 			"website-misc-ggplot2-static"))
+	  ("latex"
+	   :components ("website-misc-tikz-org-files"
+			"website-misc-tikz-static"))
 	  ("website"
 	   :components ("website-notes-org-files"
 			"website-images-static"
 			"nicemacs-org-files"
+			"latex"
 			"R"))))
 
   ;; Visitors
