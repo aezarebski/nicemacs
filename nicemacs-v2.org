@@ -173,6 +173,10 @@
       (global-ligature-mode 1)))
   (evil-leader/set-key "t l" 'toggle-ligatures)
 
+  (setq-default scroll-bar-width 10)
+  (setq-default left-fringe-width 10)
+  (setq-default right-fringe-width 10)
+
   ;; I dislike trailing whitespace creeping into my files so the
   ;; following will make it visible and automatically remove it upon
   ;; saving. NOTE setting `show-trailing-whitespace' globally leads to
