@@ -1029,7 +1029,9 @@ the selected region."
 
 (defun nice-visit-journal ()
   "Opens the current journal file. If it does not yet exist, it
-  makes a copy of the one from one week ago."
+  makes a copy of the one from one week ago. This will also
+  ensure that the current journal file is among the org agenda
+  files and that a previous one is not."
   (interactive)
   (let* ((filepath-template (concat nice-journal-directory "/journal-%s.org"))
          (curr-file (format filepath-template (format-time-string "%Y-%m")))
@@ -1038,7 +1040,10 @@ the selected region."
       (message "Creating new journal file")
       (copy-file prev-file curr-file))
     (message "Opening journal file")
-    (setq org-agenda-files (list curr-file))
+    (when (member prev-file org-agenda-files)
+      (setq org-agenda-files (remove prev-file org-agenda-files)))
+    (unless (member curr-file org-agenda-files)
+      (add-to-list 'org-agenda-files curr-file))
     (find-file curr-file)
     (goto-char (point-min))
     (recenter-top-bottom)))
@@ -1051,6 +1056,9 @@ the selected region."
 ;; To install this you need to clone the repository and a couple of
 ;; dependencies yourself: s, editorconfig which are emacs packages and
 ;; node.js.
+;;
+;; TODO There should really be an option to accept suggestions on a
+;; line by line basis.
 ;;
 
 (add-to-list 'load-path "~/.emacs.d/copilot.el/")
