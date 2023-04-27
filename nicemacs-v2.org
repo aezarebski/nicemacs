@@ -1242,6 +1242,17 @@ Follow the instructions in the =INSTALL= file to build emacs.
 If you want to save a macro for later use, you can get a emacs-lisp definition
 of it with =insert-kbd-macro=.
 
+** Buffer specific variables
+
+Suppose you wanted to set the =fill-column= for a specific file, add
+the following to the end of the file to set it to 80 for this file.
+
+#+begin_src latex
+% Local Variables:
+% fill-column: 80
+% End:
+#+end_src
+
 ** Jargon
 
 There is a [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Glossary.html][glossary]] in the manuals, the nodes are =Emacs > Glossary=. The regex
