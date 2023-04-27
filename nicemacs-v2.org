@@ -695,7 +695,15 @@
     "c i" 'evil-insert                   ; Drop into using the cursors
     "c q" 'mc/keyboard-quit              ; Quit multiple-cursors mode
     )
+#+end_src
 
+** Magit
+
+- If you want to bulk unstage files in the magit status buffer, you
+  can use =C-SPC= (to call the =set-mark-command=), select a bunch of
+  consecutive files, and then unstage them with =u=.
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Magit
   ;; -----
 
@@ -738,7 +746,9 @@
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
 
   (evil-leader/set-key "g q" 'with-editor-cancel)
+#+end_src
 
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Emacs Lisp
   ;; ----------
 
@@ -1071,6 +1081,8 @@
   (NVD website-org "Website (org files)" "~/public-site/org/fake.org" "w")
   (NVD website-html "Website (HTML files)" "~/aezarebski.github.io/fake.org" "W")
   (NVD notes "My notes" "~/public-site/org/notes/fake.org" "n")
+
+  (setq org-agenda-files nil)
 
   (defun nice-visit-journal ()
     "Opens the current journal file. If it does not yet exist, it

@@ -135,16 +135,16 @@
 
 (set-frame-font "JetBrains Mono" nil t)
 (ligature-set-ligatures 'prog-mode '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->" "///" "/=" "/=="
-                                     "/>" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|" "<||"
-                                     "<|||" "<|>" "<:" "<>" "<-<" "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
-                                     "<<" "<~>" "<=|" "<~~" "<~" "<$>" "<$" "<+>" "<+" "</>" "</" "<*"
-                                     "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=" "=>>"
-                                     "==>" "=/=" "=!=" "=>" "===" "=:=" "==" "!==" "!!" "!=" ">]" ">:"
-                                     ">>-" ">>=" ">=>" ">>>" ">-" ">=" "&&&" "&&" "|||>" "||>" "|>" "|]"
-                                     "|}" "|=>" "|->" "|=" "||-" "|-" "||=" "||" ".." ".?" ".=" ".-" "..<"
-                                     "..." "+++" "+>" "++" "[||]" "[<" "[|" "{|" "??" "?." "?=" "?:" "##"
-                                     "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
-                                     "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
+				     "/>" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|" "<||"
+				     "<|||" "<|>" "<:" "<>" "<-<" "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
+				     "<<" "<~>" "<=|" "<~~" "<~" "<$>" "<$" "<+>" "<+" "</>" "</" "<*"
+				     "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=" "=>>"
+				     "==>" "=/=" "=!=" "=>" "===" "=:=" "==" "!==" "!!" "!=" ">]" ">:"
+				     ">>-" ">>=" ">=>" ">>>" ">-" ">=" "&&&" "&&" "|||>" "||>" "|>" "|]"
+				     "|}" "|=>" "|->" "|=" "||-" "|-" "||=" "||" ".." ".?" ".=" ".-" "..<"
+				     "..." "+++" "+>" "++" "[||]" "[<" "[|" "{|" "??" "?." "?=" "?:" "##"
+				     "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
+				     "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
 (global-ligature-mode t)
 
 (defun toggle-ligatures ()
@@ -195,9 +195,9 @@
 
 (setq hl-todo-keyword-faces
       `(("TODO"   . ,(nice-colour 'strong-warning))
-        ("FIXME"  . ,(nice-colour 'weak-warning))
-        ("NOTE"   . ,(nice-colour 'weak-note))
-        ("DONE"   . ,(nice-colour 'strong-note))))
+	("FIXME"  . ,(nice-colour 'weak-warning))
+	("NOTE"   . ,(nice-colour 'weak-note))
+	("DONE"   . ,(nice-colour 'strong-note))))
 
 (setq fill-column 70)
 ;; FIXME the fill column is a bit hard to see, it should be clearer.
@@ -227,12 +227,12 @@ that is visible in both."
   (interactive)
   (if (eq (car custom-enabled-themes) 'solarized-light-high-contrast)
       (progn
-        (disable-theme 'solarized-light-high-contrast)
-        (load-theme 'solarized-dark-high-contrast t)
+	(disable-theme 'solarized-light-high-contrast)
+	(load-theme 'solarized-dark-high-contrast t)
 	(setq font-lock-comment-delimiter-face
 	      `((t (
 		    :background ,(nice-colour 'dark-theme-comment-background)
-  				:foreground ,(nice-colour 'dark-theme-comment-foreground)
+				:foreground ,(nice-colour 'dark-theme-comment-foreground)
 				:slant normal))))
 	(setq font-lock-comment-face
 	      `((t (
@@ -328,26 +328,26 @@ already in its own frame."
 
 (setq key-description-pairs
       '(("SPC a" . "Agenda (org-mode)")
-        ("SPC b" . "Buffers")
-        ("SPC c" . "Cursors")
-        ("SPC f" . "Files/Dired")
-        ("SPC F" . "Frame")
-        ("SPC g" . "Git (magit)")
-        ("SPC g c" . "Commits")
-        ("SPC h" . "HELP!!!")
-        ("SPC m" . "Major")
-        ("SPC m s" . "REPL")
-        ("SPC q" . "Quit/Exit")
-        ("SPC s" . "Shell/Search")
-        ("SPC S" . "Spelling")
-        ("SPC t" . "Toggles")
-        ("SPC v" . "Visitors")
-        ("SPC v b" . "Bibtex")
-        ("SPC v f" . "Files")
-        ("SPC v d" . "Directories")
-        ("SPC w" . "Windows")
-        ("SPC y" . "Yasnippet")
-        ("SPC z" . "Zoom (without a mouse)")))
+	("SPC b" . "Buffers")
+	("SPC c" . "Cursors")
+	("SPC f" . "Files/Dired")
+	("SPC F" . "Frame")
+	("SPC g" . "Git (magit)")
+	("SPC g c" . "Commits")
+	("SPC h" . "HELP!!!")
+	("SPC m" . "Major")
+	("SPC m s" . "REPL")
+	("SPC q" . "Quit/Exit")
+	("SPC s" . "Shell/Search")
+	("SPC S" . "Spelling")
+	("SPC t" . "Toggles")
+	("SPC v" . "Visitors")
+	("SPC v b" . "Bibtex")
+	("SPC v f" . "Files")
+	("SPC v d" . "Directories")
+	("SPC w" . "Windows")
+	("SPC y" . "Yasnippet")
+	("SPC z" . "Zoom (without a mouse)")))
 
 (dolist (pair key-description-pairs)
   (which-key-add-key-based-replacements (car pair) (cdr pair)))
@@ -399,9 +399,9 @@ amount of the of the frame's width and height."
   (balance-windows)
   (let* ((proportion 0.7)
 	 (frame-width (frame-width))
-         (frame-height (frame-height))
-         (desired-width (floor (* proportion frame-width)))
-         (desired-height (floor (* proportion frame-height))))
+	 (frame-height (frame-height))
+	 (desired-width (floor (* proportion frame-width)))
+	 (desired-height (floor (* proportion frame-height))))
     (enlarge-window-horizontally (- desired-width (window-width)))
     (enlarge-window (- desired-height (window-height)))))
 (evil-leader/set-key "w a" 'nice-balance-windows-alt)
@@ -441,16 +441,16 @@ amount of the of the frame's width and height."
  the current buffer is a shell, or the home directory otherwise."
   (interactive)
   (let* ((buffer-mode (with-current-buffer (current-buffer) major-mode))
-         (dir (cond ((buffer-file-name)
-                     (file-name-directory (buffer-file-name)))
-                    ((or (eq buffer-mode 'term-mode)
-                         (eq buffer-mode 'eshell-mode)
+	 (dir (cond ((buffer-file-name)
+		     (file-name-directory (buffer-file-name)))
+		    ((or (eq buffer-mode 'term-mode)
+			 (eq buffer-mode 'eshell-mode)
 			 (eq buffer-mode 'inferior-ess-r-mode))
-                     (with-current-buffer (if (eq buffer-mode 'inferior-ess-r-mode)
+		     (with-current-buffer (if (eq buffer-mode 'inferior-ess-r-mode)
 					      (process-buffer (ess-get-process ess-current-process-name))
 					    (current-buffer))
-                       (file-name-directory default-directory)))
-                    (t (expand-file-name "~/")))))
+		       (file-name-directory default-directory)))
+		    (t (expand-file-name "~/")))))
     (dired dir)))
 
 (evil-leader/set-key "b b" 'switch-to-buffer)
@@ -459,13 +459,13 @@ amount of the of the frame's width and height."
 (defmacro nice-scratch-buffer (mode key)
   "Create a nice-scratch-buffer function for MODE and bind it to KEY."
   (let ((func-name (intern (format "nice-scratch-buffer-%s" (symbol-name mode))))
-        (docstring (format "Open the scratch buffer and set the major mode to `%s'." mode)))
+	(docstring (format "Open the scratch buffer and set the major mode to `%s'." mode)))
     `(progn
        (defun ,func-name ()
-         ,docstring
-         (interactive)
-         (switch-to-buffer "*scratch*")
-         (,mode))
+	 ,docstring
+	 (interactive)
+	 (switch-to-buffer "*scratch*")
+	 (,mode))
        (evil-leader/set-key ,key ',func-name))))
 (nice-scratch-buffer text-mode "b s t")
 (nice-scratch-buffer org-mode "b s o")
@@ -496,8 +496,8 @@ amount of the of the frame's width and height."
 minibuffer and store this on the kill ring."
   (interactive)
   (let ((path (or buffer-file-name
-                  (and (eq major-mode 'dired-mode)
-                       (dired-current-directory)))))
+		  (and (eq major-mode 'dired-mode)
+		       (dired-current-directory)))))
     (when path
       (kill-new path)
       (message path))))
@@ -507,7 +507,7 @@ minibuffer and store this on the kill ring."
 will take us."
   (interactive)
   (let* ((link (org-element-context))
-         (link-file-name (org-element-property :path link)))
+	 (link-file-name (org-element-property :path link)))
     (when (eq (org-element-type link) 'link)
       (kill-new link-file-name)
       (message "%s" link-file-name))))
@@ -544,10 +544,10 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 ;; ===============================
 
 (setq-default major-mode
-              (lambda ()
-                (unless buffer-file-name
-                  (let ((buffer-file-name (buffer-name)))
-                    (set-auto-mode)))))
+	      (lambda ()
+		(unless buffer-file-name
+		  (let ((buffer-file-name (buffer-name)))
+		    (set-auto-mode)))))
 (setq confirm-kill-emacs #'yes-or-no-p)
 (recentf-mode t)
 
@@ -577,13 +577,13 @@ backup dictionary."
     (ediff-files ispell-personal-dictionary backup-dictionary)))
 
 (set-face-attribute 'flyspell-duplicate nil
-                    :underline nil
+		    :underline nil
 		    :foreground "white"
-                    :background "red")
+		    :background "red")
 (set-face-attribute 'flyspell-incorrect nil
-                    :underline nil
+		    :underline nil
 		    :foreground "white"
-                    :background "red")
+		    :background "red")
 
 (evil-leader/set-key "t S" 'flyspell-mode) ; toggle flyspell on/off.
 (evil-leader/set-key "S b" 'flyspell-buffer)
@@ -603,8 +603,8 @@ backup dictionary."
 	"supposedly" "purportedly" "perhaps" "maybe" "kind of"
 	"sort of" "potentially" "ultimately" "respectively"))
 (cl-loop for word in words-to-add
-         unless (member word writegood-weasel-words)
-         do (add-to-list 'writegood-weasel-words word))
+	 unless (member word writegood-weasel-words)
+	 do (add-to-list 'writegood-weasel-words word))
 
 (evil-leader/set-key "t w" 'writegood-mode)
 
@@ -677,7 +677,9 @@ backup dictionary."
   "c i" 'evil-insert                   ; Drop into using the cursors
   "c q" 'mc/keyboard-quit              ; Quit multiple-cursors mode
   )
+;; Nicemacs v2:1 ends here
 
+;; [[file:nicemacs-v2.org::*Magit][Magit:1]]
 ;; Magit
 ;; -----
 
@@ -706,8 +708,8 @@ backup dictionary."
        "Generate a canned commit message with a timestamp."
        (interactive)
        (let ((commit-message (format "%s %s"
-                                     ,cmessage
-                                     (downcase (format-time-string "%A %l:%M %p")))))
+				     ,cmessage
+				     (downcase (format-time-string "%A %l:%M %p")))))
 	 (magit-commit-create (list "--edit" (concat "-m \"" commit-message "\"")))))
      (evil-leader/set-key ,(concat "g c " key) (intern ,(format "nccm-%s" fname)))))
 
@@ -720,7 +722,9 @@ backup dictionary."
 (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
 
 (evil-leader/set-key "g q" 'with-editor-cancel)
+;; Magit:1 ends here
 
+;; [[file:nicemacs-v2.org::*Magit][Magit:2]]
 ;; Emacs Lisp
 ;; ----------
 
@@ -773,18 +777,18 @@ backup dictionary."
 FILES should be a list of file paths as strings."
   (when (and files (seq-every-p #'stringp files))
     (cl-flet* ((file-mod-time (file)
-                 (nth 5 (file-attributes file)))
-               (mod-time-less-p (a b)
-                 (time-less-p (file-mod-time b)
-                              (file-mod-time a))))
+		 (nth 5 (file-attributes file)))
+	       (mod-time-less-p (a b)
+		 (time-less-p (file-mod-time b)
+			      (file-mod-time a))))
       (car (sort files #'mod-time-less-p)))))
 
 (defun copy-file-with-bib-extension (file-path)
   "Create a copy of the file at FILE-PATH with a .bib extension."
   (let* ((file-name (file-name-nondirectory file-path))
-         (file-base-name (file-name-sans-extension file-name))
-         (new-file-name (concat file-base-name ".bib"))
-         (new-file-path (concat (file-name-directory file-path) new-file-name)))
+	 (file-base-name (file-name-sans-extension file-name))
+	 (new-file-name (concat file-base-name ".bib"))
+	 (new-file-path (concat (file-name-directory file-path) new-file-name)))
     (copy-file file-path new-file-path t)
     new-file-path))
 
@@ -794,16 +798,16 @@ file that is younger than the last BIB file, send a message to
 indicate this."
   (interactive)
   (let* ((bib-files (directory-files "~/Downloads" t ".*bib" "ctime"))
-         (most-recent-bib (most-recent-file bib-files))
-         (txt-files (directory-files "~/Downloads" t ".*txt" "ctime"))
+	 (most-recent-bib (most-recent-file bib-files))
+	 (txt-files (directory-files "~/Downloads" t ".*txt" "ctime"))
 	 (most-recent-txt (most-recent-file txt-files)))
     (if most-recent-bib
-        (if (and most-recent-txt
-                 (time-less-p (nth 5 (file-attributes most-recent-bib))
-                              (nth 5 (file-attributes most-recent-txt))))
-            (progn (message (concat "A more recent .txt file exists: " most-recent-txt))
+	(if (and most-recent-txt
+		 (time-less-p (nth 5 (file-attributes most-recent-bib))
+			      (nth 5 (file-attributes most-recent-txt))))
+	    (progn (message (concat "A more recent .txt file exists: " most-recent-txt))
 		   (find-file (copy-file-with-bib-extension most-recent-txt)))
-          (find-file most-recent-bib))
+	  (find-file most-recent-bib))
       (message "No bib files found in ~/Downloads/"))))
 
 (defun nice-bibtex-braces ()
@@ -812,12 +816,12 @@ the selected region."
   (interactive)
   (if (use-region-p)
       (let ((start (region-beginning))
-            (end (region-end))
-            (case-fold-search nil))
-        (save-excursion
-          (goto-char start)
-          (while (re-search-forward "\\([A-Z]+\\)" end t)
-            (replace-match (format "{%s}" (match-string 0)) t))))
+	    (end (region-end))
+	    (case-fold-search nil))
+	(save-excursion
+	  (goto-char start)
+	  (while (re-search-forward "\\([A-Z]+\\)" end t)
+	    (replace-match (format "{%s}" (match-string 0)) t))))
     (message "No region selected.")))
 
 (evil-leader/set-key "v b l" 'nice-visit-last-bib)
@@ -985,8 +989,8 @@ the selected region."
        "Visit a notes file."
        (interactive)
        (progn
-         (message ,(format "Visiting %s" pname))
-         (find-file ,(concat nice-notes-directory "/" file))))
+	 (message ,(format "Visiting %s" pname))
+	 (find-file ,(concat nice-notes-directory "/" file))))
      (evil-leader/set-key ,(concat "v n " key) (intern ,(format "nice-visit-%s" fname)))))
 
 (defmacro NVF (fname pname file key)
@@ -1019,9 +1023,9 @@ the selected region."
        "Visit a directory."
        (interactive)
        (progn
-         (message ,(format "Visiting %s" pname))
-         (dired-jump nil ,path)
-         (revert-buffer)))
+	 (message ,(format "Visiting %s" pname))
+	 (dired-jump nil ,path)
+	 (revert-buffer)))
      (evil-leader/set-key ,(concat "v d " key) (intern ,(format "nice-visit-%s" dname)))))
 
 (NVF nicemacs2-init "Nicemacs v2 init.el" "~/.emacs.d/init.el" "e 2")
@@ -1054,6 +1058,8 @@ the selected region."
 (NVD website-html "Website (HTML files)" "~/aezarebski.github.io/fake.org" "W")
 (NVD notes "My notes" "~/public-site/org/notes/fake.org" "n")
 
+(setq org-agenda-files nil)
+
 (defun nice-visit-journal ()
   "Opens the current journal file. If it does not yet exist, it
   makes a copy of the one from one week ago. This will also
@@ -1061,8 +1067,8 @@ the selected region."
   files and that a previous one is not."
   (interactive)
   (let* ((filepath-template (concat nice-journal-directory "/journal-%s.org"))
-         (curr-file (format filepath-template (format-time-string "%Y-%m")))
-         (prev-file (format filepath-template (format-time-string "%Y-%m" (time-subtract (current-time) (* 7 24 60 60))))))
+	 (curr-file (format filepath-template (format-time-string "%Y-%m")))
+	 (prev-file (format filepath-template (format-time-string "%Y-%m" (time-subtract (current-time) (* 7 24 60 60))))))
     (unless (file-exists-p curr-file)
       (message "Creating new journal file")
       (copy-file prev-file curr-file))
@@ -1136,4 +1142,4 @@ the selected region."
 
 ;; There be dragons here
 ;; ---------------------
-;; Nicemacs v2:1 ends here
+;; Magit:2 ends here
