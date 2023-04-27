@@ -16,6 +16,8 @@
 
 * Nicemacs v2
 
+** STUFF
+
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;;; Nicemacs.v2 -*- lexical-binding: t -*-
   ;;; ==================================================================
@@ -699,9 +701,24 @@
 
 ** Magit
 
-- If you want to bulk unstage files in the magit status buffer, you
-  can use =C-SPC= (to call the =set-mark-command=), select a bunch of
-  consecutive files, and then unstage them with =u=.
+*** Staging and unstaging multiple files
+
+You can select multiple files to unstage in one go using the region.
+To do this, follow these steps:
+
+1. Navigate to the "Staged changes" section in the Magit status
+   buffer.
+2. Move the cursor to the first file you want to unstage.
+3. Set the mark by pressing =C-SPC= (Control + Space).
+4. Move the cursor to the last file you want to unstage. This will
+   create a region that includes all the files you want to unstage.
+5. Press =u= to unstage all the files in the region.
+
+You can also use the same method to stage multiple files in the
+"Unstaged changes" section. Just follow the same steps, but press =s=
+instead of =u= in step 5 to stage the files in the region.
+
+*** Configuration
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Magit
@@ -747,6 +764,8 @@
 
   (evil-leader/set-key "g q" 'with-editor-cancel)
 #+end_src
+
+** STUFF
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Emacs Lisp
