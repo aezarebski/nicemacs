@@ -801,6 +801,8 @@ instead of =u= in step 5 to stage the files in the region.
   (add-to-list 'auto-mode-alist '("\\.rkt\\'" . racket-mode))
   (setq racket-program "/usr/bin/racket")
 
+  (evil-leader/set-key-for-mode 'racket-mode "m h d" 'racket-describe-search)
+
   (evil-leader/set-key-for-mode 'racket-mode "m s b" 'racket-run)
   (evil-leader/set-key-for-mode 'racket-mode "m s r" 'racket-send-region)
   (evil-leader/set-key-for-mode 'racket-mode "m s c" 'racket-send-last-sexp)
