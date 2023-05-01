@@ -59,6 +59,9 @@
 ;; Changelog
 ;; ---------
 ;;
+;; - 2023-05
+;;   + Include python configuration.
+;;
 ;; - 2023-04
 ;;   + Set up an org-mode file for documentation with tangling and
 ;;     detangling.
@@ -635,6 +638,7 @@ backup dictionary."
 (yas-global-mode 1)
 
 (defun nice-load-snippets ()
+  "Load the snippets in ~/.emacs.d/snippets."
   (interactive)
   (let ((snippets-dir "~/.emacs.d/snippets"))
     (unless (file-exists-p snippets-dir)
@@ -649,7 +653,13 @@ backup dictionary."
   "y v" 'yas-visit-snippet-file ; Visit the snippet file for the current mode
   "y r" 'yas-reload-all         ; Reload all snippets
   "y c" 'yas-compile-directory  ; Compile all snippets
-  "y l" 'nice-load-snippets)    ; Load your custom snippets
+  "y l" 'nice-load-snippets     ; Load your custom snippets
+  "y g" 'nice-go-to-snippets-dir)
+
+(defun nice-go-to-snippets-dir ()
+  "Open the snippets directory in dired."
+  (interactive)
+  (dired "~/.emacs.d/snippets"))
 
 ;; Multiple cursors
 ;; ----------------
@@ -752,6 +762,22 @@ backup dictionary."
 (require 'quarto-mode)
 
 (evil-leader/set-key-for-mode 'ess-r-mode "m s c" 'ess-eval-region-or-line-visibly-and-step)
+
+;; Python
+;; ------
+;;
+;; Use `pyvenv-activate' to activate a virtual environment.
+
+(require 'pyvenv)
+(require 'python)
+
+(evil-leader/set-key-for-mode 'python-mode
+  "m s b" 'python-shell-send-buffer
+  "m s r" 'python-shell-send-region
+  "m '" 'python-shell-switch-to-shell)
+
+(setq python-shell-interpreter "python3")
+(setq python-indent-offset 4)
 
 ;; Scheme/Racket
 ;; -------------
