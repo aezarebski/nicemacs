@@ -330,6 +330,7 @@ already in its own frame."
       '(("SPC a" . "Agenda (org-mode)")
         ("SPC b" . "Buffers")
         ("SPC c" . "Cursors")
+        ("SPC c" . "Delete")
         ("SPC f" . "Files/Dired")
         ("SPC F" . "Frame")
         ("SPC g" . "Git (magit)")
@@ -427,13 +428,18 @@ amount of the of the frame's width and height."
 ;; ~/Downloads directory to the current directory so that they can be
 ;; used from eshell.
 
-(evil-leader/set-key "f f" 'find-file)
-(evil-leader/set-key "f s" 'save-buffer)
-
 (require 'dired)
-(evil-leader/set-key "f d" 'nice-dired)
 (define-key dired-mode-map "-" 'dired-up-directory)
 (setq dired-listing-switches "-alh")
+
+(evil-leader/set-key
+  "f f" 'find-file
+  "f F" 'find-file-other-frame
+  "f s" 'save-buffer
+  "f d" 'nice-dired
+  "b b" 'switch-to-buffer
+  "d b" 'kill-buffer
+  "d f" 'delete-frame)
 
 (defun nice-dired ()
   "Open dired for the current buffer's directory if it
@@ -453,9 +459,6 @@ amount of the of the frame's width and height."
 		    (t (expand-file-name "~/")))))
     (dired dir)))
 
-(evil-leader/set-key "b b" 'switch-to-buffer)
-(evil-leader/set-key "b d" 'kill-buffer)
-
 (defmacro nice-scratch-buffer (mode key)
   "Create a nice-scratch-buffer function for MODE and bind it to KEY."
   (let ((func-name (intern (format "nice-scratch-buffer-%s" (symbol-name mode))))
@@ -471,25 +474,28 @@ amount of the of the frame's width and height."
 (nice-scratch-buffer org-mode "b s o")
 (nice-scratch-buffer emacs-lisp-mode "b s e")
 
-(evil-leader/set-key "w s" 'split-window-below)
-(evil-leader/set-key "w v" 'split-window-right)
-(evil-leader/set-key "TAB" 'next-window-and-pulse)
-(evil-leader/set-key "<backtab>" 'previous-window-and-pulse)
-(evil-leader/set-key "w d" 'delete-window)
-(evil-leader/set-key "w L" 'evil-window-move-far-right)
-(evil-leader/set-key "w H" 'evil-window-move-far-left)
-(evil-leader/set-key "w J" 'evil-window-move-very-bottom)
-(evil-leader/set-key "w K" 'evil-window-move-very-top)
+(evil-leader/set-key
+  "w s" 'split-window-below
+  "w v" 'split-window-right
+  "TAB" 'next-window-and-pulse
+  "<backtab>" 'previous-window-and-pulse
+  "w d" 'delete-window
+  "w L" 'evil-window-move-far-right
+  "w H" 'evil-window-move-far-left
+  "w J" 'evil-window-move-very-bottom
+  "w K" 'evil-window-move-very-top)
 
 ;; Consult the oracle
 ;; ------------------
 
-(evil-leader/set-key "h s" 'apropos)
-(evil-leader/set-key "h d f" 'describe-function)
-(evil-leader/set-key "h d m" 'describe-mode)
-(evil-leader/set-key "h d p" 'describe-package)
-(evil-leader/set-key "h d k" 'describe-key)
-(evil-leader/set-key "h d v" 'describe-variable)
+(evil-leader/set-key
+  "h s" 'apropos
+  "h d b" 'message-buffer-file-name
+  "h d f" 'describe-function
+  "h d m" 'describe-mode
+  "h d p" 'describe-package
+  "h d k" 'describe-key
+  "h d v" 'describe-variable)
 
 (defun message-buffer-file-name ()
   "Print the full path of the current buffer's file or directory to the
@@ -512,7 +518,6 @@ will take us."
       (kill-new link-file-name)
       (message "%s" link-file-name))))
 
-(evil-leader/set-key "h b n" 'message-buffer-file-name)
 (evil-leader/set-key "h l m" 'message-link-at-point)
 
 ;; Learn from your past
@@ -544,10 +549,10 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 ;; ===============================
 
 (setq-default major-mode
-	      (lambda ()
-		(unless buffer-file-name
-		  (let ((buffer-file-name (buffer-name)))
-		    (set-auto-mode)))))
+              (lambda ()
+                (unless buffer-file-name
+                  (let ((buffer-file-name (buffer-name)))
+                    (set-auto-mode)))))
 (setq confirm-kill-emacs #'yes-or-no-p)
 (recentf-mode t)
 
@@ -758,6 +763,7 @@ backup dictionary."
 (add-to-list 'auto-mode-alist '("\\.rkt\\'" . racket-mode))
 (setq racket-program "/usr/bin/racket")
 
+(evil-leader/set-key-for-mode 'racket-mode "m h d" 'racket-describe-search)
 (evil-leader/set-key-for-mode 'racket-mode "m s b" 'racket-run)
 (evil-leader/set-key-for-mode 'racket-mode "m s r" 'racket-send-region)
 (evil-leader/set-key-for-mode 'racket-mode "m s c" 'racket-send-last-sexp)
