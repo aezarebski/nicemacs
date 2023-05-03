@@ -967,6 +967,16 @@ the selected region."
 	 :base-extension "png\\|jpg\\|pdf"
 	 :publishing-directory "~/aezarebski.github.io/misc/basegraphicsR/"
 	 :publishing-function org-publish-attachment)
+	("website-misc-latex-org-files"
+	 :base-directory "~/public-site/org/misc/latex/"
+	 :base-extension "org"
+	 :publishing-directory "~/aezarebski.github.io/misc/latex/"
+	 :publishing-function org-html-publish-to-html)
+	("website-misc-latex-static"
+	 :base-directory "~/public-site/org/misc/latex/"
+	 :base-extension "png\\|jpg\\|pdf"
+	 :publishing-directory "~/aezarebski.github.io/misc/latex/"
+	 :publishing-function org-publish-attachment)
 	("website-misc-tikz-org-files"
 	 :base-directory "~/public-site/org/misc/tikz/"
 	 :base-extension "org"
@@ -988,7 +998,9 @@ the selected region."
 		      "website-misc-ggplot2-org-files"
 		      "website-misc-ggplot2-static"))
 	("latex"
-	 :components ("website-misc-tikz-org-files"
+	 :components ("website-misc-latex-org-files"
+		      "website-misc-latex-static"
+		      "website-misc-tikz-org-files"
 		      "website-misc-tikz-static"))
 	("website"
 	 :components ("website-notes-org-files"
