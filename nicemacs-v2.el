@@ -60,6 +60,8 @@
 ;; ---------
 ;;
 ;; - 2023-05
+;;   + Use the `unfill' package for better paragraph un/filling.
+;;   + Use the `lorem-ipsum' package for convenient dummy text.
 ;;   + Include python configuration.
 ;;
 ;; - 2023-04
@@ -296,6 +298,9 @@ that is visible in both."
 
 ;; Be sensible
 ;; ===========
+
+(require 'unfill)
+(global-set-key (kbd "M-q") 'unfill-toggle)
 
 (global-evil-leader-mode)
 
@@ -573,6 +578,7 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 
 (require 'flyspell)
 (require 'writegood-mode)
+(require 'lorem-ipsum)			; provide dummy text
 
 (setq ispell-program-name "aspell")
 (setq ispell-personal-dictionary "~/.aspell.en.pws")
