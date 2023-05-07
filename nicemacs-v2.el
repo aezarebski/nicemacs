@@ -87,7 +87,7 @@
 
 (setq user-full-name "Alexander E. Zarebski")
 
-(defvar nice-journal-directory "~/Documents/journal"
+(defvar nice-journal-directory "~/Documents/journal/"
   "The directory for nicemacs journal files.")
 (defvar nice-notes-directory "~/public-site/org/notes"
   "The directory for nicemacs notes files.")
@@ -622,13 +622,6 @@ backup dictionary."
 
 (evil-leader/set-key "t w" 'writegood-mode)
 
-(defun nice-org-unfill-paragraph ()
-  "Unfill the paragraph at point, joining all lines into a single line."
-  (interactive)
-  (let ((fill-column (point-max)))
-    (fill-paragraph nil)))
-
-
 ;; Be powerful with packages
 ;; =========================
 
@@ -1108,7 +1101,8 @@ the selected region."
 (NVD website-html "Website (HTML files)" "~/aezarebski.github.io/fake.org" "W")
 (NVD notes "My notes" "~/public-site/org/notes/fake.org" "n")
 
-(setq org-agenda-files nil)
+(setq org-agenda-files
+      (list (concat nice-journal-directory "bike.org")))
 
 (defun nice-visit-journal ()
   "Opens the current journal file. If it does not yet exist, it
@@ -1116,7 +1110,7 @@ the selected region."
   ensure that the current journal file is among the org agenda
   files and that a previous one is not."
   (interactive)
-  (let* ((filepath-template (concat nice-journal-directory "/journal-%s.org"))
+  (let* ((filepath-template (concat nice-journal-directory "journal-%s.org"))
 	 (curr-file (format filepath-template (format-time-string "%Y-%m")))
 	 (prev-file (format filepath-template (format-time-string "%Y-%m" (time-subtract (current-time) (* 7 24 60 60))))))
     (unless (file-exists-p curr-file)
