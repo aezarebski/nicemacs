@@ -16,7 +16,440 @@
 
 * Nicemacs v2
 
-** STUFF
+** STUFF 1
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  ;;; Nicemacs.v2 -*- lexical-binding: t -*-
+  ;;; ==================================================================
+  ;;
+  ;;   ███╗   ██╗██╗ ██████╗███████╗███╗   ███╗ █████╗  ██████╗███████╗
+  ;;   ████╗  ██║██║██╔════╝██╔════╝████╗ ████║██╔══██╗██╔════╝██╔════╝
+  ;;   ██╔██╗ ██║██║██║     █████╗  ██╔████╔██║███████║██║     ███████╗
+  ;;   ██║╚██╗██║██║██║     ██╔══╝  ██║╚██╔╝██║██╔══██║██║     ╚════██║
+  ;;   ██║ ╚████║██║╚██████╗███████╗██║ ╚═╝ ██║██║  ██║╚██████╗███████║
+  ;;   ╚═╝  ╚═══╝╚═╝ ╚═════╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝╚══════╝
+  ;;
+  ;; To update your packages carry out the following steps:
+  ;;
+  ;; 1. M-x list-packages
+  ;; 2. Press `r' to refresh
+  ;; 3. Press `U' to mark upgradable packages
+  ;; 4. Press `x' to execute the upgrades
+  ;;
+  ;;
+  ;;  Maybe just: don't neglect the Elisp manual.  I've read it _far_
+  ;;  more than the regular Emacs manual, and it's surprisingly fun.
+  ;;  Seeing Emacs as an interactive lisp machine to be programmed
+  ;;  rather than an editor to be configured makes many things easier.
+  ;;
+  ;;  ~ Tim Vaughan (2023)
+  ;;
+  ;; Packages used
+  ;; -------------
+  ;;
+  ;; - `cl-lib'
+  ;; - `copilot'
+  ;; - `dired'
+  ;; - `ess' Emacs Speaks Statistics
+  ;; - `ess-site'
+  ;; - `evil' Extensible Vi layer for Emacs.
+  ;; - `evil-collection' A set of keybindings for Evil mode
+  ;; - `evil-leader' let there be <leader>
+  ;; - `evil-mc'
+  ;; - `evil-mc-extras' Extra functionality for evil-mc
+  ;; - `evil-surround'
+  ;; - `flyspell'
+  ;; - `hl-todo' Highlight TODO and similar keywords
+  ;; - `htmlize' Convert buffer text and decorations to HTML.
+  ;; - `magit' A Git porcelain inside Emacs.
+  ;; - `markdown-mode' Major mode for Markdown-formatted text
+  ;; - `multiple-cursors' Multiple cursors for Emacs.
+  ;; - `ligature' Ligature support for Emacs.
+  ;; - `quarto-mode' A (poly)mode for https://quarto.org
+  ;; - `racket-mode' Racket editing, REPL, and more
+  ;; - `rainbow-mode' Colorize color names in buffers
+  ;; - `s' The long lost Emacs string manipulation library.
+  ;; - `solarized-theme' The Solarized color theme
+  ;; - `which-key' Display available keybindings in popup
+  ;; - `winum' Navigate windows and frames using numbers.
+  ;; - `writegood-mode' Polish up poor writing on the fly
+  ;; - `yasnippet' Yet another snippet extension for Emacs
+  ;; - `yasnippet-snippets' Collection of yasnippet snippets
+  ;;
+  ;; Changelog
+  ;; ---------
+  ;;
+  ;; - 2023-05
+  ;;   + Use the `unfill' package for better paragraph un/filling.
+  ;;   + Use the `lorem-ipsum' package for convenient dummy text.
+  ;;   + Include python configuration.
+  ;;
+  ;; - 2023-04
+  ;;   + Set up an org-mode file for documentation with tangling and
+  ;;     detangling.
+  ;;   + Use `S <x>` in visual mode to surround the region in <x>.
+  ;;   + Use `SPC b s <x>` to open a scratch buffer in mode<x>
+  ;;   + Edit `message-buffer-file-name' so it works in `dired'.
+  ;;   + Extend `before-save-hook' to avoid accidental trailing
+  ;;     whitespace.
+  ;;   + Use JetBrains Mono as the font with ligatures.
+  ;;
+  ;;; ==================================================================
+
+
+
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (add-to-list 'package-archives  '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
+  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+
+  (package-initialize)
+
+  (setq user-full-name "Alexander E. Zarebski")
+
+  (defvar nice-journal-directory "~/Documents/journal/"
+    "The directory for nicemacs journal files.")
+  (defvar nice-notes-directory "~/public-site/org/notes"
+    "The directory for nicemacs notes files.")
+  (defvar nice-resources-dir "~/Documents/nicemacs/resources"
+    "The path to the nicemacs resources directory on this machine.")
+  (defvar nice-nicemacs-directory "~/Documents/nicemacs"
+    "The path to the nicemacs directory on this machine.")
+
+  (require 'cl-lib)
+
+  ;; Be evil
+  ;; -------
+
+  (setq evil-want-keybinding ())
+
+  (require 'evil)
+  (require 'evil-leader)
+  (require 'evil-collection)
+  (require 'evil-surround)
+
+  (evil-mode 1)
+  (evil-leader-mode 1)
+  (global-evil-leader-mode 1)
+  (evil-collection-init)
+
+  ;; Evil surroundings
+  ;;
+  ;; 1. Enter visual mode and select the text as the region.
+  ;; 2. Press `S'.
+  ;; 3. Type the symbol to surround it (note, if it is part of a opening
+  ;;    and closing pair, the opening includes a space and the closing
+  ;;    does not.)
+  (global-evil-surround-mode 1)
+  (evil-leader/set-key "t s" 'evil-surround-mode)
+
+  ;; Look stunning
+  ;; =============
+  ;;
+  ;; To install JetBrains Mono, or any other font, follow these steps:
+  ;;
+  ;; 1. Download and extract the font, you should have a "ttf" directory
+  ;;    containing the font files.
+  ;; 2. Create a font directory if you don't already have one
+  ;;    $ mkdir -p ~/.local/share/fonts
+  ;; 3. Copy the font files to the font directory:
+  ;;    $ cp path/to/extracted/ttf/*.ttf ~/.local/share/fonts
+  ;; 4. Update the font cache:
+  ;;    $ fc-cache -f -v
+  ;;
+
+  (set-frame-font "JetBrains Mono" nil t)
+  (ligature-set-ligatures 'prog-mode '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->" "///" "/=" "/=="
+				       "/>" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|" "<||"
+				       "<|||" "<|>" "<:" "<>" "<-<" "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
+				       "<<" "<~>" "<=|" "<~~" "<~" "<$>" "<$" "<+>" "<+" "</>" "</" "<*"
+				       "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=" "=>>"
+				       "==>" "=/=" "=!=" "=>" "===" "=:=" "==" "!==" "!!" "!=" ">]" ">:"
+				       ">>-" ">>=" ">=>" ">>>" ">-" ">=" "&&&" "&&" "|||>" "||>" "|>" "|]"
+				       "|}" "|=>" "|->" "|=" "||-" "|-" "||=" "||" ".." ".?" ".=" ".-" "..<"
+				       "..." "+++" "+>" "++" "[||]" "[<" "[|" "{|" "??" "?." "?=" "?:" "##"
+				       "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
+				       "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
+  (global-ligature-mode t)
+
+  (defun toggle-ligatures ()
+    "Toggle ligatures on and off."
+    (interactive)
+    (if (bound-and-true-p global-ligature-mode)
+	(global-ligature-mode -1)
+      (global-ligature-mode 1)))
+  (evil-leader/set-key "t l" 'toggle-ligatures)
+
+  (setq-default scroll-bar-width 10)
+  (setq-default left-fringe-width 10)
+  (setq-default right-fringe-width 10)
+
+  ;; I dislike trailing whitespace creeping into my files so the
+  ;; following will make it visible and automatically remove it upon
+  ;; saving. NOTE setting `show-trailing-whitespace' globally leads to
+  ;; some things being highlighted in other buffers such as `calendar'
+  ;; where they should not be hightlight. Doing it with
+  ;; `nice-show-trailing-whitespace' ensures it is set locally as
+  ;; appropriate.
+  (defun nice-show-trailing-whitespace ()
+    "Enable trailing whitespace highlighting only when editing a file."
+    (setq show-trailing-whitespace (buffer-file-name)))
+  (add-hook 'find-file-hook 'nice-show-trailing-whitespace)
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+  (require 'hl-todo)
+  (global-hl-todo-mode)
+
+  (setq nice-colours-alist
+	'((strong-warning . "red")
+	  (weak-warning . "magenta")
+	  (weak-note . "cyan")
+	  (strong-note . "blue")
+	  (light-theme-comment-background . "#e4ecda")
+	  (light-theme-comment-foreground . "#207e7b")
+	  (light-theme-shadow-background . "#eee8d5")
+	  (light-theme-shadow-foreground . "#93a1a1")
+	  (dark-theme-comment-background . "#207e7b")
+	  (dark-theme-comment-foreground . "#e4ecda")
+	  (dark-theme-shadow-background . "#202c2a")
+	  (dark-theme-shadow-foreground . "#254d48")))
+
+  (defun nice-colour (colour)
+    "Return the colour associated with the symbol COLOUR."
+    (cdr (assoc colour nice-colours-alist)))
+
+  (setq hl-todo-keyword-faces
+	`(("TODO"   . ,(nice-colour 'strong-warning))
+	  ("FIXME"  . ,(nice-colour 'weak-warning))
+	  ("NOTE"   . ,(nice-colour 'weak-note))
+	  ("DONE"   . ,(nice-colour 'strong-note))))
+
+  (setq fill-column 70)
+  ;; FIXME the fill column is a bit hard to see, it should be clearer.
+  (evil-leader/set-key "t f" 'display-fill-column-indicator-mode)
+
+  (add-to-list `custom-theme-load-path "~/.emacs.d/themes/")
+  (load-theme 'solarized-light-high-contrast t)
+
+  (defun nice-modeline-dark-theme ()
+    (interactive)
+    (set-face-background 'mode-line (nice-colour 'dark-theme-comment-background))
+    (set-face-foreground 'mode-line (nice-colour 'dark-theme-comment-foreground))
+    (set-face-background 'mode-line-inactive (nice-colour 'dark-theme-shadow-background))
+    (set-face-foreground 'mode-line-inactive (nice-colour 'dark-theme-shadow-foreground)))
+
+  (defun nice-modeline-light-theme ()
+    (interactive)
+    (set-face-background 'mode-line (nice-colour 'light-theme-comment-background))
+    (set-face-foreground 'mode-line (nice-colour 'light-theme-comment-foreground))
+    (set-face-background 'mode-line-inactive (nice-colour 'light-theme-shadow-background))
+    (set-face-foreground 'mode-line-inactive (nice-colour 'light-theme-shadow-foreground)))
+
+  (defun nice-toggle-themes ()
+    "Toggle between two themes: solarized-light-high-contrast and
+  solarized-dark-high-contrast and adjust the comment face to one
+  that is visible in both."
+    (interactive)
+    (if (eq (car custom-enabled-themes) 'solarized-light-high-contrast)
+	(progn
+	  (disable-theme 'solarized-light-high-contrast)
+	  (load-theme 'solarized-dark-high-contrast t)
+	  (setq font-lock-comment-delimiter-face
+		`((t (
+		      :background ,(nice-colour 'dark-theme-comment-background)
+				  :foreground ,(nice-colour 'dark-theme-comment-foreground)
+				  :slant normal))))
+	  (setq font-lock-comment-face
+		`((t (
+		      :background ,(nice-colour 'dark-theme-comment-background)
+				  :foreground ,(nice-colour 'dark-theme-comment-foreground)
+				  :slant normal))))
+	  (nice-modeline-dark-theme))
+      (progn
+	(disable-theme 'solarized-dark-high-contrast)
+	(load-theme 'solarized-light-high-contrast t)
+	(setq font-lock-comment-delimiter-face
+	      `((t (
+		    :background ,(nice-colour 'light-theme-comment-background)
+				:foreground ,(nice-colour 'light-theme-comment-foreground)
+				:slant normal))))
+	(setq font-lock-comment-face
+	      `((t (
+		    :background ,(nice-colour 'light-theme-comment-background)
+				:foreground ,(nice-colour 'light-theme-comment-foreground)
+				:slant normal)))))
+      (nice-modeline-light-theme)))
+
+  (evil-leader/set-key "t t" 'nice-toggle-themes)
+
+  (tool-bar-mode -1)
+
+  (global-hl-line-mode t)
+  (set-face-attribute 'hl-line nil :background "#eee8d5")
+
+  (defun next-window-and-pulse ()
+    "Switch to another window and pulse the current window."
+    (interactive)
+    (other-window 1)
+    (let ((orig-color (face-background 'mode-line)))
+      (set-face-background 'mode-line "#dc322f")
+      (sit-for 0.1)
+      (set-face-background 'mode-line orig-color)))
+
+  (defun previous-window-and-pulse ()
+    "Switch to another window and pulse the current window."
+    (interactive)
+    (other-window -1)
+    (let ((orig-color (face-background 'mode-line)))
+      (set-face-background 'mode-line "#dc322f")
+      (sit-for 0.1)
+      (set-face-background 'mode-line orig-color)))
+
+  ;; Rainbow-mode will highlight strings indicating colours,
+  ;; e.g. hexcodes in their corresponding colour.
+  (require 'rainbow-mode)
+  (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
+  (add-hook 'ess-mode-hook 'rainbow-mode)
+
+  (setq inhibit-splash-screen t)
+
+  (evil-leader/set-key "z j" 'text-scale-decrease)
+  (evil-leader/set-key "z k" 'text-scale-increase)
+
+  ;; Be sensible
+  ;; ===========
+
+  (require 'unfill)
+  (global-set-key (kbd "M-q") 'unfill-toggle)
+
+  (global-evil-leader-mode)
+
+  (evil-leader/set-leader "<SPC>")
+  (evil-leader/set-key "<SPC>" 'execute-extended-command)
+
+  (evil-leader/set-key "q r" 'restart-emacs)
+  (evil-leader/set-key "q q" 'save-buffers-kill-emacs)
+
+  ;; Frame related commands will have keys starting with `F'.
+  (evil-leader/set-key "F f" 'toggle-frame-fullscreen)
+
+  (defun nice-pop-out-window ()
+    "Pop the current window out into a new frame.
+
+  If there is only a single window then do nothing because it is
+  already in its own frame."
+    (interactive)
+    (unless (one-window-p)
+      (let ((current-buffer (current-buffer)))
+	(delete-window)
+	(display-buffer-pop-up-frame current-buffer nil))))
+
+  (evil-leader/set-key "F p" 'nice-pop-out-window)
+
+  ;; The which-key package is a great way to be reminded of what keys
+  ;; are available from the start of a key sequence.
+  (require 'which-key)
+  (which-key-mode)
+  (setq which-key-idle-delay 0.3)
+  (require 'which-key)
+  (which-key-mode)
+
+  (setq key-description-pairs
+	'(("SPC a" . "Agenda (org-mode)")
+	  ("SPC b" . "Buffers")
+	  ("SPC c" . "Cursors")
+	  ("SPC c" . "Delete")
+	  ("SPC f" . "Files/Dired")
+	  ("SPC F" . "Frame")
+	  ("SPC g" . "Git (magit)")
+	  ("SPC g c" . "Commits")
+	  ("SPC h" . "HELP!!!")
+	  ("SPC m" . "Major")
+	  ("SPC m s" . "REPL")
+	  ("SPC q" . "Quit/Exit")
+	  ("SPC s" . "Shell/Search")
+	  ("SPC S" . "Spelling")
+	  ("SPC t" . "Toggles")
+	  ("SPC v" . "Visitors")
+	  ("SPC v b" . "Bibtex")
+	  ("SPC v f" . "Files")
+	  ("SPC v d" . "Directories")
+	  ("SPC w" . "Windows")
+	  ("SPC y" . "Yasnippet")
+	  ("SPC z" . "Zoom (without a mouse)")))
+
+  (dolist (pair key-description-pairs)
+    (which-key-add-key-based-replacements (car pair) (cdr pair)))
+
+  (defmacro nice-meld-files (name fa fb key)
+    "Generate function named nice-meld-NAME which opens meld diff for
+  files FA and FB using SPC f m KEY."
+    `(progn
+       (defun ,(intern (format "nice-meld-%s" name)) ()
+	 (interactive)
+	 (async-shell-command ,(format "meld %s %s &" fa fb)))
+       (evil-leader/set-key ,(concat "f m " key) (intern ,(format "nice-meld-%s" name)))))
+
+  (nice-meld-files "init" "~/.emacs.d/init.el" "~/Documents/nicemacs/nicemacs-v2.el" "i")
+  (nice-meld-files "aspell" "~/.aspell.en.pws" "~/Documents/nicemacs/resources/aspell.en.pws" "a")
+
+  ;; The `winum' package facilitates switching between windows using
+  ;; numbers which appear in the bottom left hand of the window, at the
+  ;; start of the mode-line.
+  (require 'winum)
+  (winum-mode)
+  (setq winum-format " %s ")
+  (custom-set-faces
+   `(winum-face
+     ((t
+       (:foreground ,(nice-colour 'weak-warning)
+	:weight bold
+	:underline nil
+	:height 1.1)))))
+  (evil-leader/set-key
+    "0" 'winum-select-window-0
+    "1" 'winum-select-window-1
+    "2" 'winum-select-window-2
+    "3" 'winum-select-window-3
+    "4" 'winum-select-window-4
+    "5" 'winum-select-window-5
+    "6" 'winum-select-window-6
+    "7" 'winum-select-window-7
+    "8" 'winum-select-window-8
+    "9" 'winum-select-window-9)
+
+  ;; Adjust the windows so that they are all the same size.
+  (evil-leader/set-key "w b" 'balance-windows)
+
+  (defun nice-balance-windows-alt ()
+    "Balance windows such that the current window receives a certain
+  amount of the of the frame's width and height."
+    (interactive)
+    (balance-windows)
+    (let* ((proportion 0.7)
+	   (frame-width (frame-width))
+	   (frame-height (frame-height))
+	   (desired-width (floor (* proportion frame-width)))
+	   (desired-height (floor (* proportion frame-height))))
+      (enlarge-window-horizontally (- desired-width (window-width)))
+      (enlarge-window (- desired-height (window-height)))))
+  (evil-leader/set-key "w a" 'nice-balance-windows-alt)
+#+end_src
+
+** Shells
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  ;; Shell stuff
+  ;; -----------
+
+  (setq eshell-cmpl-ignore-case t)
+  (evil-leader/set-key "s e" 'eshell)
+  (evil-leader/set-key "s b" (lambda () (interactive) (ansi-term "/bin/bash")))
+  (evil-leader/set-key "s i" 'ielm)
+  (evil-leader/set-key "s r" 'R)
+#+end_src
+
+** STUFF 2
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Buffer stuff
@@ -823,7 +1256,7 @@ instead of =u= in step 5 to stage the files in the region.
   (evil-leader/set-key "g q" 'with-editor-cancel)
 #+end_src
 
-** STUFF
+** STUFF 3
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Emacs Lisp
