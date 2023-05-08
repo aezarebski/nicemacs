@@ -1,4 +1,4 @@
-;; [[file:nicemacs-v2.org::*Nicemacs v2][Nicemacs v2:1]]
+;; [[file:nicemacs-v2.org::*STUFF 1][STUFF 1:1]]
 ;;; Nicemacs.v2 -*- lexical-binding: t -*-
 ;;; ==================================================================
 ;;
@@ -140,16 +140,16 @@
 
 (set-frame-font "JetBrains Mono" nil t)
 (ligature-set-ligatures 'prog-mode '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->" "///" "/=" "/=="
-                                     "/>" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|" "<||"
-                                     "<|||" "<|>" "<:" "<>" "<-<" "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
-                                     "<<" "<~>" "<=|" "<~~" "<~" "<$>" "<$" "<+>" "<+" "</>" "</" "<*"
-                                     "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=" "=>>"
-                                     "==>" "=/=" "=!=" "=>" "===" "=:=" "==" "!==" "!!" "!=" ">]" ">:"
-                                     ">>-" ">>=" ">=>" ">>>" ">-" ">=" "&&&" "&&" "|||>" "||>" "|>" "|]"
-                                     "|}" "|=>" "|->" "|=" "||-" "|-" "||=" "||" ".." ".?" ".=" ".-" "..<"
-                                     "..." "+++" "+>" "++" "[||]" "[<" "[|" "{|" "??" "?." "?=" "?:" "##"
-                                     "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
-                                     "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
+				     "/>" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|" "<||"
+				     "<|||" "<|>" "<:" "<>" "<-<" "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
+				     "<<" "<~>" "<=|" "<~~" "<~" "<$>" "<$" "<+>" "<+" "</>" "</" "<*"
+				     "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=" "=>>"
+				     "==>" "=/=" "=!=" "=>" "===" "=:=" "==" "!==" "!!" "!=" ">]" ">:"
+				     ">>-" ">>=" ">=>" ">>>" ">-" ">=" "&&&" "&&" "|||>" "||>" "|>" "|]"
+				     "|}" "|=>" "|->" "|=" "||-" "|-" "||=" "||" ".." ".?" ".=" ".-" "..<"
+				     "..." "+++" "+>" "++" "[||]" "[<" "[|" "{|" "??" "?." "?=" "?:" "##"
+				     "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
+				     "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
 (global-ligature-mode t)
 
 (defun toggle-ligatures ()
@@ -200,9 +200,9 @@
 
 (setq hl-todo-keyword-faces
       `(("TODO"   . ,(nice-colour 'strong-warning))
-        ("FIXME"  . ,(nice-colour 'weak-warning))
-        ("NOTE"   . ,(nice-colour 'weak-note))
-        ("DONE"   . ,(nice-colour 'strong-note))))
+	("FIXME"  . ,(nice-colour 'weak-warning))
+	("NOTE"   . ,(nice-colour 'weak-note))
+	("DONE"   . ,(nice-colour 'strong-note))))
 
 (setq fill-column 70)
 ;; FIXME the fill column is a bit hard to see, it should be clearer.
@@ -232,12 +232,12 @@ that is visible in both."
   (interactive)
   (if (eq (car custom-enabled-themes) 'solarized-light-high-contrast)
       (progn
-        (disable-theme 'solarized-light-high-contrast)
-        (load-theme 'solarized-dark-high-contrast t)
+	(disable-theme 'solarized-light-high-contrast)
+	(load-theme 'solarized-dark-high-contrast t)
 	(setq font-lock-comment-delimiter-face
 	      `((t (
 		    :background ,(nice-colour 'dark-theme-comment-background)
-  				:foreground ,(nice-colour 'dark-theme-comment-foreground)
+				:foreground ,(nice-colour 'dark-theme-comment-foreground)
 				:slant normal))))
 	(setq font-lock-comment-face
 	      `((t (
@@ -336,27 +336,27 @@ already in its own frame."
 
 (setq key-description-pairs
       '(("SPC a" . "Agenda (org-mode)")
-        ("SPC b" . "Buffers")
-        ("SPC c" . "Cursors")
-        ("SPC c" . "Delete")
-        ("SPC f" . "Files/Dired")
-        ("SPC F" . "Frame")
-        ("SPC g" . "Git (magit)")
-        ("SPC g c" . "Commits")
-        ("SPC h" . "HELP!!!")
-        ("SPC m" . "Major")
-        ("SPC m s" . "REPL")
-        ("SPC q" . "Quit/Exit")
-        ("SPC s" . "Shell/Search")
-        ("SPC S" . "Spelling")
-        ("SPC t" . "Toggles")
-        ("SPC v" . "Visitors")
-        ("SPC v b" . "Bibtex")
-        ("SPC v f" . "Files")
-        ("SPC v d" . "Directories")
-        ("SPC w" . "Windows")
-        ("SPC y" . "Yasnippet")
-        ("SPC z" . "Zoom (without a mouse)")))
+	("SPC b" . "Buffers")
+	("SPC c" . "Cursors")
+	("SPC c" . "Delete")
+	("SPC f" . "Files/Dired")
+	("SPC F" . "Frame")
+	("SPC g" . "Git (magit)")
+	("SPC g c" . "Commits")
+	("SPC h" . "HELP!!!")
+	("SPC m" . "Major")
+	("SPC m s" . "REPL")
+	("SPC q" . "Quit/Exit")
+	("SPC s" . "Shell/Search")
+	("SPC S" . "Spelling")
+	("SPC t" . "Toggles")
+	("SPC v" . "Visitors")
+	("SPC v b" . "Bibtex")
+	("SPC v f" . "Files")
+	("SPC v d" . "Directories")
+	("SPC w" . "Windows")
+	("SPC y" . "Yasnippet")
+	("SPC z" . "Zoom (without a mouse)")))
 
 (dolist (pair key-description-pairs)
   (which-key-add-key-based-replacements (car pair) (cdr pair)))
@@ -408,13 +408,15 @@ amount of the of the frame's width and height."
   (balance-windows)
   (let* ((proportion 0.7)
 	 (frame-width (frame-width))
-         (frame-height (frame-height))
-         (desired-width (floor (* proportion frame-width)))
-         (desired-height (floor (* proportion frame-height))))
+	 (frame-height (frame-height))
+	 (desired-width (floor (* proportion frame-width)))
+	 (desired-height (floor (* proportion frame-height))))
     (enlarge-window-horizontally (- desired-width (window-width)))
     (enlarge-window (- desired-height (window-height)))))
 (evil-leader/set-key "w a" 'nice-balance-windows-alt)
+;; STUFF 1:1 ends here
 
+;; [[file:nicemacs-v2.org::*Shells][Shells:1]]
 ;; Shell stuff
 ;; -----------
 
@@ -423,7 +425,9 @@ amount of the of the frame's width and height."
 (evil-leader/set-key "s b" (lambda () (interactive) (ansi-term "/bin/bash")))
 (evil-leader/set-key "s i" 'ielm)
 (evil-leader/set-key "s r" 'R)
+;; Shells:1 ends here
 
+;; [[file:nicemacs-v2.org::*STUFF 2][STUFF 2:1]]
 ;; Buffer stuff
 ;; ------------
 
@@ -557,10 +561,10 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 ;; ===============================
 
 (setq-default major-mode
-              (lambda ()
-                (unless buffer-file-name
-                  (let ((buffer-file-name (buffer-name)))
-                    (set-auto-mode)))))
+	      (lambda ()
+		(unless buffer-file-name
+		  (let ((buffer-file-name (buffer-name)))
+		    (set-auto-mode)))))
 (setq confirm-kill-emacs #'yes-or-no-p)
 (recentf-mode t)
 
@@ -691,9 +695,9 @@ backup dictionary."
   "c i" 'evil-insert                   ; Drop into using the cursors
   "c q" 'mc/keyboard-quit              ; Quit multiple-cursors mode
   )
-;; Nicemacs v2:1 ends here
+;; STUFF 2:1 ends here
 
-;; [[file:nicemacs-v2.org::*Magit][Magit:1]]
+;; [[file:nicemacs-v2.org::*Configuration][Configuration:1]]
 ;; Magit
 ;; -----
 
@@ -736,9 +740,9 @@ backup dictionary."
 (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
 
 (evil-leader/set-key "g q" 'with-editor-cancel)
-;; Magit:1 ends here
+;; Configuration:1 ends here
 
-;; [[file:nicemacs-v2.org::*Magit][Magit:2]]
+;; [[file:nicemacs-v2.org::*STUFF 3][STUFF 3:1]]
 ;; Emacs Lisp
 ;; ----------
 
@@ -1186,4 +1190,4 @@ the selected region."
 
 ;; There be dragons here
 ;; ---------------------
-;; Magit:2 ends here
+;; STUFF 3:1 ends here

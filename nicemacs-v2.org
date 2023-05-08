@@ -16,7 +16,7 @@
 
 * Nicemacs v2
 
-** STUFF
+** STUFF 1
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;;; Nicemacs.v2 -*- lexical-binding: t -*-
@@ -434,7 +434,11 @@
       (enlarge-window-horizontally (- desired-width (window-width)))
       (enlarge-window (- desired-height (window-height)))))
   (evil-leader/set-key "w a" 'nice-balance-windows-alt)
+#+end_src
 
+** Shells
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Shell stuff
   ;; -----------
 
@@ -443,7 +447,11 @@
   (evil-leader/set-key "s b" (lambda () (interactive) (ansi-term "/bin/bash")))
   (evil-leader/set-key "s i" 'ielm)
   (evil-leader/set-key "s r" 'R)
+#+end_src
 
+** STUFF 2
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Buffer stuff
   ;; ------------
 
@@ -779,7 +787,7 @@ instead of =u= in step 5 to stage the files in the region.
   (evil-leader/set-key "g q" 'with-editor-cancel)
 #+end_src
 
-** STUFF
+** STUFF 3
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Emacs Lisp
