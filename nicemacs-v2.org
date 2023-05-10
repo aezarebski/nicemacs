@@ -471,6 +471,7 @@
 
   (evil-leader/set-key
     "f f" 'find-file
+    "f t" 'nice-touch-file
     "f F" 'find-file-other-frame
     "f s" 'save-buffer
     "f d" 'nice-dired
@@ -496,6 +497,16 @@
 			 (file-name-directory default-directory)))
 		      (t (expand-file-name "~/")))))
       (dired dir)))
+
+  (defun nice-touch-file ()
+    "In the current dired buffer touch a new file with a name
+  retreived from the prompt."
+    (interactive)
+    (if (not (eq major-mode 'dired-mode))
+	(error "Not in dired mode"))
+    (let ((filename (read-string "Filename: ")))
+      (shell-command (format "touch %s" filename))
+      (revert-buffer)))
 
   (defmacro nice-scratch-buffer (mode key)
     "Create a nice-scratch-buffer function for MODE and bind it to KEY."
