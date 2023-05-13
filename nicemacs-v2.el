@@ -1,4 +1,4 @@
-;; [[file:nicemacs-v2.org::*STUFF][STUFF:1]]
+;; [[file:nicemacs-v2.org::*STUFF 1][STUFF 1:1]]
 ;;; Nicemacs.v2 -*- lexical-binding: t -*-
 ;;; ==================================================================
 ;;
@@ -122,6 +122,9 @@
 ;;    does not.)
 (global-evil-surround-mode 1)
 (evil-leader/set-key "t s" 'evil-surround-mode)
+
+(evil-leader/set-leader "<SPC>")
+(evil-leader/set-key "<SPC>" 'execute-extended-command)
 
 ;; Look stunning
 ;; =============
@@ -293,8 +296,9 @@ that is visible in both."
 
 (setq inhibit-splash-screen t)
 
-(evil-leader/set-key "z j" 'text-scale-decrease)
-(evil-leader/set-key "z k" 'text-scale-increase)
+(evil-leader/set-key
+  "z j" 'text-scale-decrease
+  "z k" 'text-scale-increase)
 
 ;; Be sensible
 ;; ===========
@@ -302,13 +306,9 @@ that is visible in both."
 (require 'unfill)
 (global-set-key (kbd "M-q") 'unfill-toggle)
 
-(global-evil-leader-mode)
-
-(evil-leader/set-leader "<SPC>")
-(evil-leader/set-key "<SPC>" 'execute-extended-command)
-
-(evil-leader/set-key "q r" 'restart-emacs)
-(evil-leader/set-key "q q" 'save-buffers-kill-emacs)
+(evil-leader/set-key
+  "q r" 'restart-emacs
+  "q q" 'save-buffers-kill-emacs)
 
 ;; Frame related commands will have keys starting with `F'.
 (evil-leader/set-key "F f" 'toggle-frame-fullscreen)
@@ -414,24 +414,22 @@ amount of the of the frame's width and height."
     (enlarge-window-horizontally (- desired-width (window-width)))
     (enlarge-window (- desired-height (window-height)))))
 (evil-leader/set-key "w a" 'nice-balance-windows-alt)
-;; STUFF:1 ends here
+;; STUFF 1:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Shells][Shells:1]]
 ;; Shell stuff
 ;; -----------
 
-;; TODO There should really be a check in the shell launchers to open
-;; an existing shell session if there is one, possibly use the capital
-;; letter to open a new one.
-
 (setq eshell-cmpl-ignore-case t)
-(evil-leader/set-key "s e" 'eshell)
-(evil-leader/set-key "s b" (lambda () (interactive) (ansi-term "/bin/bash")))
-(evil-leader/set-key "s i" 'ielm)
-(evil-leader/set-key "s r" 'R)
+(evil-leader/set-key
+  "s e" 'eshell
+  "s b" (lambda () (interactive) (ansi-term "/bin/bash"))
+  "s i" 'ielm
+  "s r" 'R)
+
 ;; Shells:1 ends here
 
-;; [[file:nicemacs-v2.org::*STUFF][STUFF:1]]
+;; [[file:nicemacs-v2.org::*STUFF 2][STUFF 2:1]]
 ;; Buffer stuff
 ;; ------------
 
@@ -450,11 +448,13 @@ amount of the of the frame's width and height."
 
 (evil-leader/set-key
   "f f" 'find-file
+  "f t" 'nice-touch-file
   "f F" 'find-file-other-frame
   "f s" 'save-buffer
   "f d" 'nice-dired
   "b b" 'switch-to-buffer
   "d b" 'kill-buffer
+  "d w" 'delete-window
   "d f" 'delete-frame)
 
 (defun nice-dired ()
@@ -474,6 +474,16 @@ amount of the of the frame's width and height."
 		       (file-name-directory default-directory)))
 		    (t (expand-file-name "~/")))))
     (dired dir)))
+
+(defun nice-touch-file ()
+  "In the current dired buffer touch a new file with a name
+retreived from the prompt."
+  (interactive)
+  (if (not (eq major-mode 'dired-mode))
+      (error "Not in dired mode"))
+  (let ((filename (read-string "Filename: ")))
+    (shell-command (format "touch %s" filename))
+    (revert-buffer)))
 
 (defmacro nice-scratch-buffer (mode key)
   "Create a nice-scratch-buffer function for MODE and bind it to KEY."
@@ -495,7 +505,6 @@ amount of the of the frame's width and height."
   "w v" 'split-window-right
   "TAB" 'next-window-and-pulse
   "<backtab>" 'previous-window-and-pulse
-  "w d" 'delete-window
   "w L" 'evil-window-move-far-right
   "w H" 'evil-window-move-far-left
   "w J" 'evil-window-move-very-bottom
@@ -607,11 +616,12 @@ backup dictionary."
 		    :foreground "white"
 		    :background "red")
 
-(evil-leader/set-key "t S" 'flyspell-mode) ; toggle flyspell on/off.
-(evil-leader/set-key "S b" 'flyspell-buffer)
-(evil-leader/set-key "S r" 'flyspell-region)
-(evil-leader/set-key "S c" 'flyspell-correct-word-before-point)
-(evil-leader/set-key "S d" 'nice-diff-dictionaries)
+(evil-leader/set-key
+  "t S" 'flyspell-mode ; toggle flyspell on/off.
+  "S b" 'flyspell-buffer
+  "S r" 'flyspell-region
+  "S c" 'flyspell-correct-word-before-point
+  "S d" 'nice-diff-dictionaries)
 
 (setq words-to-add
       '("many" "various" "very" "quite" "somewhat" "several"
@@ -699,7 +709,7 @@ backup dictionary."
   "c i" 'evil-insert                   ; Drop into using the cursors
   "c q" 'mc/keyboard-quit              ; Quit multiple-cursors mode
   )
-;; STUFF:1 ends here
+;; STUFF 2:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Configuration][Configuration:1]]
 ;; Magit
@@ -746,7 +756,7 @@ backup dictionary."
 (evil-leader/set-key "g q" 'with-editor-cancel)
 ;; Configuration:1 ends here
 
-;; [[file:nicemacs-v2.org::*STUFF][STUFF:1]]
+;; [[file:nicemacs-v2.org::*STUFF 3][STUFF 3:1]]
 ;; Emacs Lisp
 ;; ----------
 
@@ -760,15 +770,14 @@ backup dictionary."
 ;; -----------------------------
 
 (require 'ess-site)
+(require 'quarto-mode)
 (setq ess-default-style 'DEFAULT)
 
-(evil-leader/set-key-for-mode 'ess-r-mode "m s b" 'ess-eval-buffer)
-(evil-leader/set-key-for-mode 'ess-r-mode "m s r" 'ess-eval-region)
-(evil-leader/set-key-for-mode 'ess-r-mode "m '" 'ess-switch-to-inferior-or-script-buffer)
-
-(require 'quarto-mode)
-
-(evil-leader/set-key-for-mode 'ess-r-mode "m s c" 'ess-eval-region-or-line-visibly-and-step)
+(evil-leader/set-key-for-mode 'ess-r-mode
+  "m s b" 'ess-eval-buffer
+  "m s r" 'ess-eval-region
+  "m s c" 'ess-eval-region-or-line-visibly-and-step
+  "m '" 'ess-switch-to-inferior-or-script-buffer)
 
 ;; Python
 ;; ------
@@ -796,10 +805,11 @@ backup dictionary."
 (add-to-list 'auto-mode-alist '("\\.rkt\\'" . racket-mode))
 (setq racket-program "/usr/bin/racket")
 
-(evil-leader/set-key-for-mode 'racket-mode "m h d" 'racket-describe-search)
-(evil-leader/set-key-for-mode 'racket-mode "m s b" 'racket-run)
-(evil-leader/set-key-for-mode 'racket-mode "m s r" 'racket-send-region)
-(evil-leader/set-key-for-mode 'racket-mode "m s c" 'racket-send-last-sexp)
+(evil-leader/set-key-for-mode 'racket-mode
+  "m h d" 'racket-describe-search
+  "m s b" 'racket-run
+  "m s r" 'racket-send-region
+  "m s c" 'racket-send-last-sexp)
 
 ;; LaTeX/BibTeX
 ;; ------------
@@ -865,8 +875,9 @@ the selected region."
 
 (evil-leader/set-key "v b l" 'nice-visit-last-bib)
 
-(evil-leader/set-key-for-mode 'bibtex-mode "m b b" 'nice-bibtex-braces)
-(evil-leader/set-key-for-mode 'bibtex-mode "m b f" 'bibtex-reformat)
+(evil-leader/set-key-for-mode 'bibtex-mode
+  "m b b" 'nice-bibtex-braces
+  "m b f" 'bibtex-reformat)
 
 ;; Markdown-mode
 ;; -------------
@@ -1194,4 +1205,4 @@ the selected region."
 
 ;; There be dragons here
 ;; ---------------------
-;; STUFF:1 ends here
+;; STUFF 3:1 ends here
