@@ -426,7 +426,6 @@ amount of the of the frame's width and height."
   "s b" (lambda () (interactive) (ansi-term "/bin/bash"))
   "s i" 'ielm
   "s r" 'R)
-
 ;; Shells:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 2][STUFF 2:1]]
@@ -647,7 +646,9 @@ backup dictionary."
 ;; ----
 
 ;; TODO Install and configure nxml-mode.
+;; STUFF 2:1 ends here
 
+;; [[file:nicemacs-v2.org::*Yasnippet][Yasnippet:1]]
 ;; Yasnippet
 ;; ---------
 
@@ -677,7 +678,9 @@ backup dictionary."
   "Open the snippets directory in dired."
   (interactive)
   (dired "~/.emacs.d/snippets"))
+;; Yasnippet:1 ends here
 
+;; [[file:nicemacs-v2.org::*STUFF 3][STUFF 3:1]]
 ;; Multiple cursors
 ;; ----------------
 ;;
@@ -709,7 +712,7 @@ backup dictionary."
   "c i" 'evil-insert                   ; Drop into using the cursors
   "c q" 'mc/keyboard-quit              ; Quit multiple-cursors mode
   )
-;; STUFF 2:1 ends here
+;; STUFF 3:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Configuration][Configuration:1]]
 ;; Magit
@@ -756,7 +759,7 @@ backup dictionary."
 (evil-leader/set-key "g q" 'with-editor-cancel)
 ;; Configuration:1 ends here
 
-;; [[file:nicemacs-v2.org::*STUFF 3][STUFF 3:1]]
+;; [[file:nicemacs-v2.org::*STUFF 4][STUFF 4:1]]
 ;; Emacs Lisp
 ;; ----------
 
@@ -1197,12 +1200,9 @@ the selected region."
 
 ;; TODO Explore running spotify through emacs
 
-;; TODO Work out how to search for yasnippets with keywords: do they
-;; have a keyword field?
-
 ;; Customization
 ;; =============
 
 ;; There be dragons here
 ;; ---------------------
-;; STUFF 3:1 ends here
+;; STUFF 4:1 ends here

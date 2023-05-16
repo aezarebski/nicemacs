@@ -670,9 +670,17 @@
   ;; ----
 
   ;; TODO Install and configure nxml-mode.
+#+end_src
 
+** Yasnippet
+
+I have a collection of yasnippets [[https://github.com/aezarebski/whipper-snipper][here]].
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Yasnippet
   ;; ---------
+  ;;
+  ;; See https://github.com/aezarebski/whipper-snipper
 
   (require 'yasnippet)
   (yas-global-mode 1)
@@ -700,7 +708,11 @@
     "Open the snippets directory in dired."
     (interactive)
     (dired "~/.emacs.d/snippets"))
+#+end_src
 
+** STUFF 3
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Multiple cursors
   ;; ----------------
   ;;
@@ -800,7 +812,7 @@ instead of =u= in step 5 to stage the files in the region.
   (evil-leader/set-key "g q" 'with-editor-cancel)
 #+end_src
 
-** STUFF 3
+** STUFF 4
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Emacs Lisp
@@ -1242,9 +1254,6 @@ instead of =u= in step 5 to stage the files in the region.
   ;; TODO Work out how to use mediawiki-mode to read and edit wikipedia.
 
   ;; TODO Explore running spotify through emacs
-
-  ;; TODO Work out how to search for yasnippets with keywords: do they
-  ;; have a keyword field?
 
   ;; Customization
   ;; =============
