@@ -813,24 +813,6 @@ backup dictionary."
 (setq python-indent-offset 4)
 ;; STUFF 4:1 ends here
 
-;; [[file:nicemacs-v2.org::*STUFF 5][STUFF 5:1]]
-;; Scheme/Racket
-;; -------------
-
-;; TODO Work out how to start a repl properly, running the key does
-;; not seem to work, I need to run the command via M-x directly.
-
-(require 'racket-mode)
-(add-to-list 'auto-mode-alist '("\\.rkt\\'" . racket-mode))
-(setq racket-program "/usr/bin/racket")
-
-(evil-leader/set-key-for-mode 'racket-mode
-  "m h d" 'racket-describe-search
-  "m s b" 'racket-run
-  "m s r" 'racket-send-region
-  "m s c" 'racket-send-last-sexp)
-;; STUFF 5:1 ends here
-
 ;; [[file:nicemacs-v2.org::*STUFF 6][STUFF 6:1]]
 ;; LaTeX/BibTeX
 ;; ------------

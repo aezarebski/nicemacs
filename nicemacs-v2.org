@@ -866,9 +866,9 @@ instead of =u= in step 5 to stage the files in the region.
   (setq python-indent-offset 4)
 #+end_src
 
-** STUFF 5
+** Scheme/Racket *NO LONGER USED*
 
-#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+#+begin_src emacs-lisp
   ;; Scheme/Racket
   ;; -------------
 
