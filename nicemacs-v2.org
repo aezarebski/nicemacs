@@ -80,6 +80,8 @@
   ;; ---------
   ;;
   ;; - 2023-05
+  ;;   + Include option to accept AI suggestions line by line.
+  ;;   + Include a linter function for R (using `formatR').
   ;;   + Use the `unfill' package for better paragraph un/filling.
   ;;   + Use the `lorem-ipsum' package for convenient dummy text.
   ;;   + Include python configuration.

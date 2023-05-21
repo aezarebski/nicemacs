@@ -60,6 +60,8 @@
 ;; ---------
 ;;
 ;; - 2023-05
+;;   + Include option to accept AI suggestions line by line.
+;;   + Include a linter function for R (using `formatR').
 ;;   + Use the `unfill' package for better paragraph un/filling.
 ;;   + Use the `lorem-ipsum' package for convenient dummy text.
 ;;   + Include python configuration.
@@ -346,7 +348,7 @@ already in its own frame."
 	("SPC h" . "HELP!!!")
 	("SPC m" . "Major")
 	("SPC m s" . "REPL")
-        ("SPC m c" . "Code lint/format")
+	("SPC m c" . "Code lint/format")
 	("SPC q" . "Quit/Exit")
 	("SPC s" . "Shell/Search")
 	("SPC S" . "Spelling")
@@ -652,6 +654,8 @@ backup dictionary."
 ;; [[file:nicemacs-v2.org::*Yasnippet][Yasnippet:1]]
 ;; Yasnippet
 ;; ---------
+;;
+;; See https://github.com/aezarebski/whipper-snipper
 
 (require 'yasnippet)
 (yas-global-mode 1)
