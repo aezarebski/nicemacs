@@ -66,7 +66,6 @@
   ;; - `multiple-cursors' Multiple cursors for Emacs.
   ;; - `ligature' Ligature support for Emacs.
   ;; - `quarto-mode' A (poly)mode for https://quarto.org
-  ;; - `racket-mode' Racket editing, REPL, and more
   ;; - `rainbow-mode' Colorize color names in buffers
   ;; - `s' The long lost Emacs string manipulation library.
   ;; - `solarized-theme' The Solarized color theme
@@ -80,6 +79,7 @@
   ;; ---------
   ;;
   ;; - 2023-05
+  ;;   + Remove racket/scheme pacakge
   ;;   + Include option to accept AI suggestions line by line.
   ;;   + Include a linter function for R (using `formatR').
   ;;   + Use the `unfill' package for better paragraph un/filling.
