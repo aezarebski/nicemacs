@@ -864,7 +864,11 @@ instead of =u= in step 5 to stage the files in the region.
 
   (setq python-shell-interpreter "python3")
   (setq python-indent-offset 4)
+#+end_src
 
+** STUFF 5
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Scheme/Racket
   ;; -------------
 
@@ -880,7 +884,11 @@ instead of =u= in step 5 to stage the files in the region.
     "m s b" 'racket-run
     "m s r" 'racket-send-region
     "m s c" 'racket-send-last-sexp)
+#+end_src
 
+** STUFF 6
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; LaTeX/BibTeX
   ;; ------------
 

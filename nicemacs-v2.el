@@ -811,7 +811,9 @@ backup dictionary."
 
 (setq python-shell-interpreter "python3")
 (setq python-indent-offset 4)
+;; STUFF 4:1 ends here
 
+;; [[file:nicemacs-v2.org::*STUFF 5][STUFF 5:1]]
 ;; Scheme/Racket
 ;; -------------
 
@@ -827,7 +829,9 @@ backup dictionary."
   "m s b" 'racket-run
   "m s r" 'racket-send-region
   "m s c" 'racket-send-last-sexp)
+;; STUFF 5:1 ends here
 
+;; [[file:nicemacs-v2.org::*STUFF 6][STUFF 6:1]]
 ;; LaTeX/BibTeX
 ;; ------------
 
@@ -1218,4 +1222,4 @@ the selected region."
 
 ;; There be dragons here
 ;; ---------------------
-;; STUFF 4:1 ends here
+;; STUFF 6:1 ends here
