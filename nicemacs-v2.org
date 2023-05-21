@@ -366,6 +366,7 @@
 	  ("SPC h" . "HELP!!!")
 	  ("SPC m" . "Major")
 	  ("SPC m s" . "REPL")
+	  ("SPC m c" . "Code lint/format")
 	  ("SPC q" . "Quit/Exit")
 	  ("SPC s" . "Shell/Search")
 	  ("SPC S" . "Spelling")
@@ -835,7 +836,16 @@ instead of =u= in step 5 to stage the files in the region.
     "m s b" 'ess-eval-buffer
     "m s r" 'ess-eval-region
     "m s c" 'ess-eval-region-or-line-visibly-and-step
+    "m c l" 'nice-code-lint-buffer-r
+    "m c i" 'indent-region
     "m '" 'ess-switch-to-inferior-or-script-buffer)
+
+  (defun nice-code-lint-buffer-r ()
+    "Lint the current R buffer using lintr."
+    (interactive)
+    (ess-eval-linewise "library(lintr)\n")
+    (ess-eval-linewise (format "print(lint(\"%s\"))\n" buffer-file-name)))
+
 
   ;; Python
   ;; ------
