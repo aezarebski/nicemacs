@@ -1166,9 +1166,6 @@ the selected region."
 ;; dependencies yourself: s, editorconfig which are emacs packages and
 ;; node.js.
 ;;
-;; TODO There should really be an option to accept suggestions on a
-;; line by line basis.
-;;
 
 (add-to-list 'load-path "~/.emacs.d/copilot.el/")
 (require 'copilot)
@@ -1179,7 +1176,7 @@ the selected region."
 (add-hook 'ess-r-mode-hook 'copilot-mode)
 
 (defun nice/copilot-tab ()
-  "Accept the current suggestion from copilot"
+  "Accept the current suggestion."
   (interactive)
   (or (copilot-accept-completion)
       (indent-for-tab-command)))
@@ -1188,14 +1185,16 @@ the selected region."
   (evil-define-key 'insert copilot-mode-map
     (kbd "<tab>") #'nice/copilot-tab))
 
-(defun nice/copilot-cycle ()
-  "Cycle through suggested completions"
+(defun nice/copilot-by-line ()
+  "Accept the current suggestion by line."
   (interactive)
-  (copilot-next-completion))
+  (interactive)
+  (or (copilot-accept-completion-by-line)
+      (indent-for-tab-command)))
 
 (with-eval-after-load 'copilot
   (evil-define-key 'insert copilot-mode-map
-    (kbd "<backtab>") #'nice/copilot-cycle))
+    (kbd "C-<tab>") #'nice/copilot-by-line))
 
 (evil-leader/set-key "t c" 'copilot-mode)
 
