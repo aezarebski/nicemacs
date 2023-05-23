@@ -876,11 +876,32 @@ the selected region."
 	    (replace-match (format "{%s}" (match-string 0)) t))))
     (message "No region selected.")))
 
+(defun nice-bibtex-guess-key ()
+  "Generate a new key for the current BibTeX entry based on author,
+year, and the first two words of the title."
+  (interactive)
+  (bibtex-beginning-of-entry)
+  (let* ((entry (bibtex-parse-entry))
+         (author (downcase (replace-regexp-in-string "," "" (car (split-string (bibtex-text-in-field "author"))))))
+         (year (bibtex-text-in-field "year"))
+         (title (bibtex-text-in-field "title"))
+	     (first-two-words (when title
+			(let ((split-title (split-string title)))
+			  (if (>= (length split-title) 2)
+			      (format "%s%s" (nth 0 split-title) (nth 1 split-title))
+			    (car split-title))))))
+    (if (and author year first-two-words)
+        (let ((newkey (format "%s%s%s" author year first-two-words)))
+	  (kill-new newkey)
+	  (message "New key generated and copied to clipboard: %s" newkey))
+      (error "Author, Year or Title is missing in the current BibTeX entry."))))
+
 (evil-leader/set-key "v b l" 'nice-visit-last-bib)
 
 (evil-leader/set-key-for-mode 'bibtex-mode
   "m b b" 'nice-bibtex-braces
-  "m b f" 'bibtex-reformat)
+  "m b f" 'bibtex-reformat
+  "m b k" 'nice-bibtex-guess-key)
 
 ;; Markdown-mode
 ;; -------------
