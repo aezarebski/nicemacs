@@ -758,6 +758,7 @@ backup dictionary."
 (nice-canned-commit-message review "update reading list" "r")
 (nice-canned-commit-message website "update website" "w")
 (nice-canned-commit-message journal "update journal" "j")
+(nice-canned-commit-message yasnippet "yasnippet" "y")
 
 (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
 
@@ -896,7 +897,19 @@ year, and the first two words of the title."
 	  (message "New key generated and copied to clipboard: %s" newkey))
       (error "Author, Year or Title is missing in the current BibTeX entry."))))
 
-(evil-leader/set-key "v b l" 'nice-visit-last-bib)
+(defun nice-browse-url-of-doi ()
+  "Open the DOI of the current bibtex entry in the web browser."
+  (interactive)
+  (save-excursion
+    (bibtex-beginning-of-entry)
+    (let ((doi (bibtex-autokey-get-field "doi")))
+      (if doi
+          (browse-url (concat "https://doi.org/" doi))
+        (message "No DOI found for this entry")))))
+
+(evil-leader/set-key
+  "v b l" 'nice-visit-last-bib
+  "v b d" 'nice-browse-url-of-doi)
 
 (evil-leader/set-key-for-mode 'bibtex-mode
   "m b b" 'nice-bibtex-braces
@@ -1143,6 +1156,7 @@ year, and the first two words of the title."
 (NVD website-org "Website (org files)" "~/public-site/org/fake.org" "w")
 (NVD website-html "Website (HTML files)" "~/aezarebski.github.io/fake.org" "W")
 (NVD notes "My notes" "~/public-site/org/notes/fake.org" "n")
+(NVD yasnippet "Yasnippet" "~/.emacs.d/snippets/fake.org" "y")
 
 (setq org-agenda-files
       (list (concat nice-journal-directory "bike.org")))
