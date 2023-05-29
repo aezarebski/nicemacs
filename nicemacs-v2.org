@@ -816,7 +816,7 @@ instead of =u= in step 5 to stage the files in the region.
   (evil-leader/set-key "g q" 'with-editor-cancel)
 #+end_src
 
-** STUFF 4
+** Emacs lisp
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Emacs Lisp
@@ -827,7 +827,11 @@ instead of =u= in step 5 to stage the files in the region.
   (evil-leader/set-key-for-mode 'emacs-lisp-mode "m s c" 'eval-last-sexp)
   (evil-leader/set-key-for-mode 'emacs-lisp-mode "m s b" 'eval-buffer)
   (evil-leader/set-key-for-mode 'emacs-lisp-mode "m s r" 'eval-region)
+#+end_src
 
+** Emacs Speaks Statistics (ESS)
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Emacs Speaks Statistics (ESS)
   ;; -----------------------------
 
@@ -848,8 +852,11 @@ instead of =u= in step 5 to stage the files in the region.
     (interactive)
     (ess-eval-linewise "library(lintr)\n")
     (ess-eval-linewise (format "print(lint(\"%s\"))\n" buffer-file-name)))
+#+end_src
 
+** STUFF 4
 
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Python
   ;; ------
   ;;

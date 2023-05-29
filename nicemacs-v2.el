@@ -765,7 +765,7 @@ backup dictionary."
 (evil-leader/set-key "g q" 'with-editor-cancel)
 ;; Configuration:1 ends here
 
-;; [[file:nicemacs-v2.org::*STUFF 4][STUFF 4:1]]
+;; [[file:nicemacs-v2.org::*Emacs lisp][Emacs lisp:1]]
 ;; Emacs Lisp
 ;; ----------
 
@@ -774,7 +774,9 @@ backup dictionary."
 (evil-leader/set-key-for-mode 'emacs-lisp-mode "m s c" 'eval-last-sexp)
 (evil-leader/set-key-for-mode 'emacs-lisp-mode "m s b" 'eval-buffer)
 (evil-leader/set-key-for-mode 'emacs-lisp-mode "m s r" 'eval-region)
+;; Emacs lisp:1 ends here
 
+;; [[file:nicemacs-v2.org::*Emacs Speaks Statistics (ESS)][Emacs Speaks Statistics (ESS):1]]
 ;; Emacs Speaks Statistics (ESS)
 ;; -----------------------------
 
@@ -795,8 +797,9 @@ backup dictionary."
   (interactive)
   (ess-eval-linewise "library(lintr)\n")
   (ess-eval-linewise (format "print(lint(\"%s\"))\n" buffer-file-name)))
+;; Emacs Speaks Statistics (ESS):1 ends here
 
-
+;; [[file:nicemacs-v2.org::*STUFF 4][STUFF 4:1]]
 ;; Python
 ;; ------
 ;;
@@ -883,16 +886,16 @@ year, and the first two words of the title."
   (interactive)
   (bibtex-beginning-of-entry)
   (let* ((entry (bibtex-parse-entry))
-         (author (downcase (replace-regexp-in-string "," "" (car (split-string (bibtex-text-in-field "author"))))))
-         (year (bibtex-text-in-field "year"))
-         (title (bibtex-text-in-field "title"))
+	 (author (downcase (replace-regexp-in-string "," "" (car (split-string (bibtex-text-in-field "author"))))))
+	 (year (bibtex-text-in-field "year"))
+	 (title (bibtex-text-in-field "title"))
 	     (first-two-words (when title
 			(let ((split-title (split-string title)))
 			  (if (>= (length split-title) 2)
 			      (format "%s%s" (nth 0 split-title) (nth 1 split-title))
 			    (car split-title))))))
     (if (and author year first-two-words)
-        (let ((newkey (format "%s%s%s" author year first-two-words)))
+	(let ((newkey (format "%s%s%s" author year first-two-words)))
 	  (kill-new newkey)
 	  (message "New key generated and copied to clipboard: %s" newkey))
       (error "Author, Year or Title is missing in the current BibTeX entry."))))
@@ -904,8 +907,8 @@ year, and the first two words of the title."
     (bibtex-beginning-of-entry)
     (let ((doi (bibtex-autokey-get-field "doi")))
       (if doi
-          (browse-url (concat "https://doi.org/" doi))
-        (message "No DOI found for this entry")))))
+	  (browse-url (concat "https://doi.org/" doi))
+	(message "No DOI found for this entry")))))
 
 (evil-leader/set-key
   "v b l" 'nice-visit-last-bib
