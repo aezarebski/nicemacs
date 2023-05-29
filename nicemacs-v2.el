@@ -954,18 +954,28 @@ year, and the first two words of the title."
 (setq org-agenda-span 30)
 (setq org-agenda-start-on-weekday nil)
 
-(evil-leader/set-key "a a" 'org-agenda)
-(evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
-(evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
-
 (defun nice-org-agenda-goto-today-advice-after (&rest _args)
   "Adjust the window after calling `org-agenda-goto-today'."
   (recenter-top-bottom 4))
 
 (advice-add 'org-agenda-goto-today
 	    :after #'nice-org-agenda-goto-today-advice-after)
+(evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
+
+;; Calendar view
+;;
+;; This provides a more classical
+
+(require 'calfw)
+(require 'calfw-org)
+
+(evil-leader/set-key
+  "a a" 'org-agenda
+  "a c" 'cfw:open-org-calendar)
 
 ;; Literate programming
+
+(evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
 
 (defun nice-detangle-nicemacs-v2 ()
   "Detangle the nicemacs-v2.el file."
