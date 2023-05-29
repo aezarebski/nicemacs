@@ -926,7 +926,9 @@ year, and the first two words of the title."
 
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+;; STUFF 6:1 ends here
 
+;; [[file:nicemacs-v2.org::*STUFF 7][STUFF 7:1]]
 ;; Org-Mode
 ;; --------
 
@@ -1076,7 +1078,9 @@ year, and the first two words of the title."
 		      "nicemacs-org-files"
 		      "latex"
 		      "R"))))
+;; STUFF 7:1 ends here
 
+;; [[file:nicemacs-v2.org::*STUFF 8][STUFF 8:1]]
 ;; Visitors
 ;; ========
 
@@ -1196,7 +1200,9 @@ year, and the first two words of the title."
     (recenter-top-bottom)))
 
 (evil-leader/set-key "v f j" 'nice-visit-journal)
+;; STUFF 8:1 ends here
 
+;; [[file:nicemacs-v2.org::*STUFF 9][STUFF 9:1]]
 ;; Copilot
 ;; =======
 ;;
@@ -1252,4 +1258,4 @@ year, and the first two words of the title."
 
 ;; There be dragons here
 ;; ---------------------
-;; STUFF 6:1 ends here
+;; STUFF 9:1 ends here

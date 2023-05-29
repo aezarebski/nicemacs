@@ -1005,7 +1005,11 @@ instead of =u= in step 5 to stage the files in the region.
 
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+#+end_src
 
+** STUFF 7
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Org-Mode
   ;; --------
 
@@ -1155,7 +1159,11 @@ instead of =u= in step 5 to stage the files in the region.
 			"nicemacs-org-files"
 			"latex"
 			"R"))))
+#+end_src
 
+** STUFF 8
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Visitors
   ;; ========
 
@@ -1275,7 +1283,11 @@ instead of =u= in step 5 to stage the files in the region.
       (recenter-top-bottom)))
 
   (evil-leader/set-key "v f j" 'nice-visit-journal)
+#+end_src
 
+** STUFF 9
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Copilot
   ;; =======
   ;;
