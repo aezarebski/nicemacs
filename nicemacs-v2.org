@@ -1075,7 +1075,11 @@ instead of =u= in step 5 to stage the files in the region.
 
   (setq org-image-actual-width 500)
   (evil-leader/set-key-for-mode 'org-mode "o t i" 'org-toggle-inline-images)
+#+end_src
 
+*** Website/Publishing
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   (defun nice-publish-homepage ()
     "Copy my website homepage if it exists."
     (interactive)

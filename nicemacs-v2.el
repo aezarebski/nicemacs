@@ -994,7 +994,9 @@ year, and the first two words of the title."
 
 (setq org-image-actual-width 500)
 (evil-leader/set-key-for-mode 'org-mode "o t i" 'org-toggle-inline-images)
+;; Org-mode:1 ends here
 
+;; [[file:nicemacs-v2.org::*Website/Publishing][Website/Publishing:1]]
 (defun nice-publish-homepage ()
   "Copy my website homepage if it exists."
   (interactive)
@@ -1078,7 +1080,7 @@ year, and the first two words of the title."
 		      "nicemacs-org-files"
 		      "latex"
 		      "R"))))
-;; Org-mode:1 ends here
+;; Website/Publishing:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 8][STUFF 8:1]]
 ;; Visitors
