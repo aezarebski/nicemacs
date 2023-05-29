@@ -1009,6 +1009,9 @@ instead of =u= in step 5 to stage the files in the region.
 
 ** Org-mode
 
+- There is a function =org-table-sort-lines= which sorts the rows of a table
+  based on a column (1-indexed) with a variety of datatypes acceptable.
+
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Org-Mode
   ;; --------
