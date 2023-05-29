@@ -1007,7 +1007,7 @@ instead of =u= in step 5 to stage the files in the region.
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 #+end_src
 
-** STUFF 7
+** Org-mode
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Org-Mode

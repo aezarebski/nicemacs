@@ -928,7 +928,7 @@ year, and the first two words of the title."
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 ;; STUFF 6:1 ends here
 
-;; [[file:nicemacs-v2.org::*STUFF 7][STUFF 7:1]]
+;; [[file:nicemacs-v2.org::*Org-mode][Org-mode:1]]
 ;; Org-Mode
 ;; --------
 
@@ -1078,7 +1078,7 @@ year, and the first two words of the title."
 		      "nicemacs-org-files"
 		      "latex"
 		      "R"))))
-;; STUFF 7:1 ends here
+;; Org-mode:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 8][STUFF 8:1]]
 ;; Visitors
