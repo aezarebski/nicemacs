@@ -59,6 +59,8 @@
 ;; ---------
 ;;
 ;; - 2023-05
+;;   + Use the `use-package' macro.
+;;   + Use the `calfw' package for a calendar view of my agenda
 ;;   + Remove racket/scheme pacakge
 ;;   + Include option to accept AI suggestions line by line.
 ;;   + Include a linter function for R (using `formatR').
@@ -82,10 +84,17 @@
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives  '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
+(add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
 
 (package-initialize)
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-when-compile
+  (require 'use-package))
+(require 'bind-key)
 
 (setq user-full-name "Alexander E. Zarebski")
 
@@ -98,23 +107,12 @@
 (defvar nice-nicemacs-directory "~/Documents/nicemacs"
   "The path to the nicemacs directory on this machine.")
 
-(require 'cl-lib)
+(use-package cl-lib
+  :ensure t)
 
 ;; Be evil
 ;; -------
-
-(setq evil-want-keybinding ())
-
-(require 'evil)
-(require 'evil-leader)
-(require 'evil-collection)
-(require 'evil-surround)
-
-(evil-mode 1)
-(evil-leader-mode 1)
-(global-evil-leader-mode 1)
-(evil-collection-init)
-
+;;
 ;; Evil surroundings
 ;;
 ;; 1. Enter visual mode and select the text as the region.
@@ -122,11 +120,33 @@
 ;; 3. Type the symbol to surround it (note, if it is part of a opening
 ;;    and closing pair, the opening includes a space and the closing
 ;;    does not.)
-(global-evil-surround-mode 1)
-(evil-leader/set-key "t s" 'evil-surround-mode)
+;;
 
-(evil-leader/set-leader "<SPC>")
-(evil-leader/set-key "<SPC>" 'execute-extended-command)
+(setq evil-want-keybinding nil)
+
+(use-package evil
+  :ensure t
+  :init
+  (evil-mode 1))
+
+(use-package evil-leader
+  :ensure t
+  :config
+  (evil-leader-mode 1)
+  (global-evil-leader-mode 1)
+  (evil-leader/set-key "t s" 'evil-surround-mode)
+  (evil-leader/set-leader "<SPC>")
+  (evil-leader/set-key "<SPC>" 'execute-extended-command))
+
+(use-package evil-collection
+  :ensure t
+  :config
+  (evil-collection-init))
+
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
 
 ;; Look stunning
 ;; =============
@@ -450,6 +470,7 @@ amount of the of the frame's width and height."
 
 (evil-leader/set-key
   "f f" 'find-file
+  "f l" 'find-file-literally
   "f t" 'nice-touch-file
   "f F" 'find-file-other-frame
   "f s" 'save-buffer
