@@ -202,8 +202,9 @@
 (add-hook 'find-file-hook 'nice-show-trailing-whitespace)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-(require 'hl-todo)
-(global-hl-todo-mode)
+(use-package hl-todo
+  :ensure t
+  :config (global-hl-todo-mode))
 
 (setq nice-colours-alist
       '((strong-warning . "red")
@@ -312,9 +313,10 @@ that is visible in both."
 
 ;; Rainbow-mode will highlight strings indicating colours,
 ;; e.g. hexcodes in their corresponding colour.
-(require 'rainbow-mode)
-(add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
-(add-hook 'ess-mode-hook 'rainbow-mode)
+(use-package rainbow-mode
+  :ensure t
+  :hook ((emacs-lisp-mode . rainbow-mode)
+         (ess-mode . rainbow-mode)))
 
 (setq inhibit-splash-screen t)
 
@@ -325,8 +327,9 @@ that is visible in both."
 ;; Be sensible
 ;; ===========
 
-(require 'unfill)
-(global-set-key (kbd "M-q") 'unfill-toggle)
+(use-package unfill
+  :ensure t
+  :bind ("M-q" . unfill-toggle))
 
 (evil-leader/set-key
   "q r" 'restart-emacs
@@ -724,9 +727,12 @@ backup dictionary."
 ;; 3. Use `evil-insert' (`SPC c i`) to start editing.
 ;; 4. Exit using `mc/keyboard-quit' (`SPC c q`)
 
-(require 'multiple-cursors)
-(require 'evil-mc)
-(global-evil-mc-mode 1)
+(use-package multiple-cursors
+  :ensure t)
+
+(use-package evil-mc
+  :ensure t
+  :config (global-evil-mc-mode 1))
 
 (evil-leader/set-key
   "c n" 'mc/mark-next-like-this        ; Mark next occurrence
@@ -826,16 +832,20 @@ backup dictionary."
 ;;
 ;; Use `pyvenv-activate' to activate a virtual environment.
 
-(require 'pyvenv)
-(require 'python)
+(use-package pyvenv
+  :ensure t)
+
+(use-package python
+  :ensure t
+  :config
+  (setq python-shell-interpreter "python3")
+  (setq python-indent-offset 4))
 
 (evil-leader/set-key-for-mode 'python-mode
   "m s b" 'python-shell-send-buffer
   "m s r" 'python-shell-send-region
   "m '" 'python-shell-switch-to-shell)
 
-(setq python-shell-interpreter "python3")
-(setq python-indent-offset 4)
 ;; STUFF 4:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 6][STUFF 6:1]]
