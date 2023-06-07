@@ -316,7 +316,7 @@ that is visible in both."
 (use-package rainbow-mode
   :ensure t
   :hook ((emacs-lisp-mode . rainbow-mode)
-         (ess-mode . rainbow-mode)))
+	 (ess-mode . rainbow-mode)))
 
 (setq inhibit-splash-screen t)
 
@@ -845,7 +845,6 @@ backup dictionary."
   "m s b" 'python-shell-send-buffer
   "m s r" 'python-shell-send-region
   "m '" 'python-shell-switch-to-shell)
-
 ;; STUFF 4:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 6][STUFF 6:1]]
@@ -975,7 +974,9 @@ year, and the first two words of the title."
   (local-set-key (kbd "<tab>") #'org-cycle))
 
 (add-hook 'org-mode-hook #'nice-org-mode-hook)
+;; Org-mode:1 ends here
 
+;; [[file:nicemacs-v2.org::*Agenda and calendar][Agenda and calendar:1]]
 ;; Org-agenda
 ;;
 ;; - To navigate up and down lines in the agend view use =n/p=.
@@ -1000,15 +1001,19 @@ year, and the first two words of the title."
 
 ;; Calendar view
 ;;
-;; This provides a more classical
-
-(require 'calfw)
-(require 'calfw-org)
+;; This provides a more classical view of the agenda as a calendar.
+;;
+(use-package calfw
+  :ensure t
+  :config
+  (use-package calfw-org))
 
 (evil-leader/set-key
   "a a" 'org-agenda
   "a c" 'cfw:open-org-calendar)
+;; Agenda and calendar:1 ends here
 
+;; [[file:nicemacs-v2.org::*Literate programming][Literate programming:1]]
 ;; Literate programming
 
 (evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
@@ -1025,7 +1030,7 @@ year, and the first two words of the title."
 
 (setq org-image-actual-width 500)
 (evil-leader/set-key-for-mode 'org-mode "o t i" 'org-toggle-inline-images)
-;; Org-mode:1 ends here
+;; Literate programming:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Website/Publishing][Website/Publishing:1]]
 (defun nice-publish-homepage ()

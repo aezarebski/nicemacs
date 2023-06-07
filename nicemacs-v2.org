@@ -1058,7 +1058,11 @@ instead of =u= in step 5 to stage the files in the region.
     (local-set-key (kbd "<tab>") #'org-cycle))
 
   (add-hook 'org-mode-hook #'nice-org-mode-hook)
+#+end_src
 
+*** Agenda and calendar
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Org-agenda
   ;;
   ;; - To navigate up and down lines in the agend view use =n/p=.
@@ -1083,15 +1087,21 @@ instead of =u= in step 5 to stage the files in the region.
 
   ;; Calendar view
   ;;
-  ;; This provides a more classical
-
-  (require 'calfw)
-  (require 'calfw-org)
+  ;; This provides a more classical view of the agenda as a calendar.
+  ;;
+  (use-package calfw
+    :ensure t
+    :config
+    (use-package calfw-org))
 
   (evil-leader/set-key
     "a a" 'org-agenda
     "a c" 'cfw:open-org-calendar)
+#+end_src
 
+*** Literate programming
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Literate programming
 
   (evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
