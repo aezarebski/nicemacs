@@ -1029,7 +1029,7 @@ year, and the first two words of the title."
 
 (evil-leader/set-key-for-mode 'org-mode "o t l" 'org-latex-preview)
 
-(setq org-image-actual-width 500)
+(setq org-image-actual-width 300)
 (evil-leader/set-key-for-mode 'org-mode "o t i" 'org-toggle-inline-images)
 ;; Literate programming:1 ends here
 
@@ -1251,6 +1251,7 @@ year, and the first two words of the title."
 ;;
 
 (use-package copilot
+  :defer 1
   :config
   (evil-leader/set-key "t c" 'copilot-mode)
   (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
