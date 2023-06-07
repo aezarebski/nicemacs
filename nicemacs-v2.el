@@ -257,8 +257,8 @@ active, and turns it off if it is."
 (defun nice-set-theme (theme comment-bg comment-fg shadow-bg shadow-fg)
   (load-theme theme t)
   (let ((comment-face `((t (:background ,comment-bg
-                                        :foreground ,comment-fg
-                                        :slant normal)))))
+					:foreground ,comment-fg
+					:slant normal)))))
     (setq font-lock-comment-delimiter-face comment-face)
     (setq font-lock-comment-face comment-face))
   (set-face-background 'mode-line comment-bg)
@@ -273,19 +273,19 @@ that is visible in both."
   (interactive)
   (if (eq (car custom-enabled-themes) 'solarized-light-high-contrast)
       (progn
-        (disable-theme 'solarized-light-high-contrast)
-        (nice-set-theme 'solarized-dark-high-contrast
-                        (nice-colour 'dark-theme-comment-background)
-                        (nice-colour 'dark-theme-comment-foreground)
-                        (nice-colour 'dark-theme-shadow-background)
-                        (nice-colour 'dark-theme-shadow-foreground)))
+	(disable-theme 'solarized-light-high-contrast)
+	(nice-set-theme 'solarized-dark-high-contrast
+			(nice-colour 'dark-theme-comment-background)
+			(nice-colour 'dark-theme-comment-foreground)
+			(nice-colour 'dark-theme-shadow-background)
+			(nice-colour 'dark-theme-shadow-foreground)))
     (progn
       (disable-theme 'solarized-dark-high-contrast)
       (nice-set-theme 'solarized-light-high-contrast
-                      (nice-colour 'light-theme-comment-background)
-                      (nice-colour 'light-theme-comment-foreground)
-                      (nice-colour 'light-theme-shadow-background)
-                      (nice-colour 'light-theme-shadow-foreground)))))
+		      (nice-colour 'light-theme-comment-background)
+		      (nice-colour 'light-theme-comment-foreground)
+		      (nice-colour 'light-theme-shadow-background)
+		      (nice-colour 'light-theme-shadow-foreground)))))
 
 (evil-leader/set-key "t t" 'nice-toggle-themes)
 
@@ -848,7 +848,7 @@ backup dictionary."
   "m '" 'python-shell-switch-to-shell)
 ;; STUFF 4:1 ends here
 
-;; [[file:nicemacs-v2.org::*STUFF 6][STUFF 6:1]]
+;; [[file:nicemacs-v2.org::*LaTeX/BibTeX][LaTeX/BibTeX:1]]
 ;; LaTeX/BibTeX
 ;; ------------
 
@@ -949,15 +949,15 @@ year, and the first two words of the title."
   "m b b" 'nice-bibtex-braces
   "m b f" 'bibtex-reformat
   "m b k" 'nice-bibtex-guess-key)
+;; LaTeX/BibTeX:1 ends here
 
+;; [[file:nicemacs-v2.org::*Markdown][Markdown:1]]
 ;; Markdown-mode
 ;; -------------
 
-(require 'markdown-mode)
-
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-;; STUFF 6:1 ends here
+(use-package markdown-mode
+  :mode (("\\.md\\'" . markdown-mode)))
+;; Markdown:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Org-mode][Org-mode:1]]
 ;; Org-Mode

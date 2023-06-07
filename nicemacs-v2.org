@@ -925,7 +925,7 @@ instead of =u= in step 5 to stage the files in the region.
     "m s c" 'racket-send-last-sexp)
 #+end_src
 
-** STUFF 6
+** LaTeX/BibTeX
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; LaTeX/BibTeX
@@ -1028,14 +1028,16 @@ instead of =u= in step 5 to stage the files in the region.
     "m b b" 'nice-bibtex-braces
     "m b f" 'bibtex-reformat
     "m b k" 'nice-bibtex-guess-key)
+#+end_src
 
+** Markdown
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Markdown-mode
   ;; -------------
 
-  (require 'markdown-mode)
-
-  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+  (use-package markdown-mode
+    :mode (("\\.md\\'" . markdown-mode)))
 #+end_src
 
 ** Org-mode
