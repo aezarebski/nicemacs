@@ -78,6 +78,9 @@
   ;; Changelog
   ;; ---------
   ;;
+  ;; - 2023-06
+  ;;   + Configure the `fill-column' to use a clearer face.
+  ;;
   ;; - 2023-05
   ;;   + Use the `use-package' macro.
   ;;   + Use the `calfw' package for a calendar view of my agenda
@@ -1341,36 +1344,35 @@ instead of =u= in step 5 to stage the files in the region.
   ;; node.js.
   ;;
 
-  (add-to-list 'load-path "~/.emacs.d/copilot.el/")
-  (require 'copilot)
+  (use-package copilot
+    :config
+    (evil-leader/set-key "t c" 'copilot-mode)
+    (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
+    ;; (setq copilot-node-executable "/usr/bin/node")
+    :load-path "~/.emacs.d/copilot.el/"
+    :hook ((python-mode . copilot-mode)
+	   (ess-r-mode . copilot-mode)))
 
-  ;; (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
-  ;; (setq copilot-node-executable "/usr/bin/node")
-  (add-hook 'python-mode-hook 'copilot-mode)
-  (add-hook 'ess-r-mode-hook 'copilot-mode)
-
-  (defun nice/copilot-tab ()
-    "Accept the current suggestion."
+  (defun nice-copilot-tab ()
+    "Accept the current suggestion provided by copilot."
     (interactive)
     (or (copilot-accept-completion)
 	(indent-for-tab-command)))
 
   (with-eval-after-load 'copilot
     (evil-define-key 'insert copilot-mode-map
-      (kbd "<tab>") #'nice/copilot-tab))
+      (kbd "<tab>") #'nice-copilot-tab))
 
-  (defun nice/copilot-by-line ()
+  (defun nice-copilot-by-line ()
     "Accept the current suggestion by line."
-    (interactive)
     (interactive)
     (or (copilot-accept-completion-by-line)
 	(indent-for-tab-command)))
 
   (with-eval-after-load 'copilot
     (evil-define-key 'insert copilot-mode-map
-      (kbd "C-<tab>") #'nice/copilot-by-line))
+      (kbd "C-<tab>") #'nice-copilot-by-line))
 
-  (evil-leader/set-key "t c" 'copilot-mode)
 
   ;; Explore new worlds
   ;; ==================
