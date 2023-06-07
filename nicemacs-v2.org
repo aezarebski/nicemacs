@@ -257,19 +257,17 @@
   (add-to-list `custom-theme-load-path "~/.emacs.d/themes/")
   (load-theme 'solarized-light-high-contrast t)
 
-  (defun nice-modeline-dark-theme ()
-    (interactive)
-    (set-face-background 'mode-line (nice-colour 'dark-theme-comment-background))
-    (set-face-foreground 'mode-line (nice-colour 'dark-theme-comment-foreground))
-    (set-face-background 'mode-line-inactive (nice-colour 'dark-theme-shadow-background))
-    (set-face-foreground 'mode-line-inactive (nice-colour 'dark-theme-shadow-foreground)))
-
-  (defun nice-modeline-light-theme ()
-    (interactive)
-    (set-face-background 'mode-line (nice-colour 'light-theme-comment-background))
-    (set-face-foreground 'mode-line (nice-colour 'light-theme-comment-foreground))
-    (set-face-background 'mode-line-inactive (nice-colour 'light-theme-shadow-background))
-    (set-face-foreground 'mode-line-inactive (nice-colour 'light-theme-shadow-foreground)))
+  (defun nice-set-theme (theme comment-bg comment-fg shadow-bg shadow-fg)
+    (load-theme theme t)
+    (let ((comment-face `((t (:background ,comment-bg
+					  :foreground ,comment-fg
+					  :slant normal)))))
+      (setq font-lock-comment-delimiter-face comment-face)
+      (setq font-lock-comment-face comment-face))
+    (set-face-background 'mode-line comment-bg)
+    (set-face-foreground 'mode-line comment-fg)
+    (set-face-background 'mode-line-inactive shadow-bg)
+    (set-face-foreground 'mode-line-inactive shadow-fg))
 
   (defun nice-toggle-themes ()
     "Toggle between two themes: solarized-light-high-contrast and
@@ -279,32 +277,18 @@
     (if (eq (car custom-enabled-themes) 'solarized-light-high-contrast)
 	(progn
 	  (disable-theme 'solarized-light-high-contrast)
-	  (load-theme 'solarized-dark-high-contrast t)
-	  (setq font-lock-comment-delimiter-face
-		`((t (
-		      :background ,(nice-colour 'dark-theme-comment-background)
-				  :foreground ,(nice-colour 'dark-theme-comment-foreground)
-				  :slant normal))))
-	  (setq font-lock-comment-face
-		`((t (
-		      :background ,(nice-colour 'dark-theme-comment-background)
-				  :foreground ,(nice-colour 'dark-theme-comment-foreground)
-				  :slant normal))))
-	  (nice-modeline-dark-theme))
+	  (nice-set-theme 'solarized-dark-high-contrast
+			  (nice-colour 'dark-theme-comment-background)
+			  (nice-colour 'dark-theme-comment-foreground)
+			  (nice-colour 'dark-theme-shadow-background)
+			  (nice-colour 'dark-theme-shadow-foreground)))
       (progn
 	(disable-theme 'solarized-dark-high-contrast)
-	(load-theme 'solarized-light-high-contrast t)
-	(setq font-lock-comment-delimiter-face
-	      `((t (
-		    :background ,(nice-colour 'light-theme-comment-background)
-				:foreground ,(nice-colour 'light-theme-comment-foreground)
-				:slant normal))))
-	(setq font-lock-comment-face
-	      `((t (
-		    :background ,(nice-colour 'light-theme-comment-background)
-				:foreground ,(nice-colour 'light-theme-comment-foreground)
-				:slant normal)))))
-      (nice-modeline-light-theme)))
+	(nice-set-theme 'solarized-light-high-contrast
+			(nice-colour 'light-theme-comment-background)
+			(nice-colour 'light-theme-comment-foreground)
+			(nice-colour 'light-theme-shadow-background)
+			(nice-colour 'light-theme-shadow-foreground)))))
 
   (evil-leader/set-key "t t" 'nice-toggle-themes)
 
