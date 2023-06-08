@@ -649,7 +649,7 @@ backup dictionary."
 (setq words-to-add
       '("many" "various" "very" "quite" "somewhat" "several"
 	"extremely" "exceedingly" "fairly" "rather" "remarkably" "few"
-	"surprisingly" "mostly" "largely" "almost" "nearly"
+	"surprisingly" "mostly" "largely" "almost" "nearly" "in which"
 	"generally" "virtually" "essentially" "often" "substantially"
 	"significantly" "considerably" "typically" "widely" "really"
 	"actually" "basically" "certainly" "possibly" "probably"
