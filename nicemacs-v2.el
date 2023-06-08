@@ -58,6 +58,9 @@
 ;; Changelog
 ;; ---------
 ;;
+;; - 2023-06
+;;   + Configure the `fill-column' to use a clearer face.
+;;
 ;; - 2023-05
 ;;   + Use the `use-package' macro.
 ;;   + Use the `calfw' package for a calendar view of my agenda
@@ -202,8 +205,9 @@
 (add-hook 'find-file-hook 'nice-show-trailing-whitespace)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-(require 'hl-todo)
-(global-hl-todo-mode)
+(use-package hl-todo
+  :ensure t
+  :config (global-hl-todo-mode))
 
 (setq nice-colours-alist
       '((strong-warning . "red")
@@ -230,25 +234,37 @@
 	("DONE"   . ,(nice-colour 'strong-note))))
 
 (setq fill-column 70)
-;; FIXME the fill column is a bit hard to see, it should be clearer.
-(evil-leader/set-key "t f" 'display-fill-column-indicator-mode)
+
+(defun nice-toggle-fill-column-indicator ()
+  "Toggle display of the fill column indicator.
+
+When active, the indicator is set to a vertical line. It also
+turns on `display-fill-column-indicator-mode' if it's not already
+active, and turns it off if it is."
+  (interactive)
+  (display-fill-column-indicator-mode 'toggle)
+  (when display-fill-column-indicator-mode
+    (setq display-fill-column-indicator-character ?\u2502)
+    (set-face-attribute 'fill-column-indicator nil
+			:foreground (nice-colour 'weak-warning)
+			:weight 'bold)))
+
+(evil-leader/set-key "t f" 'nice-toggle-fill-column-indicator)
 
 (add-to-list `custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'solarized-light-high-contrast t)
 
-(defun nice-modeline-dark-theme ()
-  (interactive)
-  (set-face-background 'mode-line (nice-colour 'dark-theme-comment-background))
-  (set-face-foreground 'mode-line (nice-colour 'dark-theme-comment-foreground))
-  (set-face-background 'mode-line-inactive (nice-colour 'dark-theme-shadow-background))
-  (set-face-foreground 'mode-line-inactive (nice-colour 'dark-theme-shadow-foreground)))
-
-(defun nice-modeline-light-theme ()
-  (interactive)
-  (set-face-background 'mode-line (nice-colour 'light-theme-comment-background))
-  (set-face-foreground 'mode-line (nice-colour 'light-theme-comment-foreground))
-  (set-face-background 'mode-line-inactive (nice-colour 'light-theme-shadow-background))
-  (set-face-foreground 'mode-line-inactive (nice-colour 'light-theme-shadow-foreground)))
+(defun nice-set-theme (theme comment-bg comment-fg shadow-bg shadow-fg)
+  (load-theme theme t)
+  (let ((comment-face `((t (:background ,comment-bg
+					:foreground ,comment-fg
+					:slant normal)))))
+    (setq font-lock-comment-delimiter-face comment-face)
+    (setq font-lock-comment-face comment-face))
+  (set-face-background 'mode-line comment-bg)
+  (set-face-foreground 'mode-line comment-fg)
+  (set-face-background 'mode-line-inactive shadow-bg)
+  (set-face-foreground 'mode-line-inactive shadow-fg))
 
 (defun nice-toggle-themes ()
   "Toggle between two themes: solarized-light-high-contrast and
@@ -258,32 +274,18 @@ that is visible in both."
   (if (eq (car custom-enabled-themes) 'solarized-light-high-contrast)
       (progn
 	(disable-theme 'solarized-light-high-contrast)
-	(load-theme 'solarized-dark-high-contrast t)
-	(setq font-lock-comment-delimiter-face
-	      `((t (
-		    :background ,(nice-colour 'dark-theme-comment-background)
-				:foreground ,(nice-colour 'dark-theme-comment-foreground)
-				:slant normal))))
-	(setq font-lock-comment-face
-	      `((t (
-		    :background ,(nice-colour 'dark-theme-comment-background)
-				:foreground ,(nice-colour 'dark-theme-comment-foreground)
-				:slant normal))))
-	(nice-modeline-dark-theme))
+	(nice-set-theme 'solarized-dark-high-contrast
+			(nice-colour 'dark-theme-comment-background)
+			(nice-colour 'dark-theme-comment-foreground)
+			(nice-colour 'dark-theme-shadow-background)
+			(nice-colour 'dark-theme-shadow-foreground)))
     (progn
       (disable-theme 'solarized-dark-high-contrast)
-      (load-theme 'solarized-light-high-contrast t)
-      (setq font-lock-comment-delimiter-face
-	    `((t (
-		  :background ,(nice-colour 'light-theme-comment-background)
-			      :foreground ,(nice-colour 'light-theme-comment-foreground)
-			      :slant normal))))
-      (setq font-lock-comment-face
-	    `((t (
-		  :background ,(nice-colour 'light-theme-comment-background)
-			      :foreground ,(nice-colour 'light-theme-comment-foreground)
-			      :slant normal)))))
-    (nice-modeline-light-theme)))
+      (nice-set-theme 'solarized-light-high-contrast
+		      (nice-colour 'light-theme-comment-background)
+		      (nice-colour 'light-theme-comment-foreground)
+		      (nice-colour 'light-theme-shadow-background)
+		      (nice-colour 'light-theme-shadow-foreground)))))
 
 (evil-leader/set-key "t t" 'nice-toggle-themes)
 
@@ -312,9 +314,10 @@ that is visible in both."
 
 ;; Rainbow-mode will highlight strings indicating colours,
 ;; e.g. hexcodes in their corresponding colour.
-(require 'rainbow-mode)
-(add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
-(add-hook 'ess-mode-hook 'rainbow-mode)
+(use-package rainbow-mode
+  :ensure t
+  :hook ((emacs-lisp-mode . rainbow-mode)
+	 (ess-mode . rainbow-mode)))
 
 (setq inhibit-splash-screen t)
 
@@ -325,8 +328,9 @@ that is visible in both."
 ;; Be sensible
 ;; ===========
 
-(require 'unfill)
-(global-set-key (kbd "M-q") 'unfill-toggle)
+(use-package unfill
+  :ensure t
+  :bind ("M-q" . unfill-toggle))
 
 (evil-leader/set-key
   "q r" 'restart-emacs
@@ -724,9 +728,12 @@ backup dictionary."
 ;; 3. Use `evil-insert' (`SPC c i`) to start editing.
 ;; 4. Exit using `mc/keyboard-quit' (`SPC c q`)
 
-(require 'multiple-cursors)
-(require 'evil-mc)
-(global-evil-mc-mode 1)
+(use-package multiple-cursors
+  :ensure t)
+
+(use-package evil-mc
+  :ensure t
+  :config (global-evil-mc-mode 1))
 
 (evil-leader/set-key
   "c n" 'mc/mark-next-like-this        ; Mark next occurrence
@@ -826,19 +833,22 @@ backup dictionary."
 ;;
 ;; Use `pyvenv-activate' to activate a virtual environment.
 
-(require 'pyvenv)
-(require 'python)
+(use-package pyvenv
+  :ensure t)
+
+(use-package python
+  :ensure t
+  :config
+  (setq python-shell-interpreter "python3")
+  (setq python-indent-offset 4))
 
 (evil-leader/set-key-for-mode 'python-mode
   "m s b" 'python-shell-send-buffer
   "m s r" 'python-shell-send-region
   "m '" 'python-shell-switch-to-shell)
-
-(setq python-shell-interpreter "python3")
-(setq python-indent-offset 4)
 ;; STUFF 4:1 ends here
 
-;; [[file:nicemacs-v2.org::*STUFF 6][STUFF 6:1]]
+;; [[file:nicemacs-v2.org::*LaTeX/BibTeX][LaTeX/BibTeX:1]]
 ;; LaTeX/BibTeX
 ;; ------------
 
@@ -939,15 +949,15 @@ year, and the first two words of the title."
   "m b b" 'nice-bibtex-braces
   "m b f" 'bibtex-reformat
   "m b k" 'nice-bibtex-guess-key)
+;; LaTeX/BibTeX:1 ends here
 
+;; [[file:nicemacs-v2.org::*Markdown][Markdown:1]]
 ;; Markdown-mode
 ;; -------------
 
-(require 'markdown-mode)
-
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-;; STUFF 6:1 ends here
+(use-package markdown-mode
+  :mode (("\\.md\\'" . markdown-mode)))
+;; Markdown:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Org-mode][Org-mode:1]]
 ;; Org-Mode
@@ -965,7 +975,9 @@ year, and the first two words of the title."
   (local-set-key (kbd "<tab>") #'org-cycle))
 
 (add-hook 'org-mode-hook #'nice-org-mode-hook)
+;; Org-mode:1 ends here
 
+;; [[file:nicemacs-v2.org::*Agenda and calendar][Agenda and calendar:1]]
 ;; Org-agenda
 ;;
 ;; - To navigate up and down lines in the agend view use =n/p=.
@@ -990,15 +1002,19 @@ year, and the first two words of the title."
 
 ;; Calendar view
 ;;
-;; This provides a more classical
-
-(require 'calfw)
-(require 'calfw-org)
+;; This provides a more classical view of the agenda as a calendar.
+;;
+(use-package calfw
+  :ensure t
+  :config
+  (use-package calfw-org))
 
 (evil-leader/set-key
   "a a" 'org-agenda
   "a c" 'cfw:open-org-calendar)
+;; Agenda and calendar:1 ends here
 
+;; [[file:nicemacs-v2.org::*Literate programming][Literate programming:1]]
 ;; Literate programming
 
 (evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
@@ -1013,9 +1029,9 @@ year, and the first two words of the title."
 
 (evil-leader/set-key-for-mode 'org-mode "o t l" 'org-latex-preview)
 
-(setq org-image-actual-width 500)
+(setq org-image-actual-width 300)
 (evil-leader/set-key-for-mode 'org-mode "o t i" 'org-toggle-inline-images)
-;; Org-mode:1 ends here
+;; Literate programming:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Website/Publishing][Website/Publishing:1]]
 (defun nice-publish-homepage ()
@@ -1234,36 +1250,36 @@ year, and the first two words of the title."
 ;; node.js.
 ;;
 
-(add-to-list 'load-path "~/.emacs.d/copilot.el/")
-(require 'copilot)
+(use-package copilot
+  :defer 1
+  :config
+  (evil-leader/set-key "t c" 'copilot-mode)
+  (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
+  ;; (setq copilot-node-executable "/usr/bin/node")
+  :load-path "~/.emacs.d/copilot.el/"
+  :hook ((python-mode . copilot-mode)
+	 (ess-r-mode . copilot-mode)))
 
-;; (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
-;; (setq copilot-node-executable "/usr/bin/node")
-(add-hook 'python-mode-hook 'copilot-mode)
-(add-hook 'ess-r-mode-hook 'copilot-mode)
-
-(defun nice/copilot-tab ()
-  "Accept the current suggestion."
+(defun nice-copilot-tab ()
+  "Accept the current suggestion provided by copilot."
   (interactive)
   (or (copilot-accept-completion)
       (indent-for-tab-command)))
 
 (with-eval-after-load 'copilot
   (evil-define-key 'insert copilot-mode-map
-    (kbd "<tab>") #'nice/copilot-tab))
+    (kbd "<tab>") #'nice-copilot-tab))
 
-(defun nice/copilot-by-line ()
+(defun nice-copilot-by-line ()
   "Accept the current suggestion by line."
-  (interactive)
   (interactive)
   (or (copilot-accept-completion-by-line)
       (indent-for-tab-command)))
 
 (with-eval-after-load 'copilot
   (evil-define-key 'insert copilot-mode-map
-    (kbd "C-<tab>") #'nice/copilot-by-line))
+    (kbd "C-<tab>") #'nice-copilot-by-line))
 
-(evil-leader/set-key "t c" 'copilot-mode)
 
 ;; Explore new worlds
 ;; ==================
