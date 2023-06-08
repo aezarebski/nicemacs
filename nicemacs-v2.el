@@ -59,6 +59,8 @@
 ;; ---------
 ;;
 ;; - 2023-06
+;;   + Start using `polymode' (and friends) so I can write R with from
+;;     within `org-mode'.
 ;;   + Configure the `fill-column' to use a clearer face.
 ;;
 ;; - 2023-05
@@ -808,17 +810,21 @@ backup dictionary."
 ;; Emacs Speaks Statistics (ESS)
 ;; -----------------------------
 
+(use-package ess
+  :ensure t
+  :mode ("\\.Rmd" . Rmd-mode)
+  :config
+  (setq ess-default-style 'DEFAULT)
+  (evil-leader/set-key-for-mode 'ess-r-mode
+    "m s b" 'ess-eval-buffer
+    "m s r" 'ess-eval-region
+    "m s c" 'ess-eval-region-or-line-visibly-and-step
+    "m c l" 'nice-code-lint-buffer-r
+    "m c i" 'indent-region
+    "m '" 'ess-switch-to-inferior-or-script-buffer))
+
 (require 'ess-site)
 (require 'quarto-mode)
-(setq ess-default-style 'DEFAULT)
-
-(evil-leader/set-key-for-mode 'ess-r-mode
-  "m s b" 'ess-eval-buffer
-  "m s r" 'ess-eval-region
-  "m s c" 'ess-eval-region-or-line-visibly-and-step
-  "m c l" 'nice-code-lint-buffer-r
-  "m c i" 'indent-region
-  "m '" 'ess-switch-to-inferior-or-script-buffer)
 
 (defun nice-code-lint-buffer-r ()
   "Lint the current R buffer using lintr."
@@ -1016,6 +1022,24 @@ year, and the first two words of the title."
 
 ;; [[file:nicemacs-v2.org::*Literate programming][Literate programming:1]]
 ;; Literate programming
+
+(use-package polymode
+  :ensure t
+  :mode ("\\.org$" . poly-org-mode)
+  :config
+  (add-to-list 'auto-mode-alist '("\\.org$" . poly-org-mode)))
+
+(use-package poly-R
+  :ensure t
+  :after polymode)
+
+(use-package poly-org
+  :ensure t
+  :after polymode)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)))
 
 (evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
 
