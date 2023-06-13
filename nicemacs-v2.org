@@ -82,6 +82,7 @@
   ;; ---------
   ;;
   ;; - 2023-06
+  ;;   + Add some configuration for `nxml-mode'.
   ;;   + Start using `polymode' (and friends) so I can write R with from
   ;;     within `org-mode'.
   ;;   + Configure the `fill-column' to use a clearer face.
@@ -473,7 +474,12 @@
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Shell stuff
   ;; -----------
-
+  ;;
+  ;; TODO When running `git branch' in eshell there is a warning about
+  ;; the terminal not being fully functional which requires the user to
+  ;; type RET, it would be nice to disable the requirement to type RET,
+  ;; or even ignore the warning altogether.
+  ;;
   (setq eshell-cmpl-ignore-case t)
   (evil-leader/set-key
     "s e" 'eshell
@@ -703,6 +709,14 @@
   ;; ----
 
   ;; TODO Install and configure nxml-mode.
+
+  ;; u - up to parent.
+  ;; p - previous tag.
+  ;; n - next tag.
+  (evil-leader/set-key-for-mode 'nxml-mode
+    "m u" 'nxml-backward-up-element
+    "m p" 'nxml-backward-element
+    "m n" 'nxml-forward-element)
 #+end_src
 
 ** Yasnippet
@@ -1170,6 +1184,11 @@ instead of =u= in step 5 to stage the files in the region.
 	   :base-extension "org"
 	   :publishing-directory "~/aezarebski.github.io/notes/"
 	   :publishing-function org-html-publish-to-html)
+	  ("website-lists-org-files"
+	   :base-directory "~/public-site/org/lists/"
+	   :base-extension "org"
+	   :publishing-directory "~/aezarebski.github.io/lists/"
+	   :publishing-function org-html-publish-to-html)
 	  ("website-images-static"
 	   :base-directory "~/public-site/org/images/"
 	   :base-extension "png"
@@ -1233,6 +1252,7 @@ instead of =u= in step 5 to stage the files in the region.
 	  ("website"
 	   :components ("website-notes-org-files"
 			"website-images-static"
+			"website-lists-org-files"
 			"nicemacs-org-files"
 			"latex"
 			"R"))))

@@ -59,6 +59,7 @@
 ;; ---------
 ;;
 ;; - 2023-06
+;;   + Add some configuration for `nxml-mode'.
 ;;   + Start using `polymode' (and friends) so I can write R with from
 ;;     within `org-mode'.
 ;;   + Configure the `fill-column' to use a clearer face.
@@ -448,7 +449,12 @@ amount of the of the frame's width and height."
 ;; [[file:nicemacs-v2.org::*Shells][Shells:1]]
 ;; Shell stuff
 ;; -----------
-
+;;
+;; TODO When running `git branch' in eshell there is a warning about
+;; the terminal not being fully functional which requires the user to
+;; type RET, it would be nice to disable the requirement to type RET,
+;; or even ignore the warning altogether.
+;;
 (setq eshell-cmpl-ignore-case t)
 (evil-leader/set-key
   "s e" 'eshell
@@ -676,6 +682,15 @@ backup dictionary."
 ;; ----
 
 ;; TODO Install and configure nxml-mode.
+
+;; u - up to parent.
+;; p - previous tag.
+;; n - next tag.
+(evil-leader/set-key-for-mode 'nxml-mode
+  "m u" 'nxml-backward-up-element
+  "m p" 'nxml-backward-element
+  "m n" 'nxml-forward-element)
+
 ;; STUFF 2:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Yasnippet][Yasnippet:1]]
@@ -1075,6 +1090,11 @@ year, and the first two words of the title."
 	 :base-extension "org"
 	 :publishing-directory "~/aezarebski.github.io/notes/"
 	 :publishing-function org-html-publish-to-html)
+	("website-lists-org-files"
+	 :base-directory "~/public-site/org/lists/"
+	 :base-extension "org"
+	 :publishing-directory "~/aezarebski.github.io/lists/"
+	 :publishing-function org-html-publish-to-html)
 	("website-images-static"
 	 :base-directory "~/public-site/org/images/"
 	 :base-extension "png"
@@ -1138,6 +1158,7 @@ year, and the first two words of the title."
 	("website"
 	 :components ("website-notes-org-files"
 		      "website-images-static"
+		      "website-lists-org-files"
 		      "nicemacs-org-files"
 		      "latex"
 		      "R"))))
