@@ -1234,6 +1234,20 @@ instead of =u= in step 5 to stage the files in the region.
 	   :base-extension "png\\|jpg\\|pdf"
 	   :publishing-directory "~/aezarebski.github.io/misc/tikz/"
 	   :publishing-function org-publish-attachment)
+	  ("review2-org"
+	   :base-directory "~/Documents/bibliography/review2"
+	   :base-extension "org"
+	   :publishing-directory "~/aezarebski.github.io/notes/review2"
+	   :recursive ()
+	   :publishing-function org-html-publish-to-html
+	   )
+	  ("review2-static"
+	   :base-directory "~/Documents/bibliography/review2"
+	   :base-extension "css\\|png"
+	   :publishing-directory "~/aezarebski.github.io/notes/review2"
+	   :recursive t
+	   :publishing-function org-publish-attachment
+	   )
 	  ("nicemacs-org-files"
 	   :base-directory "~/Documents/nicemacs/"
 	   :base-extension "org"
@@ -1244,6 +1258,9 @@ instead of =u= in step 5 to stage the files in the region.
 			"website-misc-basegraphicsR-static"
 			"website-misc-ggplot2-org-files"
 			"website-misc-ggplot2-static"))
+	  ("review"
+	   :components ("review2-org"
+			"review2-static"))
 	  ("latex"
 	   :components ("website-misc-latex-org-files"
 			"website-misc-latex-static"
@@ -1254,6 +1271,7 @@ instead of =u= in step 5 to stage the files in the region.
 			"website-images-static"
 			"website-lists-org-files"
 			"nicemacs-org-files"
+			"review"
 			"latex"
 			"R"))))
 #+end_src

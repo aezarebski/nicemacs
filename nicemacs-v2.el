@@ -1140,6 +1140,20 @@ year, and the first two words of the title."
 	 :base-extension "png\\|jpg\\|pdf"
 	 :publishing-directory "~/aezarebski.github.io/misc/tikz/"
 	 :publishing-function org-publish-attachment)
+	("review2-org"
+	 :base-directory "~/Documents/bibliography/review2"
+	 :base-extension "org"
+	 :publishing-directory "~/aezarebski.github.io/notes/review2"
+	 :recursive ()
+	 :publishing-function org-html-publish-to-html
+	 )
+	("review2-static"
+	 :base-directory "~/Documents/bibliography/review2"
+	 :base-extension "css\\|png"
+	 :publishing-directory "~/aezarebski.github.io/notes/review2"
+	 :recursive t
+	 :publishing-function org-publish-attachment
+	 )
 	("nicemacs-org-files"
 	 :base-directory "~/Documents/nicemacs/"
 	 :base-extension "org"
@@ -1150,6 +1164,9 @@ year, and the first two words of the title."
 		      "website-misc-basegraphicsR-static"
 		      "website-misc-ggplot2-org-files"
 		      "website-misc-ggplot2-static"))
+	("review"
+	 :components ("review2-org"
+		      "review2-static"))
 	("latex"
 	 :components ("website-misc-latex-org-files"
 		      "website-misc-latex-static"
@@ -1160,6 +1177,7 @@ year, and the first two words of the title."
 		      "website-images-static"
 		      "website-lists-org-files"
 		      "nicemacs-org-files"
+		      "review"
 		      "latex"
 		      "R"))))
 ;; Website/Publishing:1 ends here
