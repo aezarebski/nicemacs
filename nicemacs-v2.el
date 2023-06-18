@@ -681,8 +681,6 @@ backup dictionary."
 ;; NXML
 ;; ----
 
-;; TODO Install and configure nxml-mode.
-
 ;; u - up to parent.
 ;; p - previous tag.
 ;; n - next tag.
@@ -805,7 +803,8 @@ backup dictionary."
 (nice-canned-commit-message journal "update journal" "j")
 (nice-canned-commit-message yasnippet "yasnippet" "y")
 
-(setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+(setq magit-display-buffer-function
+      #'magit-display-buffer-fullframe-status-v1)
 
 (evil-leader/set-key "g q" 'with-editor-cancel)
 ;; Configuration:1 ends here
@@ -814,11 +813,24 @@ backup dictionary."
 ;; Emacs Lisp
 ;; ----------
 
-;; TODO Configure a linter
+(setq pp-max-width 60)
 
-(evil-leader/set-key-for-mode 'emacs-lisp-mode "m s c" 'eval-last-sexp)
-(evil-leader/set-key-for-mode 'emacs-lisp-mode "m s b" 'eval-buffer)
-(evil-leader/set-key-for-mode 'emacs-lisp-mode "m s r" 'eval-region)
+(defun pp-sexp-to-kill-ring ()
+  "Pretty-print the S-expression under the cursor and add it to the
+kill ring."
+  (interactive)
+  (let ((sexp (read (thing-at-point 'sexp)))
+	(temp-buffer (generate-new-buffer "*temp*")))
+    (with-current-buffer temp-buffer
+      (pp-emacs-lisp-code sexp)
+      (kill-new (buffer-string)))
+    (kill-buffer temp-buffer)))
+
+(evil-leader/set-key-for-mode 'emacs-lisp-mode
+  "m s c" 'eval-last-sexp
+  "m s b" 'eval-buffer
+  "m s r" 'eval-region
+  "m c l" 'pp-sexp-to-kill-ring)
 ;; Emacs lisp:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Emacs Speaks Statistics (ESS)][Emacs Speaks Statistics (ESS):1]]

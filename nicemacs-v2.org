@@ -708,8 +708,6 @@
   ;; NXML
   ;; ----
 
-  ;; TODO Install and configure nxml-mode.
-
   ;; u - up to parent.
   ;; p - previous tag.
   ;; n - next tag.
@@ -858,22 +856,40 @@ instead of =u= in step 5 to stage the files in the region.
   (nice-canned-commit-message journal "update journal" "j")
   (nice-canned-commit-message yasnippet "yasnippet" "y")
 
-  (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+  (setq magit-display-buffer-function
+	#'magit-display-buffer-fullframe-status-v1)
 
   (evil-leader/set-key "g q" 'with-editor-cancel)
 #+end_src
 
 ** Emacs lisp
 
+The =pp-sexp-to-kill-ring= function is there to help pretty print code. It uses
+a new pretty printer function included in 29.1 and puts the pretty-printed
+version of an S-expression on the kill ring.
+
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Emacs Lisp
   ;; ----------
 
-  ;; TODO Configure a linter
+  (setq pp-max-width 60)
 
-  (evil-leader/set-key-for-mode 'emacs-lisp-mode "m s c" 'eval-last-sexp)
-  (evil-leader/set-key-for-mode 'emacs-lisp-mode "m s b" 'eval-buffer)
-  (evil-leader/set-key-for-mode 'emacs-lisp-mode "m s r" 'eval-region)
+  (defun pp-sexp-to-kill-ring ()
+    "Pretty-print the S-expression under the cursor and add it to the
+  kill ring."
+    (interactive)
+    (let ((sexp (read (thing-at-point 'sexp)))
+	  (temp-buffer (generate-new-buffer "*temp*")))
+      (with-current-buffer temp-buffer
+	(pp-emacs-lisp-code sexp)
+	(kill-new (buffer-string)))
+      (kill-buffer temp-buffer)))
+
+  (evil-leader/set-key-for-mode 'emacs-lisp-mode
+    "m s c" 'eval-last-sexp
+    "m s b" 'eval-buffer
+    "m s r" 'eval-region
+    "m c l" 'pp-sexp-to-kill-ring)
 #+end_src
 
 ** Emacs Speaks Statistics (ESS)
@@ -1604,4 +1620,4 @@ The following are key-bindings for emacs mode (use =\= to call
 
 #  LocalWords:  nicemacs Spacemacs spacemacs SPC REPL Eshell npm magit dired
 #  LocalWords:  defmacro backend LSP Bibtex NodeJS Edebug edebug defun ielm ESS
-#  LocalWords:  REPLs modeline minibuffer
+#  LocalWords:  REPLs modeline minibuffer sexp eval src
