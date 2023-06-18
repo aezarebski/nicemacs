@@ -400,8 +400,12 @@ files FA and FB using SPC f m KEY."
        (async-shell-command ,(format "meld %s %s &" fa fb)))
      (evil-leader/set-key ,(concat "f m " key) (intern ,(format "nice-meld-%s" name)))))
 
-(nice-meld-files "init" "~/.emacs.d/init.el" "~/Documents/nicemacs/nicemacs-v2.el" "i")
-(nice-meld-files "aspell" "~/.aspell.en.pws" "~/Documents/nicemacs/resources/aspell.en.pws" "a")
+(nice-meld-files "init" "~/.emacs.d/init.el"
+		 "~/Documents/nicemacs/nicemacs-v2.el"
+		 "i")
+(nice-meld-files "aspell" "~/.aspell.en.pws"
+		 "~/Documents/nicemacs/resources/aspell.en.pws"
+		 "a")
 
 ;; The `winum' package facilitates switching between windows using
 ;; numbers which appear in the bottom left hand of the window, at the
@@ -603,7 +607,10 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 (nice-rgrep-directory "journal" "~/Documents/journal" "*.org" "j")
 (nice-rgrep-directory "reviews" "~/Documents/bibliography" "*" "r")
 
-(evil-leader/set-key "s g ." (lambda () (interactive) (rgrep (read-string "Search terms: ") "*")))
+(evil-leader/set-key "s g ." (lambda ()
+			       (interactive)
+			       (rgrep (read-string "Search terms: ")
+				      "*")))
 
 ;; Be virtuous and lead by example
 ;; ===============================
@@ -639,7 +646,8 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
   "Run ediff on the current ispell-personal-dictionary and the
 backup dictionary."
   (interactive)
-  (let ((backup-dictionary (concat nice-resources-dir "/aspell.en.pws")))
+  (let ((backup-dictionary
+	 (concat nice-resources-dir "/aspell.en.pws")))
     (ediff-files ispell-personal-dictionary backup-dictionary)))
 
 (set-face-attribute 'flyspell-duplicate nil
@@ -813,7 +821,8 @@ backup dictionary."
 ;; Emacs Lisp
 ;; ----------
 
-(setq pp-max-width 60)
+(setq pp-max-width 70)
+(setq pp-use-max-width t)
 
 (defun pp-sexp-to-kill-ring ()
   "Pretty-print the S-expression under the cursor and add it to the
@@ -1073,15 +1082,17 @@ year, and the first two words of the title."
 (defun nice-detangle-nicemacs-v2 ()
   "Detangle the nicemacs-v2.el file."
   (interactive)
-  (let ((nicemacs-v2-source (concat nice-nicemacs-directory "/nicemacs-v2.el")))
+  (let ((nicemacs-v2-source (concat nice-nicemacs-directory
+				    "/nicemacs-v2.el")))
     (org-babel-detangle nicemacs-v2-source)))
 
-(evil-leader/set-key-for-mode 'emacs-lisp-mode "b d" 'nice-detangle-nicemacs-v2)
-
-(evil-leader/set-key-for-mode 'org-mode "o t l" 'org-latex-preview)
+(evil-leader/set-key-for-mode 'emacs-lisp-mode "b d"
+  'nice-detangle-nicemacs-v2)
 
 (setq org-image-actual-width 300)
-(evil-leader/set-key-for-mode 'org-mode "o t i" 'org-toggle-inline-images)
+(evil-leader/set-key-for-mode 'org-mode
+  "o t l" 'org-latex-preview
+  "o t i" 'org-toggle-inline-images)
 ;; Literate programming:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Website/Publishing][Website/Publishing:1]]
