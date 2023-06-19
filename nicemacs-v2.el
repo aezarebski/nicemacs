@@ -407,6 +407,19 @@ files FA and FB using SPC f m KEY."
 		 "~/Documents/nicemacs/resources/aspell.en.pws"
 		 "a")
 
+(defun nice-meld ()
+  "Prompt for two files and show the difference between them using
+`meld`."
+  (interactive)
+  (let ((file1 (read-file-name "First file: "))
+        (file2 (read-file-name "Second file: ")))
+    (progn
+      (message file1)
+      (message (shell-quote-argument file1))
+      (shell-command (format "meld %s %s &" file1 file2)))))
+
+(evil-leader/set-key "f m m" 'nice-meld)
+
 ;; The `winum' package facilitates switching between windows using
 ;; numbers which appear in the bottom left hand of the window, at the
 ;; start of the mode-line.
@@ -695,7 +708,7 @@ backup dictionary."
 (evil-leader/set-key-for-mode 'nxml-mode
   "m u" 'nxml-backward-up-element
   "m p" 'nxml-backward-element
-  "m n" 'nxml-forward-element)
+  "m n" 'forward-sexp)
 
 ;; STUFF 2:1 ends here
 
@@ -1048,7 +1061,7 @@ year, and the first two words of the title."
 ;; - =.= goes to today.
 ;; - =j= will /jump/ to a date (selected via calendar).
 ;;
-(setq org-agenda-start-day "-7d")
+(setq org-agenda-start-day "-14d")
 (setq org-agenda-span 30)
 (setq org-agenda-start-on-weekday nil)
 
