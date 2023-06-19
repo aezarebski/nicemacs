@@ -1024,6 +1024,23 @@ version of an S-expression on the kill ring.
 	    (find-file most-recent-bib))
 	(message "No bib files found in ~/Downloads/"))))
 
+  (defun nice-ris2bib ()
+    "Convert the most recent RIS file in my downloads to a BIB
+  file. Signal an error if there are no RIS files or if the
+  conversion fails."
+    (interactive "*")
+
+    (let* ((all-ris-files (directory-files "~/Downloads" t ".*ris"))
+	   (ris-filepath (most-recent-file all-ris-files))
+	   (target-bib "~/Downloads/new.bib")
+	   (ris2xml-command (format "ris2xml \"%s\" | xml2bib > %s" ris-filepath
+				    target-bib))
+	   (command-result (shell-command ris2xml-command)))
+      (unless ris-filepath
+	(error "No RIS files found in the directory"))
+      (unless (zerop command-result)
+	(error "Conversion from RIS to BIB failed with error code: %s" command-result))))
+
   (defun nice-bibtex-braces ()
     "Wrap upper case letters with brackets for bibtex titles within
   the selected region."
@@ -1070,7 +1087,8 @@ version of an S-expression on the kill ring.
 
   (evil-leader/set-key
     "v b l" 'nice-visit-last-bib
-    "v b d" 'nice-browse-url-of-doi)
+    "v b d" 'nice-browse-url-of-doi
+    "v b r" 'nice-ris2bib)
 
   (evil-leader/set-key-for-mode 'bibtex-mode
     "m b b" 'nice-bibtex-braces
