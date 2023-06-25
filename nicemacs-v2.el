@@ -413,10 +413,7 @@ files FA and FB using SPC f m KEY."
   (interactive)
   (let ((file1 (read-file-name "First file: "))
         (file2 (read-file-name "Second file: ")))
-    (progn
-      (message file1)
-      (message (shell-quote-argument file1))
-      (shell-command (format "meld %s %s &" file1 file2)))))
+    (shell-command (format "meld %s %s &" file1 file2))))
 
 (evil-leader/set-key "f m m" 'nice-meld)
 
