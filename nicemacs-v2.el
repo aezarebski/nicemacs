@@ -59,6 +59,8 @@
 ;; ---------
 ;;
 ;; - 2023-06
+;;   + Include keys for ESS devtools integration.
+;;   + Include wrapper around `pp-emacs-lisp-code'.
 ;;   + Add some configuration for `nxml-mode'.
 ;;   + Start using `polymode' (and friends) so I can write R with from
 ;;     within `org-mode'.
@@ -374,7 +376,8 @@ already in its own frame."
 	("SPC g c" . "Commits")
 	("SPC h" . "HELP!!!")
 	("SPC m" . "Major")
-	("SPC m s" . "REPL")
+	("SPC m d" . "devtools (ESS)")
+	("SPC m s" . "REPL (prog)/Sort (dired)")
 	("SPC m c" . "Code lint/format")
 	("SPC q" . "Quit/Exit")
 	("SPC s" . "Shell/Search")
@@ -493,6 +496,9 @@ amount of the of the frame's width and height."
 (require 'dired)
 (define-key dired-mode-map "-" 'dired-up-directory)
 (setq dired-listing-switches "-alh")
+
+(evil-leader/set-key-for-mode 'dired-mode
+  "m s" 'dired-sort-toggle-or-edit)
 
 (evil-leader/set-key
   "f f" 'find-file
@@ -862,6 +868,12 @@ kill ring."
   :config
   (setq ess-default-style 'DEFAULT)
   (evil-leader/set-key-for-mode 'ess-r-mode
+    "m d t" 'ess-r-devtools-test-package
+    "m d l" 'ess-r-devtools-load-package
+    "m d b" 'ess-r-devtools-build-package
+    "m d i" 'ess-r-devtools-install-package
+    "m d c" 'ess-r-devtools-check-package
+    "m d d" 'ess-r-devtools-document-package
     "m s b" 'ess-eval-buffer
     "m s r" 'ess-eval-region
     "m s c" 'ess-eval-region-or-line-visibly-and-step
