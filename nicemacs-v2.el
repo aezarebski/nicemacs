@@ -1061,14 +1061,18 @@ year, and the first two words of the title."
 
 ;; [[file:nicemacs-v2.org::*Agenda and calendar][Agenda and calendar:1]]
 ;; Org-agenda
+;; ----------
 ;;
-;; - To navigate up and down lines in the agend view use =n/p=.
-;; - =v d= will show the day view.
-;; - =v w= the week view.
-;; - =v m= the month view.
-;; - =v SPC= resets the view.
-;; - =.= goes to today.
-;; - =j= will /jump/ to a date (selected via calendar).
+;; - `n/p' to move up and down lines.
+;; - `v-d' will show the day view.
+;; - `v-w' the week view.
+;; - `v-m' the month view.
+;; - `v-SPC' resets the view.
+;; - `.' goes to today.
+;; - `j' will /jump/ to a date (selected via calendar).
+;; - `t' will cycle through TODO/DONE
+;; - `S-<left/right>' moves the scheduled date backwards/forwards
+;; - `r' rebuilds the agenda view
 ;;
 (setq org-agenda-start-day "-14d")
 (setq org-agenda-span 30)
