@@ -82,6 +82,7 @@
   ;; ---------
   ;;
   ;; - 2023-06
+  ;;   + Include the `cdf' function for easier eshell navigation.
   ;;   + Include keys for ESS devtools integration.
   ;;   + Include wrapper around `pp-emacs-lisp-code'.
   ;;   + Add some configuration for `nxml-mode'.
@@ -503,6 +504,13 @@
     "s b" (lambda () (interactive) (ansi-term "/bin/bash"))
     "s i" 'ielm
     "s r" 'R)
+
+  (defun cdf (filepath)
+    "Change the current directory in Eshell to the directory of
+   FILEPATH."
+    (let ((dir (file-name-directory filepath)))
+      (when (file-directory-p dir)
+	(eshell/cd dir))))
 #+end_src
 
 ** STUFF 2
@@ -1155,14 +1163,18 @@ version of an S-expression on the kill ring.
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Org-agenda
+  ;; ----------
   ;;
-  ;; - To navigate up and down lines in the agend view use =n/p=.
-  ;; - =v d= will show the day view.
-  ;; - =v w= the week view.
-  ;; - =v m= the month view.
-  ;; - =v SPC= resets the view.
-  ;; - =.= goes to today.
-  ;; - =j= will /jump/ to a date (selected via calendar).
+  ;; - `n/p' to move up and down lines.
+  ;; - `v-d' will show the day view.
+  ;; - `v-w' the week view.
+  ;; - `v-m' the month view.
+  ;; - `v-SPC' resets the view.
+  ;; - `.' goes to today.
+  ;; - `j' will /jump/ to a date (selected via calendar).
+  ;; - `t' will cycle through TODO/DONE
+  ;; - `S-<left/right>' moves the scheduled date backwards/forwards
+  ;; - `r' rebuilds the agenda view
   ;;
   (setq org-agenda-start-day "-14d")
   (setq org-agenda-span 30)
@@ -1239,7 +1251,7 @@ version of an S-expression on the kill ring.
     (interactive)
     (let ((local "~/public-site/org/scratch.html")
 	  (remote "~/aezarebski.github.io/index.html"))
-      (unless (not (file-exists-p local))
+      (when (file-exists-p local)
 	(copy-file local remote t)
 	(message "Copied %s to %s" local remote))))
 

@@ -59,6 +59,7 @@
 ;; ---------
 ;;
 ;; - 2023-06
+;;   + Include the `cdf' function for easier eshell navigation.
 ;;   + Include keys for ESS devtools integration.
 ;;   + Include wrapper around `pp-emacs-lisp-code'.
 ;;   + Add some configuration for `nxml-mode'.
@@ -478,6 +479,13 @@ amount of the of the frame's width and height."
   "s b" (lambda () (interactive) (ansi-term "/bin/bash"))
   "s i" 'ielm
   "s r" 'R)
+
+(defun cdf (filepath)
+  "Change the current directory in Eshell to the directory of
+ FILEPATH."
+  (let ((dir (file-name-directory filepath)))
+    (when (file-directory-p dir)
+      (eshell/cd dir))))
 ;; Shells:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 2][STUFF 2:1]]
@@ -1145,7 +1153,7 @@ year, and the first two words of the title."
   (interactive)
   (let ((local "~/public-site/org/scratch.html")
 	(remote "~/aezarebski.github.io/index.html"))
-    (unless (not (file-exists-p local))
+    (when (file-exists-p local)
       (copy-file local remote t)
       (message "Copied %s to %s" local remote))))
 
