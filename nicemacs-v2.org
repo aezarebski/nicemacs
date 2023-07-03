@@ -896,6 +896,9 @@ instead of =u= in step 5 to stage the files in the region.
 
 ** Emacs lisp
 
+- [[https://github.com/p3r7/awesome-elisp][Awesome Elisp]] sounds like it would be a good place to go to learn a bit more
+  elisp.
+
 The =pp-sexp-to-kill-ring= function is there to help pretty print code. It uses
 a new pretty printer function included in 29.1 and puts the pretty-printed
 version of an S-expression on the kill ring.
