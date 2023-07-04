@@ -1187,6 +1187,12 @@ version of an S-expression on the kill ring.
   (setq org-agenda-span 30)
   (setq org-agenda-start-on-weekday nil)
 
+  ;; FIXME double check that this is the correct way to do this and add
+  ;; correct highlighting.
+  (setq org-todo-keywords
+	'((sequence "TODO" "DONE")))
+	;; '((sequence "TODO" "MEETING" "DONE")))
+
   (defun nice-org-agenda-goto-today-advice-after (&rest _args)
     "Adjust the window after calling `org-agenda-goto-today'."
     (recenter-top-bottom 4))
