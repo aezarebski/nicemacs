@@ -58,6 +58,9 @@
 ;; Changelog
 ;; ---------
 ;;
+;; - 2023-07
+;;   + Avoid annoying warning from `git' by setting `GIT_PAGER' to
+;;     `cat'.
 ;; - 2023-06
 ;;   + Include the `cdf' function for easier eshell navigation.
 ;;   + Include keys for ESS devtools integration.
@@ -468,11 +471,6 @@ amount of the of the frame's width and height."
 ;; Shell stuff
 ;; -----------
 ;;
-;; TODO When running `git branch' in eshell there is a warning about
-;; the terminal not being fully functional which requires the user to
-;; type RET, it would be nice to disable the requirement to type RET,
-;; or even ignore the warning altogether.
-;;
 (setq eshell-cmpl-ignore-case t)
 (evil-leader/set-key
   "s e" 'eshell
@@ -486,6 +484,12 @@ amount of the of the frame's width and height."
   (let ((dir (file-name-directory filepath)))
     (when (file-directory-p dir)
       (eshell/cd dir))))
+
+(defun nice-eshell-mode-setup ()
+  (setenv "TERM" "dumb")
+  (setenv "GIT_PAGER" "cat"))
+
+(add-hook 'eshell-mode-hook 'nice-eshell-mode-setup)
 ;; Shells:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 2][STUFF 2:1]]
