@@ -59,6 +59,7 @@
 ;; ---------
 ;;
 ;; - 2023-07
+;;   + Introduce a new org-mode todo state `MEETING'.
 ;;   + Avoid annoying warning from `git' by setting `GIT_PAGER' to
 ;;     `cat'.
 ;; - 2023-06
@@ -1090,11 +1091,13 @@ year, and the first two words of the title."
 (setq org-agenda-span 30)
 (setq org-agenda-start-on-weekday nil)
 
-;; FIXME double check that this is the correct way to do this and add
-;; correct highlighting.
 (setq org-todo-keywords
-      '((sequence "TODO" "DONE")))
-      ;; '((sequence "TODO" "MEETING" "DONE")))
+      '((sequence "TODO" "DONE")
+	(sequence "MEETING" "|" "DONE")))
+
+(setq org-todo-keyword-faces
+      `(("MEETING" . (:foreground ,(nice-colour 'weak-warning)
+                      :weight bold))))
 
 (defun nice-org-agenda-goto-today-advice-after (&rest _args)
   "Adjust the window after calling `org-agenda-goto-today'."
