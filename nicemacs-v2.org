@@ -82,7 +82,7 @@
   ;; ---------
   ;;
   ;; - 2023-07
-  ;;   + Introduce a new org-mode todo state `MEETING'.
+  ;;   + Introduce a new org-mode todo states.
   ;;   + Avoid annoying warning from `git' by setting `GIT_PAGER' to
   ;;     `cat'.
   ;; - 2023-06
@@ -550,7 +550,8 @@
     "b b" 'switch-to-buffer
     "d b" 'kill-buffer
     "d w" 'delete-window
-    "d f" 'delete-frame)
+    "d F" 'delete-frame
+    "F d" 'delete-frame)
 
   (defun nice-dired ()
     "Open dired for the current buffer's directory if it
@@ -1190,11 +1191,14 @@ version of an S-expression on the kill ring.
 
   (setq org-todo-keywords
 	'((sequence "TODO" "DONE")
-	  (sequence "MEETING" "|" "DONE")))
+	  (sequence "MEETING" "|" "DONE")
+	  (sequence "SOCIAL" "|" "DONE")))
 
   (setq org-todo-keyword-faces
 	`(("MEETING" . (:foreground ,(nice-colour 'weak-warning)
-			:weight bold))))
+				    :weight bold))
+	  ("SOCIAL" . (:foreground ,(nice-colour 'strong-note)
+		       :weight bold))))
 
   (defun nice-org-agenda-goto-today-advice-after (&rest _args)
     "Adjust the window after calling `org-agenda-goto-today'."
@@ -1441,6 +1445,7 @@ version of an S-expression on the kill ring.
   (NVF nicemacs-init "Nicemacs v1 nicemacs.el" "~/Documents/nicemacs/nicemacs.el" "e 1")
   (NVF nicemacs-org "Nicemacs v1 nicemacs.org" "~/Documents/nicemacs/nicemacs.org" "e 1")
   (NVF review-2 "Review 2" "~/Documents/bibliography/review2/review.org" "r 2")
+  (NVF review-reading-list "Reading list" "~/Documents/bibliography/review2/reading-list.org" "r l")
   (NVF review-references "Bibtex references" "~/Documents/bibliography/references.bib" "r r")
 
   (NVNF academia-notes "Academia notes" "academic-journal-notes.org" "a")
