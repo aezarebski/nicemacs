@@ -493,19 +493,21 @@ amount of the of the frame's width and height."
 (add-hook 'eshell-mode-hook 'nice-eshell-mode-setup)
 ;; Shells:1 ends here
 
-;; [[file:nicemacs-v2.org::*STUFF 2][STUFF 2:1]]
+;; [[file:nicemacs-v2.org::*Buffers, files, and dired][Buffers, files, and dired:1]]
 ;; Buffer stuff
 ;; ------------
 
 (evil-leader/set-key "b r" 'revert-buffer)
+;; Buffers, files, and dired:1 ends here
 
+;; [[file:nicemacs-v2.org::*STUFF 2][STUFF 2:1]]
 ;; File stuff
 ;; ----------
 
 (use-package dired
   :ensure t
   :bind (:map dired-mode-map
-              ("-" . dired-up-directory))
+	      ("-" . dired-up-directory))
   :config
   (setq dired-listing-switches "-alh")
   (setq dired-dwim-target t)

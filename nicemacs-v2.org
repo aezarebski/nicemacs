@@ -518,14 +518,18 @@
   (add-hook 'eshell-mode-hook 'nice-eshell-mode-setup)
 #+end_src
 
-** STUFF 2
+** Buffers, files, and dired
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Buffer stuff
   ;; ------------
 
   (evil-leader/set-key "b r" 'revert-buffer)
+#+end_src
 
+** STUFF 2
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; File stuff
   ;; ----------
 
