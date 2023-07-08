@@ -518,21 +518,12 @@
   (add-hook 'eshell-mode-hook 'nice-eshell-mode-setup)
 #+end_src
 
-** Buffers, files, and dired
+** Dired
+
+Setting the =dired-dwim-target= variable to =t= means that dired will search for
+an appropriate directory to start from when you copy a file via dired.
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
-  ;; Buffer stuff
-  ;; ------------
-
-  (evil-leader/set-key "b r" 'revert-buffer)
-#+end_src
-
-** STUFF 2
-
-#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
-  ;; File stuff
-  ;; ----------
-
   (use-package dired
     :ensure t
     :bind (:map dired-mode-map
@@ -541,6 +532,18 @@
     (setq dired-listing-switches "-alh")
     (setq dired-dwim-target t)
     (evil-leader/set-key-for-mode 'dired-mode "m s" 'dired-sort-toggle-or-edit))
+#+end_src
+
+** Buffers, files, and dired
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  ;; Buffer stuff
+  ;; ------------
+
+  (evil-leader/set-key "b r" 'revert-buffer)
+
+  ;; File stuff
+  ;; ----------
 
   (evil-leader/set-key
     "f f" 'find-file
@@ -607,7 +610,11 @@
     "w H" 'evil-window-move-far-left
     "w J" 'evil-window-move-very-bottom
     "w K" 'evil-window-move-very-top)
+#+end_src
 
+** STUFF 2
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Consult the oracle
   ;; ------------------
 

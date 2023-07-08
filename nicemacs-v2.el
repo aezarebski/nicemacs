@@ -493,17 +493,7 @@ amount of the of the frame's width and height."
 (add-hook 'eshell-mode-hook 'nice-eshell-mode-setup)
 ;; Shells:1 ends here
 
-;; [[file:nicemacs-v2.org::*Buffers, files, and dired][Buffers, files, and dired:1]]
-;; Buffer stuff
-;; ------------
-
-(evil-leader/set-key "b r" 'revert-buffer)
-;; Buffers, files, and dired:1 ends here
-
-;; [[file:nicemacs-v2.org::*STUFF 2][STUFF 2:1]]
-;; File stuff
-;; ----------
-
+;; [[file:nicemacs-v2.org::*Dired][Dired:1]]
 (use-package dired
   :ensure t
   :bind (:map dired-mode-map
@@ -512,6 +502,16 @@ amount of the of the frame's width and height."
   (setq dired-listing-switches "-alh")
   (setq dired-dwim-target t)
   (evil-leader/set-key-for-mode 'dired-mode "m s" 'dired-sort-toggle-or-edit))
+;; Dired:1 ends here
+
+;; [[file:nicemacs-v2.org::*Buffers, files, and dired][Buffers, files, and dired:1]]
+;; Buffer stuff
+;; ------------
+
+(evil-leader/set-key "b r" 'revert-buffer)
+
+;; File stuff
+;; ----------
 
 (evil-leader/set-key
   "f f" 'find-file
@@ -578,7 +578,9 @@ retreived from the prompt."
   "w H" 'evil-window-move-far-left
   "w J" 'evil-window-move-very-bottom
   "w K" 'evil-window-move-very-top)
+;; Buffers, files, and dired:1 ends here
 
+;; [[file:nicemacs-v2.org::*STUFF 2][STUFF 2:1]]
 ;; Consult the oracle
 ;; ------------------
 
