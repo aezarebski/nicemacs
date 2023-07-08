@@ -529,16 +529,14 @@
   ;; File stuff
   ;; ----------
 
-  ;; TODO Configure functions to move/copy the most recent file in the
-  ;; ~/Downloads directory to the current directory so that they can be
-  ;; used from eshell.
-
-  (require 'dired)
-  (define-key dired-mode-map "-" 'dired-up-directory)
-  (setq dired-listing-switches "-alh")
-
-  (evil-leader/set-key-for-mode 'dired-mode
-    "m s" 'dired-sort-toggle-or-edit)
+  (use-package dired
+    :ensure t
+    :bind (:map dired-mode-map
+		("-" . dired-up-directory))
+    :config
+    (setq dired-listing-switches "-alh")
+    (setq dired-dwim-target t)
+    (evil-leader/set-key-for-mode 'dired-mode "m s" 'dired-sort-toggle-or-edit))
 
   (evil-leader/set-key
     "f f" 'find-file
