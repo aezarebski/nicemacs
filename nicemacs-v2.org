@@ -53,6 +53,7 @@
   ;; - `cl-lib'
   ;; - `copilot'
   ;; - `dired'
+  ;; - `editorconfig' EditorConfig Emacs Plugin
   ;; - `ess' Emacs Speaks Statistics
   ;; - `ess-site'
   ;; - `evil' Extensible Vi layer for Emacs.
@@ -64,14 +65,17 @@
   ;; - `flyspell'
   ;; - `hl-todo' Highlight TODO and similar keywords
   ;; - `htmlize' Convert buffer text and decorations to HTML.
+  ;; - `ligature' Ligature support for Emacs.
+  ;; - `lorem-ipsum' Insert dummy pseudo Latin text
   ;; - `magit' A Git porcelain inside Emacs.
   ;; - `markdown-mode' Major mode for Markdown-formatted text
   ;; - `multiple-cursors' Multiple cursors for Emacs.
-  ;; - `ligature' Ligature support for Emacs.
+  ;; - `pyvenv' Python virtual environment interface
   ;; - `quarto-mode' A (poly)mode for https://quarto.org
   ;; - `rainbow-mode' Colorize color names in buffers
   ;; - `s' The long lost Emacs string manipulation library.
   ;; - `solarized-theme' The Solarized color theme
+  ;; - `unfill' Do the opposite of fill-paragraph or fill-region
   ;; - `which-key' Display available keybindings in popup
   ;; - `winum' Navigate windows and frames using numbers.
   ;; - `writegood-mode' Polish up poor writing on the fly
