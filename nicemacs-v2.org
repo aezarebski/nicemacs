@@ -521,11 +521,12 @@
 ** Dired
 
 Setting the =dired-dwim-target= variable to =t= means that dired will search for
-an appropriate directory to start from when you copy a file via dired.
+an appropriate directory to start from when you copy a file via dired. I usually
+have both directories in adjacent windows when moving files between them, so
+this is more convenient.
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   (use-package dired
-    :ensure t
     :bind (:map dired-mode-map
 		("-" . dired-up-directory))
     :config
@@ -533,6 +534,11 @@ an appropriate directory to start from when you copy a file via dired.
     (setq dired-dwim-target t)
     (evil-leader/set-key-for-mode 'dired-mode "m s" 'dired-sort-toggle-or-edit))
 #+end_src
+
+*Note* that there is no =:ensure t= here. This is because the =dired= package is
+installed by default and is not no the package repositories, so if you have
+=:ensure t= it will throw a warning saying it is not installed in the expected
+way. Just removing =:ensure t= fixes it though.
 
 ** Buffers, files, and dired
 
@@ -1450,6 +1456,7 @@ version of an S-expression on the kill ring.
 	   (revert-buffer)))
        (evil-leader/set-key ,(concat "v d " key) (intern ,(format "nice-visit-%s" dname)))))
 
+  (NVF nicemacs2-source "Nicemacs v2 doc" "~/Documents/nicemacs/nicemacs-v2.org" "e 3")
   (NVF nicemacs2-init "Nicemacs v2 init.el" "~/.emacs.d/init.el" "e 2")
   (NVF nicemacs-init "Nicemacs v1 nicemacs.el" "~/Documents/nicemacs/nicemacs.el" "e 1")
   (NVF nicemacs-org "Nicemacs v1 nicemacs.org" "~/Documents/nicemacs/nicemacs.org" "e 1")

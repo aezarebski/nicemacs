@@ -495,7 +495,6 @@ amount of the of the frame's width and height."
 
 ;; [[file:nicemacs-v2.org::*Dired][Dired:1]]
 (use-package dired
-  :ensure t
   :bind (:map dired-mode-map
 	      ("-" . dired-up-directory))
   :config
@@ -728,7 +727,6 @@ backup dictionary."
   "m u" 'nxml-backward-up-element
   "m p" 'nxml-backward-element
   "m n" 'forward-sexp)
-
 ;; STUFF 2:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Yasnippet][Yasnippet:1]]
@@ -1340,6 +1338,7 @@ year, and the first two words of the title."
 	 (revert-buffer)))
      (evil-leader/set-key ,(concat "v d " key) (intern ,(format "nice-visit-%s" dname)))))
 
+(NVF nicemacs2-source "Nicemacs v2 doc" "~/Documents/nicemacs/nicemacs-v2.org" "e 3")
 (NVF nicemacs2-init "Nicemacs v2 init.el" "~/.emacs.d/init.el" "e 2")
 (NVF nicemacs-init "Nicemacs v1 nicemacs.el" "~/Documents/nicemacs/nicemacs.el" "e 1")
 (NVF nicemacs-org "Nicemacs v1 nicemacs.org" "~/Documents/nicemacs/nicemacs.org" "e 1")
