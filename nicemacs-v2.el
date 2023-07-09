@@ -1121,7 +1121,7 @@ year, and the first two words of the title."
   (use-package calfw-org))
 
 (evil-leader/set-key
-  "a a" 'org-agenda
+  "a a" 'org-agenda-list
   "a c" 'cfw:open-org-calendar)
 ;; Agenda and calendar:1 ends here
 
@@ -1338,7 +1338,7 @@ year, and the first two words of the title."
 	 (revert-buffer)))
      (evil-leader/set-key ,(concat "v d " key) (intern ,(format "nice-visit-%s" dname)))))
 
-(NVF nicemacs2-source "Nicemacs v2 doc" "~/Documents/nicemacs/nicemacs-v2.org" "e 3")
+(NVF nicemacs2-source "Nicemacs v2 source" "~/Documents/nicemacs/nicemacs-v2.el" "e 3")
 (NVF nicemacs2-init "Nicemacs v2 init.el" "~/.emacs.d/init.el" "e 2")
 (NVF nicemacs-init "Nicemacs v1 nicemacs.el" "~/Documents/nicemacs/nicemacs.el" "e 1")
 (NVF nicemacs-org "Nicemacs v1 nicemacs.org" "~/Documents/nicemacs/nicemacs.org" "e 1")
