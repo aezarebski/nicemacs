@@ -923,6 +923,11 @@ kill ring."
   :config
   (setq matlab-indent-function t)
   (setq matlab-shell-command "~/MATLAB/bin/matlab"))
+
+(evil-leader/set-key-for-mode 'matlab-mode
+  "m s b" 'matlab-shell-save-and-go
+  "m s r" 'matlab-shell-run-region
+  "m '" 'matlab-show-matlab-shell-buffer)
 ;; MATLAB:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Python][Python:1]]
