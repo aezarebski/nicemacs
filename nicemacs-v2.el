@@ -909,7 +909,23 @@ kill ring."
   (ess-eval-linewise (format "print(lint(\"%s\"))\n" buffer-file-name)))
 ;; Emacs Speaks Statistics (ESS):1 ends here
 
-;; [[file:nicemacs-v2.org::*STUFF 4][STUFF 4:1]]
+;; [[file:nicemacs-v2.org::*MATLAB][MATLAB:1]]
+;; MATLAB
+;; ------
+;;
+;; TODO Get some decent bindings put together to mimic the ESS setup.
+;;
+;; TODO There should be a variable for the `nice-packages' directory.
+;;
+
+(use-package matlab-load
+  :load-path "~/.emacs.d/nice-packages/matlab-emacs-src"
+  :config
+  (setq matlab-indent-function t)
+  (setq matlab-shell-command "~/MATLAB/bin/matlab"))
+;; MATLAB:1 ends here
+
+;; [[file:nicemacs-v2.org::*Python][Python:1]]
 ;; Python
 ;; ------
 ;;
@@ -928,7 +944,7 @@ kill ring."
   "m s b" 'python-shell-send-buffer
   "m s r" 'python-shell-send-region
   "m '" 'python-shell-switch-to-shell)
-;; STUFF 4:1 ends here
+;; Python:1 ends here
 
 ;; [[file:nicemacs-v2.org::*LaTeX/BibTeX][LaTeX/BibTeX:1]]
 ;; LaTeX/BibTeX
