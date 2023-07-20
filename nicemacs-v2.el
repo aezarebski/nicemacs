@@ -839,10 +839,11 @@ backup dictionary."
      (evil-leader/set-key ,(concat "g c " key) (intern ,(format "nccm-%s" fname)))))
 
 (nice-canned-commit-message emacs "update emacs config" "e")
+(nice-canned-commit-message flashcards "flashcards" "f")
+(nice-canned-commit-message journal "update journal" "j")
 (nice-canned-commit-message notes "update notes" "n")
 (nice-canned-commit-message review "update reading list" "r")
 (nice-canned-commit-message website "update website" "w")
-(nice-canned-commit-message journal "update journal" "j")
 (nice-canned-commit-message yasnippet "yasnippet" "y")
 
 (setq magit-display-buffer-function
