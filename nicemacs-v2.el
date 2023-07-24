@@ -539,6 +539,7 @@ amount of the of the frame's width and height."
   "f F" 'find-file-other-frame
   "f s" 'save-buffer
   "f d" 'nice-dired
+  "b l" 'ibuffer
   "b b" 'switch-to-buffer
   "d b" 'kill-buffer
   "d w" 'delete-window

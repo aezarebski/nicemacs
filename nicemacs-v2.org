@@ -564,6 +564,18 @@ way. Just removing =:ensure t= fixes it though.
 
 ** Buffers, files, and dired
 
+You can get a list of all the current buffers with =ibuffer=. Important keys for
+Ibuffer include
+
+- =d= to mark for killing and =x= to run those kills,
+- =g r= to refresh the listing,
+- =o <thing>= to sort by:
+  + =o v= time
+  + =o m= mode
+  + =o a= name (alphbetical)
+  + =o i= to *invert* the ordering.
+- and =u= to unmark buffers.
+
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Buffer stuff
   ;; ------------
@@ -580,6 +592,7 @@ way. Just removing =:ensure t= fixes it though.
     "f F" 'find-file-other-frame
     "f s" 'save-buffer
     "f d" 'nice-dired
+    "b l" 'ibuffer
     "b b" 'switch-to-buffer
     "d b" 'kill-buffer
     "d w" 'delete-window
