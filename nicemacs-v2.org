@@ -475,10 +475,26 @@
     "6" 'winum-select-window-6
     "7" 'winum-select-window-7
     "8" 'winum-select-window-8
-    "9" 'winum-select-window-9)
+    "9" 'winum-select-window-9
+    "w a" 'nice-balance-windows-alt
+    "w b" 'balance-windows
+    "w n s" 'nice-swap-buffers)
 
-  ;; Adjust the windows so that they are all the same size.
-  (evil-leader/set-key "w b" 'balance-windows)
+  (defun nice-swap-buffers ()
+    "Swap buffers between two windows specified by their numbers.
+
+  Prompt for two window numbers and swap the buffers displayed in
+  those windows. Window numbers are assigned by the `winum' package."
+    (interactive)
+    (let* ((win1 (winum-get-window-by-number
+		  (read-number "First window number: ")))
+	   (win2 (winum-get-window-by-number
+		  (read-number "Second window number: ")))
+	   (buffer1 (and win1 (window-buffer win1)))
+	   (buffer2 (and win2 (window-buffer win2))))
+      (when (and buffer1 buffer2)
+	(set-window-buffer win1 buffer2)
+	(set-window-buffer win2 buffer1))))
 
   (defun nice-balance-windows-alt ()
     "Balance windows such that the current window receives a certain
@@ -492,7 +508,6 @@
 	   (desired-height (floor (* proportion frame-height))))
       (enlarge-window-horizontally (- desired-width (window-width)))
       (enlarge-window (- desired-height (window-height)))))
-  (evil-leader/set-key "w a" 'nice-balance-windows-alt)
 #+end_src
 
 ** Shells
