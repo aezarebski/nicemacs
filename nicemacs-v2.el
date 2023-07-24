@@ -63,9 +63,12 @@
 ;; ---------
 ;;
 ;; - 2023-07
+;;   + Improve window management.
+;;   + Set up a major mode for MATLAB.
 ;;   + Introduce a new org-mode todo states.
 ;;   + Avoid annoying warning from `git' by setting `GIT_PAGER' to
 ;;     `cat'.
+;;
 ;; - 2023-06
 ;;   + Include the `cdf' function for easier eshell navigation.
 ;;   + Include keys for ESS devtools integration.
@@ -424,11 +427,13 @@ files FA and FB using SPC f m KEY."
 `meld`."
   (interactive)
   (let ((file1 (read-file-name "First file: "))
-        (file2 (read-file-name "Second file: ")))
+	(file2 (read-file-name "Second file: ")))
     (shell-command (format "meld %s %s &" file1 file2))))
 
 (evil-leader/set-key "f m m" 'nice-meld)
+;; STUFF 1:1 ends here
 
+;; [[file:nicemacs-v2.org::*Window management][Window management:1]]
 ;; The `winum' package facilitates switching between windows using
 ;; numbers which appear in the bottom left hand of the window, at the
 ;; start of the mode-line.
@@ -449,10 +454,6 @@ files FA and FB using SPC f m KEY."
   "3" 'winum-select-window-3
   "4" 'winum-select-window-4
   "5" 'winum-select-window-5
-  "6" 'winum-select-window-6
-  "7" 'winum-select-window-7
-  "8" 'winum-select-window-8
-  "9" 'winum-select-window-9
   "w a" 'nice-balance-windows-alt
   "w b" 'balance-windows
   "w n s" 'nice-swap-buffers)
@@ -464,11 +465,11 @@ Prompt for two window numbers and swap the buffers displayed in
 those windows. Window numbers are assigned by the `winum' package."
   (interactive)
   (let* ((win1 (winum-get-window-by-number
-                (read-number "First window number: ")))
-         (win2 (winum-get-window-by-number
-                (read-number "Second window number: ")))
-         (buffer1 (and win1 (window-buffer win1)))
-         (buffer2 (and win2 (window-buffer win2))))
+		(read-number "First window number: ")))
+	 (win2 (winum-get-window-by-number
+		(read-number "Second window number: ")))
+	 (buffer1 (and win1 (window-buffer win1)))
+	 (buffer2 (and win2 (window-buffer win2))))
     (when (and buffer1 buffer2)
       (set-window-buffer win1 buffer2)
       (set-window-buffer win2 buffer1))))
@@ -485,7 +486,7 @@ amount of the of the frame's width and height."
 	 (desired-height (floor (* proportion frame-height))))
     (enlarge-window-horizontally (- desired-width (window-width)))
     (enlarge-window (- desired-height (window-height)))))
-;; STUFF 1:1 ends here
+;; Window management:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Shells][Shells:1]]
 ;; Shell stuff
