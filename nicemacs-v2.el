@@ -1275,6 +1275,16 @@ year, and the first two words of the title."
 	 :base-extension "png\\|jpg\\|pdf"
 	 :publishing-directory "~/aezarebski.github.io/misc/tikz/"
 	 :publishing-function org-publish-attachment)
+	("website-misc-matplotlib-org-files"
+	 :base-directory "~/public-site/org/misc/matplotlib/"
+	 :base-extension "org"
+	 :publishing-directory "~/aezarebski.github.io/misc/matplotlib/"
+	 :publishing-function org-html-publish-to-html)
+	("website-misc-matplotlib-static"
+	 :base-directory "~/public-site/org/misc/matplotlib/"
+	 :base-extension "png\\|jpg\\|pdf"
+	 :publishing-directory "~/aezarebski.github.io/misc/matplotlib/"
+	 :publishing-function org-publish-attachment)
 	("review2-org"
 	 :base-directory "~/Documents/bibliography/review2"
 	 :base-extension "org"
@@ -1294,6 +1304,9 @@ year, and the first two words of the title."
 	 :base-extension "org"
 	 :publishing-directory "~/aezarebski.github.io/misc/nicemacs/"
 	 :publishing-function org-html-publish-to-html)
+	("python"
+	 :components ("website-misc-matplotlib-org-files"
+		      "website-misc-matplotlib-static"))
 	("R"
 	 :components ("website-misc-basegraphicsR-org-files"
 		      "website-misc-basegraphicsR-static"
@@ -1314,6 +1327,7 @@ year, and the first two words of the title."
 		      "nicemacs-org-files"
 		      "review"
 		      "latex"
+		      "python"
 		      "R"))))
 ;; Website/Publishing:1 ends here
 
