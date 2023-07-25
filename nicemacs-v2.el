@@ -930,27 +930,6 @@ kill ring."
   (ess-eval-linewise (format "print(lint(\"%s\"))\n" buffer-file-name)))
 ;; Emacs Speaks Statistics (ESS):1 ends here
 
-;; [[file:nicemacs-v2.org::*MATLAB][MATLAB:1]]
-;; MATLAB
-;; ------
-;;
-;; TODO Get some decent bindings put together to mimic the ESS setup.
-;;
-;; TODO There should be a variable for the `nice-packages' directory.
-;;
-
-(use-package matlab-load
-  :load-path "~/.emacs.d/nice-packages/matlab-emacs-src"
-  :config
-  (setq matlab-indent-function t)
-  (setq matlab-shell-command "~/MATLAB/bin/matlab"))
-
-(evil-leader/set-key-for-mode 'matlab-mode
-  "m s b" 'matlab-shell-save-and-go
-  "m s r" 'matlab-shell-run-region
-  "m '" 'matlab-show-matlab-shell-buffer)
-;; MATLAB:1 ends here
-
 ;; [[file:nicemacs-v2.org::*RealGUD debugging][RealGUD debugging:1]]
 ;; Debugging
 ;; ---------

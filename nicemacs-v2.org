@@ -1019,13 +1019,11 @@ version of an S-expression on the kill ring.
     (ess-eval-linewise (format "print(lint(\"%s\"))\n" buffer-file-name)))
 #+end_src
 
-** MATLAB
+** MATLAB :EXCLUDED:
 
-#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+#+begin_src emacs-lisp
   ;; MATLAB
   ;; ------
-  ;;
-  ;; TODO Get some decent bindings put together to mimic the ESS setup.
   ;;
   ;; TODO There should be a variable for the `nice-packages' directory.
   ;;
@@ -1091,7 +1089,7 @@ version of an S-expression on the kill ring.
     "m '" 'python-shell-switch-to-shell)
 #+end_src
 
-** Scheme/Racket *NO LONGER USED*
+** Scheme/Racket :EXCLUDED:
 
 #+begin_src emacs-lisp
   ;; Scheme/Racket
