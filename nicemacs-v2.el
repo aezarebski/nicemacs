@@ -50,6 +50,7 @@
 ;; - `pyvenv' Python virtual environment interface
 ;; - `quarto-mode' A (poly)mode for https://quarto.org
 ;; - `rainbow-mode' Colorize color names in buffers
+;; - `realgud' A front-end for interacting debuggers
 ;; - `s' The long lost Emacs string manipulation library.
 ;; - `solarized-theme' The Solarized color theme
 ;; - `unfill' Do the opposite of fill-paragraph or fill-region
@@ -63,6 +64,7 @@
 ;; ---------
 ;;
 ;; - 2023-07
+;;   + Set up debugging with `realgud' (for Python).
 ;;   + Improve window management.
 ;;   + Set up a major mode for MATLAB.
 ;;   + Introduce a new org-mode todo states.
@@ -195,7 +197,7 @@
 				     "..." "+++" "+>" "++" "[||]" "[<" "[|" "{|" "??" "?." "?=" "?:" "##"
 				     "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
 				     "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
-(global-ligature-mode t)
+(global-ligature-mode nil)
 
 (defun toggle-ligatures ()
   "Toggle ligatures on and off."
@@ -388,6 +390,7 @@ already in its own frame."
 	("SPC g c" . "Commits")
 	("SPC h" . "HELP!!!")
 	("SPC m" . "Major")
+	("SPC m v" . "EnVironment")
 	("SPC m d" . "devtools (ESS)")
 	("SPC m s" . "REPL (prog)/Sort (dired)")
 	("SPC m c" . "Code lint/format")
@@ -948,6 +951,29 @@ kill ring."
   "m '" 'matlab-show-matlab-shell-buffer)
 ;; MATLAB:1 ends here
 
+;; [[file:nicemacs-v2.org::*RealGUD debugging][RealGUD debugging:1]]
+;; Debugging
+;; ---------
+;;
+;; Commands
+;;   - `n' next line
+;;   - `s' step into expression
+;;   - `c' continue
+;;   - `l' list context
+;;   - `p' print variable
+;;   - `q' quit debugger
+;;
+;; Debug a Python script by
+;;   1. adding `import pdb; pdb.set_trace()'
+;;   2. running the script with `realgud:pdb'
+;;
+
+(use-package realgud
+  :ensure t
+  :config
+  (setq realgud:pdb-command-name "python -m pdb"))
+;; RealGUD debugging:1 ends here
+
 ;; [[file:nicemacs-v2.org::*Python][Python:1]]
 ;; Python
 ;; ------
@@ -964,6 +990,7 @@ kill ring."
   (setq python-indent-offset 4))
 
 (evil-leader/set-key-for-mode 'python-mode
+  "m v a" 'pyvenv-activate
   "m s b" 'python-shell-send-buffer
   "m s r" 'python-shell-send-region
   "m '" 'python-shell-switch-to-shell)
