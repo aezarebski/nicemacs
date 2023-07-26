@@ -15,7 +15,7 @@
 
 * Nicemacs v2
 
-** STUFF 1
+** Preamble
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;;; Nicemacs.v2 -*- lexical-binding: t -*-
@@ -120,9 +120,11 @@
   ;;   + Use JetBrains Mono as the font with ligatures.
   ;;
   ;;; ==================================================================
+#+end_src
 
+** STUFF 1
 
-
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   (require 'package)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
@@ -150,7 +152,16 @@
 
   (use-package cl-lib
     :ensure t)
+#+end_src
 
+** Evil
+
+Setting the =scroll-margin= to 2 will start scrolling when the point is one line
+from the top or bottom of the window and setting =scroll-conservatively= to a
+value greater than 100 means that it will keep the point in place while
+scrolling (which gives a smoother scroll).
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Be evil
   ;; -------
   ;;
@@ -168,7 +179,11 @@
   (use-package evil
     :ensure t
     :init
-    (evil-mode 1))
+    (evil-mode 1)
+    :config
+    (setq scroll-margin 2
+	  scroll-conservatively 101
+	  scroll-preserve-screen-position 1))
 
   (use-package evil-leader
     :ensure t
@@ -188,7 +203,11 @@
     :ensure t
     :config
     (global-evil-surround-mode 1))
+#+end_src
 
+** Devastation
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Look stunning
   ;; =============
   ;;

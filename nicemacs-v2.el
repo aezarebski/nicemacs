@@ -1,4 +1,4 @@
-;; [[file:nicemacs-v2.org::*STUFF 1][STUFF 1:1]]
+;; [[file:nicemacs-v2.org::*Preamble][Preamble:1]]
 ;;; Nicemacs.v2 -*- lexical-binding: t -*-
 ;;; ==================================================================
 ;;
@@ -101,9 +101,9 @@
 ;;   + Use JetBrains Mono as the font with ligatures.
 ;;
 ;;; ==================================================================
+;; Preamble:1 ends here
 
-
-
+;; [[file:nicemacs-v2.org::*STUFF 1][STUFF 1:1]]
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
@@ -131,7 +131,9 @@
 
 (use-package cl-lib
   :ensure t)
+;; STUFF 1:1 ends here
 
+;; [[file:nicemacs-v2.org::*Evil][Evil:1]]
 ;; Be evil
 ;; -------
 ;;
@@ -149,7 +151,11 @@
 (use-package evil
   :ensure t
   :init
-  (evil-mode 1))
+  (evil-mode 1)
+  :config
+  (setq scroll-margin 2
+	scroll-conservatively 101
+	scroll-preserve-screen-position 1))
 
 (use-package evil-leader
   :ensure t
@@ -169,7 +175,9 @@
   :ensure t
   :config
   (global-evil-surround-mode 1))
+;; Evil:1 ends here
 
+;; [[file:nicemacs-v2.org::*Devastation][Devastation:1]]
 ;; Look stunning
 ;; =============
 ;;
@@ -434,7 +442,7 @@ files FA and FB using SPC f m KEY."
     (shell-command (format "meld %s %s &" file1 file2))))
 
 (evil-leader/set-key "f m m" 'nice-meld)
-;; STUFF 1:1 ends here
+;; Devastation:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Window management][Window management:1]]
 ;; The `winum' package facilitates switching between windows using
@@ -1031,11 +1039,11 @@ conversion fails."
   (interactive "*")
 
   (let* ((all-ris-files (directory-files "~/Downloads" t ".*ris"))
-         (ris-filepath (most-recent-file all-ris-files))
-         (target-bib "~/Downloads/new.bib")
-         (ris2xml-command (format "ris2xml \"%s\" | xml2bib > %s" ris-filepath
-                                  target-bib))
-         (command-result (shell-command ris2xml-command)))
+	 (ris-filepath (most-recent-file all-ris-files))
+	 (target-bib "~/Downloads/new.bib")
+	 (ris2xml-command (format "ris2xml \"%s\" | xml2bib > %s" ris-filepath
+				  target-bib))
+	 (command-result (shell-command ris2xml-command)))
     (unless ris-filepath
       (error "No RIS files found in the directory"))
     (unless (zerop command-result)
@@ -1150,7 +1158,7 @@ year, and the first two words of the title."
       `(("MEETING" . (:foreground ,(nice-colour 'weak-warning)
 				  :weight bold))
 	("SOCIAL" . (:foreground ,(nice-colour 'strong-note)
-                     :weight bold))))
+		     :weight bold))))
 
 (defun nice-org-agenda-goto-today-advice-after (&rest _args)
   "Adjust the window after calling `org-agenda-goto-today'."
