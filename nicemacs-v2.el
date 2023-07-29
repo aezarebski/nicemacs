@@ -234,11 +234,23 @@
   (global-hl-todo-mode)
   (global-hl-line-mode t))
 
+(defun boxed-face (colour &optional background line-width)
+  "Create a face with a specified foreground COLOUR and optional BACKGROUND.
+
+   If LINE-WIDTH is not specified, it defaults to 1.
+   This face will be bold and boxed with the same colour as the foreground."
+  (let ((width (or line-width 1)))
+    `((t (:foreground ,colour
+          :weight bold
+          :background ,background
+          :box (:line-width ,width
+                :color ,colour))))))
+
 (setq hl-todo-keyword-faces
-      `(("TODO"   . "red")
-	("FIXME"  . "magenta")
-	("NOTE"   . "cyan")
-	("DONE"   . "blue")))
+      `(("TODO"   . ,(boxed-face "red" "#ffc8c8"))
+	("FIXME"  . ,(boxed-face "magenta"))
+	("NOTE"   . ,(boxed-face "cyan"))
+	("DONE"   . ,(boxed-face "blue" "#E6ECFF"))))
 
 (setq fill-column 70)
 
@@ -1102,10 +1114,8 @@ year, and the first two words of the title."
 	(sequence "SOCIAL" "|" "DONE")))
 
 (setq org-todo-keyword-faces
-      `(("MEETING" . (:foreground "magenta"
-				  :weight bold))
-	("SOCIAL" . (:foreground "blue"
-		     :weight bold))))
+      `(("MEETING" . ,(boxed-face "magenta"))
+	("SOCIAL" . ,(boxed-face "blue" "#E6ECFF"))))
 
 (defun nice-org-agenda-goto-today-advice-after (&rest _args)
   "Adjust the window after calling `org-agenda-goto-today'."
