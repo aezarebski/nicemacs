@@ -71,7 +71,6 @@
   ;; - `rainbow-mode' Colorize color names in buffers
   ;; - `realgud' A front-end for interacting debuggers
   ;; - `s' The long lost Emacs string manipulation library.
-  ;; - `solarized-theme' The Solarized color theme
   ;; - `unfill' Do the opposite of fill-paragraph or fill-region
   ;; - `which-key' Display available keybindings in popup
   ;; - `winum' Navigate windows and frames using numbers.
@@ -83,6 +82,7 @@
   ;; ---------
   ;;
   ;; - 2023-07
+  ;;   + Isolate theme configuration so it is easier to edit.
   ;;   + Set up debugging with `realgud' (for Python).
   ;;   + Improve window management.
   ;;   + Set up a major mode for MATLAB.
@@ -207,9 +207,11 @@ scrolling (which gives a smoother scroll).
 
 ** Appearance
 
+*** Fonts
+
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
-  ;; Look stunning
-  ;; =============
+  ;; Fonts
+  ;; -----
   ;;
   ;; To install JetBrains Mono, or any other font, follow these steps:
   ;;
@@ -222,9 +224,6 @@ scrolling (which gives a smoother scroll).
   ;; 4. Update the font cache:
   ;;    $ fc-cache -f -v
   ;;
-
-  (tool-bar-mode -1)			; remove the tool bar
-
   (set-frame-font "JetBrains Mono" nil t)
   (ligature-set-ligatures 'prog-mode '("|>" "<-" "==" "!=" ">=" "<="))
   (global-ligature-mode nil)
@@ -236,6 +235,15 @@ scrolling (which gives a smoother scroll).
 	(global-ligature-mode -1)
       (global-ligature-mode 1)))
   (evil-leader/set-key "t l" 'toggle-ligatures)
+#+end_src
+
+*** General
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  ;; Look stunning
+  ;; -------------
+  ;;
+  (tool-bar-mode -1)			; remove the tool bar
 
   (setq-default scroll-bar-width 10)
   (setq-default left-fringe-width 10)
@@ -285,7 +293,13 @@ scrolling (which gives a smoother scroll).
   (evil-leader/set-key "t f" 'nice-toggle-fill-column-indicator)
 #+end_src
 
-*** Themes :EXCLUDED:
+*** Theme: Leuven
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  (load-theme 'leuven t))
+#+end_src
+
+*** Theme: Solarized :EXCLUDED:
 
 #+begin_src emacs-lisp
   (setq nice-colours-alist
@@ -357,7 +371,7 @@ scrolling (which gives a smoother scroll).
     (interactive)
     (other-window 1)
     (let ((orig-color (face-background 'mode-line)))
-      (set-face-background 'mode-line "#dc322f")
+      (set-face-background 'mode-line "red")
       (sit-for 0.1)
       (set-face-background 'mode-line orig-color)))
 
@@ -366,7 +380,7 @@ scrolling (which gives a smoother scroll).
     (interactive)
     (other-window -1)
     (let ((orig-color (face-background 'mode-line)))
-      (set-face-background 'mode-line "#dc322f")
+      (set-face-background 'mode-line "red")
       (sit-for 0.1)
       (set-face-background 'mode-line orig-color)))
 
@@ -384,7 +398,7 @@ scrolling (which gives a smoother scroll).
     "z k" 'text-scale-increase)
 
   ;; Be sensible
-  ;; ===========
+  ;; -----------
 
   (use-package unfill
     :ensure t

@@ -52,7 +52,6 @@
 ;; - `rainbow-mode' Colorize color names in buffers
 ;; - `realgud' A front-end for interacting debuggers
 ;; - `s' The long lost Emacs string manipulation library.
-;; - `solarized-theme' The Solarized color theme
 ;; - `unfill' Do the opposite of fill-paragraph or fill-region
 ;; - `which-key' Display available keybindings in popup
 ;; - `winum' Navigate windows and frames using numbers.
@@ -64,6 +63,7 @@
 ;; ---------
 ;;
 ;; - 2023-07
+;;   + Isolate theme configuration so it is easier to edit.
 ;;   + Set up debugging with `realgud' (for Python).
 ;;   + Improve window management.
 ;;   + Set up a major mode for MATLAB.
@@ -177,9 +177,9 @@
   (global-evil-surround-mode 1))
 ;; Evil:1 ends here
 
-;; [[file:nicemacs-v2.org::*Appearance][Appearance:1]]
-;; Look stunning
-;; =============
+;; [[file:nicemacs-v2.org::*Fonts][Fonts:1]]
+;; Fonts
+;; -----
 ;;
 ;; To install JetBrains Mono, or any other font, follow these steps:
 ;;
@@ -192,9 +192,6 @@
 ;; 4. Update the font cache:
 ;;    $ fc-cache -f -v
 ;;
-
-(tool-bar-mode -1)			; remove the tool bar
-
 (set-frame-font "JetBrains Mono" nil t)
 (ligature-set-ligatures 'prog-mode '("|>" "<-" "==" "!=" ">=" "<="))
 (global-ligature-mode nil)
@@ -206,6 +203,13 @@
       (global-ligature-mode -1)
     (global-ligature-mode 1)))
 (evil-leader/set-key "t l" 'toggle-ligatures)
+;; Fonts:1 ends here
+
+;; [[file:nicemacs-v2.org::*General][General:1]]
+;; Look stunning
+;; -------------
+;;
+(tool-bar-mode -1)			; remove the tool bar
 
 (setq-default scroll-bar-width 10)
 (setq-default left-fringe-width 10)
@@ -253,7 +257,11 @@ active, and turns it off if it is."
 			:weight 'bold)))
 
 (evil-leader/set-key "t f" 'nice-toggle-fill-column-indicator)
-;; Appearance:1 ends here
+;; General:1 ends here
+
+;; [[file:nicemacs-v2.org::*Theme: Leuven][Theme: Leuven:1]]
+(load-theme 'leuven t))
+;; Theme: Leuven:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Other][Other:1]]
 (defun next-window-and-pulse ()
@@ -261,7 +269,7 @@ active, and turns it off if it is."
   (interactive)
   (other-window 1)
   (let ((orig-color (face-background 'mode-line)))
-    (set-face-background 'mode-line "#dc322f")
+    (set-face-background 'mode-line "red")
     (sit-for 0.1)
     (set-face-background 'mode-line orig-color)))
 
@@ -270,7 +278,7 @@ active, and turns it off if it is."
   (interactive)
   (other-window -1)
   (let ((orig-color (face-background 'mode-line)))
-    (set-face-background 'mode-line "#dc322f")
+    (set-face-background 'mode-line "red")
     (sit-for 0.1)
     (set-face-background 'mode-line orig-color)))
 
@@ -288,7 +296,7 @@ active, and turns it off if it is."
   "z k" 'text-scale-increase)
 
 ;; Be sensible
-;; ===========
+;; -----------
 
 (use-package unfill
   :ensure t
