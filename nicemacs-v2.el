@@ -241,10 +241,10 @@
    This face will be bold and boxed with the same colour as the foreground."
   (let ((width (or line-width 1)))
     `((t (:foreground ,colour
-          :weight bold
-          :background ,background
-          :box (:line-width ,width
-                :color ,colour))))))
+	  :weight bold
+	  :background ,background
+	  :box (:line-width ,width
+		:color ,colour))))))
 
 (setq hl-todo-keyword-faces
       `(("TODO"   . ,(boxed-face "red" "#ffc8c8"))
@@ -272,7 +272,23 @@ active, and turns it off if it is."
 ;; General:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Theme: Leuven][Theme: Leuven:1]]
-(load-theme 'leuven t)
+(setq nice-light-theme 'leuven
+      nice-dark-theme 'leuven-dark)
+
+(load-theme nice-light-theme t)
+
+(defun nice-toggle-theme ()
+  "Toggle between my light and dark themes."
+  (interactive)
+  (if (eq (car custom-enabled-themes) nice-light-theme)
+      (progn
+        (disable-theme nice-light-theme)
+        (load-theme nice-dark-theme t))
+    (progn
+      (disable-theme nice-dark-theme)
+      (load-theme nice-light-theme t))))
+
+(evil-leader/set-key "t t" 'nice-toggle-theme)
 ;; Theme: Leuven:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Other][Other:1]]

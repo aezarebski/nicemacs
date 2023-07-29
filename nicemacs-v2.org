@@ -308,7 +308,23 @@ scrolling (which gives a smoother scroll).
 *** Theme: Leuven
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
-  (load-theme 'leuven t)
+(setq nice-light-theme 'leuven
+      nice-dark-theme 'leuven-dark)
+
+(load-theme nice-light-theme t)
+
+(defun nice-toggle-theme ()
+  "Toggle between my light and dark themes."
+  (interactive)
+  (if (eq (car custom-enabled-themes) nice-light-theme)
+      (progn
+        (disable-theme nice-light-theme)
+        (load-theme nice-dark-theme t))
+    (progn
+      (disable-theme nice-dark-theme)
+      (load-theme nice-light-theme t))))
+
+(evil-leader/set-key "t t" 'nice-toggle-theme)
 #+end_src
 
 *** Theme: Solarized :EXCLUDED:
