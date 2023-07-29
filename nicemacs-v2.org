@@ -296,7 +296,7 @@ scrolling (which gives a smoother scroll).
 *** Theme: Leuven
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
-  (load-theme 'leuven t))
+  (load-theme 'leuven t)
 #+end_src
 
 *** Theme: Solarized :EXCLUDED:

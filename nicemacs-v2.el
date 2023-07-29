@@ -260,7 +260,7 @@ active, and turns it off if it is."
 ;; General:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Theme: Leuven][Theme: Leuven:1]]
-(load-theme 'leuven t))
+(load-theme 'leuven t)
 ;; Theme: Leuven:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Other][Other:1]]
