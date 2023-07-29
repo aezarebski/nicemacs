@@ -177,7 +177,7 @@
   (global-evil-surround-mode 1))
 ;; Evil:1 ends here
 
-;; [[file:nicemacs-v2.org::*Devastation][Devastation:1]]
+;; [[file:nicemacs-v2.org::*Appearance][Appearance:1]]
 ;; Look stunning
 ;; =============
 ;;
@@ -192,6 +192,8 @@
 ;; 4. Update the font cache:
 ;;    $ fc-cache -f -v
 ;;
+
+(tool-bar-mode -1)			; remove the tool bar
 
 (set-frame-font "JetBrains Mono" nil t)
 (ligature-set-ligatures 'prog-mode '("|>" "<-" "==" "!=" ">=" "<="))
@@ -224,31 +226,15 @@
 
 (use-package hl-todo
   :ensure t
-  :config (global-hl-todo-mode))
-
-(setq nice-colours-alist
-      '((strong-warning . "red")
-	(weak-warning . "magenta")
-	(weak-note . "cyan")
-	(strong-note . "blue")
-	(light-theme-comment-background . "#e4ecda")
-	(light-theme-comment-foreground . "#207e7b")
-	(light-theme-shadow-background . "#eee8d5")
-	(light-theme-shadow-foreground . "#93a1a1")
-	(dark-theme-comment-background . "#207e7b")
-	(dark-theme-comment-foreground . "#e4ecda")
-	(dark-theme-shadow-background . "#202c2a")
-	(dark-theme-shadow-foreground . "#254d48")))
-
-(defun nice-colour (colour)
-  "Return the colour associated with the symbol COLOUR."
-  (cdr (assoc colour nice-colours-alist)))
+  :config
+  (global-hl-todo-mode)
+  (global-hl-line-mode t))
 
 (setq hl-todo-keyword-faces
-      `(("TODO"   . ,(nice-colour 'strong-warning))
-	("FIXME"  . ,(nice-colour 'weak-warning))
-	("NOTE"   . ,(nice-colour 'weak-note))
-	("DONE"   . ,(nice-colour 'strong-note))))
+      `(("TODO"   . "red")
+	("FIXME"  . "magenta")
+	("NOTE"   . "cyan")
+	("DONE"   . "blue")))
 
 (setq fill-column 70)
 
@@ -263,58 +249,13 @@ active, and turns it off if it is."
   (when display-fill-column-indicator-mode
     (setq display-fill-column-indicator-character ?\u2502)
     (set-face-attribute 'fill-column-indicator nil
-			:foreground (nice-colour 'weak-warning)
+			:foreground "magenta"
 			:weight 'bold)))
 
 (evil-leader/set-key "t f" 'nice-toggle-fill-column-indicator)
-;; Devastation:1 ends here
-
-;; [[file:nicemacs-v2.org::*Themes][Themes:1]]
-(add-to-list `custom-theme-load-path "~/.emacs.d/themes/")
-(load-theme 'solarized-light-high-contrast t)
-
-(defun nice-set-theme (theme comment-bg comment-fg shadow-bg shadow-fg)
-  (load-theme theme t)
-  (let ((comment-face `((t (:background ,comment-bg
-					:foreground ,comment-fg
-					:slant normal)))))
-    (setq font-lock-comment-delimiter-face comment-face)
-    (setq font-lock-comment-face comment-face))
-  (set-face-background 'mode-line comment-bg)
-  (set-face-foreground 'mode-line comment-fg)
-  (set-face-background 'mode-line-inactive shadow-bg)
-  (set-face-foreground 'mode-line-inactive shadow-fg))
-
-(defun nice-toggle-themes ()
-  "Toggle between two themes: solarized-light-high-contrast and
-solarized-dark-high-contrast and adjust the comment face to one
-that is visible in both."
-  (interactive)
-  (if (eq (car custom-enabled-themes) 'solarized-light-high-contrast)
-      (progn
-	(disable-theme 'solarized-light-high-contrast)
-	(nice-set-theme 'solarized-dark-high-contrast
-			(nice-colour 'dark-theme-comment-background)
-			(nice-colour 'dark-theme-comment-foreground)
-			(nice-colour 'dark-theme-shadow-background)
-			(nice-colour 'dark-theme-shadow-foreground)))
-    (progn
-      (disable-theme 'solarized-dark-high-contrast)
-      (nice-set-theme 'solarized-light-high-contrast
-		      (nice-colour 'light-theme-comment-background)
-		      (nice-colour 'light-theme-comment-foreground)
-		      (nice-colour 'light-theme-shadow-background)
-		      (nice-colour 'light-theme-shadow-foreground)))))
-
-(evil-leader/set-key "t t" 'nice-toggle-themes)
-;; Themes:1 ends here
+;; Appearance:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Other][Other:1]]
-(tool-bar-mode -1)
-
-(global-hl-line-mode t)
-(set-face-attribute 'hl-line nil :background "#eee8d5")
-
 (defun next-window-and-pulse ()
   "Switch to another window and pulse the current window."
   (interactive)
@@ -372,7 +313,9 @@ already in its own frame."
       (display-buffer-pop-up-frame current-buffer nil))))
 
 (evil-leader/set-key "F p" 'nice-pop-out-window)
+;; Other:1 ends here
 
+;; [[file:nicemacs-v2.org::*Which-key][Which-key:1]]
 ;; The which-key package is a great way to be reminded of what keys
 ;; are available from the start of a key sequence.
 (require 'which-key)
@@ -410,7 +353,7 @@ already in its own frame."
 
 (dolist (pair key-description-pairs)
   (which-key-add-key-based-replacements (car pair) (cdr pair)))
-;; Other:1 ends here
+;; Which-key:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Diff-ing files][Diff-ing files:1]]
 (defmacro nice-meld-files (name fa fb key)
@@ -450,7 +393,7 @@ files FA and FB using SPC f m KEY."
 (custom-set-faces
  `(winum-face
    ((t
-     (:foreground ,(nice-colour 'weak-warning)
+     (:foreground "magenta"
       :weight bold
       :underline nil
       :height 1.1)))))
@@ -1151,9 +1094,9 @@ year, and the first two words of the title."
 	(sequence "SOCIAL" "|" "DONE")))
 
 (setq org-todo-keyword-faces
-      `(("MEETING" . (:foreground ,(nice-colour 'weak-warning)
+      `(("MEETING" . (:foreground "magenta"
 				  :weight bold))
-	("SOCIAL" . (:foreground ,(nice-colour 'strong-note)
+	("SOCIAL" . (:foreground "blue"
 		     :weight bold))))
 
 (defun nice-org-agenda-goto-today-advice-after (&rest _args)

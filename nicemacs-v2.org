@@ -205,7 +205,7 @@ scrolling (which gives a smoother scroll).
     (global-evil-surround-mode 1))
 #+end_src
 
-** Devastation
+** Appearance
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Look stunning
@@ -222,6 +222,8 @@ scrolling (which gives a smoother scroll).
   ;; 4. Update the font cache:
   ;;    $ fc-cache -f -v
   ;;
+
+  (tool-bar-mode -1)			; remove the tool bar
 
   (set-frame-font "JetBrains Mono" nil t)
   (ligature-set-ligatures 'prog-mode '("|>" "<-" "==" "!=" ">=" "<="))
@@ -254,8 +256,38 @@ scrolling (which gives a smoother scroll).
 
   (use-package hl-todo
     :ensure t
-    :config (global-hl-todo-mode))
+    :config
+    (global-hl-todo-mode)
+    (global-hl-line-mode t))
 
+  (setq hl-todo-keyword-faces
+	`(("TODO"   . "red")
+	  ("FIXME"  . "magenta")
+	  ("NOTE"   . "cyan")
+	  ("DONE"   . "blue")))
+
+  (setq fill-column 70)
+
+  (defun nice-toggle-fill-column-indicator ()
+    "Toggle display of the fill column indicator.
+
+  When active, the indicator is set to a vertical line. It also
+  turns on `display-fill-column-indicator-mode' if it's not already
+  active, and turns it off if it is."
+    (interactive)
+    (display-fill-column-indicator-mode 'toggle)
+    (when display-fill-column-indicator-mode
+      (setq display-fill-column-indicator-character ?\u2502)
+      (set-face-attribute 'fill-column-indicator nil
+			  :foreground "magenta"
+			  :weight 'bold)))
+
+  (evil-leader/set-key "t f" 'nice-toggle-fill-column-indicator)
+#+end_src
+
+*** Themes :EXCLUDED:
+
+#+begin_src emacs-lisp
   (setq nice-colours-alist
 	'((strong-warning . "red")
 	  (weak-warning . "magenta")
@@ -274,34 +306,10 @@ scrolling (which gives a smoother scroll).
     "Return the colour associated with the symbol COLOUR."
     (cdr (assoc colour nice-colours-alist)))
 
-  (setq hl-todo-keyword-faces
-	`(("TODO"   . ,(nice-colour 'strong-warning))
-	  ("FIXME"  . ,(nice-colour 'weak-warning))
-	  ("NOTE"   . ,(nice-colour 'weak-note))
-	  ("DONE"   . ,(nice-colour 'strong-note))))
 
-  (setq fill-column 70)
+  (set-face-attribute 'hl-line nil
+		      :background (nice-color 'light-theme-shadow-background)
 
-  (defun nice-toggle-fill-column-indicator ()
-    "Toggle display of the fill column indicator.
-
-  When active, the indicator is set to a vertical line. It also
-  turns on `display-fill-column-indicator-mode' if it's not already
-  active, and turns it off if it is."
-    (interactive)
-    (display-fill-column-indicator-mode 'toggle)
-    (when display-fill-column-indicator-mode
-      (setq display-fill-column-indicator-character ?\u2502)
-      (set-face-attribute 'fill-column-indicator nil
-			  :foreground (nice-colour 'weak-warning)
-			  :weight 'bold)))
-
-  (evil-leader/set-key "t f" 'nice-toggle-fill-column-indicator)
-#+end_src
-
-*** Themes
-
-#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   (add-to-list `custom-theme-load-path "~/.emacs.d/themes/")
   (load-theme 'solarized-light-high-contrast t)
 
@@ -344,11 +352,6 @@ scrolling (which gives a smoother scroll).
 *** Other
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
-  (tool-bar-mode -1)
-
-  (global-hl-line-mode t)
-  (set-face-attribute 'hl-line nil :background "#eee8d5")
-
   (defun next-window-and-pulse ()
     "Switch to another window and pulse the current window."
     (interactive)
@@ -406,7 +409,13 @@ scrolling (which gives a smoother scroll).
 	(display-buffer-pop-up-frame current-buffer nil))))
 
   (evil-leader/set-key "F p" 'nice-pop-out-window)
+#+end_src
 
+** Which-key
+
+Get information on partial keys to help you remember/discover functionality.
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; The which-key package is a great way to be reminded of what keys
   ;; are available from the start of a key sequence.
   (require 'which-key)
@@ -491,7 +500,7 @@ between files.
   (custom-set-faces
    `(winum-face
      ((t
-       (:foreground ,(nice-colour 'weak-warning)
+       (:foreground "magenta"
 	:weight bold
 	:underline nil
 	:height 1.1)))))
@@ -1316,9 +1325,9 @@ version of an S-expression on the kill ring.
 	  (sequence "SOCIAL" "|" "DONE")))
 
   (setq org-todo-keyword-faces
-	`(("MEETING" . (:foreground ,(nice-colour 'weak-warning)
+	`(("MEETING" . (:foreground "magenta"
 				    :weight bold))
-	  ("SOCIAL" . (:foreground ,(nice-colour 'strong-note)
+	  ("SOCIAL" . (:foreground "blue"
 		       :weight bold))))
 
   (defun nice-org-agenda-goto-today-advice-after (&rest _args)
