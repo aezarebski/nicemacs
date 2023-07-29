@@ -297,7 +297,11 @@ scrolling (which gives a smoother scroll).
 			  :weight 'bold)))
 
   (evil-leader/set-key "t f" 'nice-toggle-fill-column-indicator)
+#+end_src
 
+*** Themes
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   (add-to-list `custom-theme-load-path "~/.emacs.d/themes/")
   (load-theme 'solarized-light-high-contrast t)
 
@@ -335,7 +339,11 @@ scrolling (which gives a smoother scroll).
 			(nice-colour 'light-theme-shadow-foreground)))))
 
   (evil-leader/set-key "t t" 'nice-toggle-themes)
+#+end_src
 
+*** Other
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   (tool-bar-mode -1)
 
   (global-hl-line-mode t)
@@ -436,7 +444,14 @@ scrolling (which gives a smoother scroll).
 
   (dolist (pair key-description-pairs)
     (which-key-add-key-based-replacements (car pair) (cdr pair)))
+#+end_src
 
+** Diff-ing files
+
+Meld provides a convenient GUI based method for assessing the differences
+between files.
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   (defmacro nice-meld-files (name fa fb key)
     "Generate function named nice-meld-NAME which opens meld diff for
   files FA and FB using SPC f m KEY."

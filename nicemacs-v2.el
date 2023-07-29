@@ -267,7 +267,9 @@ active, and turns it off if it is."
 			:weight 'bold)))
 
 (evil-leader/set-key "t f" 'nice-toggle-fill-column-indicator)
+;; Devastation:1 ends here
 
+;; [[file:nicemacs-v2.org::*Themes][Themes:1]]
 (add-to-list `custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'solarized-light-high-contrast t)
 
@@ -305,7 +307,9 @@ that is visible in both."
 		      (nice-colour 'light-theme-shadow-foreground)))))
 
 (evil-leader/set-key "t t" 'nice-toggle-themes)
+;; Themes:1 ends here
 
+;; [[file:nicemacs-v2.org::*Other][Other:1]]
 (tool-bar-mode -1)
 
 (global-hl-line-mode t)
@@ -406,7 +410,9 @@ already in its own frame."
 
 (dolist (pair key-description-pairs)
   (which-key-add-key-based-replacements (car pair) (cdr pair)))
+;; Other:1 ends here
 
+;; [[file:nicemacs-v2.org::*Diff-ing files][Diff-ing files:1]]
 (defmacro nice-meld-files (name fa fb key)
   "Generate function named nice-meld-NAME which opens meld diff for
 files FA and FB using SPC f m KEY."
@@ -432,7 +438,7 @@ files FA and FB using SPC f m KEY."
     (shell-command (format "meld %s %s &" file1 file2))))
 
 (evil-leader/set-key "f m m" 'nice-meld)
-;; Devastation:1 ends here
+;; Diff-ing files:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Window management][Window management:1]]
 ;; The `winum' package facilitates switching between windows using
