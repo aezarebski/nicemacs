@@ -432,7 +432,7 @@ files FA and FB using SPC f m KEY."
        (:foreground "magenta"
         :weight bold
         :underline nil
-        :height 1.1)))))
+        :height 1.1))))))
 
 (evil-leader/set-key
   "0" 'winum-select-window-0
