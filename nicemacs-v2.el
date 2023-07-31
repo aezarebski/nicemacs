@@ -106,10 +106,8 @@
 ;; [[file:nicemacs-v2.org::*STUFF 1][STUFF 1:1]]
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
-(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
-
 (package-initialize)
+
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -423,16 +421,19 @@ files FA and FB using SPC f m KEY."
 ;; The `winum' package facilitates switching between windows using
 ;; numbers which appear in the bottom left hand of the window, at the
 ;; start of the mode-line.
-(require 'winum)
-(winum-mode)
-(setq winum-format " %s ")
-(custom-set-faces
- `(winum-face
-   ((t
-     (:foreground "magenta"
-      :weight bold
-      :underline nil
-      :height 1.1)))))
+(use-package winum
+  :ensure t
+  :config
+  (winum-mode)
+  (setq winum-format " %s ")
+  (custom-set-faces
+   '(winum-face
+     ((t
+       (:foreground "magenta"
+        :weight bold
+        :underline nil
+        :height 1.1)))))
+
 (evil-leader/set-key
   "0" 'winum-select-window-0
   "1" 'winum-select-window-1
@@ -811,7 +812,8 @@ backup dictionary."
 ;; Magit
 ;; -----
 
-(require 'magit)
+(use-package magit
+  :ensure t)
 
 (evil-leader/set-key "g s" 'magit-status)
 
@@ -1402,6 +1404,7 @@ year, and the first two words of the title."
 (NVNF r-notes "R notes" "r-notes.org" "r")
 (NVNF ubuntu-notes "Ubuntu/Linux notes" "linux-notes.org" "u")
 
+(NVD pypfilt "Pypfilt notes" "~/public-site/org/notes/pypfilt/fake.org" "1")
 (NVD library "Library" "~/Documents/library/fake.org" "l")
 (NVD manuscripts "Manuscripts" "~/Documents/manuscripts/fake.org" "m")
 (NVD music "Music" "~/Music/fake.org" "M")
