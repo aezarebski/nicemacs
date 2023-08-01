@@ -701,6 +701,7 @@ backup dictionary."
 (evil-leader/set-key
   "t S" 'flyspell-mode ; toggle flyspell on/off.
   "S b" 'flyspell-buffer
+  "S n" 'flyspell-goto-next-error
   "S r" 'flyspell-region
   "S c" 'flyspell-correct-word-before-point
   "S d" 'nice-diff-dictionaries)

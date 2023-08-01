@@ -1,4 +1,4 @@
-personal_ws-1.1 en 140 
+personal_ws-1.1 en 156 
 AIC
 BDSIR
 BDSky
@@ -9,6 +9,8 @@ CRAN
 CTMC
 Combinatorics
 Coronavirus
+CrI
+CrIs
 DSL
 Elsevier
 FASTA
@@ -46,11 +48,14 @@ Stadler's
 TODO
 Troublingly
 Voronoi
+Wikidata
+Wikimedia
 XSLT
 Zarebski
 antifungal
 automata
 bioinformatic
+bioinformaticians
 bioinformatics
 bivariate
 breakpoint
@@ -63,6 +68,7 @@ cobwebbing
 combinatorial
 combinatorics
 combinators
+confounder
 connectedness
 covariates
 customisable
@@ -73,9 +79,11 @@ decapod
 deconvolution
 demes
 differentiable
+dimensionality
 discretised
 discretization
 dissolvable
+durations
 emacs
 epidemiologically
 executables
@@ -88,6 +96,9 @@ heterochronous
 hyperparameters
 identifiability
 impactful
+infectee
+infectee's
+infectees
 inhomogeneous
 interpretable
 invariants
@@ -100,10 +111,13 @@ monadic
 monads
 monkeypox
 monophyletic
+multinomial
+nonparametric
 nullclines
-parameterisation
-parameterisations
-parameterised
+parameterization
+parameterizations
+parameterize
+parameterized
 phenotypes
 phenotypic
 phylodynamic
@@ -116,10 +130,12 @@ piecewise
 pixelation
 polymorphism
 polytomies
+polytomous
 polytomy
 preprocessing
 priori
 probabilist
+quantile
 reproducibility
 rescaling
 scalability
@@ -130,6 +146,7 @@ stochasticity
 subcritical
 superspreading
 surveil
+telomere
 topologies
 transmissibility
 tumorigenesis
