@@ -1750,8 +1750,8 @@ version of an S-expression on the kill ring.
 
 * GNU Emacs
 
-The notes here are intended to deal exclusively with GNU emacs without
-the use of packages other than those that are provided with emacs.
+The notes here are intended to deal exclusively with GNU emacs without the use
+of packages other than those that are provided with emacs.
 
 ** Build you an Emacs
 
@@ -1768,12 +1768,15 @@ Alternatively, you can get clone the [[https://github.com/emacs-mirror/emacs][em
 Follow the instructions in the =INSTALL= file to build emacs.
 - This seems to just be =./configure= then =make= then =sudo make install=.
   + =./configure --with-native-compilation --with-rsvg=.
-- If you cannot find the =configure= script, you may need to run =autogen.sh= first.
+  + If you cannot find the =configure= script, you may need to run =autogen.sh=
+    first.
 - If you have spare compute you can use multiple jobs to speed up the
-  compilation with =make -j [N]= to use =N= jobs during compilation
+  compilation with =make -j[N]= to use =N= jobs during compilation
 
 *** Notes
 
+- =emacs-29.1= on the work laptop: =./configure --with-json --with-rsvg
+  --with-native-compilation --with-imagemagick CFLAGS='-g3 -O3'=
 - =emacs-29.0.60= on a new laptop:
   =./configure --with-native-compilation --with-tree-sitter --without-x --with-pgtk=
   because it uses Wayland.
