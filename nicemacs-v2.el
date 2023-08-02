@@ -62,7 +62,10 @@
 ;; Changelog
 ;; ---------
 ;;
+;; - 2023-08
+;;
 ;; - 2023-07
+;;   + Re-organised the themeing and started Leuven.
 ;;   + Isolate theme configuration so it is easier to edit.
 ;;   + Set up debugging with `realgud' (for Python).
 ;;   + Improve window management.
@@ -282,8 +285,8 @@ active, and turns it off if it is."
   (interactive)
   (if (eq (car custom-enabled-themes) nice-light-theme)
       (progn
-        (disable-theme nice-light-theme)
-        (load-theme nice-dark-theme t))
+	(disable-theme nice-light-theme)
+	(load-theme nice-dark-theme t))
     (progn
       (disable-theme nice-dark-theme)
       (load-theme nice-light-theme t))))
@@ -1441,7 +1444,7 @@ year, and the first two words of the title."
 (evil-leader/set-key "v f j" 'nice-visit-journal)
 ;; STUFF 8:1 ends here
 
-;; [[file:nicemacs-v2.org::*STUFF 9][STUFF 9:1]]
+;; [[file:nicemacs-v2.org::*Copilot][Copilot:1]]
 ;; Copilot
 ;; =======
 ;;
@@ -1449,16 +1452,15 @@ year, and the first two words of the title."
 ;; dependencies yourself: s, editorconfig which are emacs packages and
 ;; node.js.
 ;;
-
+;; To enable `copilot' on your buffer, use SPC t c.
+;;
 (use-package copilot
   :defer 1
   :config
   (evil-leader/set-key "t c" 'copilot-mode)
   (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
   ;; (setq copilot-node-executable "/usr/bin/node")
-  :load-path "~/.emacs.d/copilot.el/"
-  :hook ((python-mode . copilot-mode)
-	 (ess-r-mode . copilot-mode)))
+  :load-path "~/.emacs.d/copilot.el/")
 
 (defun nice-copilot-tab ()
   "Accept the current suggestion provided by copilot."
@@ -1479,8 +1481,9 @@ year, and the first two words of the title."
 (with-eval-after-load 'copilot
   (evil-define-key 'insert copilot-mode-map
     (kbd "C-<tab>") #'nice-copilot-by-line))
+;; Copilot:1 ends here
 
-
+;; [[file:nicemacs-v2.org::*STUFF 9][STUFF 9:1]]
 ;; Explore new worlds
 ;; ==================
 
