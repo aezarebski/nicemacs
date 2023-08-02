@@ -308,23 +308,23 @@ scrolling (which gives a smoother scroll).
 *** Theme: Leuven
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
-(setq nice-light-theme 'leuven
-      nice-dark-theme 'leuven-dark)
+  (setq nice-light-theme 'leuven
+	nice-dark-theme 'leuven-dark)
 
-(load-theme nice-light-theme t)
+  (load-theme nice-light-theme t)
 
-(defun nice-toggle-theme ()
-  "Toggle between my light and dark themes."
-  (interactive)
-  (if (eq (car custom-enabled-themes) nice-light-theme)
+  (defun nice-toggle-theme ()
+    "Toggle between my light and dark themes."
+    (interactive)
+    (if (eq (car custom-enabled-themes) nice-light-theme)
+	(progn
+	  (disable-theme nice-light-theme)
+	  (load-theme nice-dark-theme t))
       (progn
-        (disable-theme nice-light-theme)
-        (load-theme nice-dark-theme t))
-    (progn
-      (disable-theme nice-dark-theme)
-      (load-theme nice-light-theme t))))
+	(disable-theme nice-dark-theme)
+	(load-theme nice-light-theme t))))
 
-(evil-leader/set-key "t t" 'nice-toggle-theme)
+  (evil-leader/set-key "t t" 'nice-toggle-theme)
 #+end_src
 
 *** Theme: Solarized :EXCLUDED:
@@ -980,10 +980,14 @@ instead of =u= in step 5 to stage the files in the region.
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Magit
   ;; -----
-
-  (require 'magit)
-
-  (evil-leader/set-key "g s" 'magit-status)
+  (use-package magit
+    :ensure t
+    :config
+    (setq magit-display-buffer-function
+	  #'magit-display-buffer-fullframe-status-v1)
+    (evil-leader/set-key
+      "g s" 'magit-status
+      "g q" 'with-editor-cancel))
 
   (defmacro nice-canned-commit-message (fname cmessage key)
     "Define a canned commit message function with an Evil key binding.
@@ -1018,11 +1022,6 @@ instead of =u= in step 5 to stage the files in the region.
   (nice-canned-commit-message review "update reading list" "r")
   (nice-canned-commit-message website "update website" "w")
   (nice-canned-commit-message yasnippet "yasnippet" "y")
-
-  (setq magit-display-buffer-function
-	#'magit-display-buffer-fullframe-status-v1)
-
-  (evil-leader/set-key "g q" 'with-editor-cancel)
 #+end_src
 
 ** Emacs lisp
