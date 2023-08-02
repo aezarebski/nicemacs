@@ -81,7 +81,10 @@
   ;; Changelog
   ;; ---------
   ;;
+  ;; - 2023-08
+  ;;
   ;; - 2023-07
+  ;;   + Re-organised the themeing and started Leuven.
   ;;   + Isolate theme configuration so it is easier to edit.
   ;;   + Set up debugging with `realgud' (for Python).
   ;;   + Improve window management.
@@ -981,11 +984,14 @@ instead of =u= in step 5 to stage the files in the region.
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Magit
   ;; -----
-
   (use-package magit
-    :ensure t)
-
-  (evil-leader/set-key "g s" 'magit-status)
+    :ensure t
+    :config
+    (setq magit-display-buffer-function
+	  #'magit-display-buffer-fullframe-status-v1)
+    (evil-leader/set-key
+      "g s" 'magit-status
+      "g q" 'with-editor-cancel))
 
   (defmacro nice-canned-commit-message (fname cmessage key)
     "Define a canned commit message function with an Evil key binding.
@@ -1020,11 +1026,6 @@ instead of =u= in step 5 to stage the files in the region.
   (nice-canned-commit-message review "update reading list" "r")
   (nice-canned-commit-message website "update website" "w")
   (nice-canned-commit-message yasnippet "yasnippet" "y")
-
-  (setq magit-display-buffer-function
-	#'magit-display-buffer-fullframe-status-v1)
-
-  (evil-leader/set-key "g q" 'with-editor-cancel)
 #+end_src
 
 ** Emacs lisp
@@ -1688,7 +1689,7 @@ version of an S-expression on the kill ring.
   (evil-leader/set-key "v f j" 'nice-visit-journal)
 #+end_src
 
-** STUFF 9
+** Copilot
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Copilot
@@ -1698,16 +1699,15 @@ version of an S-expression on the kill ring.
   ;; dependencies yourself: s, editorconfig which are emacs packages and
   ;; node.js.
   ;;
-
+  ;; To enable `copilot' on your buffer, use SPC t c.
+  ;;
   (use-package copilot
     :defer 1
     :config
     (evil-leader/set-key "t c" 'copilot-mode)
     (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
     ;; (setq copilot-node-executable "/usr/bin/node")
-    :load-path "~/.emacs.d/copilot.el/"
-    :hook ((python-mode . copilot-mode)
-	   (ess-r-mode . copilot-mode)))
+    :load-path "~/.emacs.d/copilot.el/")
 
   (defun nice-copilot-tab ()
     "Accept the current suggestion provided by copilot."
@@ -1728,8 +1728,11 @@ version of an S-expression on the kill ring.
   (with-eval-after-load 'copilot
     (evil-define-key 'insert copilot-mode-map
       (kbd "C-<tab>") #'nice-copilot-by-line))
+#+end_src
 
+** STUFF 9
 
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Explore new worlds
   ;; ==================
 
