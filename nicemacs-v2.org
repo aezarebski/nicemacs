@@ -82,6 +82,7 @@
   ;; ---------
   ;;
   ;; - 2023-08
+  ;;   + Upgrade to Emacs 29.1 and enable smooth scrolling.
   ;;
   ;; - 2023-07
   ;;   + Re-organised the themeing and started Leuven.
@@ -180,11 +181,7 @@ scrolling (which gives a smoother scroll).
   (use-package evil
     :ensure t
     :init
-    (evil-mode 1)
-    :config
-    (setq scroll-margin 2
-	  scroll-conservatively 101
-	  scroll-preserve-screen-position 1))
+    (evil-mode 1))
 
   (use-package evil-leader
     :ensure t
@@ -226,7 +223,7 @@ scrolling (which gives a smoother scroll).
   ;;    $ fc-cache -f -v
   ;;
   (set-frame-font "JetBrains Mono" nil t)
-  (ligature-set-ligatures 'prog-mode '("|>" "<-" "==" "!=" ">=" "<="))
+  (ligature-set-ligatures 'prog-mode '("|>" "<-" "<<-" "==" "!=" ">=" "<="))
   (global-ligature-mode nil)
 
   (defun toggle-ligatures ()
@@ -244,7 +241,18 @@ scrolling (which gives a smoother scroll).
   ;; Look stunning
   ;; -------------
   ;;
+  ;; `pixel-scroll-precision-mode' means you can have smooth scrolling
+  ;; if you have a compatible mouse.
+  ;;
+
   (tool-bar-mode -1)			; remove the tool bar
+
+  (pixel-scroll-precision-mode 1)
+  (setq pixel-dead-time 0)
+
+  (setq scroll-margin 2
+	scroll-conservatively 101
+	scroll-preserve-screen-position 1)
 
   (setq-default scroll-bar-width 10)
   (setq-default left-fringe-width 10)
@@ -847,6 +855,7 @@ Ibuffer include
   (evil-leader/set-key
     "t S" 'flyspell-mode ; toggle flyspell on/off.
     "S b" 'flyspell-buffer
+    "S n" 'flyspell-goto-next-error
     "S r" 'flyspell-region
     "S c" 'flyspell-correct-word-before-point
     "S d" 'nice-diff-dictionaries)
@@ -870,6 +879,14 @@ Ibuffer include
 
   ;; Be powerful with packages
   ;; =========================
+
+  ;; Obfuscate the text on the screen if there is no movement for 60
+  ;; seconds.
+  (require 'zone)
+  (zone-when-idle 0)
+  (setq zone-programs [zone-pgm-whack-chars])
+  (evil-leader/set-key "z z" 'zone)
+
 
   ;; NXML
   ;; ----
@@ -1076,7 +1093,7 @@ version of an S-expression on the kill ring.
     (evil-leader/set-key-for-mode 'ess-r-mode
       "m d t" 'ess-r-devtools-test-package
       "m d l" 'ess-r-devtools-load-package
-      "m d b" 'ess-r-devtools-build-package
+      "m d b" 'ess-r-devtools-build
       "m d i" 'ess-r-devtools-install-package
       "m d c" 'ess-r-devtools-check-package
       "m d d" 'ess-r-devtools-document-package

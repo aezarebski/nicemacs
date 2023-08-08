@@ -63,6 +63,7 @@
 ;; ---------
 ;;
 ;; - 2023-08
+;;   + Upgrade to Emacs 29.1 and enable smooth scrolling.
 ;;
 ;; - 2023-07
 ;;   + Re-organised the themeing and started Leuven.
@@ -152,11 +153,7 @@
 (use-package evil
   :ensure t
   :init
-  (evil-mode 1)
-  :config
-  (setq scroll-margin 2
-	scroll-conservatively 101
-	scroll-preserve-screen-position 1))
+  (evil-mode 1))
 
 (use-package evil-leader
   :ensure t
@@ -194,7 +191,7 @@
 ;;    $ fc-cache -f -v
 ;;
 (set-frame-font "JetBrains Mono" nil t)
-(ligature-set-ligatures 'prog-mode '("|>" "<-" "==" "!=" ">=" "<="))
+(ligature-set-ligatures 'prog-mode '("|>" "<-" "<<-" "==" "!=" ">=" "<="))
 (global-ligature-mode nil)
 
 (defun toggle-ligatures ()
@@ -210,7 +207,18 @@
 ;; Look stunning
 ;; -------------
 ;;
+;; `pixel-scroll-precision-mode' means you can have smooth scrolling
+;; if you have a compatible mouse.
+;;
+
 (tool-bar-mode -1)			; remove the tool bar
+
+(pixel-scroll-precision-mode 1)
+(setq pixel-dead-time 0)
+
+(setq scroll-margin 2
+      scroll-conservatively 101
+      scroll-preserve-screen-position 1)
 
 (setq-default scroll-bar-width 10)
 (setq-default left-fringe-width 10)
@@ -433,9 +441,9 @@ files FA and FB using SPC f m KEY."
    '(winum-face
      ((t
        (:foreground "magenta"
-        :weight bold
-        :underline nil
-        :height 1.1))))))
+	:weight bold
+	:underline nil
+	:height 1.1))))))
 
 (evil-leader/set-key
   "0" 'winum-select-window-0
@@ -729,6 +737,14 @@ backup dictionary."
 ;; Be powerful with packages
 ;; =========================
 
+;; Obfuscate the text on the screen if there is no movement for 60
+;; seconds.
+(require 'zone)
+(zone-when-idle 0)
+(setq zone-programs [zone-pgm-whack-chars])
+(evil-leader/set-key "z z" 'zone)
+
+
 ;; NXML
 ;; ----
 
@@ -896,7 +912,7 @@ kill ring."
   (evil-leader/set-key-for-mode 'ess-r-mode
     "m d t" 'ess-r-devtools-test-package
     "m d l" 'ess-r-devtools-load-package
-    "m d b" 'ess-r-devtools-build-package
+    "m d b" 'ess-r-devtools-build
     "m d i" 'ess-r-devtools-install-package
     "m d c" 'ess-r-devtools-check-package
     "m d d" 'ess-r-devtools-document-package
