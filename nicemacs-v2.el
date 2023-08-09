@@ -363,11 +363,11 @@ already in its own frame."
 ;; [[file:nicemacs-v2.org::*Which-key][Which-key:1]]
 ;; The which-key package is a great way to be reminded of what keys
 ;; are available from the start of a key sequence.
-(require 'which-key)
-(which-key-mode)
-(setq which-key-idle-delay 0.3)
-(require 'which-key)
-(which-key-mode)
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode)
+  (setq which-key-idle-delay 0.3))
 
 (setq key-description-pairs
       '(("SPC a" . "Agenda (org-mode)")
@@ -685,12 +685,20 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 
 (setq sentence-end-double-space nil)
 
-(require 'flyspell)
-(require 'writegood-mode)
-(require 'lorem-ipsum)			; provide dummy text
+(use-package flyspell
+  :config
+  (setq ispell-program-name "aspell")
+  (setq ispell-personal-dictionary "~/.aspell.en.pws")
+  (set-face-attribute 'flyspell-duplicate nil
+                      :underline nil
+                      :foreground "white"
+                      :background "red")
+  (set-face-attribute 'flyspell-incorrect nil
+                      :underline nil
+                      :foreground "white"
+                      :background "red"))
 
-(setq ispell-program-name "aspell")
-(setq ispell-personal-dictionary "~/.aspell.en.pws")
+(use-package lorem-ipsum)
 
 (defun nice-diff-dictionaries ()
   "Run ediff on the current ispell-personal-dictionary and the
@@ -700,15 +708,6 @@ backup dictionary."
 	 (concat nice-resources-dir "/aspell.en.pws")))
     (ediff-files ispell-personal-dictionary backup-dictionary)))
 
-(set-face-attribute 'flyspell-duplicate nil
-		    :underline nil
-		    :foreground "white"
-		    :background "red")
-(set-face-attribute 'flyspell-incorrect nil
-		    :underline nil
-		    :foreground "white"
-		    :background "red")
-
 (evil-leader/set-key
   "t S" 'flyspell-mode ; toggle flyspell on/off.
   "S b" 'flyspell-buffer
@@ -716,6 +715,8 @@ backup dictionary."
   "S r" 'flyspell-region
   "S c" 'flyspell-correct-word-before-point
   "S d" 'nice-diff-dictionaries)
+
+(use-package writegood-mode)
 
 (setq words-to-add
       '("many" "various" "very" "quite" "somewhat" "several"
@@ -763,8 +764,10 @@ backup dictionary."
 ;;
 ;; See https://github.com/aezarebski/whipper-snipper
 
-(require 'yasnippet)
-(yas-global-mode 1)
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-global-mode 1))
 
 (defun nice-load-snippets ()
   "Load the snippets in ~/.emacs.d/snippets."
@@ -923,8 +926,11 @@ kill ring."
     "m c i" 'indent-region
     "m '" 'ess-switch-to-inferior-or-script-buffer))
 
-(require 'ess-site)
-(require 'quarto-mode)
+(use-package ess-site
+  :ensure t)
+
+(use-package quarto-mode
+  :ensure t)
 
 (defun nice-code-lint-buffer-r ()
   "Lint the current R buffer using lintr."
