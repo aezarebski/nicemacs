@@ -634,6 +634,18 @@ have both directories in adjacent windows when moving files between them, so
 this is more convenient.
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  ;; Dired
+  ;; -----
+  ;;
+  ;; - R :: mv
+  ;; - C :: cp
+  ;; - + :: mkdir
+  ;; - - :: cd ../
+  ;; - m :: mark a file
+  ;; - u :: unmark a file
+  ;; - d :: flag file for deletion
+  ;; - x :: execute deletion
+  ;;
   (use-package dired
     :bind (:map dired-mode-map
 		("-" . dired-up-directory))
@@ -647,6 +659,20 @@ this is more convenient.
 installed by default and is not no the package repositories, so if you have
 =:ensure t= it will throw a warning saying it is not installed in the expected
 way. Just removing =:ensure t= fixes it though.
+
+*** Searching
+
+The following advice from the emacs manual may be useful if you are trying to
+locate some files.
+
+#+begin_quote
+To search for files with names matching a wildcard pattern use =M-x
+find-name-dired=. It reads arguments DIRECTORY and PATTERN, and chooses all the
+files in DIRECTORY or its subdirectories whose individual names match PATTERN.
+#+end_quote
+
+There is also the =grep= command for searching within files and the
+=find= command for searching based on the filename.
 
 ** Buffers, files, and dired
 

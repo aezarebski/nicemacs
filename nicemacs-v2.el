@@ -512,6 +512,18 @@ amount of the of the frame's width and height."
 ;; Shells:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Dired][Dired:1]]
+;; Dired
+;; -----
+;;
+;; - R :: mv
+;; - C :: cp
+;; - + :: mkdir
+;; - - :: cd ../
+;; - m :: mark a file
+;; - u :: unmark a file
+;; - d :: flag file for deletion
+;; - x :: execute deletion
+;;
 (use-package dired
   :bind (:map dired-mode-map
 	      ("-" . dired-up-directory))
@@ -690,13 +702,13 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
   (setq ispell-program-name "aspell")
   (setq ispell-personal-dictionary "~/.aspell.en.pws")
   (set-face-attribute 'flyspell-duplicate nil
-                      :underline nil
-                      :foreground "white"
-                      :background "red")
+		      :underline nil
+		      :foreground "white"
+		      :background "red")
   (set-face-attribute 'flyspell-incorrect nil
-                      :underline nil
-                      :foreground "white"
-                      :background "red"))
+		      :underline nil
+		      :foreground "white"
+		      :background "red"))
 
 (use-package lorem-ipsum)
 
