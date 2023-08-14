@@ -1,12 +1,14 @@
-personal_ws-1.1 en 156 
+personal_ws-1.1 en 165 
 AIC
 BDSIR
 BDSky
+Basmati
 Bonferroni
 CERN
 COVID
 CRAN
 CTMC
+CTMCs
 Combinatorics
 Coronavirus
 CrI
@@ -36,6 +38,7 @@ PGF
 PHEIC
 PNG
 PRNG
+Paneer
 README
 REPL
 RGB
@@ -53,6 +56,7 @@ Wikimedia
 XSLT
 Zarebski
 antifungal
+arborio
 automata
 bioinformatic
 bioinformaticians
@@ -104,6 +108,7 @@ interpretable
 invariants
 isochronous
 iterable
+ladleful
 lockdown
 misspecification
 modularity
@@ -114,6 +119,7 @@ monophyletic
 multinomial
 nonparametric
 nullclines
+paneer
 parameterization
 parameterizations
 parameterize
@@ -136,6 +142,7 @@ preprocessing
 priori
 probabilist
 quantile
+quantiles
 reproducibility
 rescaling
 scalability

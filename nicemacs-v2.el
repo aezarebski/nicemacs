@@ -63,6 +63,7 @@
 ;; ---------
 ;;
 ;; - 2023-08
+;;   + Use `org-log-done' to record when tasks where completed.
 ;;   + Upgrade to Emacs 29.1 and enable smooth scrolling.
 ;;
 ;; - 2023-07
@@ -1158,9 +1159,11 @@ year, and the first two words of the title."
 ;; - `S-<left/right>' moves the scheduled date backwards/forwards
 ;; - `r' rebuilds the agenda view
 ;;
-(setq org-agenda-start-day "-14d")
-(setq org-agenda-span 30)
-(setq org-agenda-start-on-weekday nil)
+(setq org-agenda-start-day "-14d"
+      org-agenda-span 30
+      org-agenda-start-on-weekday nil
+      org-log-done 'time
+      org-log-schedule 'time)
 
 (setq org-todo-keywords
       '((sequence "TODO" "DONE")
@@ -1310,6 +1313,17 @@ year, and the first two words of the title."
 	 :base-extension "png\\|jpg\\|pdf"
 	 :publishing-directory "~/aezarebski.github.io/misc/matplotlib/"
 	 :publishing-function org-publish-attachment)
+	("website-misc-recipes"
+	 :base-directory "~/public-site/org/misc/recipes/"
+	 :base-extension "org"
+	 :publishing-directory "~/aezarebski.github.io/misc/recipes/"
+	 :publishing-function org-html-publish-to-html)
+	("website-misc-recipes-static"
+	 :base-directory "~/public-site/org/misc/recipes/"
+	 :base-extension "png\\|css"
+	 :publishing-directory "~/aezarebski.github.io/misc/recipes/"
+	 :recursive ()
+	 :publishing-function org-publish-attachment)
 	("review2-org"
 	 :base-directory "~/Documents/bibliography/review2"
 	 :base-extension "org"
@@ -1345,11 +1359,15 @@ year, and the first two words of the title."
 		      "website-misc-latex-static"
 		      "website-misc-tikz-org-files"
 		      "website-misc-tikz-static"))
+	("recipes"
+	 :components ("website-misc-recipes"
+		      "website-misc-recipes-static"))
 	("website"
 	 :components ("website-notes-org-files"
 		      "website-images-static"
 		      "website-lists-org-files"
 		      "nicemacs-org-files"
+		      "recipes"
 		      "review"
 		      "latex"
 		      "python"
