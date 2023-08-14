@@ -32,7 +32,6 @@
 ;; - `dired'
 ;; - `editorconfig' EditorConfig Emacs Plugin
 ;; - `ess' Emacs Speaks Statistics
-;; - `ess-site'
 ;; - `evil' Extensible Vi layer for Emacs.
 ;; - `evil-collection' A set of keybindings for Evil mode
 ;; - `evil-leader' let there be <leader>
@@ -922,9 +921,12 @@ kill ring."
 
 (use-package ess
   :ensure t
+  :init
+  (setq ess-etc-directory "~/.emacs.d/nice-packages/etc")
   :mode ("\\.Rmd" . Rmd-mode)
   :config
-  (setq ess-default-style 'DEFAULT)
+  (setq ess-default-style 'DEFAULT
+        ess-history-file nil)
   (evil-leader/set-key-for-mode 'ess-r-mode
     "m d t" 'ess-r-devtools-test-package
     "m d l" 'ess-r-devtools-load-package
@@ -938,9 +940,6 @@ kill ring."
     "m c l" 'nice-code-lint-buffer-r
     "m c i" 'indent-region
     "m '" 'ess-switch-to-inferior-or-script-buffer))
-
-(use-package ess-site
-  :ensure t)
 
 (use-package quarto-mode
   :ensure t)
