@@ -62,6 +62,8 @@
 ;; ---------
 ;;
 ;; - 2023-08
+;;   + Use `indent-guide' to visualise indentation in `python-mode'.
+;;   + Use `org-agenda-window-setup' to open agenda in a new frame.
 ;;   + Use `org-log-done' to record when tasks where completed.
 ;;   + Upgrade to Emacs 29.1 and enable smooth scrolling.
 ;;
@@ -989,6 +991,13 @@ kill ring."
   (setq python-shell-interpreter "python3")
   (setq python-indent-offset 4))
 
+(use-package indent-guide
+  :ensure t
+  :hook (python-mode . indent-guide-mode)
+  :config
+  (setq indent-guide-char "|")
+  (setq indent-guide-recursive t))
+
 (evil-leader/set-key-for-mode 'python-mode
   "m v a" 'pyvenv-activate
   "m s b" 'python-shell-send-buffer
@@ -1161,6 +1170,7 @@ year, and the first two words of the title."
 (setq org-agenda-start-day "-14d"
       org-agenda-span 30
       org-agenda-start-on-weekday nil
+      org-agenda-window-setup 'other-frame
       org-log-done 'time
       org-log-schedule 'time)
 
