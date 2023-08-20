@@ -555,7 +555,8 @@ between files.
     (custom-set-faces
      '(winum-face
        ((t
-	 (:foreground "magenta"
+	 (:foreground "black"
+	  :background "gold"
 	  :weight bold
 	  :underline nil
 	  :height 1.1))))))

@@ -442,7 +442,8 @@ files FA and FB using SPC f m KEY."
   (custom-set-faces
    '(winum-face
      ((t
-       (:foreground "magenta"
+       (:foreground "black"
+        :background "gold"
 	:weight bold
 	:underline nil
 	:height 1.1))))))
