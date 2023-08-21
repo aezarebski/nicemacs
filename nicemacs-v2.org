@@ -1404,6 +1404,11 @@ version of an S-expression on the kill ring.
 
 *** Agenda and calendar
 
+- I have had some weird warning messages from =org-persist= about there being
+  difficulty reading some org-mode related data from the cache: "Emacs reader
+  failed to read data in ...". I was able to resolve this by closing emacs,
+  deleting the cache files, and then it worked perfectly when I restarted emacs.
+
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Org-agenda
   ;; ----------
