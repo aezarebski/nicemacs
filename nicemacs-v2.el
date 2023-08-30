@@ -1323,6 +1323,16 @@ year, and the first two words of the title."
 	 :base-extension "png\\|jpg\\|pdf"
 	 :publishing-directory "~/aezarebski.github.io/misc/matplotlib/"
 	 :publishing-function org-publish-attachment)
+	("website-misc-plotnine-org-files"
+	 :base-directory "~/public-site/org/misc/plotnine/"
+	 :base-extension "org"
+	 :publishing-directory "~/aezarebski.github.io/misc/plotnine/"
+	 :publishing-function org-html-publish-to-html)
+	("website-misc-plotnine-static"
+	 :base-directory "~/public-site/org/misc/plotnine/"
+	 :base-extension "png\\|jpg\\|pdf"
+	 :publishing-directory "~/aezarebski.github.io/misc/plotnine/"
+	 :publishing-function org-publish-attachment)
 	("website-misc-recipes"
 	 :base-directory "~/public-site/org/misc/recipes/"
 	 :base-extension "org"
@@ -1355,7 +1365,9 @@ year, and the first two words of the title."
 	 :publishing-function org-html-publish-to-html)
 	("python"
 	 :components ("website-misc-matplotlib-org-files"
-		      "website-misc-matplotlib-static"))
+		      "website-misc-matplotlib-static"
+		      "website-misc-plotnine-org-files"
+		      "website-misc-plotnine-static"))
 	("R"
 	 :components ("website-misc-basegraphicsR-org-files"
 		      "website-misc-basegraphicsR-static"
