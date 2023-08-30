@@ -540,7 +540,24 @@ amount of the of the frame's width and height."
 ;; Buffer stuff
 ;; ------------
 
-(evil-leader/set-key "b r" 'revert-buffer)
+(evil-leader/set-key
+  "b r" 'revert-buffer
+  "b l" 'ibuffer)
+
+(defface ibuffer-modified-buffer
+  '((t (:foreground "white"
+	:weight bold
+	:background "red")))
+  "Face used for highlighting unsaved buffers in IBuffer.")
+
+;; Declare that IBuffer should use the `ibuffer-modified-buffer' face
+;; for modified buffers so that they stand out.
+(add-hook 'ibuffer-mode-hook
+          (lambda ()
+            (ibuffer-auto-mode 1)
+            (ibuffer-switch-to-saved-filter-groups "default")
+            (add-to-list 'ibuffer-fontification-alist
+                         '(0 (buffer-modified-p) 'ibuffer-modified-buffer))))
 
 ;; File stuff
 ;; ----------
@@ -552,7 +569,6 @@ amount of the of the frame's width and height."
   "f F" 'find-file-other-frame
   "f s" 'save-buffer
   "f d" 'nice-dired
-  "b l" 'ibuffer
   "b b" 'switch-to-buffer
   "d b" 'kill-buffer
   "d w" 'delete-window
