@@ -1194,10 +1194,12 @@ year, and the first two words of the title."
 (setq org-todo-keywords
       '((sequence "TODO" "DONE")
 	(sequence "MEETING" "|" "DONE")
+	(sequence "DEADLINE" "|" "DONE")
 	(sequence "SOCIAL" "|" "DONE")))
 
 (setq org-todo-keyword-faces
       `(("MEETING" . ,(boxed-face "magenta"))
+	("DEADLINE" . ,(boxed-face "red" "white"))
 	("SOCIAL" . ,(boxed-face "blue" "#E6ECFF"))))
 
 (defun nice-org-agenda-goto-today-advice-after (&rest _args)
