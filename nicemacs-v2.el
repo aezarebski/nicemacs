@@ -175,6 +175,12 @@
   :ensure t
   :config
   (global-evil-surround-mode 1))
+
+(use-package avy
+  :ensure t
+  :config
+  (evil-leader/set-key "J" 'avy-goto-line))
+
 ;; Evil:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Fonts][Fonts:1]]
@@ -438,16 +444,14 @@ files FA and FB using SPC f m KEY."
   :ensure t
   :config
   (winum-mode)
-  (setq winum-format " %s ")
-  (custom-set-faces
-   '(winum-face
-     ((t
-       (:foreground "black"
-        :background "gold"
-	:weight bold
-	:underline nil
-	:height 1.1))))))
+  (setq winum-format " %s "))
 
+(set-face-attribute 'winum-face nil
+                    :foreground "black"
+                    :background "gold"
+                    :weight 'bold
+                    :underline nil
+                    :height 1.1)
 (evil-leader/set-key
   "0" 'winum-select-window-0
   "1" 'winum-select-window-1
@@ -1118,7 +1122,8 @@ year, and the first two words of the title."
 			    (car split-title))))))
     (if (and author year first-two-words)
 	(let ((newkey (format "%s%s%s" author year first-two-words)))
-	  (kill-new newkey)
+	  (kill-new (replace-regexp-in-string "[{}]" "" newkey))
+	  (evil-jump-item)
 	  (message "New key generated and copied to clipboard: %s" newkey))
       (error "Author, Year or Title is missing in the current BibTeX entry."))))
 

@@ -1,4 +1,4 @@
-personal_ws-1.1 en 165 
+personal_ws-1.1 en 179 
 AIC
 BDSIR
 BDSky
@@ -27,9 +27,12 @@ HMC
 HPC
 Heterozygous
 Homozygous
+ILI
 JSON
+Kalman
 LLHD
 MCMC
+Multiscale
 Newick
 Nonparametric
 PDE
@@ -39,6 +42,7 @@ PHEIC
 PNG
 PRNG
 Paneer
+Petri
 README
 REPL
 RGB
@@ -56,6 +60,7 @@ Wikimedia
 XSLT
 Zarebski
 antifungal
+antiretroviral
 arborio
 automata
 bioinformatic
@@ -93,6 +98,7 @@ epidemiologically
 executables
 formatter
 frequentist
+funder
 genomic
 genotype
 genotyping
@@ -120,8 +126,10 @@ monads
 monkeypox
 monophyletic
 multinomial
+multiscale
 nonparametric
 nullclines
+onwards
 paneer
 parameterization
 parameterizations
@@ -137,12 +145,14 @@ phylogenies
 phylogeography
 piecewise
 pixelation
+poliovirus
 polymorphism
 polytomies
 polytomous
 polytomy
 preprocessing
 priori
+prioritize
 probabilist
 quantile
 quantiles
