@@ -80,6 +80,10 @@
   ;; Changelog
   ;; ---------
   ;;
+  ;; - 2023-09
+  ;;   + Use `IBuffer' to manage buffers.
+  ;;   + Use `avy' to jump to lines in a buffer using a character.
+  ;;
   ;; - 2023-08
   ;;   + Use `indent-guide' to visualise indentation in `python-mode'.
   ;;   + Use `org-agenda-window-setup' to open agenda in a new frame.
@@ -611,12 +615,25 @@ between files.
   ;; Shell stuff
   ;; -----------
   ;;
+  (defun nice-eshell ()
+    "Open an existing or new eshell buffer in a vertical split."
+    (interactive)
+    (let ((eshell-buffer (get-buffer "*eshell*"))
+	  (width (/ (frame-width) 2)))
+      (split-window-horizontally)
+      (other-window 1)
+      (window-resize nil (- width (window-width)) t)
+      (if eshell-buffer
+	  (switch-to-buffer eshell-buffer)
+	(eshell))))
+
   (setq eshell-cmpl-ignore-case t)
   (evil-leader/set-key
     "s e" 'eshell
     "s b" (lambda () (interactive) (ansi-term "/bin/bash"))
     "s i" 'ielm
-    "s r" 'R)
+    "s r" 'R
+    "'" 'nice-eshell)
 
   (defun cdf (filepath)
     "Change the current directory in Eshell to the directory of
