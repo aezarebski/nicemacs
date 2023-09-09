@@ -1439,7 +1439,7 @@ version of an S-expression on the kill ring.
   (add-hook 'org-mode-hook #'nice-org-mode-hook)
 #+end_src
 
-*** Agenda and calendar
+*** Agenda and calendar (org-mode)
 
 - I have had some weird warning messages from =org-persist= about there being
   difficulty reading some org-mode related data from the cache: "Emacs reader
@@ -1486,7 +1486,11 @@ version of an S-expression on the kill ring.
   (advice-add 'org-agenda-goto-today
 	      :after #'nice-org-agenda-goto-today-advice-after)
   (evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
+#+end_src
 
+*** Agenda and calendar (calfw) :EXCLUDED:
+
+#+begin_src emacs-lisp
   ;; Calendar view
   ;;
   ;; This provides a more classical view of the agenda as a calendar.

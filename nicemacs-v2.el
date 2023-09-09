@@ -1191,7 +1191,7 @@ year, and the first two words of the title."
 (add-hook 'org-mode-hook #'nice-org-mode-hook)
 ;; Org-mode:1 ends here
 
-;; [[file:nicemacs-v2.org::*Agenda and calendar][Agenda and calendar:1]]
+;; [[file:nicemacs-v2.org::*Agenda and calendar (org-mode)][Agenda and calendar (org-mode):1]]
 ;; Org-agenda
 ;; ----------
 ;;
@@ -1231,20 +1231,7 @@ year, and the first two words of the title."
 (advice-add 'org-agenda-goto-today
 	    :after #'nice-org-agenda-goto-today-advice-after)
 (evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
-
-;; Calendar view
-;;
-;; This provides a more classical view of the agenda as a calendar.
-;;
-(use-package calfw
-  :ensure t
-  :config
-  (use-package calfw-org))
-
-(evil-leader/set-key
-  "a a" 'org-agenda-list
-  "a c" 'cfw:open-org-calendar)
-;; Agenda and calendar:1 ends here
+;; Agenda and calendar (org-mode):1 ends here
 
 ;; [[file:nicemacs-v2.org::*Literate programming][Literate programming:1]]
 ;; Literate programming
