@@ -445,6 +445,12 @@ files FA and FB using SPC f m KEY."
   "w a" 'nice-balance-windows-alt
   "w b" 'balance-windows)
 
+(evil-leader/set-key
+  "<up>" 'evil-window-up
+  "<down>" 'evil-window-down
+  "<left>" 'evil-window-left
+  "<right>" 'evil-window-right)
+
 (defun nice-balance-windows-alt ()
   "Balance windows such that the current window receives a certain
 amount of the of the frame's width and height."
