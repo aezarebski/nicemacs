@@ -53,13 +53,16 @@
 ;; - `s' The long lost Emacs string manipulation library.
 ;; - `unfill' Do the opposite of fill-paragraph or fill-region
 ;; - `which-key' Display available keybindings in popup
-;; - `winum' Navigate windows and frames using numbers.
 ;; - `writegood-mode' Polish up poor writing on the fly
 ;; - `yasnippet' Yet another snippet extension for Emacs
 ;; - `yasnippet-snippets' Collection of yasnippet snippets
 ;;
 ;; Changelog
 ;; ---------
+;;
+;; - 2023-09
+;;   + Use `evil-window-X' functions as a simpler alternative to
+;;     `winum'.
 ;;
 ;; - 2023-08
 ;;   + Use `indent-guide' to visualise indentation in `python-mode'.
@@ -180,7 +183,6 @@
   :ensure t
   :config
   (evil-leader/set-key "J" 'avy-goto-line))
-
 ;; Evil:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Fonts][Fonts:1]]
@@ -436,48 +438,10 @@ files FA and FB using SPC f m KEY."
 (evil-leader/set-key "f m m" 'nice-meld)
 ;; Diff-ing files:1 ends here
 
-;; [[file:nicemacs-v2.org::*Window management][Window management:1]]
-;; The `winum' package facilitates switching between windows using
-;; numbers which appear in the bottom left hand of the window, at the
-;; start of the mode-line.
-(use-package winum
-  :ensure t
-  :config
-  (winum-mode)
-  (setq winum-format " %s "))
-
-(set-face-attribute 'winum-face nil
-                    :foreground "black"
-                    :background "gold"
-                    :weight 'bold
-                    :underline nil
-                    :height 1.1)
+;; [[file:nicemacs-v2.org::*Evil window management][Evil window management:1]]
 (evil-leader/set-key
-  "0" 'winum-select-window-0
-  "1" 'winum-select-window-1
-  "2" 'winum-select-window-2
-  "3" 'winum-select-window-3
-  "4" 'winum-select-window-4
-  "5" 'winum-select-window-5
   "w a" 'nice-balance-windows-alt
-  "w b" 'balance-windows
-  "w n s" 'nice-swap-buffers)
-
-(defun nice-swap-buffers ()
-  "Swap buffers between two windows specified by their numbers.
-
-Prompt for two window numbers and swap the buffers displayed in
-those windows. Window numbers are assigned by the `winum' package."
-  (interactive)
-  (let* ((win1 (winum-get-window-by-number
-		(read-number "First window number: ")))
-	 (win2 (winum-get-window-by-number
-		(read-number "Second window number: ")))
-	 (buffer1 (and win1 (window-buffer win1)))
-	 (buffer2 (and win2 (window-buffer win2))))
-    (when (and buffer1 buffer2)
-      (set-window-buffer win1 buffer2)
-      (set-window-buffer win2 buffer1))))
+  "w b" 'balance-windows)
 
 (defun nice-balance-windows-alt ()
   "Balance windows such that the current window receives a certain
@@ -491,7 +455,7 @@ amount of the of the frame's width and height."
 	 (desired-height (floor (* proportion frame-height))))
     (enlarge-window-horizontally (- desired-width (window-width)))
     (enlarge-window (- desired-height (window-height)))))
-;; Window management:1 ends here
+;; Evil window management:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Shells][Shells:1]]
 ;; Shell stuff

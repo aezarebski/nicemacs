@@ -72,13 +72,16 @@
   ;; - `s' The long lost Emacs string manipulation library.
   ;; - `unfill' Do the opposite of fill-paragraph or fill-region
   ;; - `which-key' Display available keybindings in popup
-  ;; - `winum' Navigate windows and frames using numbers.
   ;; - `writegood-mode' Polish up poor writing on the fly
   ;; - `yasnippet' Yet another snippet extension for Emacs
   ;; - `yasnippet-snippets' Collection of yasnippet snippets
   ;;
   ;; Changelog
   ;; ---------
+  ;;
+  ;; - 2023-09
+  ;;   + Use `evil-window-X' functions as a simpler alternative to
+  ;;     `winum'.
   ;;
   ;; - 2023-08
   ;;   + Use `indent-guide' to visualise indentation in `python-mode'.
@@ -548,7 +551,9 @@ between files.
 
 ** Window management
 
-#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+*** Number based solution from =winum= :EXCLUDED:
+
+#+begin_src emacs-lisp
   ;; The `winum' package facilitates switching between windows using
   ;; numbers which appear in the bottom left hand of the window, at the
   ;; start of the mode-line.
@@ -590,6 +595,14 @@ between files.
       (when (and buffer1 buffer2)
 	(set-window-buffer win1 buffer2)
 	(set-window-buffer win2 buffer1))))
+#+end_src
+
+*** Evil window management
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  (evil-leader/set-key
+    "w a" 'nice-balance-windows-alt
+    "w b" 'balance-windows)
 
   (defun nice-balance-windows-alt ()
     "Balance windows such that the current window receives a certain
