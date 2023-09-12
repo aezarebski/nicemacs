@@ -82,6 +82,8 @@
   ;; - 2023-09
   ;;   + Use `evil-window-X' functions as a simpler alternative to
   ;;     `winum'.
+  ;;   + Use `IBuffer' to manage buffers.
+  ;;   + Use `avy' to jump to lines in a buffer using a character.
   ;;
   ;; - 2023-08
   ;;   + Use `indent-guide' to visualise indentation in `python-mode'.
@@ -624,12 +626,25 @@ between files.
   ;; Shell stuff
   ;; -----------
   ;;
+  (defun nice-eshell ()
+    "Open an existing or new eshell buffer in a vertical split."
+    (interactive)
+    (let ((eshell-buffer (get-buffer "*eshell*"))
+	  (width (/ (frame-width) 2)))
+      (split-window-horizontally)
+      (other-window 1)
+      (window-resize nil (- width (window-width)) t)
+      (if eshell-buffer
+	  (switch-to-buffer eshell-buffer)
+	(eshell))))
+
   (setq eshell-cmpl-ignore-case t)
   (evil-leader/set-key
     "s e" 'eshell
     "s b" (lambda () (interactive) (ansi-term "/bin/bash"))
     "s i" 'ielm
-    "s r" 'R)
+    "s r" 'R
+    "'" 'nice-eshell)
 
   (defun cdf (filepath)
     "Change the current directory in Eshell to the directory of
@@ -1435,7 +1450,7 @@ version of an S-expression on the kill ring.
   (add-hook 'org-mode-hook #'nice-org-mode-hook)
 #+end_src
 
-*** Agenda and calendar
+*** Agenda and calendar (org-mode)
 
 - I have had some weird warning messages from =org-persist= about there being
   difficulty reading some org-mode related data from the cache: "Emacs reader
@@ -1482,7 +1497,11 @@ version of an S-expression on the kill ring.
   (advice-add 'org-agenda-goto-today
 	      :after #'nice-org-agenda-goto-today-advice-after)
   (evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
+#+end_src
 
+*** Agenda and calendar (calfw) :EXCLUDED:
+
+#+begin_src emacs-lisp
   ;; Calendar view
   ;;
   ;; This provides a more classical view of the agenda as a calendar.

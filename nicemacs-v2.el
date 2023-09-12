@@ -63,6 +63,8 @@
 ;; - 2023-09
 ;;   + Use `evil-window-X' functions as a simpler alternative to
 ;;     `winum'.
+;;   + Use `IBuffer' to manage buffers.
+;;   + Use `avy' to jump to lines in a buffer using a character.
 ;;
 ;; - 2023-08
 ;;   + Use `indent-guide' to visualise indentation in `python-mode'.
@@ -461,12 +463,25 @@ amount of the of the frame's width and height."
 ;; Shell stuff
 ;; -----------
 ;;
+(defun nice-eshell ()
+  "Open an existing or new eshell buffer in a vertical split."
+  (interactive)
+  (let ((eshell-buffer (get-buffer "*eshell*"))
+        (width (/ (frame-width) 2)))
+    (split-window-horizontally)
+    (other-window 1)
+    (window-resize nil (- width (window-width)) t)
+    (if eshell-buffer
+        (switch-to-buffer eshell-buffer)
+      (eshell))))
+
 (setq eshell-cmpl-ignore-case t)
 (evil-leader/set-key
   "s e" 'eshell
   "s b" (lambda () (interactive) (ansi-term "/bin/bash"))
   "s i" 'ielm
-  "s r" 'R)
+  "s r" 'R
+  "'" 'nice-eshell)
 
 (defun cdf (filepath)
   "Change the current directory in Eshell to the directory of
@@ -1138,7 +1153,7 @@ year, and the first two words of the title."
 (add-hook 'org-mode-hook #'nice-org-mode-hook)
 ;; Org-mode:1 ends here
 
-;; [[file:nicemacs-v2.org::*Agenda and calendar][Agenda and calendar:1]]
+;; [[file:nicemacs-v2.org::*Agenda and calendar (org-mode)][Agenda and calendar (org-mode):1]]
 ;; Org-agenda
 ;; ----------
 ;;
@@ -1178,20 +1193,7 @@ year, and the first two words of the title."
 (advice-add 'org-agenda-goto-today
 	    :after #'nice-org-agenda-goto-today-advice-after)
 (evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
-
-;; Calendar view
-;;
-;; This provides a more classical view of the agenda as a calendar.
-;;
-(use-package calfw
-  :ensure t
-  :config
-  (use-package calfw-org))
-
-(evil-leader/set-key
-  "a a" 'org-agenda-list
-  "a c" 'cfw:open-org-calendar)
-;; Agenda and calendar:1 ends here
+;; Agenda and calendar (org-mode):1 ends here
 
 ;; [[file:nicemacs-v2.org::*Literate programming][Literate programming:1]]
 ;; Literate programming
