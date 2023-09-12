@@ -1503,6 +1503,7 @@ version of an S-expression on the kill ring.
   (advice-add 'org-agenda-goto-today
 	      :after #'nice-org-agenda-goto-today-advice-after)
   (evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
+  (evil-leader/set-key "a a" 'org-agenda-list)
 #+end_src
 
 *** Agenda and calendar (calfw) :EXCLUDED:

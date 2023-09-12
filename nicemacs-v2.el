@@ -1199,6 +1199,7 @@ year, and the first two words of the title."
 (advice-add 'org-agenda-goto-today
 	    :after #'nice-org-agenda-goto-today-advice-after)
 (evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
+(evil-leader/set-key "a a" 'org-agenda-list)
 ;; Agenda and calendar (org-mode):1 ends here
 
 ;; [[file:nicemacs-v2.org::*Literate programming][Literate programming:1]]
