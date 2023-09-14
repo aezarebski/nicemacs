@@ -390,7 +390,7 @@ already in its own frame."
 	("SPC F" . "Frame")
 	("SPC g" . "Git (magit)")
 	("SPC g c" . "Commits")
-	("SPC h" . "HELP!!!")
+	("SPC H" . "HELP!!!")
 	("SPC m" . "Major")
 	("SPC m v" . "EnVironment")
 	("SPC m d" . "devtools (ESS)")
@@ -446,10 +446,10 @@ files FA and FB using SPC f m KEY."
   "w b" 'balance-windows)
 
 (evil-leader/set-key
-  "<up>" 'evil-window-up
-  "<down>" 'evil-window-down
-  "<left>" 'evil-window-left
-  "<right>" 'evil-window-right)
+  "k" 'evil-window-up
+  "j" 'evil-window-down
+  "h" 'evil-window-left
+  "l" 'evil-window-right)
 
 (defun nice-balance-windows-alt ()
   "Balance windows such that the current window receives a certain
@@ -623,13 +623,13 @@ retreived from the prompt."
 ;; ------------------
 
 (evil-leader/set-key
-  "h s" 'apropos
-  "h d b" 'message-buffer-file-name
-  "h d f" 'describe-function
-  "h d m" 'describe-mode
-  "h d p" 'describe-package
-  "h d k" 'describe-key
-  "h d v" 'describe-variable)
+  "H s" 'apropos
+  "H d b" 'message-buffer-file-name
+  "H d f" 'describe-function
+  "H d m" 'describe-mode
+  "H d p" 'describe-package
+  "H d k" 'describe-key
+  "H d v" 'describe-variable)
 
 (defun message-buffer-file-name ()
   "Print the full path of the current buffer's file or directory to the
@@ -652,7 +652,7 @@ will take us."
       (kill-new link-file-name)
       (message "%s" link-file-name))))
 
-(evil-leader/set-key "h l m" 'message-link-at-point)
+(evil-leader/set-key "H l m" 'message-link-at-point)
 
 ;; Learn from your past
 ;; --------------------
