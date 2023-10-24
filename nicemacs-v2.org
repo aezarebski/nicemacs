@@ -1935,6 +1935,8 @@ Follow the instructions in the =INSTALL= file to build emacs.
 
 - =emacs-29.1= on the work laptop: =./configure --with-json --with-rsvg
   --with-native-compilation --with-imagemagick CFLAGS='-g3 -O3'=
+  + When building from source on a completely fresh system I needed a lot of
+    basic packages: =build-essential autoconf texinfo libgnutls28-dev libjansson-dev=
 - =emacs-29.0.60= on a new laptop:
   =./configure --with-native-compilation --with-tree-sitter --without-x --with-pgtk=
   because it uses Wayland.
