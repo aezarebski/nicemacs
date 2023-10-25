@@ -60,6 +60,10 @@
 ;; Changelog
 ;; ---------
 ;;
+;; - 2023-10
+;;   + Add a scrartcl class to `org-latex-classes' as nicer org-mode
+;;     PDF export option.
+;;
 ;; - 2023-09
 ;;   + Use `evil-window-X' functions as a simpler alternative to
 ;;     `winum'.
