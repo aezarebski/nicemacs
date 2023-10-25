@@ -1308,8 +1308,6 @@ version of an S-expression on the kill ring.
   ;; TODO Configure this so that there is a good way to search the key
   ;; bibtex files, perhaps with a SQL type search
 
-  ;; TODO Configure this so there is the command to convert ris to bib.
-
   ;; TODO Find a better way to search BIB files.
 
   (defun most-recent-file (files)
@@ -1421,6 +1419,21 @@ version of an S-expression on the kill ring.
     "m b b" 'nice-bibtex-braces
     "m b f" 'bibtex-reformat
     "m b k" 'nice-bibtex-guess-key)
+#+end_src
+
+In the following we use =with-eval-after-load= because otherwise the
+=org-latex-classes= variable may not have been instantiated.
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  (with-eval-after-load 'org
+    (add-to-list 'org-latex-classes
+		 '("scrartcl"
+		   "\\documentclass{scrartcl}"
+		   ("\\section{%s}" . "\\section*{%s}")
+		   ("\\subsection{%s}" . "\\subsection*{%s}")
+		   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+		   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+		   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 #+end_src
 
 ** Markdown

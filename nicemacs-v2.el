@@ -1018,8 +1018,6 @@ kill ring."
 ;; TODO Configure this so that there is a good way to search the key
 ;; bibtex files, perhaps with a SQL type search
 
-;; TODO Configure this so there is the command to convert ris to bib.
-
 ;; TODO Find a better way to search BIB files.
 
 (defun most-recent-file (files)
@@ -1132,6 +1130,18 @@ year, and the first two words of the title."
   "m b f" 'bibtex-reformat
   "m b k" 'nice-bibtex-guess-key)
 ;; LaTeX/BibTeX:1 ends here
+
+;; [[file:nicemacs-v2.org::*LaTeX/BibTeX][LaTeX/BibTeX:2]]
+(with-eval-after-load 'org
+  (add-to-list 'org-latex-classes
+	       '("scrartcl"
+		 "\\documentclass{scrartcl}"
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+;; LaTeX/BibTeX:2 ends here
 
 ;; [[file:nicemacs-v2.org::*Markdown][Markdown:1]]
 ;; Markdown-mode
