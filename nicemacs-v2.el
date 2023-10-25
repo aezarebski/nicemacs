@@ -1132,7 +1132,7 @@ year, and the first two words of the title."
 ;; LaTeX/BibTeX:1 ends here
 
 ;; [[file:nicemacs-v2.org::*LaTeX/BibTeX][LaTeX/BibTeX:2]]
-(with-eval-after-load 'org
+(with-eval-after-load 'ox-latex
   (add-to-list 'org-latex-classes
 	       '("scrartcl"
 		 "\\documentclass{scrartcl}"

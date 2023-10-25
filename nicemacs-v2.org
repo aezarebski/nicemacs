@@ -1425,7 +1425,7 @@ In the following we use =with-eval-after-load= because otherwise the
 =org-latex-classes= variable may not have been instantiated.
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
-  (with-eval-after-load 'org
+  (with-eval-after-load 'ox-latex
     (add-to-list 'org-latex-classes
 		 '("scrartcl"
 		   "\\documentclass{scrartcl}"
