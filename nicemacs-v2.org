@@ -493,7 +493,7 @@ Get information on partial keys to help you remember/discover functionality.
 
   (setq key-description-pairs
 	'(("SPC a" . "Agenda (org-mode)")
-	  ("SPC b" . "Buffers")
+	  ("SPC b" . "Buffers/Babel")
 	  ("SPC c" . "Cursors")
 	  ("SPC c" . "Delete")
 	  ("SPC f" . "Files/Dired")

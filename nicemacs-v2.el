@@ -387,7 +387,7 @@ already in its own frame."
 
 (setq key-description-pairs
       '(("SPC a" . "Agenda (org-mode)")
-	("SPC b" . "Buffers")
+	("SPC b" . "Buffers/Babel")
 	("SPC c" . "Cursors")
 	("SPC c" . "Delete")
 	("SPC f" . "Files/Dired")
