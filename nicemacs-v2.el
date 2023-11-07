@@ -1490,7 +1490,7 @@ year, and the first two words of the title."
 (NVNF r-notes "R notes" "r-notes.org" "r")
 (NVNF ubuntu-notes "Ubuntu/Linux notes" "linux-notes.org" "u")
 
-(NVD pypfilt "Pypfilt notes" "~/public-site/org/notes/pypfilt/fake.org" "1")
+(NVD emacs "Emacs" "~/.emacs.d/fake.org" "e")
 (NVD library "Library" "~/Documents/library/fake.org" "l")
 (NVD manuscripts "Manuscripts" "~/Documents/manuscripts/fake.org" "m")
 (NVD music "Music" "~/Music/fake.org" "M")
