@@ -1097,8 +1097,31 @@ instead of =u= in step 5 to stage the files in the region.
 	  #'magit-display-buffer-fullframe-status-v1)
     (setenv "SSH_AUTH_SOCK" "<ADD THE CORRECT PATH HERE>")
     (evil-leader/set-key
-      "g s" 'magit-status
+      "g s" 'nice/magit-status
       "g q" 'with-editor-cancel))
+#+end_src
+
+The following is meant to solve the problem where the window configuration is
+lost by =magit-status=. I haven't been able to get the bindings working within
+=magit-status= though, so you have to call =nice/magit-quit= manually. It does
+restore the configuration though which is nice.
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  (defvar nice/temp-window-configuration nil
+    "Temporary variable to hold the window configuration.")
+
+  (defun nice/magit-status ()
+    "Save the current window configuration and open Magit status."
+    (interactive)
+    (setq nice/temp-window-configuration (current-window-configuration))
+    (magit-status))
+
+  (defun nice/magit-quit ()
+    "Restore the window configuration from before opening Magit status."
+    (interactive)
+    (when nice/temp-window-configuration
+      (set-window-configuration nice/temp-window-configuration)
+      (setq nice/temp-window-configuration nil)))
 #+end_src
 
 In the =use-package= command above we set the =SSH_AUTH_SOCK= manually which
