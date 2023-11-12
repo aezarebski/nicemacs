@@ -1095,9 +1095,18 @@ instead of =u= in step 5 to stage the files in the region.
     :config
     (setq magit-display-buffer-function
 	  #'magit-display-buffer-fullframe-status-v1)
+    (setenv "SSH_AUTH_SOCK" "<ADD THE CORRECT PATH HERE>")
     (evil-leader/set-key
       "g s" 'magit-status
       "g q" 'with-editor-cancel))
+#+end_src
+
+In the =use-package= command above we set the =SSH_AUTH_SOCK= manually which
+fixes some weird issue where git was not able to authenticate correctly. This
+only happened on one machine and is probably machine specific so you'll need to
+be careful to get the right value here.
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
 
   (defmacro nice-canned-commit-message (fname cmessage key)
     "Define a canned commit message function with an Evil key binding.

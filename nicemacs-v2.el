@@ -863,10 +863,13 @@ backup dictionary."
   :config
   (setq magit-display-buffer-function
 	#'magit-display-buffer-fullframe-status-v1)
+  (setenv "SSH_AUTH_SOCK" "<ADD THE CORRECT PATH HERE>")
   (evil-leader/set-key
     "g s" 'magit-status
     "g q" 'with-editor-cancel))
+;; Configuration:1 ends here
 
+;; [[file:nicemacs-v2.org::*Configuration][Configuration:2]]
 (defmacro nice-canned-commit-message (fname cmessage key)
   "Define a canned commit message function with an Evil key binding.
 
@@ -900,7 +903,7 @@ backup dictionary."
 (nice-canned-commit-message review "update reading list" "r")
 (nice-canned-commit-message website "update website" "w")
 (nice-canned-commit-message yasnippet "yasnippet" "y")
-;; Configuration:1 ends here
+;; Configuration:2 ends here
 
 ;; [[file:nicemacs-v2.org::*Emacs lisp][Emacs lisp:1]]
 ;; Emacs Lisp
