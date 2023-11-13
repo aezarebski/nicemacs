@@ -60,6 +60,9 @@
 ;; Changelog
 ;; ---------
 ;;
+;; - 2023-11
+;;   + Configure size of latex previews in org-mode.
+;;
 ;; - 2023-10
 ;;   + Add a scrartcl class to `org-latex-classes' as nicer org-mode
 ;;     PDF export option.
@@ -867,7 +870,9 @@ backup dictionary."
   (evil-leader/set-key
     "g s" 'nice/magit-status
     "g q" 'with-editor-cancel))
+;; Configuration:1 ends here
 
+;; [[file:nicemacs-v2.org::*Configuration][Configuration:2]]
 (defvar nice/temp-window-configuration nil
   "Temporary variable to hold the window configuration.")
 
@@ -878,14 +883,14 @@ backup dictionary."
   (magit-status))
 
 (defun nice/magit-quit ()
-  "Restore the window configuration from before openning Magit status."
+  "Restore the window configuration from before opening Magit status."
   (interactive)
   (when nice/temp-window-configuration
     (set-window-configuration nice/temp-window-configuration)
     (setq nice/temp-window-configuration nil)))
-;; Configuration:1 ends here
+;; Configuration:2 ends here
 
-;; [[file:nicemacs-v2.org::*Configuration][Configuration:2]]
+;; [[file:nicemacs-v2.org::*Configuration][Configuration:3]]
 (defmacro nice-canned-commit-message (fname cmessage key)
   "Define a canned commit message function with an Evil key binding.
 
@@ -919,7 +924,7 @@ backup dictionary."
 (nice-canned-commit-message review "update reading list" "r")
 (nice-canned-commit-message website "update website" "w")
 (nice-canned-commit-message yasnippet "yasnippet" "y")
-;; Configuration:2 ends here
+;; Configuration:3 ends here
 
 ;; [[file:nicemacs-v2.org::*Emacs lisp][Emacs lisp:1]]
 ;; Emacs Lisp
@@ -1191,6 +1196,10 @@ year, and the first two words of the title."
 
 (add-hook 'org-mode-hook #'nice-org-mode-hook)
 ;; Org-mode:1 ends here
+
+;; [[file:nicemacs-v2.org::*LaTeX preview][LaTeX preview:1]]
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+;; LaTeX preview:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Agenda and calendar (org-mode)][Agenda and calendar (org-mode):1]]
 ;; Org-agenda

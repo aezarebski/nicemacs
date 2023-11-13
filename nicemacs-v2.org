@@ -79,6 +79,9 @@
   ;; Changelog
   ;; ---------
   ;;
+  ;; - 2023-11
+  ;;   + Configure size of latex previews in org-mode.
+  ;;
   ;; - 2023-10
   ;;   + Add a scrartcl class to `org-latex-classes' as nicer org-mode
   ;;     PDF export option.
@@ -1503,6 +1506,15 @@ In the following we use =with-eval-after-load= because otherwise the
     (local-set-key (kbd "<tab>") #'org-cycle))
 
   (add-hook 'org-mode-hook #'nice-org-mode-hook)
+#+end_src
+
+*** LaTeX preview
+
+The following adjusts the size of the latex preview in org-mode. See the binding
+for =org-latex-preview= below.
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 #+end_src
 
 *** Agenda and calendar (org-mode)
