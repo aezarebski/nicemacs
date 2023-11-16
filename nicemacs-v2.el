@@ -61,6 +61,7 @@
 ;; ---------
 ;;
 ;; - 2023-11
+;;   + Refactor window selection.
 ;;   + Configure size of latex previews in org-mode.
 ;;
 ;; - 2023-10
@@ -320,23 +321,6 @@ active, and turns it off if it is."
 ;; Theme: Leuven:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Other][Other:1]]
-(defun next-window-and-pulse ()
-  "Switch to another window and pulse the current window."
-  (interactive)
-  (other-window 1)
-  (let ((orig-color (face-background 'mode-line)))
-    (set-face-background 'mode-line "red")
-    (sit-for 0.1)
-    (set-face-background 'mode-line orig-color)))
-
-(defun previous-window-and-pulse ()
-  "Switch to another window and pulse the current window."
-  (interactive)
-  (other-window -1)
-  (let ((orig-color (face-background 'mode-line)))
-    (set-face-background 'mode-line "red")
-    (sit-for 0.1)
-    (set-face-background 'mode-line orig-color)))
 
 ;; Rainbow-mode will highlight strings indicating colours,
 ;; e.g. hexcodes in their corresponding colour.
@@ -448,15 +432,34 @@ files FA and FB using SPC f m KEY."
 ;; Diff-ing files:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Evil window management][Evil window management:1]]
-(evil-leader/set-key
-  "w a" 'nice-balance-windows-alt
-  "w b" 'balance-windows)
+(defmacro define-nice-window-move (name move-func)
+  `(defun ,name ()
+     (interactive)
+     (,move-func 1)
+     (let ((ov (make-overlay (point-min) (point-max))))
+       (overlay-put ov 'window (selected-window))
+       (overlay-put ov 'face '(:background "magenta"))
+       (sit-for 0.1)
+       (delete-overlay ov))))
+
+(define-nice-window-move nice-window-up evil-window-up)
+(define-nice-window-move nice-window-down evil-window-down)
+(define-nice-window-move nice-window-left evil-window-left)
+(define-nice-window-move nice-window-right evil-window-right)
 
 (evil-leader/set-key
-  "k" 'evil-window-up
-  "j" 'evil-window-down
-  "h" 'evil-window-left
-  "l" 'evil-window-right)
+  "k" 'nice-window-up
+  "j" 'nice-window-down
+  "h" 'nice-window-left
+  "l" 'nice-window-right
+  "w a" 'nice-balance-windows-alt
+  "w b" 'balance-windows
+  "w s" 'split-window-below
+  "w v" 'split-window-right
+  "w L" 'evil-window-move-far-right
+  "w H" 'evil-window-move-far-left
+  "w J" 'evil-window-move-very-bottom
+  "w K" 'evil-window-move-very-top)
 
 (defun nice-balance-windows-alt ()
   "Balance windows such that the current window receives a certain
@@ -613,16 +616,6 @@ retreived from the prompt."
 (nice-scratch-buffer text-mode "b s t")
 (nice-scratch-buffer org-mode "b s o")
 (nice-scratch-buffer emacs-lisp-mode "b s e")
-
-(evil-leader/set-key
-  "w s" 'split-window-below
-  "w v" 'split-window-right
-  "TAB" 'next-window-and-pulse
-  "<backtab>" 'previous-window-and-pulse
-  "w L" 'evil-window-move-far-right
-  "w H" 'evil-window-move-far-left
-  "w J" 'evil-window-move-very-bottom
-  "w K" 'evil-window-move-very-top)
 ;; Buffers, files, and dired:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 2][STUFF 2:1]]
