@@ -1280,11 +1280,16 @@ year, and the first two words of the title."
 (defun nice-publish-homepage ()
   "Copy my website homepage if it exists."
   (interactive)
-  (let ((local "~/public-site/org/scratch.html")
-	(remote "~/aezarebski.github.io/index.html"))
-    (when (file-exists-p local)
-      (copy-file local remote t)
-      (message "Copied %s to %s" local remote))))
+  (let ((local-notes "~/public-site/org/scratch.html")
+	(remote-notes "~/aezarebski.github.io/notes.html")
+	(local-landing "~/public-site/org/index-academic.html")
+	(remote-landing "~/aezarebski.github.io/index.html"))
+    (when (file-exists-p local-notes)
+      (copy-file local-notes remote-notes t)
+      (message "Copied %s to %s" local-notes remote-notes))
+    (when (file-exists-p local-landing)
+      (copy-file local-landing remote-landing t)
+      (message "Copied %s to %s" local-landing remote-landing))))
 
 ;; The following projects are available for publishing when the
 ;; `org-publish' command is given.
