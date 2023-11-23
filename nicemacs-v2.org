@@ -515,6 +515,13 @@ Meld provides a convenient GUI based method for assessing the differences
 between files.
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  ;; Diffing files with meld
+  ;; -----------------------
+  ;;
+  ;; + f m a - will diff the aspell dictionary
+  ;; + f m i - will diff the emacs init
+  ;; + f m m - will prompt for two files to diff
+  ;;
   (defmacro nice-meld-files (name fa fb key)
     "Generate function named nice-meld-NAME which opens meld diff for
   files FA and FB using SPC f m KEY."

@@ -404,6 +404,13 @@ already in its own frame."
 ;; Which-key:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Diff-ing files][Diff-ing files:1]]
+;; Diffing files with meld
+;; -----------------------
+;;
+;; + f m a - will diff the aspell dictionary
+;; + f m i - will diff the emacs init
+;; + f m m - will prompt for two files to diff
+;;
 (defmacro nice-meld-files (name fa fb key)
   "Generate function named nice-meld-NAME which opens meld diff for
 files FA and FB using SPC f m KEY."
