@@ -1,4 +1,4 @@
-personal_ws-1.1 en 179 
+personal_ws-1.1 en 197 
 AIC
 BDSIR
 BDSky
@@ -13,6 +13,7 @@ Combinatorics
 Coronavirus
 CrI
 CrIs
+DAGs
 DSL
 Elsevier
 FASTA
@@ -34,7 +35,9 @@ LLHD
 MCMC
 Multiscale
 Newick
+Neyman
 Nonparametric
+ODEs
 PDE
 PDEs
 PGF
@@ -46,6 +49,8 @@ Petri
 README
 REPL
 RGB
+RNN
+RNNs
 SDE
 SVG
 Scalable
@@ -60,11 +65,13 @@ Wikidata
 Wikimedia
 XSLT
 Zarebski
+acyclic
 antifungal
 antiretroviral
 arborio
 autocorrelated
 automata
+bijective
 bioinformatic
 bioinformaticians
 bioinformatics
@@ -106,6 +113,7 @@ genomic
 genotype
 genotyping
 heterochronous
+hyperparameter
 hyperparameters
 identifiability
 impactful
@@ -133,11 +141,14 @@ multiscale
 nonparametric
 nullclines
 onwards
+optimization
+optimizer
 paneer
 parameterization
 parameterizations
 parameterize
 parameterized
+perceptron
 phenotypes
 phenotypic
 phylodynamic
@@ -153,11 +164,13 @@ polymorphism
 polytomies
 polytomous
 polytomy
+preprint
 preprocessing
 priori
 prioritize
 probabilist
 probit
+programme
 quantile
 quantiles
 reproducibility
@@ -179,6 +192,7 @@ tuple
 ultrametric
 univariate
 untick
-vectorised
+vectorization
 vectorize
+vectorized
 virions
