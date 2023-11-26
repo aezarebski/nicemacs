@@ -63,6 +63,7 @@
 ;; - 2023-11
 ;;   + Refactor window selection.
 ;;   + Configure size of latex previews in org-mode.
+;;   + Clean up snippet configuration.
 ;;
 ;; - 2023-10
 ;;   + Add a scrartcl class to `org-latex-classes' as nicer org-mode
@@ -145,6 +146,8 @@
   "The path to the nicemacs resources directory on this machine.")
 (defvar nice-nicemacs-directory "~/Documents/nicemacs"
   "The path to the nicemacs directory on this machine.")
+(defvar nice-snippet-directory "~/.emacs.d/snippets"
+  "The path to the whipper snipper directory on this machine.")
 
 (use-package cl-lib
   :ensure t)
@@ -797,9 +800,9 @@ backup dictionary."
   (yas-global-mode 1))
 
 (defun nice-load-snippets ()
-  "Load the snippets in ~/.emacs.d/snippets."
+  "Load the snippets in my snippet directory"
   (interactive)
-  (let ((snippets-dir "~/.emacs.d/snippets"))
+  (let ((snippets-dir nice-snippet-directory))
     (unless (file-exists-p snippets-dir)
       (make-directory snippets-dir))
     (yas-load-directory snippets-dir)))
@@ -818,7 +821,7 @@ backup dictionary."
 (defun nice-go-to-snippets-dir ()
   "Open the snippets directory in dired."
   (interactive)
-  (dired "~/.emacs.d/snippets"))
+  (dired nice-snippet-directory))
 ;; Yasnippet:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 3][STUFF 3:1]]

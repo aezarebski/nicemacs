@@ -82,6 +82,7 @@
   ;; - 2023-11
   ;;   + Refactor window selection.
   ;;   + Configure size of latex previews in org-mode.
+  ;;   + Clean up snippet configuration.
   ;;
   ;; - 2023-10
   ;;   + Add a scrartcl class to `org-latex-classes' as nicer org-mode
@@ -166,6 +167,8 @@
     "The path to the nicemacs resources directory on this machine.")
   (defvar nice-nicemacs-directory "~/Documents/nicemacs"
     "The path to the nicemacs directory on this machine.")
+  (defvar nice-snippet-directory "~/.emacs.d/snippets"
+    "The path to the whipper snipper directory on this machine.")
 
   (use-package cl-lib
     :ensure t)
@@ -992,7 +995,9 @@ Ibuffer include
 
 ** Yasnippet
 
-I have a collection of yasnippets [[https://github.com/aezarebski/whipper-snipper][here]].
+I have a collection of yasnippets [[https://github.com/aezarebski/whipper-snipper][here]]. To use these snippets clone that
+repository into your =.emacs.d/= under the name =snippets= and use
+=yas-reload-all= (possibly after =yas-recompile-all= although this can be slow).
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Yasnippet
@@ -1006,9 +1011,9 @@ I have a collection of yasnippets [[https://github.com/aezarebski/whipper-snippe
     (yas-global-mode 1))
 
   (defun nice-load-snippets ()
-    "Load the snippets in ~/.emacs.d/snippets."
+    "Load the snippets in my snippet directory"
     (interactive)
-    (let ((snippets-dir "~/.emacs.d/snippets"))
+    (let ((snippets-dir nice-snippet-directory))
       (unless (file-exists-p snippets-dir)
 	(make-directory snippets-dir))
       (yas-load-directory snippets-dir)))
@@ -1027,7 +1032,7 @@ I have a collection of yasnippets [[https://github.com/aezarebski/whipper-snippe
   (defun nice-go-to-snippets-dir ()
     "Open the snippets directory in dired."
     (interactive)
-    (dired "~/.emacs.d/snippets"))
+    (dired nice-snippet-directory))
 #+end_src
 
 ** STUFF 3
