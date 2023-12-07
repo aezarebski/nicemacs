@@ -1309,6 +1309,16 @@ year, and the first two words of the title."
 	 :base-extension "org"
 	 :publishing-directory "~/aezarebski.github.io/notes/"
 	 :publishing-function org-html-publish-to-html)
+	("website-teaching-org-files"
+	 :base-directory "~/public-site/org/teaching/"
+	 :base-extension "org"
+	 :publishing-directory "~/aezarebski.github.io/teaching/"
+	 :publishing-function org-html-publish-to-html)
+	("website-teaching-static"
+	 :base-directory "~/public-site/org/teaching/"
+	 :base-extension "css"
+	 :publishing-directory "~/aezarebski.github.io/teaching/"
+	 :publishing-function org-publish-attachment)
 	("website-lists-org-files"
 	 :base-directory "~/public-site/org/lists/"
 	 :base-extension "org"
@@ -1430,6 +1440,9 @@ year, and the first two words of the title."
 	("recipes"
 	 :components ("website-misc-recipes"
 		      "website-misc-recipes-static"))
+	("teaching"
+	 :components ("website-teaching-org-files"
+		      "website-teaching-static"))
 	("website"
 	 :components ("website-notes-org-files"
 		      "website-images-static"
