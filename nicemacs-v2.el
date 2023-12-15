@@ -60,6 +60,10 @@
 ;; Changelog
 ;; ---------
 ;;
+;; - 2023-12
+;;   + Include emoji keybinding amount yasnippet bindings since they
+;;     play a similar role.
+;;
 ;; - 2023-11
 ;;   + Refactor window selection.
 ;;   + Configure size of latex previews in org-mode.
@@ -793,6 +797,7 @@ backup dictionary."
 ;; ---------
 ;;
 ;; See https://github.com/aezarebski/whipper-snipper
+;;
 
 (use-package yasnippet
   :ensure t
@@ -816,7 +821,8 @@ backup dictionary."
   "y r" 'yas-reload-all         ; Reload all snippets
   "y c" 'yas-compile-directory  ; Compile all snippets
   "y l" 'nice-load-snippets     ; Load your custom snippets
-  "y g" 'nice-go-to-snippets-dir)
+  "y g" 'nice-go-to-snippets-dir
+  "y e" 'emoji-list)
 
 (defun nice-go-to-snippets-dir ()
   "Open the snippets directory in dired."
@@ -1316,8 +1322,9 @@ year, and the first two words of the title."
 	 :publishing-function org-html-publish-to-html)
 	("website-teaching-static"
 	 :base-directory "~/public-site/org/teaching/"
-	 :base-extension "css"
+	 :base-extension "css\\|pdf"
 	 :publishing-directory "~/aezarebski.github.io/teaching/"
+	 :recursive t
 	 :publishing-function org-publish-attachment)
 	("website-lists-org-files"
 	 :base-directory "~/public-site/org/lists/"
