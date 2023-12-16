@@ -61,6 +61,7 @@
 ;; ---------
 ;;
 ;; - 2023-12
+;;   + Abbreviate the eshell prompt in a nice way.
 ;;   + Include emoji keybinding amount yasnippet bindings since they
 ;;     play a similar role.
 ;;
@@ -504,6 +505,24 @@ amount of the of the frame's width and height."
     (if eshell-buffer
         (switch-to-buffer eshell-buffer)
       (eshell))))
+
+(defun nice-eshell-prompt ()
+  (let* ((directory (abbreviate-file-name (eshell/pwd)))
+         (parent (file-name-directory directory))
+         (name (file-name-nondirectory directory))
+         (base-prompt (concat (if parent
+                                  (concat "... " (file-name-nondirectory (directory-file-name parent)) "/")
+                                "")
+                              name
+                              " $ "))
+         (trimmed-prompt (if (> (length base-prompt) 50)
+                             (concat "[...] " (substring base-prompt (- (length base-prompt) 44)))
+                           base-prompt)))
+    (if (string-match-p "~" trimmed-prompt)
+        (replace-regexp-in-string "^\\.\\.\\. " "" trimmed-prompt)
+      trimmed-prompt)))
+
+(setq eshell-prompt-function 'nice-eshell-prompt)
 
 (setq eshell-cmpl-ignore-case t)
 (evil-leader/set-key
