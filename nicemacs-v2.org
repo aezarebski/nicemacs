@@ -935,63 +935,6 @@ Ibuffer include
 	read-file-name-completion-ignore-case t
 	completion-ignore-case t)
 
-  ;; Write well
-  ;; ----------
-
-  ;; TODO Configure the =dictionary= command so that it works off of a
-  ;; local copy of Webster's
-
-  (setq sentence-end-double-space nil)
-
-  (use-package flyspell
-    :config
-    (setq ispell-program-name "aspell")
-    (setq ispell-personal-dictionary "~/.aspell.en.pws")
-    (set-face-attribute 'flyspell-duplicate nil
-			:underline nil
-			:foreground "white"
-			:background "red")
-    (set-face-attribute 'flyspell-incorrect nil
-			:underline nil
-			:foreground "white"
-			:background "red"))
-
-  (use-package lorem-ipsum)
-
-  (defun nice-diff-dictionaries ()
-    "Run ediff on the current ispell-personal-dictionary and the
-  backup dictionary."
-    (interactive)
-    (let ((backup-dictionary
-	   (concat nice-resources-dir "/aspell.en.pws")))
-      (ediff-files ispell-personal-dictionary backup-dictionary)))
-
-  (evil-leader/set-key
-    "t S" 'flyspell-mode ; toggle flyspell on/off.
-    "S b" 'flyspell-buffer
-    "S n" 'flyspell-goto-next-error
-    "S r" 'flyspell-region
-    "S c" 'flyspell-correct-word-before-point
-    "S d" 'nice-diff-dictionaries)
-
-  (use-package writegood-mode)
-
-  (setq words-to-add
-	'("many" "various" "very" "quite" "somewhat" "several"
-	  "extremely" "exceedingly" "fairly" "rather" "remarkably" "few"
-	  "surprisingly" "mostly" "largely" "almost" "nearly" "in which"
-	  "generally" "virtually" "essentially" "often" "substantially"
-	  "significantly" "considerably" "typically" "widely" "really"
-	  "actually" "basically" "certainly" "possibly" "probably"
-	  "arguably" "likely" "apparently" "clearly" "naturally"
-	  "obviously" "seemingly" "surely" "somewhat" "allegedly"
-	  "supposedly" "purportedly" "perhaps" "maybe" "kind of"
-	  "sort of" "potentially" "ultimately" "respectively"))
-  (cl-loop for word in words-to-add
-	   unless (member word writegood-weasel-words)
-	   do (add-to-list 'writegood-weasel-words word))
-
-  (evil-leader/set-key "t w" 'writegood-mode)
 
   ;; Be powerful with packages
   ;; =========================
@@ -1521,7 +1464,7 @@ In the following we use =with-eval-after-load= because otherwise the
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Org-Mode
-  ;; --------
+  ;; ========
 
   ;; NOTE It would be nice to have an additional command and key for
   ;; moving from level n+1 headers their parent level n header.
@@ -1535,6 +1478,68 @@ In the following we use =with-eval-after-load= because otherwise the
     (local-set-key (kbd "<tab>") #'org-cycle))
 
   (add-hook 'org-mode-hook #'nice-org-mode-hook)
+#+end_src
+
+*** Writing natural language
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  ;; Write well
+  ;; ----------
+
+  ;; TODO Configure the =dictionary= command so that it works off of a
+  ;; local copy of Webster's
+
+  (setq sentence-end-double-space nil)
+
+  (use-package flyspell
+    :config
+    (setq ispell-program-name "aspell")
+    (setq ispell-personal-dictionary "~/.aspell.en.pws")
+    (set-face-attribute 'flyspell-duplicate nil
+			:underline nil
+			:foreground "white"
+			:background "red")
+    (set-face-attribute 'flyspell-incorrect nil
+			:underline nil
+			:foreground "white"
+			:background "red"))
+
+  (use-package lorem-ipsum)
+
+  (defun nice-diff-dictionaries ()
+    "Run ediff on the current ispell-personal-dictionary and the
+  backup dictionary."
+    (interactive)
+    (let ((backup-dictionary
+	   (concat nice-resources-dir "/aspell.en.pws")))
+      (ediff-files ispell-personal-dictionary backup-dictionary)))
+
+  (evil-leader/set-key
+    "t S" 'flyspell-mode ; toggle flyspell on/off.
+    "S b" 'flyspell-buffer
+    "S n" 'flyspell-goto-next-error
+    "S r" 'flyspell-region
+    "S c" 'flyspell-correct-word-before-point
+    "S d" 'nice-diff-dictionaries)
+
+  (use-package writegood-mode)
+
+  (setq words-to-add
+	'("many" "various" "very" "quite" "somewhat" "several"
+	  "extremely" "exceedingly" "fairly" "rather" "remarkably" "few"
+	  "surprisingly" "mostly" "largely" "almost" "nearly" "in which"
+	  "generally" "virtually" "essentially" "often" "substantially"
+	  "significantly" "considerably" "typically" "widely" "really"
+	  "actually" "basically" "certainly" "possibly" "probably"
+	  "arguably" "likely" "apparently" "clearly" "naturally"
+	  "obviously" "seemingly" "surely" "somewhat" "allegedly"
+	  "supposedly" "purportedly" "perhaps" "maybe" "kind of"
+	  "sort of" "potentially" "ultimately" "respectively"))
+  (cl-loop for word in words-to-add
+	   unless (member word writegood-weasel-words)
+	   do (add-to-list 'writegood-weasel-words word))
+
+  (evil-leader/set-key "t w" 'writegood-mode)
 #+end_src
 
 *** LaTeX preview
