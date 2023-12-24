@@ -1540,6 +1540,48 @@ In the following we use =with-eval-after-load= because otherwise the
 	   do (add-to-list 'writegood-weasel-words word))
 
   (evil-leader/set-key "t w" 'writegood-mode)
+
+  ;; Formatting text
+  ;; ---------------
+  ;;
+  ;; Some useful functions for writing in natural language.
+  ;;
+  ;; - nice-org-wrapped-lines
+  ;; - nice-org-single-long-line
+  ;; - nice-org-each-sentence-new-line
+  ;;
+
+  (defun nice-org-wrapped-lines ()
+    "Formats the current paragraph to have wrapped lines at 70"
+    (interactive)
+    (setq fill-column 70)
+    (fill-paragraph)
+    (message "Wrapped lines at 70 characters."))
+
+  (defun nice-org-single-long-line ()
+    "Formats the current paragraph into a single long line."
+    (interactive)
+    (save-excursion
+      (let ((start (progn (backward-paragraph 1) (point)))
+	    (end (progn (forward-paragraph 1) (point))))
+	(goto-char start)
+	(while (re-search-forward "[ \t]*\n[ \t]*" end t)
+	  (replace-match " "))))
+    (message "Single long line."))
+
+  (defun nice-org-each-sentence-new-line ()
+    "Puts each sentence of the current paragraph on a new line."
+    (interactive)
+    (save-excursion
+      (let ((end (save-excursion (forward-paragraph) (point)))
+	    (beg (save-excursion (backward-paragraph) (point))))
+	(goto-char beg)
+	(while (< (point) end)
+	  (forward-sentence)
+	  ;; Insert newline at the end of a sentence, unless it's the last one.
+	  (unless (or (= (point) end) (eobp))
+	    (insert "\n")))))
+    (message "Each sentence on a new line."))
 #+end_src
 
 *** LaTeX preview
