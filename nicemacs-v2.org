@@ -1797,6 +1797,11 @@ for =org-latex-preview= below.
 	   :base-extension "png\\|jpg\\|pdf"
 	   :publishing-directory "~/aezarebski.github.io/misc/matplotlib/"
 	   :publishing-function org-publish-attachment)
+	  ("website-misc-ml-org-files"
+	   :base-directory "~/public-site/org/misc/ml/"
+	   :base-extension "org"
+	   :publishing-directory "~/aezarebski.github.io/misc/ml/"
+	   :publishing-function org-html-publish-to-html)
 	  ("website-misc-plotnine-org-files"
 	   :base-directory "~/public-site/org/misc/plotnine/"
 	   :base-extension "org"
@@ -1842,6 +1847,8 @@ for =org-latex-preview= below.
 			"website-misc-matplotlib-static"
 			"website-misc-plotnine-org-files"
 			"website-misc-plotnine-static"))
+	  ("ml"
+	   :components ("website-misc-ml-org-files"))
 	  ("R"
 	   :components ("website-misc-basegraphicsR-org-files"
 			"website-misc-basegraphicsR-static"
@@ -1865,6 +1872,7 @@ for =org-latex-preview= below.
 	   :components ("website-notes-org-files"
 			"website-images-static"
 			"website-lists-org-files"
+			"ml"
 			"nicemacs-org-files"
 			"recipes"
 			"review"
