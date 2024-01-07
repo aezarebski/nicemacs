@@ -1341,7 +1341,7 @@ backup dictionary."
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((R . t)
-   (python . t))
+   (python . t)))
 
 (evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
 
