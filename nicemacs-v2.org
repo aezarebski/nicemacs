@@ -79,6 +79,9 @@
   ;; Changelog
   ;; ---------
   ;;
+  ;; - 2024-01
+  ;;   + Add `python' to the list of languages used by Babel.
+  ;;
   ;; - 2023-12
   ;;   + Abbreviate the eshell prompt in a nice way.
   ;;   + Include emoji keybinding amount yasnippet bindings since they
@@ -1681,7 +1684,8 @@ for =org-latex-preview= below.
 
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((R . t)))
+   '((R . t)
+     (python . t)))
 
   (evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
 
