@@ -1456,6 +1456,11 @@ backup dictionary."
 	 :base-extension "org"
 	 :publishing-directory "~/aezarebski.github.io/misc/ml/"
 	 :publishing-function org-html-publish-to-html)
+	("website-misc-ml-static"
+	 :base-directory "~/public-site/org/misc/ml/"
+	 :base-extension "png"
+	 :publishing-directory "~/aezarebski.github.io/misc/ml/"
+	 :publishing-function org-publish-attachment)
 	("website-misc-plotnine-org-files"
 	 :base-directory "~/public-site/org/misc/plotnine/"
 	 :base-extension "org"
@@ -1502,7 +1507,8 @@ backup dictionary."
 		      "website-misc-plotnine-org-files"
 		      "website-misc-plotnine-static"))
 	("ml"
-	 :components ("website-misc-ml-org-files"))
+	 :components ("website-misc-ml-org-files"
+		      "website-misc-ml-static"))
 	("R"
 	 :components ("website-misc-basegraphicsR-org-files"
 		      "website-misc-basegraphicsR-static"
