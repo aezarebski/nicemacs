@@ -150,6 +150,8 @@
   "The directory for nicemacs journal files.")
 (defvar nice-notes-directory "~/public-site/org/notes"
   "The directory for nicemacs notes files.")
+(defvar nice-website-directory "~/aezarebski.github.io/"
+  "The directory for my website.")
 (defvar nice-resources-dir "~/Documents/nicemacs/resources"
   "The path to the nicemacs resources directory on this machine.")
 (defvar nice-nicemacs-directory "~/Documents/nicemacs"
@@ -1366,15 +1368,20 @@ backup dictionary."
   "Copy my website homepage if it exists."
   (interactive)
   (let ((local-notes "~/public-site/org/scratch.html")
-	(remote-notes "~/aezarebski.github.io/notes.html")
+	(remote-notes (concat nice-website-directory "notes.html"))
 	(local-landing "~/public-site/org/index-academic.html")
-	(remote-landing "~/aezarebski.github.io/index.html"))
+	(remote-landing (concat nice-website-directory "index.html"))
+	(local-css "~/public-site/org/microgram.css")
+	(remote-css (concat nice-website-directory "microgram.css")))
     (when (file-exists-p local-notes)
       (copy-file local-notes remote-notes t)
       (message "Copied %s to %s" local-notes remote-notes))
-    (when (file-exists-p local-landing)
-      (copy-file local-landing remote-landing t)
-      (message "Copied %s to %s" local-landing remote-landing))))
+    (when (file-exists-p local-notes)
+      (copy-file local-notes remote-notes t)
+      (message "Copied %s to %s" local-notes remote-notes))
+    (when (file-exists-p local-css)
+      (copy-file local-css remote-css t)
+      (message "Copied %s to %s" local-css remote-css))))
 
 ;; The following projects are available for publishing when the
 ;; `org-publish' command is given.
