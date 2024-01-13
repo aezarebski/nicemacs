@@ -1347,6 +1347,7 @@ backup dictionary."
    (python . t)))
 
 (evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
+(evil-leader/set-key-for-mode 'org-mode "b e" 'org-babel-execute-src-block)
 
 (defun nice-detangle-nicemacs-v2 ()
   "Detangle the nicemacs-v2.el file."
@@ -1474,6 +1475,11 @@ backup dictionary."
 	 :base-extension "png"
 	 :publishing-directory "~/aezarebski.github.io/misc/ml/"
 	 :publishing-function org-publish-attachment)
+	("website-misc-ml-diagrams-static"
+	 :base-directory "~/public-site/org/misc/ml/diagrams/"
+	 :base-extension "png"
+	 :publishing-directory "~/aezarebski.github.io/misc/ml/diagrams/"
+	 :publishing-function org-publish-attachment)
 	("website-misc-plotnine-org-files"
 	 :base-directory "~/public-site/org/misc/plotnine/"
 	 :base-extension "org"
@@ -1521,7 +1527,8 @@ backup dictionary."
 		      "website-misc-plotnine-static"))
 	("ml"
 	 :components ("website-misc-ml-org-files"
-		      "website-misc-ml-static"))
+		      "website-misc-ml-static"
+		      "website-misc-ml-diagrams-static"))
 	("R"
 	 :components ("website-misc-basegraphicsR-org-files"
 		      "website-misc-basegraphicsR-static"
