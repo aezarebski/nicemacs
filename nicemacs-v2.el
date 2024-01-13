@@ -61,6 +61,7 @@
 ;; ---------
 ;;
 ;; - 2024-01
+;;   + Update publishing functionality.
 ;;   + Add `python' to the list of languages used by Babel.
 ;;
 ;; - 2023-12
@@ -1368,7 +1369,6 @@ backup dictionary."
   "Copy my website homepage if it exists."
   (interactive)
   (let* ((notes-root "~/public-site/org/")
-	 ;; (local-notes (concat notes-root "scratch.html"))
 	 (local-notes (concat notes-root "index-notes.html"))
 	 (remote-notes (concat nice-website-directory "notes.html"))
 	 (local-landing (concat notes-root "index-academic.html"))
@@ -1378,9 +1378,9 @@ backup dictionary."
     (when (file-exists-p local-notes)
       (copy-file local-notes remote-notes t)
       (message "Copied %s to %s" local-notes remote-notes))
-    (when (file-exists-p local-notes)
-      (copy-file local-notes remote-notes t)
-      (message "Copied %s to %s" local-notes remote-notes))
+    (when (file-exists-p local-landing)
+      (copy-file local-landing remote-landing t)
+      (message "Copied %s to %s" local-landing remote-landing))
     (when (file-exists-p local-css)
       (copy-file local-css remote-css t)
       (message "Copied %s to %s" local-css remote-css))))
