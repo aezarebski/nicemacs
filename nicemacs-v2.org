@@ -80,6 +80,7 @@
   ;; ---------
   ;;
   ;; - 2024-01
+  ;;   + Introduce a new org-mode todo state: SEMINAR
   ;;   + Update publishing functionality.
   ;;   + Add `python' to the list of languages used by Babel.
   ;;
@@ -1631,11 +1632,13 @@ for =org-latex-preview= below.
   (setq org-todo-keywords
 	'((sequence "TODO" "DONE")
 	  (sequence "MEETING" "|" "DONE")
+	  (sequence "SEMINAR" "|" "DONE")
 	  (sequence "DEADLINE" "|" "DONE")
 	  (sequence "SOCIAL" "|" "DONE")))
 
   (setq org-todo-keyword-faces
 	`(("MEETING" . ,(boxed-face "magenta"))
+	  ("SEMINAR" . ,(boxed-face "magenta"))
 	  ("DEADLINE" . ,(boxed-face "red" "white"))
 	  ("SOCIAL" . ,(boxed-face "blue" "#E6ECFF"))))
 
