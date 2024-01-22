@@ -55,6 +55,7 @@ RNNs
 SDE
 SVG
 Scalable
+Sigmoid
 Speciation
 Stadler
 Stadler's
@@ -88,9 +89,12 @@ cobwebbing
 combinatorial
 combinatorics
 combinators
+conformalize
+conformalized
 confounder
 connectedness
 convolutional
+covariate
 covariates
 customisable
 dataset
@@ -115,6 +119,7 @@ genomic
 genotype
 genotyping
 heterochronous
+heteroscedasticity
 hyperparameter
 hyperparameters
 identifiability
@@ -138,6 +143,7 @@ monadic
 monads
 monkeypox
 monophyletic
+multimodal
 multinomial
 multiscale
 nonparametric
@@ -145,6 +151,7 @@ nullclines
 onwards
 optimization
 optimizer
+orthonormal
 overfitting
 paneer
 parameterization
@@ -181,12 +188,14 @@ rescaling
 scalability
 serotype
 shish
+sigmoid
 speciation
 stochasticity
 stoichiometric
 subcritical
 superspreading
 surveil
+tanh
 telomere
 topologies
 transmissibility
