@@ -61,6 +61,8 @@
 ;; ---------
 ;;
 ;; - 2024-01
+;;   + Add `yaml-mode'.
+;;   + Add `snakemake-mode' for Snakemake in Python.
 ;;   + Introduce a new org-mode todo state: SEMINAR
 ;;   + Update publishing functionality.
 ;;   + Add `python' to the list of languages used by Babel.
@@ -1002,6 +1004,12 @@ kill ring."
   :config
   (setq python-shell-interpreter "python3")
   (setq python-indent-offset 4))
+
+(use-package snakemake-mode
+  :ensure t)
+
+(use-package yaml-mode
+  :ensure t)
 
 (use-package indent-guide
   :ensure t
