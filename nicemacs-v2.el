@@ -1484,6 +1484,7 @@ backup dictionary."
 	("website-misc-ml-static"
 	 :base-directory "~/public-site/org/misc/ml/"
 	 :base-extension "png"
+	 :recursive t
 	 :publishing-directory "~/aezarebski.github.io/misc/ml/"
 	 :publishing-function org-publish-attachment)
 	("website-misc-ml-diagrams-static"
