@@ -60,6 +60,9 @@
 ;; Changelog
 ;; ---------
 ;;
+;; - 2024-02
+;;   + Tweak `revert-without-query' to make it easier to use PNG files
+;;
 ;; - 2024-01
 ;;   + Add `yaml-mode'.
 ;;   + Add `snakemake-mode' for Snakemake in Python.
