@@ -577,6 +577,10 @@ amount of the of the frame's width and height."
   (evil-leader/set-key-for-mode 'dired-mode "m s" 'dired-sort-toggle-or-edit))
 ;; Dired:1 ends here
 
+;; [[file:nicemacs-v2.org::*Dired][Dired:2]]
+(add-to-list 'revert-without-query "\\.png$")
+;; Dired:2 ends here
+
 ;; [[file:nicemacs-v2.org::*Buffers, files, and dired][Buffers, files, and dired:1]]
 ;; Buffer stuff
 ;; ------------

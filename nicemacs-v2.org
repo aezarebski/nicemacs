@@ -752,6 +752,16 @@ installed by default and is not no the package repositories, so if you have
 =:ensure t= it will throw a warning saying it is not installed in the expected
 way. Just removing =:ensure t= fixes it though.
 
+By default you will always be prompted if you want to revert a file if you
+already are visiting it and it has changed on the file system since you last
+looked. This is a bit annoying when you are working on figures. The following
+modication of =revert-without-query= ensures no confirmation is required when
+opening PNGs.
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  (add-to-list 'revert-without-query "\\.png$")
+#+end_src
+
 *** Searching
 
 The following advice from the emacs manual may be useful if you are trying to
