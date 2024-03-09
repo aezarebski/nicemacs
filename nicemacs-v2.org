@@ -2148,6 +2148,7 @@ Follow the instructions in the =INSTALL= file to build emacs.
 
 *** Notes
 
+- =emacs-29.2=: same procedure as the previous version.
 - =emacs-29.1= on the work laptop: =./configure --with-json --with-rsvg
   --with-native-compilation --with-imagemagick CFLAGS='-g3 -O3'=
   + When building from source on a completely fresh system I needed a lot of
