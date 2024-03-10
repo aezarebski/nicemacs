@@ -1490,7 +1490,7 @@ backup dictionary."
 	 :publishing-function org-html-publish-to-html)
 	("website-misc-ml-static"
 	 :base-directory "~/public-site/org/misc/ml/"
-	 :base-extension "png"
+	 :base-extension "png\\|py"
 	 :recursive t
 	 :publishing-directory "~/aezarebski.github.io/misc/ml/"
 	 :publishing-function org-publish-attachment)
