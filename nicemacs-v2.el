@@ -60,6 +60,11 @@
 ;; Changelog
 ;; ---------
 ;;
+;; - 2024-03
+;;   + Use the `:exclude' pattern to be a bit more selective with the
+;;     files that get copied by `org-publish' (i.e. do not
+;;     accidentally copy a whole Python virtual environment.)
+;;
 ;; - 2024-02
 ;;   + Tweak `revert-without-query' to make it easier to use PNG files
 ;;
@@ -1493,7 +1498,8 @@ backup dictionary."
 	 :base-extension "png\\|py"
 	 :recursive t
 	 :publishing-directory "~/aezarebski.github.io/misc/ml/"
-	 :publishing-function org-publish-attachment)
+	 :publishing-function org-publish-attachment
+	 :exclude "venv/")
 	("website-misc-ml-diagrams-static"
 	 :base-directory "~/public-site/org/misc/ml/diagrams/"
 	 :base-extension "png"
