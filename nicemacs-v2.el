@@ -1328,12 +1328,14 @@ backup dictionary."
       '((sequence "TODO" "DONE")
 	(sequence "MEETING" "|" "DONE")
 	(sequence "SEMINAR" "|" "DONE")
+	(sequence "RESEARCH" "|" "DONE")
 	(sequence "DEADLINE" "|" "DONE")
 	(sequence "SOCIAL" "|" "DONE")))
 
 (setq org-todo-keyword-faces
       `(("MEETING" . ,(boxed-face "magenta"))
 	("SEMINAR" . ,(boxed-face "magenta"))
+	("RESEARCH" . ,(boxed-face "dark green"))
 	("DEADLINE" . ,(boxed-face "red" "white"))
 	("SOCIAL" . ,(boxed-face "blue" "#E6ECFF"))))
 

@@ -1632,6 +1632,8 @@ for =org-latex-preview= below.
   difficulty reading some org-mode related data from the cache: "Emacs reader
   failed to read data in ...". I was able to resolve this by closing emacs,
   deleting the cache files, and then it worked perfectly when I restarted emacs.
+- You can get a list of all available colours to use in keyword faces below with
+  the =list-colors-disply= command as described in the [[#sec:colours][section below]].
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Org-agenda
@@ -1659,12 +1661,14 @@ for =org-latex-preview= below.
 	'((sequence "TODO" "DONE")
 	  (sequence "MEETING" "|" "DONE")
 	  (sequence "SEMINAR" "|" "DONE")
+	  (sequence "RESEARCH" "|" "DONE")
 	  (sequence "DEADLINE" "|" "DONE")
 	  (sequence "SOCIAL" "|" "DONE")))
 
   (setq org-todo-keyword-faces
 	`(("MEETING" . ,(boxed-face "magenta"))
 	  ("SEMINAR" . ,(boxed-face "magenta"))
+	  ("RESEARCH" . ,(boxed-face "dark green"))
 	  ("DEADLINE" . ,(boxed-face "red" "white"))
 	  ("SOCIAL" . ,(boxed-face "blue" "#E6ECFF"))))
 
@@ -2198,6 +2202,15 @@ the following to the end of the file to set it to 80 for this file.
 % fill-column: 80
 % End:
 #+end_src
+
+** Colours
+:properties:
+:custom_id: sec:colours
+:end:
+
+The function =list-colors-display= will open a new buffer displaying all the
+defined colours and their names. This is particularly useful if you want to
+configure faces.
 
 ** Jargon
 
