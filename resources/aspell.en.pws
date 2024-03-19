@@ -1,5 +1,6 @@
-personal_ws-1.1 en 200 
+personal_ws-1.1 en 223 
 AIC
+ANZIAM
 BDSIR
 BDSky
 Basmati
@@ -30,10 +31,13 @@ Heterozygous
 Homozygous
 ILI
 JSON
+Jacobian
 Kalman
 LLHD
 MCMC
 MNIST
+MSE
+Monash
 Multiscale
 Newick
 Neyman
@@ -52,7 +56,9 @@ REPL
 RGB
 RNN
 RNNs
+Ribosomal
 SDE
+SGD
 SVG
 Scalable
 Sigmoid
@@ -66,6 +72,7 @@ Voronoi
 Wikidata
 Wikimedia
 XSLT
+YAML
 Zarebski
 acyclic
 antifungal
@@ -103,6 +110,7 @@ datatypes
 decapod
 deconvolution
 demes
+deterministically
 differentiable
 dimensionality
 discretised
@@ -130,6 +138,7 @@ infectees
 inhomogeneous
 interpretable
 invariants
+invertible
 isochronous
 iterable
 ladleful
@@ -147,6 +156,8 @@ multimodal
 multinomial
 multiscale
 nonparametric
+normalization
+nucleotides
 nullclines
 onwards
 optimization
@@ -174,9 +185,11 @@ polymorphism
 polytomies
 polytomous
 polytomy
+posteriori
 precomputing
 preprint
 preprocessing
+prespecified
 priori
 prioritize
 probabilist
@@ -191,6 +204,7 @@ serotype
 shish
 sigmoid
 speciation
+stochastically
 stochasticity
 stoichiometric
 subcritical
