@@ -1335,7 +1335,7 @@ backup dictionary."
 (setq org-todo-keyword-faces
       `(("MEETING" . ,(boxed-face "magenta"))
 	("SEMINAR" . ,(boxed-face "magenta"))
-	("RESEARCH" . ,(boxed-face "dark green"))
+	("RESEARCH" . ,(boxed-face "dark green" "light green"))
 	("DEADLINE" . ,(boxed-face "red" "white"))
 	("SOCIAL" . ,(boxed-face "blue" "#E6ECFF"))))
 
