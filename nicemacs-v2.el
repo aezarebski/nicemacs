@@ -1329,6 +1329,7 @@ backup dictionary."
 	(sequence "MEETING" "|" "DONE")
 	(sequence "SEMINAR" "|" "DONE")
 	(sequence "RESEARCH" "|" "DONE")
+	(sequence "ADMIN" "|" "DONE")
 	(sequence "DEADLINE" "|" "DONE")
 	(sequence "SOCIAL" "|" "DONE")))
 
@@ -1337,6 +1338,7 @@ backup dictionary."
 	("SEMINAR" . ,(boxed-face "magenta"))
 	("RESEARCH" . ,(boxed-face "dark green" "light green"))
 	("DEADLINE" . ,(boxed-face "red" "white"))
+	("ADMIN" . ,(boxed-face "red" "white"))
 	("SOCIAL" . ,(boxed-face "blue" "#E6ECFF"))))
 
 (defun nice-org-agenda-goto-today-advice-after (&rest _args)
