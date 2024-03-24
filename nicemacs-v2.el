@@ -61,6 +61,8 @@
 ;; ---------
 ;;
 ;; - 2024-03
+;;   + Use `org-agenda-start-with-log-mode' to show the log mode items
+;;     in the agenda.
 ;;   + Use the `:exclude' pattern to be a bit more selective with the
 ;;     files that get copied by `org-publish' (i.e. do not
 ;;     accidentally copy a whole Python virtual environment.)
@@ -1316,10 +1318,12 @@ backup dictionary."
 ;; - `t' will cycle through TODO/DONE
 ;; - `S-<left/right>' moves the scheduled date backwards/forwards
 ;; - `r' rebuilds the agenda view
+;; - `s' in agenda view will save the current org files.
 ;;
 (setq org-agenda-start-day "-14d"
       org-agenda-span 30
       org-agenda-start-on-weekday nil
+      org-agenda-start-with-log-mode t
       org-agenda-window-setup 'other-frame
       org-log-done 'time
       org-log-schedule 'time)
