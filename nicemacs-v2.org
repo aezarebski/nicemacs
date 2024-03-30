@@ -80,6 +80,7 @@
   ;; ---------
   ;;
   ;; - 2024-03
+  ;;   + `.Rmd' files should also open in `markdown-mode'.
   ;;   + Use the `:exclude' pattern to be a bit more selective with the
   ;;     files that get copied by `org-publish' (i.e. do not
   ;;     accidentally copy a whole Python virtual environment.)
@@ -1487,7 +1488,8 @@ In the following we use =with-eval-after-load= because otherwise the
   ;; -------------
 
   (use-package markdown-mode
-    :mode (("\\.md\\'" . markdown-mode)))
+    :mode (("\\.md\\'" . markdown-mode)
+	   ("\\.Rmd\\'" . markdown-mode)))
 #+end_src
 
 ** Org-mode
