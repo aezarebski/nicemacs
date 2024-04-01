@@ -1664,20 +1664,22 @@ for =org-latex-preview= below.
 	org-log-schedule 'time)
 
   (setq org-todo-keywords
-	'((sequence "TODO" "DONE")
+        '((sequence "TODO" "DONE")
 	  (sequence "MEETING" "|" "DONE")
 	  (sequence "SEMINAR" "|" "DONE")
 	  (sequence "RESEARCH" "|" "DONE")
 	  (sequence "ADMIN" "|" "DONE")
 	  (sequence "DEADLINE" "|" "DONE")
+	  (sequence "TEACHING" "|" "DONE")
 	  (sequence "SOCIAL" "|" "DONE")))
 
   (setq org-todo-keyword-faces
-	`(("MEETING" . ,(boxed-face "magenta"))
+        `(("MEETING" . ,(boxed-face "magenta"))
 	  ("SEMINAR" . ,(boxed-face "magenta"))
 	  ("RESEARCH" . ,(boxed-face "dark green" "light green"))
 	  ("DEADLINE" . ,(boxed-face "red" "white"))
 	  ("ADMIN" . ,(boxed-face "red" "white"))
+	  ("TEACHING" . ,(boxed-face "magenta"))
 	  ("SOCIAL" . ,(boxed-face "blue" "#E6ECFF"))))
 
   (defun nice-org-agenda-goto-today-advice-after (&rest _args)

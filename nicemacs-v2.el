@@ -1337,6 +1337,7 @@ backup dictionary."
 	(sequence "RESEARCH" "|" "DONE")
 	(sequence "ADMIN" "|" "DONE")
 	(sequence "DEADLINE" "|" "DONE")
+	(sequence "TEACHING" "|" "DONE")
 	(sequence "SOCIAL" "|" "DONE")))
 
 (setq org-todo-keyword-faces
@@ -1345,6 +1346,7 @@ backup dictionary."
 	("RESEARCH" . ,(boxed-face "dark green" "light green"))
 	("DEADLINE" . ,(boxed-face "red" "white"))
 	("ADMIN" . ,(boxed-face "red" "white"))
+	("TEACHING" . ,(boxed-face "magenta"))
 	("SOCIAL" . ,(boxed-face "blue" "#E6ECFF"))))
 
 (defun nice-org-agenda-goto-today-advice-after (&rest _args)
