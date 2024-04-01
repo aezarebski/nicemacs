@@ -63,6 +63,7 @@
 ;; - 2024-03
 ;;   + Use `org-agenda-start-with-log-mode' to show the log mode items
 ;;     in the agenda.
+;;   + `.Rmd' files should also open in `markdown-mode'.
 ;;   + Use the `:exclude' pattern to be a bit more selective with the
 ;;     files that get copied by `org-publish' (i.e. do not
 ;;     accidentally copy a whole Python virtual environment.)
@@ -1176,7 +1177,8 @@ year, and the first two words of the title."
 ;; -------------
 
 (use-package markdown-mode
-  :mode (("\\.md\\'" . markdown-mode)))
+  :mode (("\\.md\\'" . markdown-mode)
+         ("\\.Rmd\\'" . markdown-mode)))
 ;; Markdown:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Org-mode][Org-mode:1]]
