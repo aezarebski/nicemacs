@@ -1683,7 +1683,7 @@ backup dictionary."
 (NVNF ubuntu-notes "Ubuntu/Linux notes" "linux-notes.org" "u")
 
 (NVD emacs "Emacs" "~/.emacs.d/fake.org" "e")
-(NVD journal "Journal" "~/Documents/journal/fake.org" "j")
+(NVD journal-dir "Journal Directory" "~/Documents/journal/fake.org" "j")
 (NVD library "Library" "~/Documents/library/fake.org" "l")
 (NVD manuscripts "Manuscripts" "~/Documents/manuscripts/fake.org" "m")
 (NVD music "Music" "~/Music/fake.org" "M")
