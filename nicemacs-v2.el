@@ -61,6 +61,8 @@
 ;; ---------
 ;;
 ;; - 2024-03
+;;   + Use `org-agenda-start-with-log-mode' to show the log mode items
+;;     in the agenda.
 ;;   + `.Rmd' files should also open in `markdown-mode'.
 ;;   + Use the `:exclude' pattern to be a bit more selective with the
 ;;     files that get copied by `org-publish' (i.e. do not
@@ -1318,10 +1320,12 @@ backup dictionary."
 ;; - `t' will cycle through TODO/DONE
 ;; - `S-<left/right>' moves the scheduled date backwards/forwards
 ;; - `r' rebuilds the agenda view
+;; - `s' in agenda view will save the current org files.
 ;;
 (setq org-agenda-start-day "-14d"
       org-agenda-span 30
       org-agenda-start-on-weekday nil
+      org-agenda-start-with-log-mode t
       org-agenda-window-setup 'other-frame
       org-log-done 'time
       org-log-schedule 'time)
@@ -1333,6 +1337,7 @@ backup dictionary."
 	(sequence "RESEARCH" "|" "DONE")
 	(sequence "ADMIN" "|" "DONE")
 	(sequence "DEADLINE" "|" "DONE")
+	(sequence "TEACHING" "|" "DONE")
 	(sequence "SOCIAL" "|" "DONE")))
 
 (setq org-todo-keyword-faces
@@ -1341,6 +1346,7 @@ backup dictionary."
 	("RESEARCH" . ,(boxed-face "dark green" "light green"))
 	("DEADLINE" . ,(boxed-face "red" "white"))
 	("ADMIN" . ,(boxed-face "red" "white"))
+	("TEACHING" . ,(boxed-face "magenta"))
 	("SOCIAL" . ,(boxed-face "blue" "#E6ECFF"))))
 
 (defun nice-org-agenda-goto-today-advice-after (&rest _args)
