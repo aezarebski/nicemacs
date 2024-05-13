@@ -79,6 +79,11 @@
   ;; Changelog
   ;; ---------
   ;;
+  ;; - 2024-05
+  ;;   + Bug fix where ESS couldn't find the directory where the ESS-R
+  ;;     files are. This is now fixed by looking up a plausible
+  ;;     directory and setting `ess-etc-directory' to that.
+  ;;
   ;; - 2024-03
   ;;   + Use `org-agenda-start-with-log-mode' to show the log mode items
   ;;     in the agenda.
@@ -1214,7 +1219,7 @@ version of an S-expression on the kill ring.
   (use-package ess
     :ensure t
     :init
-    (setq ess-etc-directory "~/.emacs.d/nice-packages/etc")
+    (setq ess-etc-directory (concat (car (directory-files "~/.emacs.d/elpa/" t "ess-[0-9]+")) "/etc/"))
     :mode ("\\.Rmd" . Rmd-mode)
     :config
     (setq ess-default-style 'DEFAULT
