@@ -80,6 +80,8 @@
   ;; ---------
   ;;
   ;; - 2024-05
+  ;;   + Add some ESS keybindings to `markdown-mode' so they are available when
+  ;;     writing Rmarkdown.
   ;;   + Bug fix where ESS couldn't find the directory where the ESS-R
   ;;     files are. This is now fixed by looking up a plausible
   ;;     directory and setting `ess-etc-directory' to that.
