@@ -1485,6 +1485,9 @@ In the following we use =with-eval-after-load= because otherwise the
 
 ** Markdown
 
+=markdown-mode= is also useful for writing Rmarkdown, so there are some ESS
+functions that sneak in here too.
+
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Markdown-mode
   ;; -------------
