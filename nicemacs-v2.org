@@ -80,6 +80,8 @@
   ;; ---------
   ;;
   ;; - 2024-05
+  ;;   + Add binding of SPC-m-s-s to evaluate R source blocks in
+  ;;     org-mode. (This is C-c C-c by default.)
   ;;   + Bug fix where ESS couldn't find the directory where the ESS-R
   ;;     files are. This is now fixed by looking up a plausible
   ;;     directory and setting `ess-etc-directory' to that.
@@ -1234,6 +1236,7 @@ version of an S-expression on the kill ring.
       "m s b" 'ess-eval-buffer
       "m s r" 'ess-eval-region
       "m s c" 'ess-eval-region-or-line-visibly-and-step
+      "m s s" 'ess-eval-region-or-function-or-paragraph-and-step
       "m c l" 'nice-code-lint-buffer-r
       "m c i" 'indent-region
       "m '" 'ess-switch-to-inferior-or-script-buffer))
@@ -1669,7 +1672,7 @@ for =org-latex-preview= below.
 	org-log-schedule 'time)
 
   (setq org-todo-keywords
-        '((sequence "TODO" "DONE")
+	'((sequence "TODO" "DONE")
 	  (sequence "MEETING" "|" "DONE")
 	  (sequence "SEMINAR" "|" "DONE")
 	  (sequence "RESEARCH" "|" "DONE")
@@ -1679,7 +1682,7 @@ for =org-latex-preview= below.
 	  (sequence "SOCIAL" "|" "DONE")))
 
   (setq org-todo-keyword-faces
-        `(("MEETING" . ,(boxed-face "magenta"))
+	`(("MEETING" . ,(boxed-face "magenta"))
 	  ("SEMINAR" . ,(boxed-face "magenta"))
 	  ("RESEARCH" . ,(boxed-face "dark green" "light green"))
 	  ("DEADLINE" . ,(boxed-face "red" "white"))
@@ -2044,7 +2047,7 @@ for =org-latex-preview= below.
   (NVNF ubuntu-notes "Ubuntu/Linux notes" "linux-notes.org" "u")
 
   (NVD emacs "Emacs" "~/.emacs.d/fake.org" "e")
-(NVD journal-dir "Journal Directory" "~/Documents/journal/fake.org" "j")
+  (NVD journal-dir "Journal Directory" "~/Documents/journal/fake.org" "j")
   (NVD library "Library" "~/Documents/library/fake.org" "l")
   (NVD manuscripts "Manuscripts" "~/Documents/manuscripts/fake.org" "m")
   (NVD music "Music" "~/Music/fake.org" "M")

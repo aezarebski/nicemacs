@@ -61,6 +61,8 @@
 ;; ---------
 ;;
 ;; - 2024-05
+;;   + Add binding of SPC-m-s-s to evaluate R source blocks in
+;;     org-mode. (This is C-c C-c by default.)
 ;;   + Bug fix where ESS couldn't find the directory where the ESS-R
 ;;     files are. This is now fixed by looking up a plausible
 ;;     directory and setting `ess-etc-directory' to that.
@@ -973,6 +975,7 @@ kill ring."
     "m s b" 'ess-eval-buffer
     "m s r" 'ess-eval-region
     "m s c" 'ess-eval-region-or-line-visibly-and-step
+    "m s s" 'ess-eval-region-or-function-or-paragraph-and-step
     "m c l" 'nice-code-lint-buffer-r
     "m c i" 'indent-region
     "m '" 'ess-switch-to-inferior-or-script-buffer))
