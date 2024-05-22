@@ -63,6 +63,8 @@
 ;; - 2024-05
 ;;   + Add binding of SPC-m-s-s to evaluate R source blocks in
 ;;     org-mode. (This is C-c C-c by default.)
+;;   + Add some ESS keybindings to `markdown-mode' so they are available when
+;;     writing Rmarkdown.
 ;;   + Bug fix where ESS couldn't find the directory where the ESS-R
 ;;     files are. This is now fixed by looking up a plausible
 ;;     directory and setting `ess-etc-directory' to that.
@@ -1186,7 +1188,11 @@ year, and the first two words of the title."
 
 (use-package markdown-mode
   :mode (("\\.md\\'" . markdown-mode)
-         ("\\.Rmd\\'" . markdown-mode)))
+         ("\\.Rmd\\'" . markdown-mode))
+  :config
+  (evil-leader/set-key-for-mode 'markdown-mode
+    "m s r" 'ess-eval-region
+    "m '" 'ess-switch-to-inferior-or-script-buffer))
 ;; Markdown:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Org-mode][Org-mode:1]]
@@ -1415,6 +1421,8 @@ backup dictionary."
   (let* ((notes-root "~/public-site/org/")
 	 (local-notes (concat notes-root "index-notes.html"))
 	 (remote-notes (concat nice-website-directory "notes.html"))
+	 (local-mininyan (concat notes-root "mininyan.js"))
+	 (remote-mininyan (concat nice-website-directory "mininyan.js"))
 	 (local-landing (concat notes-root "index-academic.html"))
 	 (remote-landing (concat nice-website-directory "index.html"))
 	 (local-css (concat notes-root "microgram.css"))
@@ -1422,6 +1430,9 @@ backup dictionary."
     (when (file-exists-p local-notes)
       (copy-file local-notes remote-notes t)
       (message "Copied %s to %s" local-notes remote-notes))
+    (when (file-exists-p local-mininyan)
+      (copy-file local-mininyan remote-mininyan t)
+      (message "Copied %s to %s" local-mininyan remote-mininyan))
     (when (file-exists-p local-landing)
       (copy-file local-landing remote-landing t)
       (message "Copied %s to %s" local-landing remote-landing))
