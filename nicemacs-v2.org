@@ -2250,7 +2250,15 @@ configure faces.
 There is a [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Glossary.html][glossary]] in the manuals, the nodes are =Emacs > Glossary=. The regex
 search entered with =s= is very useful here.
 
-** Mastering Emacs
+** TRAMP
+
+TRAMP stands for "Transparent Remote (file) Access, Multiple Protocol". To use
+TRAMP find a file with =/method:user@host:/path/to/file=. If you usually SSH
+into server and you want to edit files there then the =method= is =ssh=. Once
+you are visiting a file in this way, the standard emacs functionality should
+work.
+
+** /Mastering Emacs/
 
 Here are some notes from reading /Mastering Emacs/.
 
