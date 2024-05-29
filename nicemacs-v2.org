@@ -2292,17 +2292,11 @@ Here are some notes from reading /Mastering Emacs/.
   + =describe-variable=,
   + and =describe-key=.
 
-*** Chapter 4
-
-*** Chapter 5
-
 *** Chapter 6
 
 - There is the function =read-only-mode= which toggles read only mode, which
   replaces the obsolete =toggle-read-only= function.
   + In Spacemacs this is bound to =SPC b w= which seems strange.
-
-*** Chapter 7
 
 ** Getting HELP
 
