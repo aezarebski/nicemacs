@@ -2174,7 +2174,8 @@ of packages other than those that are provided with emacs.
 Get the source code from [[http://git.savannah.gnu.org/cgit/emacs.git/][here]] with
 
 #+begin_src sh
-  wget http://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-VERSION.tar.gz
+  # wget https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-VERSION.tar.gz
+  wget https://ftp.gnu.org/gnu/emacs/emacs-VERSION.tar.xz
   tar -xf emacs-VERSION.tar.xz
 #+end_src
 
@@ -2191,6 +2192,7 @@ Follow the instructions in the =INSTALL= file to build emacs.
 
 *** Notes
 
+- =emacs-29.4=: same procedure as the previous version.
 - =emacs-29.2=: same procedure as the previous version.
 - =emacs-29.1= on the work laptop: =./configure --with-json --with-rsvg
   --with-native-compilation --with-imagemagick CFLAGS='-g3 -O3'=
