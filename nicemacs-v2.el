@@ -60,6 +60,10 @@
 ;; Changelog
 ;; ---------
 ;;
+;; - 2024-07
+;;   + Use `openwith' so that `dired' will open PDFs with Okular on
+;;     click rather than the emacs PDF viewer.
+;;
 ;; - 2024-05
 ;;   + Add binding of SPC-m-s-s to evaluate R source blocks in
 ;;     org-mode. (This is C-c C-c by default.)
@@ -599,6 +603,15 @@ amount of the of the frame's width and height."
 
 ;; [[file:nicemacs-v2.org::*Dired][Dired:2]]
 (add-to-list 'revert-without-query "\\.png$")
+
+(use-package openwith
+  :ensure t
+  :config
+  (setq openwith-associations
+        (list (list (openwith-make-extension-regexp '("pdf"))
+                    "okular"
+                    '(file))))
+  (openwith-mode t))
 ;; Dired:2 ends here
 
 ;; [[file:nicemacs-v2.org::*Buffers, files, and dired][Buffers, files, and dired:1]]
