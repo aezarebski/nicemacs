@@ -795,6 +795,10 @@ opening PNGs.
     (openwith-mode t))
 #+end_src
 
+The use of the =openwith= package above means that when you click on a
+PDF in dired, it will open with Okular, rather than in the DocViewer
+in Emacs.
+
 *** Searching
 
 The following advice from the emacs manual may be useful if you are trying to
