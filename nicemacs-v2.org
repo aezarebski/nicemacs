@@ -79,6 +79,10 @@
   ;; Changelog
   ;; ---------
   ;;
+  ;; - 2024-07
+  ;;   + Use `openwith' so that `dired' will open PDFs with Okular on
+  ;;     click rather than the emacs PDF viewer.
+  ;;
   ;; - 2024-05
   ;;   + Add binding of SPC-m-s-s to evaluate R source blocks in
   ;;     org-mode. (This is C-c C-c by default.)
@@ -780,6 +784,15 @@ opening PNGs.
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   (add-to-list 'revert-without-query "\\.png$")
+
+  (use-package openwith
+    :ensure t
+    :config
+    (setq openwith-associations
+	  (list (list (openwith-make-extension-regexp '("pdf"))
+		      "okular"
+		      '(file))))
+    (openwith-mode t))
 #+end_src
 
 *** Searching
