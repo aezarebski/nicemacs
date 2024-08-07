@@ -2293,6 +2293,10 @@ into server and you want to edit files there then the =method= is =ssh=. Once
 you are visiting a file in this way, the standard emacs functionality should
 work.
 
+Although, another thing to keep in mind is that you can just run emacs
+on the server, it will be the terminal version, but it is a simple
+solution.
+
 ** /Mastering Emacs/
 
 Here are some notes from reading /Mastering Emacs/.
