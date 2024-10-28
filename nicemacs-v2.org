@@ -2176,6 +2176,17 @@ for =org-latex-preview= below.
       (kbd "C-<tab>") #'nice-copilot-by-line))
 #+end_src
 
+** Rust
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  (use-package rust-mode
+  :ensure t
+  :mode "\\.rs\\'"
+  :config
+  ;; Enable rustfmt on save
+  (setq rust-format-on-save t))
+#+end_src
+
 ** STUFF 9
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link

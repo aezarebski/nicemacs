@@ -604,6 +604,7 @@ amount of the of the frame's width and height."
 ;; [[file:nicemacs-v2.org::*Dired][Dired:2]]
 (add-to-list 'revert-without-query "\\.png$")
 
+;; Openwith Configuration for PDFs
 (use-package openwith
   :ensure t
   :config
@@ -1810,6 +1811,15 @@ backup dictionary."
   (evil-define-key 'insert copilot-mode-map
     (kbd "C-<tab>") #'nice-copilot-by-line))
 ;; Copilot:1 ends here
+
+;; [[file:nicemacs-v2.org::*Rust][Rust:1]]
+(use-package rust-mode
+:ensure t
+:mode "\\.rs\\'"
+:config
+;; Enable rustfmt on save
+(setq rust-format-on-save t))
+;; Rust:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 9][STUFF 9:1]]
 ;; Explore new worlds
