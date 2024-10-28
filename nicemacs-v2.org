@@ -306,7 +306,7 @@ scrolling (which gives a smoother scroll).
   ;; if you have a compatible mouse.
   ;;
 
-  (tool-bar-mode -1)			; remove the tool bar
+  (tool-bar-mode -1)                     ; remove the tool bar
 
   (pixel-scroll-precision-mode 1)
   (setq pixel-dead-time 0)
@@ -464,7 +464,6 @@ scrolling (which gives a smoother scroll).
 *** Other
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
-
   ;; Rainbow-mode will highlight strings indicating colours,
   ;; e.g. hexcodes in their corresponding colour.
   (use-package rainbow-mode
