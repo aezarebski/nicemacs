@@ -4,7 +4,10 @@
 #+startup: overview
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
-#+HTML_HEAD: <link id="stylesheet" rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+#+HTML_HEAD: <link rel="icon" type="image/png" href="../../resources/nicemacs-favicon.png">
+#+HTML_HEAD: <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+#+HTML_HEAD: <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+#+HTML_HEAD: <link rel="stylesheet" href="../../microgram.css">
 
 [[file:../../index.org][Home]]
 
