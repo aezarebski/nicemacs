@@ -2300,15 +2300,35 @@ search entered with =s= is very useful here.
 
 ** TRAMP
 
-TRAMP stands for "Transparent Remote (file) Access, Multiple Protocol". To use
-TRAMP find a file with =/method:user@host:/path/to/file=. If you usually SSH
-into server and you want to edit files there then the =method= is =ssh=. Once
-you are visiting a file in this way, the standard emacs functionality should
-work.
+TRAMP stands for "Transparent Remote (file) Access, Multiple Protocol". In
+general, TRAMP connections use the following syntax:
+=/protocol:[user@]hostname[#port]:/path/to/file=. If you usually SSH into server
+and you want to edit files there then the =protocol= will be =ssh=. If you omit
+the protocol it will use the method named by the variable =tramp-defaul-method=.
+(Mickey Petersen recommends setting =tramp-default-method= to =ssh= for
+convenience.) If you set up an =~/.ssh/config= file, TRAMP will be aware of
+these hosts. Once you are visiting a file in this way, the standard emacs
+functionality will work so ou can treat it like any other buffer.
 
-Although, another thing to keep in mind is that you can just run emacs
-on the server, it will be the terminal version, but it is a simple
-solution.
+*** Example
+
+Suppose you had the ssh configuration shown below:
+
+#+begin_src
+Host foobar
+     HostName squanch.beep.boop
+     User flappy
+#+end_src
+
+Then you could run =find-file= with the following to access a file at
+=~/bing/bong/readme.org=:
+
+#+begin_src
+/ssh:foobar:~/bing/bong/readme.org
+#+end_src
+
+And amazingly, tab-complete of paths should also work! If you give the path to a
+directory, this will open in dired.
 
 ** /Mastering Emacs/
 
@@ -2348,7 +2368,6 @@ Here are some notes from reading /Mastering Emacs/.
 
 - There is the function =read-only-mode= which toggles read only mode, which
   replaces the obsolete =toggle-read-only= function.
-  + In Spacemacs this is bound to =SPC b w= which seems strange.
 
 ** Getting HELP
 
