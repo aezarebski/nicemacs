@@ -5,6 +5,7 @@ BDSIR
 BDSky
 Basmati
 Bonferroni
+CDF
 CERN
 COVID
 CRAN
@@ -34,6 +35,7 @@ JSON
 Jacobian
 Kalman
 LLHD
+Lotka
 MCMC
 MNIST
 MSE
@@ -68,6 +70,7 @@ Stadler's
 Studentized
 TODO
 Troublingly
+Volterra
 Voronoi
 Wikidata
 Wikimedia
@@ -195,9 +198,11 @@ prioritize
 probabilist
 probit
 programme
+pseudocode
 quantile
 quantiles
 reproducibility
+repurposing
 rescaling
 scalability
 serotype
