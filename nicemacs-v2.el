@@ -1218,6 +1218,7 @@ year, and the first two words of the title."
 (setq org-return-follows-link t)
 (evil-leader/set-key-for-mode 'org-mode "RET" 'org-open-at-point)
 
+(setq org-confirm-babel-evaluate t)
 (defun nice-org-mode-hook ()
   "Set up org-mode specific keybindings."
   (local-set-key (kbd "<tab>") #'org-cycle))
@@ -1442,9 +1443,9 @@ backup dictionary."
          (local-misc-index (concat misc-root "index.html"))
          (remote-misc-index (concat nice-website-directory "misc/papers/index.html"))
          (local-misc-data (concat misc-root "data.json"))
-         (remote-misc-data (concat nice-website-directory "misc/papers/data.json"))
+         (remote-misc-data (concat nice-website-directory "misc/papers/data.min.json"))
          (local-misc-script (concat misc-root "script.js"))
-         (remote-misc-script (concat nice-website-directory "misc/papers/script.js")))
+         (remote-misc-script (concat nice-website-directory "misc/papers/script.min.js")))
     (when (file-exists-p local-notes)
       (copy-file local-notes remote-notes t)
       (message "Copied %s to %s" local-notes remote-notes))
