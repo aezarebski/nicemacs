@@ -1791,6 +1791,10 @@ for =org-latex-preview= below.
 *** Website/Publishing
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  ;; The htmlize package is needed to get syntax highlighting
+  (use-package htmlize
+    :ensure t)
+
   (defun nice-publish-homepage ()
     "Copy my website homepage if it exists."
     (interactive)
@@ -2189,6 +2193,15 @@ for =org-latex-preview= below.
   (setq rust-format-on-save t))
 #+end_src
 
+** TRAMP
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  (defun nice-connect-brahms ()
+    "Open Dired in the home directory of the brahms server."
+    (interactive)
+    (dired "/ssh:brahms:~"))
+#+end_src
+
 ** STUFF 9
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
@@ -2300,6 +2313,8 @@ search entered with =s= is very useful here.
 
 ** TRAMP
 
+/TRAMP is one of the best features of emacs./
+
 TRAMP stands for "Transparent Remote (file) Access, Multiple Protocol". In
 general, TRAMP connections use the following syntax:
 =/protocol:[user@]hostname[#port]:/path/to/file=. If you usually SSH into server
@@ -2327,8 +2342,17 @@ Then you could run =find-file= with the following to access a file at
 /ssh:foobar:~/bing/bong/readme.org
 #+end_src
 
-And amazingly, tab-complete of paths should also work! If you give the path to a
-directory, this will open in dired.
+And amazingly, tab-complete of paths should also work! If you give the
+path to a directory, this will open in dired. Since I always forget
+how to do this, the following function is useful as a way to jump onto
+the server.
+
+#+begin_src emacs-lisp
+(defun nice-connect-foobar ()
+  "Open Dired in the home directory of the foobar server."
+  (interactive)
+  (dired "/ssh:foobar:~"))
+#+end_src
 
 ** /Mastering Emacs/
 

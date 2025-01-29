@@ -1426,6 +1426,10 @@ backup dictionary."
 ;; Literate programming:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Website/Publishing][Website/Publishing:1]]
+;; The htmlize package is needed to get syntax highlighting
+(use-package htmlize
+  :ensure t)
+
 (defun nice-publish-homepage ()
   "Copy my website homepage if it exists."
   (interactive)
@@ -1817,6 +1821,13 @@ backup dictionary."
 ;; Enable rustfmt on save
 (setq rust-format-on-save t))
 ;; Rust:1 ends here
+
+;; [[file:nicemacs-v2.org::*TRAMP][TRAMP:1]]
+(defun nice-connect-brahms ()
+  "Open Dired in the home directory of the brahms server."
+  (interactive)
+  (dired "/ssh:brahms:~"))
+;; TRAMP:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 9][STUFF 9:1]]
 ;; Explore new worlds
