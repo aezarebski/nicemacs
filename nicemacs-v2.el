@@ -38,6 +38,8 @@
 ;; - `evil-mc'
 ;; - `evil-mc-extras' Extra functionality for evil-mc
 ;; - `evil-surround'
+;; - `exec-path-from-shell' environment variable management.
+;; - `f' API for files and directories
 ;; - `flyspell'
 ;; - `hl-todo' Highlight TODO and similar keywords
 ;; - `htmlize' Convert buffer text and decorations to HTML.
@@ -63,8 +65,8 @@
 ;; - 2025-01
 ;;   + Add the `nice-connect-brahms' function as a way to make it
 ;;     easier to connect to servers via TRAMP.
-;;   + Ensure that `ligature' and `htmlize' are both installed and
-;;     configured properly.
+;;   + Ensure that `copilot', `htmlize' and `ligature' are all
+;;     installed and configured properly.
 ;;
 ;; - 2024-07
 ;;   + Use `openwith' so that `dired' will open PDFs with Okular on
@@ -1797,18 +1799,34 @@ backup dictionary."
 ;; =======
 ;;
 ;; To install this you need to clone the repository and a couple of
-;; dependencies yourself: s, editorconfig which are emacs packages and
-;; node.js.
+;; dependencies yourself: s, f, editorconfig and exec-path-from-shell
+;; which are emacs packages and node.js.
+;;
+;; To install copilot server use `copilot-install-server'.
+;;
+;; To authorize copilot use the `copilot-login' function.
 ;;
 ;; To enable `copilot' on your buffer, use SPC t c.
 ;;
-(use-package copilot
-  :defer 1
+(use-package f
+  :ensure t)
+(use-package editorconfig
+  :ensure t)
+(use-package exec-path-from-shell
+  :ensure t
   :config
+  (setq exec-path (append '("/home/alex/.nvm/versions/node/v22.13.1/bin/") exec-path))
+  (exec-path-from-shell-initialize))
+(use-package copilot
+  :after evil-leader
+  :load-path "~/.emacs.d/copilot.el/"
+  :config
+  (global-evil-leader-mode)
   (evil-leader/set-key "t c" 'copilot-mode)
-  (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
+  (setq copilot-node-executable "~/.nvm/versions/node/v22.13.1/bin/node")
+  ;; (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
   ;; (setq copilot-node-executable "/usr/bin/node")
-  :load-path "~/.emacs.d/copilot.el/")
+  (message "Copilot configuration loaded successfully!"))
 
 (defun nice-copilot-tab ()
   "Accept the current suggestion provided by copilot."
