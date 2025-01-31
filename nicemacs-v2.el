@@ -60,6 +60,12 @@
 ;; Changelog
 ;; ---------
 ;;
+;; - 2025-01
+;;   + Add the `nice-connect-brahms' function as a way to make it
+;;     easier to connect to servers via TRAMP.
+;;   + Ensure that `ligature' and `htmlize' are both installed and
+;;     configured properly.
+;;
 ;; - 2024-07
 ;;   + Use `openwith' so that `dired' will open PDFs with Okular on
 ;;     click rather than the emacs PDF viewer.
@@ -238,7 +244,16 @@
 
 ;; [[file:nicemacs-v2.org::*Fonts][Fonts:1]]
 ;; Fonts
-;; -----
+;; =====
+;;
+;; GUI installation (easiest)
+;; --------------------------
+;;
+;; 1. Install font-manager (the GNOME desktop font manager).
+;; 2. Install from the fonts curated by Google.
+;;
+;; Manual installation
+;; -------------------
 ;;
 ;; To install JetBrains Mono, or any other font, follow these steps:
 ;;
@@ -251,9 +266,12 @@
 ;; 4. Update the font cache:
 ;;    $ fc-cache -f -v
 ;;
+(use-package ligature
+  :ensure t
+  :config
+  (ligature-set-ligatures 'prog-mode '("|>" "<-" "<<-" "==" "!=" ">=" "<="))
+  (global-ligature-mode nil))
 (set-frame-font "JetBrains Mono" nil t)
-(ligature-set-ligatures 'prog-mode '("|>" "<-" "<<-" "==" "!=" ">=" "<="))
-(global-ligature-mode nil)
 
 (defun toggle-ligatures ()
   "Toggle ligatures on and off."
