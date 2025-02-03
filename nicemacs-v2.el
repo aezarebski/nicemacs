@@ -464,7 +464,7 @@ files FA and FB using SPC f m KEY."
                  (expand-file-name "nicemacs-v2.el" nice-nicemacs-directory)
                  "i")
 (nice-meld-files "aspell" "~/.aspell.en.pws"
-                 "~/Documents/nicemacs/resources/aspell.en.pws"
+		 (expand-file-name "aspell.en.pws" nice-resources-dir)
                  "a")
 
 (defun nice-meld ()
@@ -1742,7 +1742,7 @@ backup dictionary."
 (NVD yasnippet "Yasnippet" "~/.emacs.d/snippets/fake.org" "y")
 
 (setq org-agenda-files
-      (list (concat nice-journal-directory "bike.org")))
+      (list (expand-file-name "bike.org" nice-journal-directory)))
 
 (defun nice-visit-journal ()
   "Opens the current journal file. If it does not yet exist, it
