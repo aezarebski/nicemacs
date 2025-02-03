@@ -180,10 +180,10 @@
   "The directory for nicemacs notes files.")
 (defvar nice-website-directory "~/aezarebski.github.io/"
   "The directory for my website.")
-(defvar nice-resources-dir "~/Documents/nicemacs/resources"
-  "The path to the nicemacs resources directory on this machine.")
 (defvar nice-nicemacs-directory "~/Documents/nicemacs"
   "The path to the nicemacs directory on this machine.")
+(defvar nice-resources-dir (expand-file-name "resources" nice-nicemacs-directory)
+  "The path to the nicemacs resources directory on this machine.")
 (defvar nice-snippet-directory "~/.emacs.d/snippets"
   "The path to the whipper snipper directory on this machine.")
 
@@ -461,7 +461,7 @@ files FA and FB using SPC f m KEY."
      (evil-leader/set-key ,(concat "f m " key) (intern ,(format "nice-meld-%s" name)))))
 
 (nice-meld-files "init" "~/.emacs.d/init.el"
-                 "~/Documents/nicemacs/nicemacs-v2.el"
+                 (expand-file-name "nicemacs-v2.el" nice-nicemacs-directory)
                  "i")
 (nice-meld-files "aspell" "~/.aspell.en.pws"
                  "~/Documents/nicemacs/resources/aspell.en.pws"
@@ -1413,8 +1413,7 @@ backup dictionary."
 (defun nice-detangle-nicemacs-v2 ()
   "Detangle the nicemacs-v2.el file."
   (interactive)
-  (let ((nicemacs-v2-source (concat nice-nicemacs-directory
-                                    "/nicemacs-v2.el")))
+  (let ((nicemacs-v2-source (expand-file-name "nicemacs-v2.el" nice-nicemacs-directory)))
     (org-babel-detangle nicemacs-v2-source)))
 
 (evil-leader/set-key-for-mode 'emacs-lisp-mode "b d"
@@ -1600,7 +1599,7 @@ backup dictionary."
          :publishing-function org-publish-attachment
          )
         ("nicemacs-org-files"
-         :base-directory "~/Documents/nicemacs/"
+         :base-directory nice-nicemacs-directory
          :base-extension "org"
          :publishing-directory "~/aezarebski.github.io/misc/nicemacs/"
          :publishing-function org-html-publish-to-html)
@@ -1709,10 +1708,8 @@ backup dictionary."
          (revert-buffer)))
      (evil-leader/set-key ,(concat "v d " key) (intern ,(format "nice-visit-%s" dname)))))
 
-(NVF nicemacs2-source "Nicemacs v2 source" "~/Documents/nicemacs/nicemacs-v2.el" "e 3")
+(NVF nicemacs2-source "Nicemacs v2 source" (expand-file-name "nicemacs-v2.el" nice-nicemacs-directory) "e 3")
 (NVF nicemacs2-init "Nicemacs v2 init.el" "~/.emacs.d/init.el" "e 2")
-(NVF nicemacs-init "Nicemacs v1 nicemacs.el" "~/Documents/nicemacs/nicemacs.el" "e 1")
-(NVF nicemacs-org "Nicemacs v1 nicemacs.org" "~/Documents/nicemacs/nicemacs.org" "e 1")
 (NVF review-2 "Review 2" "~/Documents/bibliography/review2/review.org" "r 2")
 (NVF review-reading-list "Reading list" "~/Documents/bibliography/review2/reading-list.org" "r l")
 (NVF review-references "Bibtex references" "~/Documents/bibliography/references.bib" "r r")
