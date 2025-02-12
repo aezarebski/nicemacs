@@ -60,6 +60,9 @@
 ;; Changelog
 ;; ---------
 ;;
+;; - 2025-02
+;;   + Use `evil-search' to get a nicer search experience.
+;;
 ;; - 2024-07
 ;;   + Use `openwith' so that `dired' will open PDFs with Okular on
 ;;     click rather than the emacs PDF viewer.
@@ -193,9 +196,10 @@
 
 ;; [[file:nicemacs-v2.org::*Evil][Evil:1]]
 ;; Be evil
-;; -------
+;; =======
 ;;
 ;; Evil surroundings
+;; -----------------
 ;;
 ;; 1. Enter visual mode and select the text as the region.
 ;; 2. Press `S'.
@@ -203,12 +207,23 @@
 ;;    and closing pair, the opening includes a space and the closing
 ;;    does not.)
 ;;
+;; Evil search
+;; -----------
+;;
+;; Use the `evil-search' module which is closer to vim search and set
+;; incremental to `nil' so the cursor doesn't immediately jump around
+;; while typing the query. The highlights will appear after you run
+;; the search. You can navigate forward and backward through the
+;; matches with `n' and `N'. You can use the up-and-down arrows to
+;; move through previous searches.
 
 (setq evil-want-keybinding nil)
 
 (use-package evil
   :ensure t
   :init
+  (setq evil-search-module 'evil-search)
+  (setq evil-ex-search-incremental nil)
   (evil-mode 1))
 
 (use-package evil-leader
