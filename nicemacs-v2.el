@@ -1,13 +1,11 @@
 ;; [[file:nicemacs-v2.org::*Preamble][Preamble:1]]
 ;;; Nicemacs.v2 -*- lexical-binding: t -*-
 ;;; ==================================================================
-;;
-;;   ███╗   ██╗██╗ ██████╗███████╗███╗   ███╗ █████╗  ██████╗███████╗
-;;   ████╗  ██║██║██╔════╝██╔════╝████╗ ████║██╔══██╗██╔════╝██╔════╝
-;;   ██╔██╗ ██║██║██║     █████╗  ██╔████╔██║███████║██║     ███████╗
-;;   ██║╚██╗██║██║██║     ██╔══╝  ██║╚██╔╝██║██╔══██║██║     ╚════██║
-;;   ██║ ╚████║██║╚██████╗███████╗██║ ╚═╝ ██║██║  ██║╚██████╗███████║
-;;   ╚═╝  ╚═══╝╚═╝ ╚═════╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝╚══════╝
+;;                 _
+;;          ____  (_)_______  ____ ___  ____ ___________
+;;         / __ \/ / ___/ _ \/ __ `__ \/ __ `/ ___/ ___/
+;;        / / / / / /__/  __/ / / / / / /_/ / /__(__  )
+;;       /_/ /_/_/\___/\___/_/ /_/ /_/\__,_/\___/____/
 ;;
 ;; To update your packages carry out the following steps:
 ;;
@@ -1246,6 +1244,10 @@ year, and the first two words of the title."
   (local-set-key (kbd "<tab>") #'org-cycle))
 
 (add-hook 'org-mode-hook #'nice-org-mode-hook)
+
+(setq initial-major-mode 'org-mode
+      initial-scratch-message nil)
+
 ;; Org-mode:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Writing natural language][Writing natural language:1]]
