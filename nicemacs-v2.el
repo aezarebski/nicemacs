@@ -36,6 +36,8 @@
 ;; - `evil-mc'
 ;; - `evil-mc-extras' Extra functionality for evil-mc
 ;; - `evil-surround'
+;; - `exec-path-from-shell' environment variable management.
+;; - `f' API for files and directories
 ;; - `flyspell'
 ;; - `hl-todo' Highlight TODO and similar keywords
 ;; - `htmlize' Convert buffer text and decorations to HTML.
@@ -61,6 +63,12 @@
 ;; - 2025-02
 ;;   + Add `nice-ess-eval-to-current-line' to the ESS configuration.
 ;;   + Use `evil-search' to get a nicer search experience.
+;;
+;; - 2025-01
+;;   + Add the `nice-connect-brahms' function as a way to make it
+;;     easier to connect to servers via TRAMP.
+;;   + Ensure that `copilot', `htmlize' and `ligature' are all
+;;     installed and configured properly.
 ;;
 ;; - 2024-07
 ;;   + Use `openwith' so that `dired' will open PDFs with Okular on
@@ -252,7 +260,16 @@
 
 ;; [[file:nicemacs-v2.org::*Fonts][Fonts:1]]
 ;; Fonts
-;; -----
+;; =====
+;;
+;; GUI installation (easiest)
+;; --------------------------
+;;
+;; 1. Install font-manager (the GNOME desktop font manager).
+;; 2. Install from the fonts curated by Google.
+;;
+;; Manual installation
+;; -------------------
 ;;
 ;; To install JetBrains Mono, or any other font, follow these steps:
 ;;
@@ -265,9 +282,12 @@
 ;; 4. Update the font cache:
 ;;    $ fc-cache -f -v
 ;;
+(use-package ligature
+  :ensure t
+  :config
+  (ligature-set-ligatures 'prog-mode '("|>" "<-" "<<-" "==" "!=" ">=" "<="))
+  (global-ligature-mode nil))
 (set-frame-font "JetBrains Mono" nil t)
-(ligature-set-ligatures 'prog-mode '("|>" "<-" "<<-" "==" "!=" ">=" "<="))
-(global-ligature-mode nil)
 
 (defun toggle-ligatures ()
   "Toggle ligatures on and off."
@@ -1450,6 +1470,10 @@ backup dictionary."
 ;; Literate programming:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Website/Publishing][Website/Publishing:1]]
+;; The htmlize package is needed to get syntax highlighting
+(use-package htmlize
+  :ensure t)
+
 (defun nice-publish-homepage ()
   "Copy my website homepage if it exists."
   (interactive)
@@ -1797,18 +1821,34 @@ backup dictionary."
 ;; =======
 ;;
 ;; To install this you need to clone the repository and a couple of
-;; dependencies yourself: s, editorconfig which are emacs packages and
-;; node.js.
+;; dependencies yourself: s, f, editorconfig and exec-path-from-shell
+;; which are emacs packages and node.js.
+;;
+;; To install copilot server use `copilot-install-server'.
+;;
+;; To authorize copilot use the `copilot-login' function.
 ;;
 ;; To enable `copilot' on your buffer, use SPC t c.
 ;;
-(use-package copilot
-  :defer 1
+(use-package f
+  :ensure t)
+(use-package editorconfig
+  :ensure t)
+(use-package exec-path-from-shell
+  :ensure t
   :config
+  (setq exec-path (append '("/home/alex/.nvm/versions/node/v22.13.1/bin/") exec-path))
+  (exec-path-from-shell-initialize))
+(use-package copilot
+  :after evil-leader
+  :load-path "~/.emacs.d/copilot.el/"
+  :config
+  (global-evil-leader-mode)
   (evil-leader/set-key "t c" 'copilot-mode)
-  (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
+  (setq copilot-node-executable "~/.nvm/versions/node/v22.13.1/bin/node")
+  ;; (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
   ;; (setq copilot-node-executable "/usr/bin/node")
-  :load-path "~/.emacs.d/copilot.el/")
+  (message "Copilot configuration loaded successfully!"))
 
 (defun nice-copilot-tab ()
   "Accept the current suggestion provided by copilot."
@@ -1839,6 +1879,13 @@ backup dictionary."
 ;; Enable rustfmt on save
 (setq rust-format-on-save t))
 ;; Rust:1 ends here
+
+;; [[file:nicemacs-v2.org::*TRAMP][TRAMP:1]]
+(defun nice-connect-brahms ()
+  "Open Dired in the home directory of the brahms server."
+  (interactive)
+  (dired "/ssh:brahms:~"))
+;; TRAMP:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 9][STUFF 9:1]]
 ;; Explore new worlds

@@ -1,4 +1,4 @@
-personal_ws-1.1 en 231 
+personal_ws-1.1 en 232
 AIC
 ANZIAM
 BDSIR
@@ -107,6 +107,7 @@ connectedness
 convolutional
 covariate
 covariates
+curation
 customisable
 dataset
 datasets
@@ -167,6 +168,7 @@ onwards
 optimization
 optimizer
 orthonormal
+outdegree
 overfitting
 paneer
 parameterization
@@ -224,6 +226,7 @@ tumorigenesis
 tuple
 ultrametric
 univariate
+unrooted
 untick
 unvaccinated
 vectorization

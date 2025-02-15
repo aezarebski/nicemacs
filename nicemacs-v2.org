@@ -58,6 +58,8 @@
   ;; - `evil-mc'
   ;; - `evil-mc-extras' Extra functionality for evil-mc
   ;; - `evil-surround'
+  ;; - `exec-path-from-shell' environment variable management.
+  ;; - `f' API for files and directories
   ;; - `flyspell'
   ;; - `hl-todo' Highlight TODO and similar keywords
   ;; - `htmlize' Convert buffer text and decorations to HTML.
@@ -83,6 +85,12 @@
   ;; - 2025-02
   ;;   + Add `nice-ess-eval-to-current-line' to the ESS configuration.
   ;;   + Use `evil-search' to get a nicer search experience.
+  ;;
+  ;; - 2025-01
+  ;;   + Add the `nice-connect-brahms' function as a way to make it
+  ;;     easier to connect to servers via TRAMP.
+  ;;   + Ensure that `copilot', `htmlize' and `ligature' are all
+  ;;     installed and configured properly.
   ;;
   ;; - 2024-07
   ;;   + Use `openwith' so that `dired' will open PDFs with Okular on
@@ -287,7 +295,16 @@ scrolling (which gives a smoother scroll).
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Fonts
-  ;; -----
+  ;; =====
+  ;;
+  ;; GUI installation (easiest)
+  ;; --------------------------
+  ;;
+  ;; 1. Install font-manager (the GNOME desktop font manager).
+  ;; 2. Install from the fonts curated by Google.
+  ;;
+  ;; Manual installation
+  ;; -------------------
   ;;
   ;; To install JetBrains Mono, or any other font, follow these steps:
   ;;
@@ -300,9 +317,12 @@ scrolling (which gives a smoother scroll).
   ;; 4. Update the font cache:
   ;;    $ fc-cache -f -v
   ;;
+  (use-package ligature
+    :ensure t
+    :config
+    (ligature-set-ligatures 'prog-mode '("|>" "<-" "<<-" "==" "!=" ">=" "<="))
+    (global-ligature-mode nil))
   (set-frame-font "JetBrains Mono" nil t)
-  (ligature-set-ligatures 'prog-mode '("|>" "<-" "<<-" "==" "!=" ">=" "<="))
-  (global-ligature-mode nil)
 
   (defun toggle-ligatures ()
     "Toggle ligatures on and off."
@@ -1814,6 +1834,10 @@ for =org-latex-preview= below.
 *** Website/Publishing
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  ;; The htmlize package is needed to get syntax highlighting
+  (use-package htmlize
+    :ensure t)
+
   (defun nice-publish-homepage ()
     "Copy my website homepage if it exists."
     (interactive)
@@ -2165,18 +2189,34 @@ for =org-latex-preview= below.
   ;; =======
   ;;
   ;; To install this you need to clone the repository and a couple of
-  ;; dependencies yourself: s, editorconfig which are emacs packages and
-  ;; node.js.
+  ;; dependencies yourself: s, f, editorconfig and exec-path-from-shell
+  ;; which are emacs packages and node.js.
+  ;;
+  ;; To install copilot server use `copilot-install-server'.
+  ;;
+  ;; To authorize copilot use the `copilot-login' function.
   ;;
   ;; To enable `copilot' on your buffer, use SPC t c.
   ;;
-  (use-package copilot
-    :defer 1
+  (use-package f
+    :ensure t)
+  (use-package editorconfig
+    :ensure t)
+  (use-package exec-path-from-shell
+    :ensure t
     :config
+    (setq exec-path (append '("/home/alex/.nvm/versions/node/v22.13.1/bin/") exec-path))
+    (exec-path-from-shell-initialize))
+  (use-package copilot
+    :after evil-leader
+    :load-path "~/.emacs.d/copilot.el/"
+    :config
+    (global-evil-leader-mode)
     (evil-leader/set-key "t c" 'copilot-mode)
-    (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
+    (setq copilot-node-executable "~/.nvm/versions/node/v22.13.1/bin/node")
+    ;; (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
     ;; (setq copilot-node-executable "/usr/bin/node")
-    :load-path "~/.emacs.d/copilot.el/")
+    (message "Copilot configuration loaded successfully!"))
 
   (defun nice-copilot-tab ()
     "Accept the current suggestion provided by copilot."
@@ -2208,6 +2248,15 @@ for =org-latex-preview= below.
   :config
   ;; Enable rustfmt on save
   (setq rust-format-on-save t))
+#+end_src
+
+** TRAMP
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  (defun nice-connect-brahms ()
+    "Open Dired in the home directory of the brahms server."
+    (interactive)
+    (dired "/ssh:brahms:~"))
 #+end_src
 
 ** STUFF 9
@@ -2321,6 +2370,8 @@ search entered with =s= is very useful here.
 
 ** TRAMP
 
+/TRAMP is one of the best features of emacs./
+
 TRAMP stands for "Transparent Remote (file) Access, Multiple Protocol". In
 general, TRAMP connections use the following syntax:
 =/protocol:[user@]hostname[#port]:/path/to/file=. If you usually SSH into server
@@ -2348,8 +2399,17 @@ Then you could run =find-file= with the following to access a file at
 /ssh:foobar:~/bing/bong/readme.org
 #+end_src
 
-And amazingly, tab-complete of paths should also work! If you give the path to a
-directory, this will open in dired.
+And amazingly, tab-complete of paths should also work! If you give the
+path to a directory, this will open in dired. Since I always forget
+how to do this, the following function is useful as a way to jump onto
+the server.
+
+#+begin_src emacs-lisp
+(defun nice-connect-foobar ()
+  "Open Dired in the home directory of the foobar server."
+  (interactive)
+  (dired "/ssh:foobar:~"))
+#+end_src
 
 ** /Mastering Emacs/
 
