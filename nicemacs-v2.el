@@ -62,6 +62,10 @@
 ;; Changelog
 ;; ---------
 ;;
+;; - 2025-02
+;;   + Add `nice-ess-eval-to-current-line' to the ESS configuration.
+;;   + Use `evil-search' to get a nicer search experience.
+;;
 ;; - 2025-01
 ;;   + Add the `nice-connect-brahms' function as a way to make it
 ;;     easier to connect to servers via TRAMP.
@@ -201,9 +205,10 @@
 
 ;; [[file:nicemacs-v2.org::*Evil][Evil:1]]
 ;; Be evil
-;; -------
+;; =======
 ;;
 ;; Evil surroundings
+;; -----------------
 ;;
 ;; 1. Enter visual mode and select the text as the region.
 ;; 2. Press `S'.
@@ -211,12 +216,23 @@
 ;;    and closing pair, the opening includes a space and the closing
 ;;    does not.)
 ;;
+;; Evil search
+;; -----------
+;;
+;; Use the `evil-search' module which is closer to vim search and set
+;; incremental to `nil' so the cursor doesn't immediately jump around
+;; while typing the query. The highlights will appear after you run
+;; the search. You can navigate forward and backward through the
+;; matches with `n' and `N'. You can use the up-and-down arrows to
+;; move through previous searches.
 
 (setq evil-want-keybinding nil)
 
 (use-package evil
   :ensure t
   :init
+  (setq evil-search-module 'evil-search)
+  (setq evil-ex-search-incremental nil)
   (evil-mode 1))
 
 (use-package evil-leader
@@ -1008,11 +1024,17 @@ kill ring."
     "m d d" 'ess-r-devtools-document-package
     "m s b" 'ess-eval-buffer
     "m s r" 'ess-eval-region
+    "m s u" 'nice-ess-eval-to-current-line
     "m s c" 'ess-eval-region-or-line-visibly-and-step
     "m s s" 'ess-eval-region-or-function-or-paragraph-and-step
     "m c l" 'nice-code-lint-buffer-r
     "m c i" 'indent-region
     "m '" 'ess-switch-to-inferior-or-script-buffer))
+
+(defun nice-ess-eval-to-current-line ()
+  "Evaluate all code from the start of the buffer up to and including the current line."
+  (interactive)
+  (ess-eval-region (point-min) (line-end-position) t))
 
 (use-package quarto-mode
   :ensure t)
