@@ -1044,6 +1044,17 @@ kill ring."
   (ess-eval-linewise (format "print(lint(\"%s\"))\n" buffer-file-name)))
 ;; Emacs Speaks Statistics (ESS):1 ends here
 
+;; [[file:nicemacs-v2.org::*Stan][Stan:1]]
+;; Stan
+;; ----
+;;
+(use-package stan-mode
+  :mode ("\\.stan\\'" . stan-mode)
+  :hook (stan-mode . stan-mode-setup)
+  :config
+  (setq stan-indentation-offset 2))
+;; Stan:1 ends here
+
 ;; [[file:nicemacs-v2.org::*RealGUD debugging][RealGUD debugging:1]]
 ;; Debugging
 ;; ---------
@@ -1105,11 +1116,7 @@ kill ring."
 ;; [[file:nicemacs-v2.org::*LaTeX/BibTeX][LaTeX/BibTeX:1]]
 ;; LaTeX/BibTeX
 ;; ------------
-
-;; TODO Configure this so that there is a good way to search the key
-;; bibtex files, perhaps with a SQL type search
-
-;; TODO Find a better way to search BIB files.
+;;
 
 (defun most-recent-file (files)
   "Return the most recent file from a list of FILES.
@@ -1251,9 +1258,6 @@ year, and the first two words of the title."
 ;; Org-Mode
 ;; ========
 
-;; NOTE It would be nice to have an additional command and key for
-;; moving from level n+1 headers their parent level n header.
-
 ;; FIXME Work out why the configuration based approach does not work!
 (setq org-return-follows-link t)
 (evil-leader/set-key-for-mode 'org-mode "RET" 'org-open-at-point)
@@ -1267,7 +1271,6 @@ year, and the first two words of the title."
 
 (setq initial-major-mode 'org-mode
       initial-scratch-message nil)
-
 ;; Org-mode:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Writing natural language][Writing natural language:1]]
@@ -1870,15 +1873,6 @@ backup dictionary."
   (evil-define-key 'insert copilot-mode-map
     (kbd "C-<tab>") #'nice-copilot-by-line))
 ;; Copilot:1 ends here
-
-;; [[file:nicemacs-v2.org::*Rust][Rust:1]]
-(use-package rust-mode
-:ensure t
-:mode "\\.rs\\'"
-:config
-;; Enable rustfmt on save
-(setq rust-format-on-save t))
-;; Rust:1 ends here
 
 ;; [[file:nicemacs-v2.org::*TRAMP][TRAMP:1]]
 (defun nice-connect-brahms ()
