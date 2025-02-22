@@ -1015,6 +1015,7 @@ kill ring."
     "m s b" 'ess-eval-buffer
     "m s r" 'ess-eval-region
     "m s u" 'nice-ess-eval-to-current-line
+    "m s d" 'nice-ess-eval-from-current-line
     "m s c" 'ess-eval-region-or-line-visibly-and-step
     "m s s" 'ess-eval-region-or-function-or-paragraph-and-step
     "m c l" 'nice-code-lint-buffer-r
@@ -1025,6 +1026,11 @@ kill ring."
   "Evaluate all code from the start of the buffer up to and including the current line."
   (interactive)
   (ess-eval-region (point-min) (line-end-position) t))
+
+(defun nice-ess-eval-from-current-line ()
+  "Evaluate all code from the current line down to the end of the buffer."
+  (interactive)
+  (ess-eval-region (line-beginning-position) (point-max) t))
 
 (use-package quarto-mode
   :ensure t)
