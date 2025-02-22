@@ -498,7 +498,7 @@ files FA and FB using SPC f m KEY."
                  (expand-file-name "nicemacs-v2.el" nice-nicemacs-directory)
                  "i")
 (nice-meld-files "aspell" "~/.aspell.en.pws"
-		 (expand-file-name "aspell.en.pws" nice-resources-dir)
+                 (expand-file-name "aspell.en.pws" nice-resources-dir)
                  "a")
 
 (defun nice-meld ()
@@ -843,7 +843,14 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 (use-package yasnippet
   :ensure t
   :config
-  (yas-global-mode 1))
+  (yas-global-mode 1)
+  (evil-leader/set-key
+    "y i" 'yas-insert-snippet
+    "y n" 'yas-new-snippet
+    "y r" 'yas-reload-all
+    "y c" 'yas-compile-directory
+    "y l" 'nice-load-snippets
+    "y e" 'emoji-list))
 
 (defun nice-load-snippets ()
   "Load the snippets in my snippet directory"
@@ -854,21 +861,6 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
     (yas-load-directory snippets-dir)))
 
 (nice-load-snippets)
-
-(evil-leader/set-key
-  "y i" 'yas-insert-snippet     ; Insert a snippet
-  "y n" 'yas-new-snippet        ; Create a new snippet
-  "y v" 'yas-visit-snippet-file ; Visit the snippet file for the current mode
-  "y r" 'yas-reload-all         ; Reload all snippets
-  "y c" 'yas-compile-directory  ; Compile all snippets
-  "y l" 'nice-load-snippets     ; Load your custom snippets
-  "y g" 'nice-go-to-snippets-dir
-  "y e" 'emoji-list)
-
-(defun nice-go-to-snippets-dir ()
-  "Open the snippets directory in dired."
-  (interactive)
-  (dired nice-snippet-directory))
 ;; Yasnippet:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 3][STUFF 3:1]]

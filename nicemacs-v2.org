@@ -1053,9 +1053,10 @@ Ibuffer include
 
 ** Yasnippet
 
-I have a collection of yasnippets [[https://github.com/aezarebski/whipper-snipper][here]]. To use these snippets clone that
-repository into your =.emacs.d/= under the name =snippets= and use
-=yas-reload-all= (possibly after =yas-recompile-all= although this can be slow).
+I have a collection of yasnippets [[https://github.com/aezarebski/whipper-snipper][here]]. To use these snippets clone
+that repository into your =.emacs.d/= under the name =snippets= and
+use =yas-reload-all= (possibly after =yas-recompile-all= although this
+can be slow).
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Yasnippet
@@ -1067,7 +1068,14 @@ repository into your =.emacs.d/= under the name =snippets= and use
   (use-package yasnippet
     :ensure t
     :config
-    (yas-global-mode 1))
+    (yas-global-mode 1)
+    (evil-leader/set-key
+      "y i" 'yas-insert-snippet
+      "y n" 'yas-new-snippet
+      "y r" 'yas-reload-all
+      "y c" 'yas-compile-directory
+      "y l" 'nice-load-snippets
+      "y e" 'emoji-list))
 
   (defun nice-load-snippets ()
     "Load the snippets in my snippet directory"
@@ -1078,21 +1086,6 @@ repository into your =.emacs.d/= under the name =snippets= and use
       (yas-load-directory snippets-dir)))
 
   (nice-load-snippets)
-
-  (evil-leader/set-key
-    "y i" 'yas-insert-snippet     ; Insert a snippet
-    "y n" 'yas-new-snippet        ; Create a new snippet
-    "y v" 'yas-visit-snippet-file ; Visit the snippet file for the current mode
-    "y r" 'yas-reload-all         ; Reload all snippets
-    "y c" 'yas-compile-directory  ; Compile all snippets
-    "y l" 'nice-load-snippets     ; Load your custom snippets
-    "y g" 'nice-go-to-snippets-dir
-    "y e" 'emoji-list)
-
-  (defun nice-go-to-snippets-dir ()
-    "Open the snippets directory in dired."
-    (interactive)
-    (dired nice-snippet-directory))
 #+end_src
 
 ** STUFF 3
