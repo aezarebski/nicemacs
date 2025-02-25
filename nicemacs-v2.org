@@ -83,6 +83,7 @@
   ;; ---------
   ;;
   ;; - 2025-02
+  ;;   + Upgrade to 30.1.
   ;;   + Add `nice-ess-eval-to-current-line' to the ESS configuration.
   ;;   + Use `evil-search' to get a nicer search experience.
   ;;
@@ -2309,7 +2310,7 @@ Alternatively, you can get clone the [[https://github.com/emacs-mirror/emacs][em
 
 Follow the instructions in the =INSTALL= file to build emacs.
 - This seems to just be =./configure= then =make= then =sudo make install=.
-  + =./configure --with-native-compilation --with-rsvg=.
+  + =./configure --with-rsvg --with-imagemagick=.
   + If you cannot find the =configure= script, you may need to run =autogen.sh=
     first.
 - If you have spare compute you can use multiple jobs to speed up the
@@ -2317,6 +2318,11 @@ Follow the instructions in the =INSTALL= file to build emacs.
 
 *** Notes
 
+- =emacs-30.1=: by default this now uses a faster native JSON parser
+  and native compilation (provided you have =libgccjit=) so these do
+  not need to be included when running =./configure=. Adding
+  =--disable-gc-mark-trace= is thought to improves GC by \(5\%\).
+  Smooth scrolling!
 - =emacs-29.4=: same procedure as the previous version.
 - =emacs-29.2=: same procedure as the previous version.
 - =emacs-29.1= on the work laptop: =./configure --with-json --with-rsvg
