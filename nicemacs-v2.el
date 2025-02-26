@@ -61,6 +61,7 @@
 ;; ---------
 ;;
 ;; - 2025-02
+;;   + Upgrade to 30.1.
 ;;   + Add `nice-ess-eval-to-current-line' to the ESS configuration.
 ;;   + Use `evil-search' to get a nicer search experience.
 ;;
