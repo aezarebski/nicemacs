@@ -2297,7 +2297,7 @@ of packages other than those that are provided with emacs.
 
 ** Build you an Emacs
 
-Get the source code from [[http://git.savannah.gnu.org/cgit/emacs.git/][here]] with
+Get the source code from [[https://ftp.gnu.org/gnu/emacs][here]] with
 
 #+begin_src sh
   # wget https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-VERSION.tar.gz
