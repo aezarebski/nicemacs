@@ -2312,7 +2312,7 @@ of packages other than those that are provided with emacs.
 
 ** Build you an Emacs
 
-Get the source code from [[http://git.savannah.gnu.org/cgit/emacs.git/][here]] with
+Get the source code from [[https://ftp.gnu.org/gnu/emacs][here]] with
 
 #+begin_src sh
   # wget https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-VERSION.tar.gz
@@ -2329,7 +2329,9 @@ Follow the instructions in the =INSTALL= file to build emacs.
   + If you cannot find the =configure= script, you may need to run =autogen.sh=
     first.
 - If you have spare compute you can use multiple jobs to speed up the
-  compilation with =make -j[N]= to use =N= jobs during compilation
+  compilation with =make -j[N]= to use =N= jobs during compilation.
+- If you are using Copilot, don't forget to clone that [[https://github.com/aezarebski/copilot.el][repo]] into
+  =~/.emacs.d/= as well.
 
 *** Notes
 
