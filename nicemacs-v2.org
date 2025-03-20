@@ -541,6 +541,15 @@ scrolling (which gives a smoother scroll).
 	(display-buffer-pop-up-frame current-buffer nil))))
 
   (evil-leader/set-key "F p" 'nice-pop-out-window)
+
+  (defun nice-select-all ()
+    "Select the entire buffer."
+    (interactive)
+    (evil-goto-first-line)
+    (evil-visual-line)
+    (evil-goto-line))
+
+  (global-set-key (kbd "C-a") 'nice-select-all)
 #+end_src
 
 ** Which-key
@@ -1285,6 +1294,7 @@ version of an S-expression on the kill ring.
       "m s b" 'ess-eval-buffer
       "m s r" 'ess-eval-region
       "m s u" 'nice-ess-eval-to-current-line
+      "m s d" 'nice-ess-eval-from-current-line
       "m s c" 'ess-eval-region-or-line-visibly-and-step
       "m s s" 'ess-eval-region-or-function-or-paragraph-and-step
       "m c l" 'nice-code-lint-buffer-r
@@ -1295,6 +1305,11 @@ version of an S-expression on the kill ring.
     "Evaluate all code from the start of the buffer up to and including the current line."
     (interactive)
     (ess-eval-region (point-min) (line-end-position) t))
+
+  (defun nice-ess-eval-from-current-line ()
+    "Evaluate all code from the current line down to the end of the buffer."
+    (interactive)
+    (ess-eval-region (line-beginning-position) (point-max) t))
 
   (use-package quarto-mode
     :ensure t)

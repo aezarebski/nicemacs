@@ -436,6 +436,15 @@ already in its own frame."
       (display-buffer-pop-up-frame current-buffer nil))))
 
 (evil-leader/set-key "F p" 'nice-pop-out-window)
+
+(defun nice-select-all ()
+  "Select the entire buffer."
+  (interactive)
+  (evil-goto-first-line)
+  (evil-visual-line)
+  (evil-goto-line))
+
+(global-set-key (kbd "C-a") 'nice-select-all)
 ;; Other:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Which-key][Which-key:1]]
