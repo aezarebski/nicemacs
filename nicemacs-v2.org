@@ -2209,6 +2209,9 @@ for =org-latex-preview= below.
 #+end_src
 
 ** Copilot
+:properties:
+:custom_id: sec:copilot
+:end:
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Copilot
@@ -2332,7 +2335,7 @@ Follow the instructions in the =INSTALL= file to build emacs.
 - If you have spare compute you can use multiple jobs to speed up the
   compilation with =make -j[N]= to use =N= jobs during compilation.
 - If you are using Copilot, don't forget to clone that [[https://github.com/aezarebski/copilot.el][repo]] into
-  =~/.emacs.d/= as well.
+  =~/.emacs.d/= as well. There are notes [[#sec:copilot][here]].
 
 *** Notes
 
