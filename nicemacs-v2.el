@@ -307,15 +307,16 @@
 ;; if you have a compatible mouse.
 ;;
 
-(tool-bar-mode -1)                     ; remove the tool bar
-
 (pixel-scroll-precision-mode 1)
 (setq pixel-dead-time 0)
 
-(setq scroll-margin 2
-      scroll-conservatively 101
-      scroll-preserve-screen-position 1)
+;; (setq scroll-margin 2
+;;       scroll-conservatively 101
+;;       scroll-preserve-screen-position 1)
 
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
 (setq-default scroll-bar-width 10)
 (setq-default left-fringe-width 10)
 (setq-default right-fringe-width 10)
