@@ -310,9 +310,9 @@
 (pixel-scroll-precision-mode 1)
 (setq pixel-dead-time 0)
 
-;; (setq scroll-margin 2
-;;       scroll-conservatively 101
-;;       scroll-preserve-screen-position 1)
+(setq scroll-margin 2)
+;; (setq scroll-conservatively 101)
+;; (setq scroll-preserve-screen-position 1)
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -1849,7 +1849,8 @@ backup dictionary."
 (use-package exec-path-from-shell
   :ensure t
   :config
-  (setq exec-path (append '("/home/alex/.nvm/versions/node/v22.13.1/bin/") exec-path))
+  (setq exec-path (append '("/home/alex/.nvm/versions/node/v20.19.0/bin/") exec-path))
+  ;; (setq exec-path (append '("/home/alex/.nvm/versions/node/v22.13.1/bin/") exec-path))
   (exec-path-from-shell-initialize))
 (use-package copilot
   :after evil-leader
@@ -1857,7 +1858,8 @@ backup dictionary."
   :config
   (global-evil-leader-mode)
   (evil-leader/set-key "t c" 'copilot-mode)
-  (setq copilot-node-executable "~/.nvm/versions/node/v22.13.1/bin/node")
+  (setq copilot-node-executable "~/.nvm/versions/node/v20.19.0/bin/node")
+  ;; (setq copilot-node-executable "~/.nvm/versions/node/v22.13.1/bin/node")
   ;; (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
   ;; (setq copilot-node-executable "/usr/bin/node")
   (message "Copilot configuration loaded successfully!"))
