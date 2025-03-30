@@ -664,7 +664,8 @@ amount of the of the frame's width and height."
 
 (evil-leader/set-key
   "b r" 'revert-buffer
-  "b l" 'ibuffer)
+  "b l" 'ibuffer
+  "s f" 'find-name-dired)
 
 (defface ibuffer-modified-buffer
   '((t (:foreground "white"
