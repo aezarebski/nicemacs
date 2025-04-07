@@ -603,38 +603,43 @@ Meld provides a convenient GUI based method for assessing the differences
 between files.
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
-  ;; Diffing files with meld
+  ;; Diffing files
   ;; -----------------------
   ;;
   ;; + f m a - will diff the aspell dictionary
   ;; + f m i - will diff the emacs init
   ;; + f m m - will prompt for two files to diff
   ;;
-  (defmacro nice-meld-files (name fa fb key)
-    "Generate function named nice-meld-NAME which opens meld diff for
+  ;; This uses `kompare' at the moment because `meld' is broken on my
+  ;; machine...
+  (defmacro nice-diff-files (name fa fb key)
+    "Generate function named nice-diff-NAME which opens a diffing program for
   files FA and FB using SPC f m KEY."
     `(progn
-       (defun ,(intern (format "nice-meld-%s" name)) ()
+       (defun ,(intern (format "nice-diff-%s" name)) ()
 	 (interactive)
-	 (async-shell-command ,(format "meld %s %s &" fa fb)))
-       (evil-leader/set-key ,(concat "f m " key) (intern ,(format "nice-meld-%s" name)))))
+	 (async-shell-command ,(format "kompare %s %s &" fa fb)))
+       (evil-leader/set-key ,(concat "f m " key) (intern ,(format "nice-diff-%s" name)))))
 
-  (nice-meld-files "init" "~/.emacs.d/init.el"
-		   (expand-file-name "nicemacs-v2.el" nice-nicemacs-directory)
+  ;;(expand-file-name "nicemacs-v2.el" nice-nicemacs-directory)
+  (nice-diff-files "init" "~/.emacs.d/init.el"
+		   "/home/aez/nicemacs/nicemacs-v2.el"
 		   "i")
-  (nice-meld-files "aspell" "~/.aspell.en.pws"
-		   (expand-file-name "aspell.en.pws" nice-resources-dir)
+
+  ;; (expand-file-name "aspell.en.pws" nice-resources-dir)
+  (nice-diff-files "aspell" "~/.aspell.en.pws"
+		   "/home/aez/nicemacs/resources/aspell.en.pws"
 		   "a")
 
-  (defun nice-meld ()
+  (defun nice-diff ()
     "Prompt for two files and show the difference between them using
-  `meld`."
+  `kompare`."
     (interactive)
     (let ((file1 (read-file-name "First file: "))
 	  (file2 (read-file-name "Second file: ")))
-      (shell-command (format "meld %s %s &" file1 file2))))
+      (shell-command (format "kompare %s %s &" file1 file2))))
 
-  (evil-leader/set-key "f m m" 'nice-meld)
+  (evil-leader/set-key "f m m" 'nice-diff)
 #+end_src
 
 ** Window management
@@ -1168,7 +1173,8 @@ instead of =u= in step 5 to stage the files in the region.
     :config
     (setq magit-display-buffer-function
 	  #'magit-display-buffer-fullframe-status-v1)
-    (setenv "SSH_AUTH_SOCK" "<ADD THE CORRECT PATH HERE>")
+    ;; (setenv "SSH_AUTH_SOCK" "<ADD THE CORRECT PATH HERE>")
+    (setenv "SSH_AUTH_SOCK" "/run/user/1000/keyring/ssh")
     (evil-leader/set-key
       "g s" 'nice/magit-status
       "g q" 'with-editor-cancel))
