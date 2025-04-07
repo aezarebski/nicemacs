@@ -82,6 +82,9 @@
   ;; Changelog
   ;; ---------
   ;;
+  ;; - 2025-04
+  ;;   + Use `kompare' instead of `meld' for better performance.
+  ;;
   ;; - 2025-02
   ;;   + Upgrade to 30.1.
   ;;   + Add `nice-ess-eval-to-current-line' to the ESS configuration.
