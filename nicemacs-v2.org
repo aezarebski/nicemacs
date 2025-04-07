@@ -602,8 +602,10 @@ Get information on partial keys to help you remember/discover functionality.
 
 ** Diff-ing files
 
-Meld provides a convenient GUI based method for assessing the differences
-between files.
+Meld provides a convenient GUI based method for assessing the
+differences between files. Although, I have switched to using Kompare
+because when I shifted machine Meld started bugging out and Kompare
+seems simpler (although has a clunkier UI than Meld).
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Diffing files
@@ -1167,6 +1169,11 @@ You can also use the same method to stage multiple files in the
 instead of =u= in step 5 to stage the files in the region.
 
 *** Configuration
+
+In the following configuration of =magit=, notice how the
+=SSH_AUTH_SOCK= variable is set. The correct value for this comes from
+asking what the corresponding value is in a regular terminal with
+=echo=.
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Magit
