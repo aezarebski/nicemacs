@@ -2528,6 +2528,17 @@ The following are key-bindings for emacs mode (use =\= to call
 - =f= find a node linked from here
 - =d= go to the root node
 
+** Bookmarks
+
+=bookmarks.el= provides functions to create bookmarks in buffers and
+then navigate between them in subsequent sessions. The core functions
+you need to know are
+
+- =bookmark-set= to create a (named) bookmark
+- =bookmark-jump= to jump to a bookmark
+- =bookmark-delete= to delete a bookmark
+- =bookmark-bmenu-list= to list bookmarks
+
 * Footnotes
 
 #  LocalWords:  nicemacs Spacemacs spacemacs SPC REPL Eshell npm magit dired
