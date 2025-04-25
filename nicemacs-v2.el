@@ -61,6 +61,7 @@
 ;; ---------
 ;;
 ;; - 2025-04
+;;   + Include the `ls1' function for easier eshell navigation.
 ;;   + Use `kompare' instead of `meld' for better performance.
 ;;
 ;; - 2025-02
@@ -623,6 +624,12 @@ amount of the of the frame's width and height."
   (let ((dir (file-name-directory filepath)))
     (when (file-directory-p dir)
       (eshell/cd dir))))
+
+(defun ls1 (&optional dir)
+  "Run `ls -1` in DIR (or `default-directory` if none is given)."
+  (let ((dir (or dir default-directory)))
+    (when (file-directory-p dir)
+      (eshell/ls "-1" dir))))
 
 (defun nice-eshell-mode-setup ()
   (setenv "TERM" "dumb")
