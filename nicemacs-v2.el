@@ -1814,8 +1814,6 @@ backup dictionary."
 (NVD downloads "Downloads" "~/Downloads/fake.org" "D")
 (NVD professional "Professional" "~/Documents/professional/README.org" "p")
 (NVD teaching "Teaching" "~/Documents/teaching/fake.org" "t")
-(NVD website-org "Website (org files)" "~/public-site/org/fake.org" "w")
-(NVD website-html "Website (HTML files)" "~/aezarebski.github.io/fake.org" "W")
 (NVD notes "My notes" "~/public-site/org/notes/fake.org" "n")
 (NVD yasnippet "Yasnippet" "~/.emacs.d/snippets/fake.org" "y")
 
@@ -1927,6 +1925,12 @@ backup dictionary."
       '(("emacs init"
 	 (filename . "~/.emacs.d/init.el")
 	 (front-context-string . ";; Customization") (position . 1))
+	("website html" (filename . "~/aezarebski.github.io/")
+	 (front-context-string . ".\n  drwx------ 8")
+	 (rear-context-string . "0K Jan 28 23:44 ") (position . 110))
+	("website org" (filename . "~/public-site/org/")
+	 (front-context-string . ".\n  drwxrwxr-x  ")
+	 (rear-context-string . "0K Mar 27 21:32 ") (position . 105))
 	("projects" (filename . "~/projects/")
 	 (front-context-string . ".\n  drwxr-x--- 3")
 	 (rear-context-string . "0K Apr 26 18:18 ") (position . 65))
