@@ -63,6 +63,7 @@
 ;; - 2025-04
 ;;   + Include the `ls1' function for easier eshell navigation.
 ;;   + Use `kompare' instead of `meld' for better performance.
+;;   + Use `bookmark.el' as a replacement for the `NVF' macro.
 ;;
 ;; - 2025-02
 ;;   + Upgrade to 30.1.
@@ -484,6 +485,7 @@ already in its own frame."
         ("SPC v b" . "Bibtex")
         ("SPC v f" . "Files")
         ("SPC v d" . "Directories")
+        ("SPC v m" . "Bookmarks")
         ("SPC w" . "Windows")
         ("SPC y" . "Yasnippet")
         ("SPC z" . "Zoom (without a mouse)")))
@@ -1767,16 +1769,6 @@ backup dictionary."
          (find-file ,(concat nice-notes-directory "/" file))))
      (evil-leader/set-key ,(concat "v n " key) (intern ,(format "nice-visit-%s" fname)))))
 
-(defmacro NVF (fname pname file key)
-  `(progn
-     (defun ,(intern (format "nice-visit-%s" fname)) ()
-       "Visit a file."
-       (interactive)
-       (progn
-         (message ,(format "Visiting %s" pname))
-         (find-file ,file)))
-     (evil-leader/set-key ,(concat "v f" key) (intern ,(format "nice-visit-%s" fname)))))
-
 (defmacro NVD (dname pname path key)
   "Macro to define a function for visiting a directory and set an Evil leader key binding.
 
@@ -1801,12 +1793,6 @@ backup dictionary."
          (dired-jump nil ,path)
          (revert-buffer)))
      (evil-leader/set-key ,(concat "v d " key) (intern ,(format "nice-visit-%s" dname)))))
-
-(NVF nicemacs2-source "Nicemacs v2 source" (expand-file-name "nicemacs-v2.el" nice-nicemacs-directory) "e 3")
-(NVF nicemacs2-init "Nicemacs v2 init.el" "~/.emacs.d/init.el" "e 2")
-(NVF review-2 "Review 2" "~/Documents/bibliography/review2/review.org" "r 2")
-(NVF review-reading-list "Reading list" "~/Documents/bibliography/review2/reading-list.org" "r l")
-(NVF review-references "Bibtex references" "~/Documents/bibliography/references.bib" "r r")
 
 (NVNF academia-notes "Academia notes" "academic-journal-notes.org" "a")
 (NVNF beast-notes "BEAST2 notes" "beast2-notes.org" "b")
@@ -1937,6 +1923,41 @@ backup dictionary."
 ;; TODO Work out how to use mediawiki-mode to read and edit wikipedia.
 
 ;; TODO Explore running spotify through emacs
+
+
+(setq bookmark-alist
+      '(("emacs init"
+	 (filename . "~/.emacs.d/init.el")
+	 (front-context-string . ";; Customization") (position . 1))
+	("reading notes 2"
+	 (filename . "~/Documents/bibliography/review2/review.org")
+	 (front-context-string . "#+title: Literat") (rear-context-string)
+	 (position . 1))
+	("bibliography bibtex"
+	 (filename . "~/Documents/bibliography/references.bib")
+	 (front-context-string . "@article{abdar20") (rear-context-string)
+	 (position . 1))
+	("nicemacs elisp"
+	 (filename . "~/nicemacs/nicemacs-v2.el")
+	 (front-context-string . ";;         / __ ")
+	 (rear-context-string . "___ ___________\n") (position . 244))))
+
+(defun nice-copy-bookmark-alist ()
+  "Copy the current `bookmark-alist' to the kill-ring in a pretty-printed format."
+  (interactive)
+  (let ((output (with-temp-buffer
+                  (let ((print-length nil)
+                        (print-level nil))
+                    (pp bookmark-alist (current-buffer))
+                    (buffer-string)))))
+    (kill-new output)
+    (message "bookmark-alist copied to kill-ring!")))
+
+(evil-leader/set-key
+  "v m a" 'nice-copy-bookmark-alist
+  "v m s" 'bookmark-set
+  "v m j" 'bookmark-jump
+  "v m l" 'bookmark-bmenu-list)
 
 ;; Customization
 ;; =============
