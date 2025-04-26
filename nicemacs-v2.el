@@ -1809,12 +1809,10 @@ backup dictionary."
 (NVD emacs "Emacs" "~/.emacs.d/fake.org" "e")
 (NVD journal-dir "Journal Directory" "~/Documents/journal/fake.org" "j")
 (NVD library "Library" "~/Documents/library/fake.org" "l")
-(NVD manuscripts "Manuscripts" "~/Documents/manuscripts/fake.org" "m")
 (NVD music "Music" "~/Music/fake.org" "M")
 (NVD documents "Documents" "~/Documents/fake.org" "d")
 (NVD downloads "Downloads" "~/Downloads/fake.org" "D")
 (NVD professional "Professional" "~/Documents/professional/README.org" "p")
-(NVD projects "Projects" "~/projects/fake.org" "P")
 (NVD teaching "Teaching" "~/Documents/teaching/fake.org" "t")
 (NVD website-org "Website (org files)" "~/public-site/org/fake.org" "w")
 (NVD website-html "Website (HTML files)" "~/aezarebski.github.io/fake.org" "W")
@@ -1929,10 +1927,20 @@ backup dictionary."
       '(("emacs init"
 	 (filename . "~/.emacs.d/init.el")
 	 (front-context-string . ";; Customization") (position . 1))
+	("projects" (filename . "~/projects/")
+	 (front-context-string . ".\n  drwxr-x--- 3")
+	 (rear-context-string . "0K Apr 26 18:18 ") (position . 65))
 	("reading notes 2"
 	 (filename . "~/Documents/bibliography/review2/review.org")
 	 (front-context-string . "#+title: Literat") (rear-context-string)
 	 (position . 1))
+	("manuscripts" (filename . "~/Documents/manuscripts/")
+	 (front-context-string . "zarebski2024derp")
+	 (rear-context-string . "0K Mar 28 13:39 ") (position . 547))
+	("manuscript derp"
+	 (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex")
+	 (front-context-string . "]\n  \\item [Measu")
+	 (rear-context-string . "m [Branch length") (position . 3963))
 	("bibliography bibtex"
 	 (filename . "~/Documents/bibliography/references.bib")
 	 (front-context-string . "@article{abdar20") (rear-context-string)
