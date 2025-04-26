@@ -1460,6 +1460,25 @@ version of an S-expression on the kill ring.
     "m s c" 'racket-send-last-sexp)
 #+end_src
 
+** Julia
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  ;; Julia
+  ;; -----
+
+  (use-package julia-mode
+    :ensure t)
+
+  (use-package julia-repl
+    :ensure t)
+
+  (with-eval-after-load 'julia-mode
+    (evil-leader/set-key-for-mode 'julia-mode
+      "m '" #'julia-repl
+      "m s b" #'julia-repl-send-buffer
+      "m s r" #'julia-repl-send-region-or-line))
+#+end_src
+
 ** LaTeX/BibTeX
 
 It would be really nice to have a better way to search my bibtex

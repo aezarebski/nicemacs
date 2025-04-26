@@ -1139,6 +1139,23 @@ kill ring."
   "m '" 'python-shell-switch-to-shell)
 ;; Python:1 ends here
 
+;; [[file:nicemacs-v2.org::*Julia][Julia:1]]
+;; Julia
+;; -----
+
+(use-package julia-mode
+  :ensure t)
+
+(use-package julia-repl
+  :ensure t)
+
+(with-eval-after-load 'julia-mode
+  (evil-leader/set-key-for-mode 'julia-mode
+    "m '" #'julia-repl
+    "m s b" #'julia-repl-send-buffer
+    "m s r" #'julia-repl-send-region-or-line))
+;; Julia:1 ends here
+
 ;; [[file:nicemacs-v2.org::*LaTeX/BibTeX][LaTeX/BibTeX:1]]
 ;; LaTeX/BibTeX
 ;; ------------
