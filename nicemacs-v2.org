@@ -1292,6 +1292,11 @@ version of an S-expression on the kill ring.
 
 ** Python
 
+During REPL stuff, activate the virtual environment with =m v a=; you
+can start a REPL with =C-c C-p=, which runs =run-python= (from within
+a python-mode buffer); to kill the REPL use =C-c C-\= (from within an
+inferior process, which runs =comint-quit-subjob=.
+
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Python
   ;; ------
@@ -1324,7 +1329,7 @@ version of an S-expression on the kill ring.
     "m v a" 'pyvenv-activate
     "m s b" 'python-shell-send-buffer
     "m s r" 'python-shell-send-region
-    "m '" 'python-shell-switch-to-shell)
+    "m '" 'run-python)
 #+end_src
 
 ** Scheme/Racket :EXCLUDED:
