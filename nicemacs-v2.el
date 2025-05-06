@@ -1810,6 +1810,16 @@ backup dictionary."
       '(("emacs init"
 	 (filename . "~/.emacs.d/init.el")
 	 (front-context-string . ";; Customization") (position . 1))
+	("ons-cis renewal code" (filename . "~/projects/renewal-model/")
+	 (front-context-string . ".\n  drwxrwxr-x 1")
+	 (rear-context-string . "0K Feb 25 14:59 ") (position . 79))
+	("ons-cis renewal manuscript"
+	 (filename . "~/Documents/manuscripts/zarebski202Xrenewal/")
+	 (front-context-string . ".\n  drwxrwxr-x 1")
+	 (rear-context-string . "0K Mar 13 16:09 ") (position . 98))
+	("professional" (filename . "~/Documents/professional/")
+	 (front-context-string . ".\n  drwxr-xr-x  ")
+	 (rear-context-string . "0K Apr 25 15:28 ") (position . 79))
 	("website html" (filename . "~/aezarebski.github.io/")
 	 (front-context-string . ".\n  drwx------ 8")
 	 (rear-context-string . "0K Jan 28 23:44 ") (position . 110))
@@ -1826,15 +1836,24 @@ backup dictionary."
 	("manuscripts" (filename . "~/Documents/manuscripts/")
 	 (front-context-string . "zarebski2024derp")
 	 (rear-context-string . "0K Mar 28 13:39 ") (position . 547))
-	("manuscript derp"
-	 (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex")
-	 (front-context-string . "]\n  \\item [Measu")
-	 (rear-context-string . "m [Branch length") (position . 3963))
+	("derp manuscript"
+	 (filename . "~/Documents/manuscripts/zarebski202Xderp/")
+	 (front-context-string . ".\n  drwxrwxr-x 1")
+	 (rear-context-string . "0K Apr 28 12:40 ") (position . 95))
+	("derp calibration" (filename . "~/projects/derp-calibration-study/")
+	 (front-context-string . ".\n  drwxrwxr-x 1")
+	 (rear-context-string . "0K Apr 17 14:34 ") (position . 88))
+	("derp simulation" (filename . "~/projects/derp-simulation/")
+	 (front-context-string . ".\n  drwxrwxr-x 1")
+	 (rear-context-string . "0K Apr 10 16:16 ") (position . 81))
+	("derp training" (filename . "~/projects/derp-training/")
+	 (front-context-string . ".\n  drwxrwxr-x 1")
+	 (rear-context-string . "0K Apr 10 15:57 ") (position . 79))
 	("bibliography bibtex"
 	 (filename . "~/Documents/bibliography/references.bib")
 	 (front-context-string . "@article{abdar20") (rear-context-string)
 	 (position . 1))
-	("nicemacs elisp"
+	("emacs nicemacs elisp"
 	 (filename . "~/nicemacs/nicemacs-v2.el")
 	 (front-context-string . ";;         / __ ")
 	 (rear-context-string . "___ ___________\n") (position . 244))))
