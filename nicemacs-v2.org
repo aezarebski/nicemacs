@@ -1531,6 +1531,10 @@ functions that sneak in here too.
   based on a column (1-indexed) with a variety of datatypes acceptable.
 - NOTE It would be nice to have an additional command and key for
   moving from level n+1 headers their parent level n header.
+- The functions =org-footnote-new= creates a new footnote (obviously),
+  less obvious are the very helpful =org-footnote-normalize= and
+  =org-footnote-renumber= which will help you sort out your shambolic
+  footnotes.
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Org-Mode
