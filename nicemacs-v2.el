@@ -1023,7 +1023,8 @@ kill ring."
   "m v a" 'pyvenv-activate
   "m s b" 'python-shell-send-buffer
   "m s r" 'python-shell-send-region
-  "m '" 'python-shell-switch-to-shell)
+  "m '" 'run-python)
+  ;; "m '" 'python-shell-switch-to-shell)
 ;; Python:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Julia][Julia:1]]
@@ -1813,6 +1814,10 @@ backup dictionary."
 	("ons-cis renewal code" (filename . "~/projects/renewal-model/")
 	 (front-context-string . ".\n  drwxrwxr-x 1")
 	 (rear-context-string . "0K Feb 25 14:59 ") (position . 79))
+	("ons-cis renewal code stan"
+	 (filename . "~/projects/renewal-model/stan-renewal-model.stan")
+	 (front-context-string . "pper=1>[d] v;\n\n ")
+	 (rear-context-string . "vector<lower=0,u") (position . 90))
 	("ons-cis renewal manuscript"
 	 (filename . "~/Documents/manuscripts/zarebski202Xrenewal/")
 	 (front-context-string . ".\n  drwxrwxr-x 1")
@@ -1826,29 +1831,38 @@ backup dictionary."
 	("website org" (filename . "~/public-site/org/")
 	 (front-context-string . ".\n  drwxrwxr-x  ")
 	 (rear-context-string . "0K Mar 27 21:32 ") (position . 105))
+	("website notes latex"
+	 (filename . "~/public-site/org/notes/latex-notes.org")
+	 (front-context-string . "#+title: LaTeX n") (rear-context-string)
+	 (position . 1))
+	("website notes python"
+	 (filename . "~/public-site/org/notes/python-notes.org")
+	 (front-context-string . "#+title: Python ") (rear-context-string)
+	 (position . 1))
 	("projects" (filename . "~/projects/")
 	 (front-context-string . ".\n  drwxr-x--- 3")
 	 (rear-context-string . "0K Apr 26 18:18 ") (position . 65))
-	("reading notes 2"
-	 (filename . "~/Documents/bibliography/review2/review.org")
-	 (front-context-string . "#+title: Literat") (rear-context-string)
-	 (position . 1))
 	("manuscripts" (filename . "~/Documents/manuscripts/")
 	 (front-context-string . "zarebski2024derp")
 	 (rear-context-string . "0K Mar 28 13:39 ") (position . 547))
 	("derp manuscript"
-	 (filename . "~/Documents/manuscripts/zarebski202Xderp/")
+	 (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex")
+	 (front-context-string . "\\documentclass[1") (rear-context-string)
+	 (position . 1))
+	("derp calibration study beast"
+	 (filename . "~/projects/derp-calibration-study-beast/")
 	 (front-context-string . ".\n  drwxrwxr-x 1")
-	 (rear-context-string . "0K Apr 28 12:40 ") (position . 95))
-	("derp calibration" (filename . "~/projects/derp-calibration-study/")
-	 (front-context-string . ".\n  drwxrwxr-x 1")
-	 (rear-context-string . "0K Apr 17 14:34 ") (position . 88))
+	 (rear-context-string . "0K May  9 12:37 ") (position . 94))
 	("derp simulation" (filename . "~/projects/derp-simulation/")
 	 (front-context-string . ".\n  drwxrwxr-x 1")
 	 (rear-context-string . "0K Apr 10 16:16 ") (position . 81))
 	("derp training" (filename . "~/projects/derp-training/")
 	 (front-context-string . ".\n  drwxrwxr-x 1")
 	 (rear-context-string . "0K Apr 10 15:57 ") (position . 79))
+	("bibliography reading notes"
+	 (filename . "~/Documents/bibliography/review2/review.org")
+	 (front-context-string . "#+title: Literat") (rear-context-string)
+	 (position . 1))
 	("bibliography bibtex"
 	 (filename . "~/Documents/bibliography/references.bib")
 	 (front-context-string . "@article{abdar20") (rear-context-string)
