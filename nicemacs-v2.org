@@ -213,7 +213,20 @@ scrolling (which gives a smoother scroll).
     :config
     (ligature-set-ligatures 'prog-mode '("|>" "<-" "<<-" "==" "!=" ">=" "<="))
     (global-ligature-mode nil))
-  (set-frame-font "JetBrains Mono" nil t)
+
+  (defvar nice-current-font "JetBrains Mono"
+    "Tracks the current font in use.")
+  (set-frame-font nice-current-font t t)
+
+  (defun nice-toggle-font ()
+    "Toggle between JetBrains Mono and TeX Gyre Pagella."
+    (interactive)
+    (let ((new-font (if (string= nice-current-font "JetBrains Mono")
+			"TeX Gyre Pagella"
+		      "JetBrains Mono")))
+      (set-frame-font new-font t t)
+      (setq nice-current-font new-font)
+      (message "Switched to font: %s" new-font)))
 
   (defun toggle-ligatures ()
     "Toggle ligatures on and off."
@@ -221,7 +234,10 @@ scrolling (which gives a smoother scroll).
     (if (bound-and-true-p global-ligature-mode)
 	(global-ligature-mode -1)
       (global-ligature-mode 1)))
-  (evil-leader/set-key "t l" 'toggle-ligatures)
+
+  (evil-leader/set-key
+    "t w" 'nice-toggle-font
+    "t l" 'toggle-ligatures)
 #+end_src
 
 *** General
@@ -479,6 +495,7 @@ Get information on partial keys to help you remember/discover functionality.
 	  ("SPC v b" . "Bibtex")
 	  ("SPC v f" . "Files")
 	  ("SPC v d" . "Directories")
+	  ("SPC v m" . "Bookmarks")
 	  ("SPC w" . "Windows")
 	  ("SPC y" . "Yasnippet")
 	  ("SPC z" . "Zoom (without a mouse)")))
@@ -2045,16 +2062,6 @@ for =org-latex-preview= below.
 	   (find-file ,(concat nice-notes-directory "/" file))))
        (evil-leader/set-key ,(concat "v n " key) (intern ,(format "nice-visit-%s" fname)))))
 
-  (defmacro NVF (fname pname file key)
-    `(progn
-       (defun ,(intern (format "nice-visit-%s" fname)) ()
-	 "Visit a file."
-	 (interactive)
-	 (progn
-	   (message ,(format "Visiting %s" pname))
-	   (find-file ,file)))
-       (evil-leader/set-key ,(concat "v f" key) (intern ,(format "nice-visit-%s" fname)))))
-
   (defmacro NVD (dname pname path key)
     "Macro to define a function for visiting a directory and set an Evil leader key binding.
 
@@ -2080,12 +2087,6 @@ for =org-latex-preview= below.
 	   (revert-buffer)))
        (evil-leader/set-key ,(concat "v d " key) (intern ,(format "nice-visit-%s" dname)))))
 
-  (NVF nicemacs2-source "Nicemacs v2 source" (expand-file-name "nicemacs-v2.el" nice-nicemacs-directory) "e 3")
-  (NVF nicemacs2-init "Nicemacs v2 init.el" "~/.emacs.d/init.el" "e 2")
-  (NVF review-2 "Review 2" "~/Documents/bibliography/review2/review.org" "r 2")
-  (NVF review-reading-list "Reading list" "~/Documents/bibliography/review2/reading-list.org" "r l")
-  (NVF review-references "Bibtex references" "~/Documents/bibliography/references.bib" "r r")
-
   (NVNF academia-notes "Academia notes" "academic-journal-notes.org" "a")
   (NVNF beast-notes "BEAST2 notes" "beast2-notes.org" "b")
   (NVNF git-notes "Git notes" "git-notes.org" "g")
@@ -2101,15 +2102,11 @@ for =org-latex-preview= below.
   (NVD emacs "Emacs" "~/.emacs.d/fake.org" "e")
   (NVD journal-dir "Journal Directory" "~/Documents/journal/fake.org" "j")
   (NVD library "Library" "~/Documents/library/fake.org" "l")
-  (NVD manuscripts "Manuscripts" "~/Documents/manuscripts/fake.org" "m")
   (NVD music "Music" "~/Music/fake.org" "M")
   (NVD documents "Documents" "~/Documents/fake.org" "d")
   (NVD downloads "Downloads" "~/Downloads/fake.org" "D")
   (NVD professional "Professional" "~/Documents/professional/README.org" "p")
-  (NVD projects "Projects" "~/projects/fake.org" "P")
   (NVD teaching "Teaching" "~/Documents/teaching/fake.org" "t")
-  (NVD website-org "Website (org files)" "~/public-site/org/fake.org" "w")
-  (NVD website-html "Website (HTML files)" "~/aezarebski.github.io/fake.org" "W")
   (NVD notes "My notes" "~/public-site/org/notes/fake.org" "n")
   (NVD yasnippet "Yasnippet" "~/.emacs.d/snippets/fake.org" "y")
 
