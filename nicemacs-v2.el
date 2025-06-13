@@ -178,7 +178,20 @@
   :config
   (ligature-set-ligatures 'prog-mode '("|>" "<-" "<<-" "==" "!=" ">=" "<="))
   (global-ligature-mode nil))
-(set-frame-font "JetBrains Mono" nil t)
+
+(defvar nice-current-font "JetBrains Mono"
+  "Tracks the current font in use.")
+(set-frame-font nice-current-font t t)
+
+(defun nice-toggle-font ()
+  "Toggle between JetBrains Mono and TeX Gyre Pagella."
+  (interactive)
+  (let ((new-font (if (string= nice-current-font "JetBrains Mono")
+                      "TeX Gyre Pagella"
+                    "JetBrains Mono")))
+    (set-frame-font new-font t t)
+    (setq nice-current-font new-font)
+    (message "Switched to font: %s" new-font)))
 
 (defun toggle-ligatures ()
   "Toggle ligatures on and off."
@@ -186,7 +199,10 @@
   (if (bound-and-true-p global-ligature-mode)
       (global-ligature-mode -1)
     (global-ligature-mode 1)))
-(evil-leader/set-key "t l" 'toggle-ligatures)
+
+(evil-leader/set-key
+  "t w" 'nice-toggle-font
+  "t l" 'toggle-ligatures)
 ;; Fonts:1 ends here
 
 ;; [[file:nicemacs-v2.org::*General][General:1]]
@@ -1825,6 +1841,10 @@ backup dictionary."
 	("professional" (filename . "~/Documents/professional/")
 	 (front-context-string . ".\n  drwxr-xr-x  ")
 	 (rear-context-string . "0K Apr 25 15:28 ") (position . 79))
+	("professional cv"
+	 (filename . "~/Documents/professional/cv-2.0/cv.tex")
+	 (front-context-string . "}\n\n\\usepackage[m")
+	 (rear-context-string . "e=12pt]{scrartcl") (position . 48))
 	("website html" (filename . "~/aezarebski.github.io/")
 	 (front-context-string . ".\n  drwx------ 8")
 	 (rear-context-string . "0K Jan 28 23:44 ") (position . 110))
