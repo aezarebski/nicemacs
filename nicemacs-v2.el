@@ -179,19 +179,25 @@
   (ligature-set-ligatures 'prog-mode '("|>" "<-" "<<-" "==" "!=" ">=" "<="))
   (global-ligature-mode nil))
 
-(defvar nice-current-font "JetBrains Mono"
-  "Tracks the current font in use.")
-(set-frame-font nice-current-font t t)
+
+(defvar nice-font-list '("JetBrains Mono" "TeX Gyre Pagella" "Noto Sans")
+  "List of fonts to cycle through.")
+
+(defvar nice-current-font-index 0
+  "Index of the current font in `nice-font-list`.")
+
+(defun nice-apply-current-font ()
+  "Set the font based on `nice-current-font-index`."
+  (let ((font (nth nice-current-font-index nice-font-list)))
+    (set-frame-font font t t)
+    (message "Switched to font: %s" font)))
 
 (defun nice-toggle-font ()
-  "Toggle between JetBrains Mono and TeX Gyre Pagella."
+  "Cycle through fonts in `nice-font-list`."
   (interactive)
-  (let ((new-font (if (string= nice-current-font "JetBrains Mono")
-                      "TeX Gyre Pagella"
-                    "JetBrains Mono")))
-    (set-frame-font new-font t t)
-    (setq nice-current-font new-font)
-    (message "Switched to font: %s" new-font)))
+  (setq nice-current-font-index
+        (mod (1+ nice-current-font-index) (length nice-font-list)))
+  (nice-apply-current-font))
 
 (defun toggle-ligatures ()
   "Toggle ligatures on and off."
@@ -284,21 +290,28 @@ active, and turns it off if it is."
 ;; General:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Theme: Leuven][Theme: Leuven:1]]
-(setq nice-light-theme 'leuven
-      nice-dark-theme 'leuven-dark)
+(defvar nice-theme-list '(leuven leuven-dark organic-green)
+  "List of themes to cycle through.")
 
-(load-theme nice-light-theme t)
+(defvar nice-current-theme-index 0
+  "Index of the current theme in `nice-theme-list`.")
+
+(defun nice-apply-current-theme ()
+  "Disable current theme and load the one at `nice-current-theme-index`."
+  (mapc #'disable-theme custom-enabled-themes)
+  (let ((theme (nth nice-current-theme-index nice-theme-list)))
+    (load-theme theme t)
+    (message "Switched to theme: %s" theme)))
 
 (defun nice-toggle-theme ()
-  "Toggle between my light and dark themes."
+  "Cycle through themes in `nice-theme-list`."
   (interactive)
-  (if (eq (car custom-enabled-themes) nice-light-theme)
-      (progn
-        (disable-theme nice-light-theme)
-        (load-theme nice-dark-theme t))
-    (progn
-      (disable-theme nice-dark-theme)
-      (load-theme nice-light-theme t))))
+  (setq nice-current-theme-index
+        (mod (1+ nice-current-theme-index) (length nice-theme-list)))
+  (nice-apply-current-theme))
+
+;; Initially load the first theme
+(nice-apply-current-theme)
 
 (evil-leader/set-key "t t" 'nice-toggle-theme)
 ;; Theme: Leuven:1 ends here
@@ -1845,6 +1858,11 @@ backup dictionary."
 	 (filename . "~/Documents/professional/cv-2.0/cv.tex")
 	 (front-context-string . "}\n\n\\usepackage[m")
 	 (rear-context-string . "e=12pt]{scrartcl") (position . 48))
+	("professional funding"
+	 (filename . "~/Documents/professional/funding-grants/")
+	 (front-context-string . "AI4S Challenge G")
+	 (rear-context-string . "0M Jan  9 09:29 ") (position . 183)
+	 (last-modified 26707 64109 924013 135000))
 	("website html" (filename . "~/aezarebski.github.io/")
 	 (front-context-string . ".\n  drwx------ 8")
 	 (rear-context-string . "0K Jan 28 23:44 ") (position . 110))
