@@ -1347,6 +1347,7 @@ inferior process, which runs =comint-quit-subjob=.
     "m s b" 'python-shell-send-buffer
     "m s r" 'python-shell-send-region
     "m '" 'run-python)
+    ;; "m '" 'python-shell-switch-to-shell)
 #+end_src
 
 ** Scheme/Racket :EXCLUDED:
@@ -2232,6 +2233,93 @@ for =org-latex-preview= below.
   ;; TODO Work out how to use mediawiki-mode to read and edit wikipedia.
 
   ;; TODO Explore running spotify through emacs
+
+
+  (setq bookmark-alist
+	'(("emacs init"
+	   (filename . "~/.emacs.d/init.el")
+	   (front-context-string . ";; Customization") (position . 1))
+	  ("ons-cis renewal code" (filename . "~/projects/renewal-model/")
+	   (front-context-string . ".\n  drwxrwxr-x 1")
+	   (rear-context-string . "0K Feb 25 14:59 ") (position . 79))
+	  ("ons-cis renewal code stan"
+	   (filename . "~/projects/renewal-model/stan-renewal-model.stan")
+	   (front-context-string . "pper=1>[d] v;\n\n ")
+	   (rear-context-string . "vector<lower=0,u") (position . 90))
+	  ("ons-cis renewal manuscript"
+	   (filename . "~/Documents/manuscripts/zarebski202Xrenewal/")
+	   (front-context-string . ".\n  drwxrwxr-x 1")
+	   (rear-context-string . "0K Mar 13 16:09 ") (position . 98))
+	  ("professional" (filename . "~/Documents/professional/")
+	   (front-context-string . ".\n  drwxr-xr-x  ")
+	   (rear-context-string . "0K Apr 25 15:28 ") (position . 79))
+	  ("professional cv"
+	   (filename . "~/Documents/professional/cv-2.0/cv.tex")
+	   (front-context-string . "}\n\n\\usepackage[m")
+	   (rear-context-string . "e=12pt]{scrartcl") (position . 48))
+	  ("website html" (filename . "~/aezarebski.github.io/")
+	   (front-context-string . ".\n  drwx------ 8")
+	   (rear-context-string . "0K Jan 28 23:44 ") (position . 110))
+	  ("website org" (filename . "~/public-site/org/")
+	   (front-context-string . ".\n  drwxrwxr-x  ")
+	   (rear-context-string . "0K Mar 27 21:32 ") (position . 105))
+	  ("website notes latex"
+	   (filename . "~/public-site/org/notes/latex-notes.org")
+	   (front-context-string . "#+title: LaTeX n") (rear-context-string)
+	   (position . 1))
+	  ("website notes python"
+	   (filename . "~/public-site/org/notes/python-notes.org")
+	   (front-context-string . "#+title: Python ") (rear-context-string)
+	   (position . 1))
+	  ("projects" (filename . "~/projects/")
+	   (front-context-string . ".\n  drwxr-x--- 3")
+	   (rear-context-string . "0K Apr 26 18:18 ") (position . 65))
+	  ("manuscripts" (filename . "~/Documents/manuscripts/")
+	   (front-context-string . "zarebski2024derp")
+	   (rear-context-string . "0K Mar 28 13:39 ") (position . 547))
+	  ("derp manuscript"
+	   (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex")
+	   (front-context-string . "\\documentclass[1") (rear-context-string)
+	   (position . 1))
+	  ("derp calibration study beast"
+	   (filename . "~/projects/derp-calibration-study-beast/")
+	   (front-context-string . ".\n  drwxrwxr-x 1")
+	   (rear-context-string . "0K May  9 12:37 ") (position . 94))
+	  ("derp simulation" (filename . "~/projects/derp-simulation/")
+	   (front-context-string . ".\n  drwxrwxr-x 1")
+	   (rear-context-string . "0K Apr 10 16:16 ") (position . 81))
+	  ("derp training" (filename . "~/projects/derp-training/")
+	   (front-context-string . ".\n  drwxrwxr-x 1")
+	   (rear-context-string . "0K Apr 10 15:57 ") (position . 79))
+	  ("bibliography reading notes"
+	   (filename . "~/Documents/bibliography/review2/review.org")
+	   (front-context-string . "#+title: Literat") (rear-context-string)
+	   (position . 1))
+	  ("bibliography bibtex"
+	   (filename . "~/Documents/bibliography/references.bib")
+	   (front-context-string . "@article{abdar20") (rear-context-string)
+	   (position . 1))
+	  ("emacs nicemacs elisp"
+	   (filename . "~/nicemacs/nicemacs-v2.el")
+	   (front-context-string . ";;         / __ ")
+	   (rear-context-string . "___ ___________\n") (position . 244))))
+
+  (defun nice-copy-bookmark-alist ()
+    "Copy the current `bookmark-alist' to the kill-ring in a pretty-printed format."
+    (interactive)
+    (let ((output (with-temp-buffer
+		    (let ((print-length nil)
+			  (print-level nil))
+		      (pp bookmark-alist (current-buffer))
+		      (buffer-string)))))
+      (kill-new output)
+      (message "bookmark-alist copied to kill-ring!")))
+
+  (evil-leader/set-key
+    "v m a" 'nice-copy-bookmark-alist
+    "v m s" 'bookmark-set
+    "v m j" 'bookmark-jump
+    "v m l" 'bookmark-bmenu-list)
 
   ;; Customization
   ;; =============
