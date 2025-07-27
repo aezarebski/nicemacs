@@ -92,6 +92,23 @@
   :ensure t)
 ;; STUFF 1:1 ends here
 
+;; [[file:nicemacs-v2.org::*CSV][CSV:1]]
+;; CSV
+;; ---
+;;
+;; + C-c C-a - will align the columns
+;; + C-c C-u - will un-align the columns
+(use-package csv-mode
+  :ensure t
+  :mode (("\\.csv\\'" . csv-mode)
+         ("\\.tsv\\'" . csv-mode))
+  :hook (csv-mode . rainbow-csv-mode))
+
+(use-package rainbow-csv
+  :load-path "~/.emacs.d/rainbow-csv/"
+  :after csv-mode)
+;; CSV:1 ends here
+
 ;; [[file:nicemacs-v2.org::*Evil][Evil:1]]
 ;; Be evil
 ;; =======
@@ -1840,6 +1857,10 @@ backup dictionary."
       '(("emacs init"
 	 (filename . "~/.emacs.d/init.el")
 	 (front-context-string . ";; Customization") (position . 1))
+	("documents" (filename . "~/Documents/")
+	 (front-context-string . ".\n  drwxrwxr-x 4")
+	 (rear-context-string . "0K Jun 12 14:39 ") (position . 66)
+	 (last-modified 26755 26250 648776 264000))
 	("ons-cis renewal code" (filename . "~/projects/renewal-model/")
 	 (front-context-string . ".\n  drwxrwxr-x 1")
 	 (rear-context-string . "0K Feb 25 14:59 ") (position . 79))
@@ -1877,6 +1898,10 @@ backup dictionary."
 	 (filename . "~/public-site/org/notes/python-notes.org")
 	 (front-context-string . "#+title: Python ") (rear-context-string)
 	 (position . 1))
+	("website lists movies"
+	 (filename . "~/public-site/org/lists/movies-and-series.org")
+	 (front-context-string . "#+TITLE: movies!") (rear-context-string)
+	 (position . 1) (last-modified 26738 35974 417887 969000))
 	("projects" (filename . "~/projects/")
 	 (front-context-string . ".\n  drwxr-x--- 3")
 	 (rear-context-string . "0K Apr 26 18:18 ") (position . 65))
