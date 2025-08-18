@@ -119,14 +119,20 @@
 ** CSV
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
-(use-package csv-mode
-  :ensure t
-  :mode ("\\.csv\\'" . csv-mode)
-  :hook (csv-mode . csv-highlight-mode)
-  :custom-face
-  (csv-separator-face ((t (:foreground "#555"))))
-  (csv-column-face-1 ((t (:background "#f0f0ff"))))
-  (csv-column-face-2 ((t (:background "#fff0f0")))))
+  ;; CSV
+  ;; ---
+  ;;
+  ;; + C-c C-a - will align the columns
+  ;; + C-c C-u - will un-align the columns
+  (use-package csv-mode
+    :ensure t
+    :mode (("\\.csv\\'" . csv-mode)
+	   ("\\.tsv\\'" . csv-mode))
+    :hook (csv-mode . rainbow-csv-mode))
+
+  (use-package rainbow-csv
+    :load-path "~/.emacs.d/rainbow-csv/"
+    :after csv-mode)
 #+end_src
 
 ** Evil
@@ -721,6 +727,12 @@ seems simpler (although has a clunkier UI than Meld).
     (let ((dir (file-name-directory filepath)))
       (when (file-directory-p dir)
 	(eshell/cd dir))))
+
+  (defun ls1 (&optional dir)
+    "Run `ls -1` in DIR (or `default-directory` if none is given)."
+    (let ((dir (or dir default-directory)))
+      (when (file-directory-p dir)
+	(eshell/ls "-1" dir))))
 
   (defun nice-eshell-mode-setup ()
     (setenv "TERM" "dumb")
@@ -2265,6 +2277,10 @@ for =org-latex-preview= below.
 	'(("emacs init"
 	   (filename . "~/.emacs.d/init.el")
 	   (front-context-string . ";; Customization") (position . 1))
+	  ("documents" (filename . "~/Documents/")
+	   (front-context-string . ".\n  drwxrwxr-x 4")
+	   (rear-context-string . "0K Jun 12 14:39 ") (position . 66)
+	   (last-modified 26755 26250 648776 264000))
 	  ("ons-cis renewal code" (filename . "~/projects/renewal-model/")
 	   (front-context-string . ".\n  drwxrwxr-x 1")
 	   (rear-context-string . "0K Feb 25 14:59 ") (position . 79))
@@ -2302,6 +2318,13 @@ for =org-latex-preview= below.
 	   (filename . "~/public-site/org/notes/python-notes.org")
 	   (front-context-string . "#+title: Python ") (rear-context-string)
 	   (position . 1))
+	  ("website lists books" (filename . "~/public-site/org/lists/books.org")
+	   (front-context-string . "#+title: books!\n") (rear-context-string)
+	   (position . 1) (last-modified 26786 61572 347304 260000))
+	  ("website lists movies"
+	   (filename . "~/public-site/org/lists/movies-and-series.org")
+	   (front-context-string . "#+TITLE: movies!") (rear-context-string)
+	   (position . 1) (last-modified 26738 35974 417887 969000))
 	  ("projects" (filename . "~/projects/")
 	   (front-context-string . ".\n  drwxr-x--- 3")
 	   (rear-context-string . "0K Apr 26 18:18 ") (position . 65))
