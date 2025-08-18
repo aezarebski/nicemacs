@@ -1898,6 +1898,9 @@ backup dictionary."
 	 (filename . "~/public-site/org/notes/python-notes.org")
 	 (front-context-string . "#+title: Python ") (rear-context-string)
 	 (position . 1))
+	("website lists books" (filename . "~/public-site/org/lists/books.org")
+	 (front-context-string . "#+title: books!\n") (rear-context-string)
+	 (position . 1) (last-modified 26786 61572 347304 260000))
 	("website lists movies"
 	 (filename . "~/public-site/org/lists/movies-and-series.org")
 	 (front-context-string . "#+TITLE: movies!") (rear-context-string)
