@@ -1611,6 +1611,13 @@ functions that sneak in here too.
 	initial-scratch-message nil)
 #+end_src
 
+*** Anki
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  ;; Anki-editor
+  ;; -----------
+#+end_src
+
 *** Writing natural language
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link

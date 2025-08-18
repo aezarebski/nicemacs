@@ -1250,6 +1250,11 @@ year, and the first two words of the title."
       initial-scratch-message nil)
 ;; Org-mode:1 ends here
 
+;; [[file:nicemacs-v2.org::*Anki][Anki:1]]
+;; Anki-editor
+;; -----------
+;; Anki:1 ends here
+
 ;; [[file:nicemacs-v2.org::*Writing natural language][Writing natural language:1]]
 ;; Write well
 ;; ----------
