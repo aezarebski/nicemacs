@@ -331,7 +331,9 @@ active, and turns it off if it is."
 (nice-apply-current-theme)
 
 (evil-leader/set-key "t t t" 'nice-toggle-theme)
+;; Theme: Leuven:1 ends here
 
+;; [[file:nicemacs-v2.org::*Font and theme combos][Font and theme combos:1]]
 (defvar nice-theme-and-font-combos
   '((:key "1"
      :name "Day (Leuven + Noto Sans)"
@@ -372,11 +374,7 @@ active, and turns it off if it is."
       (evil-leader/set-key (concat "t t " key) fname)
       (which-key-add-key-based-replacements (concat "SPC t t " key)
                                             (format "Theme+Font: %s" name)))))
-
-
-
-
-;; Theme: Leuven:1 ends here
+;; Font and theme combos:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Other][Other:1]]
 ;; Rainbow-mode will highlight strings indicating colours,
