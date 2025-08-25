@@ -330,7 +330,52 @@ active, and turns it off if it is."
 ;; Initially load the first theme
 (nice-apply-current-theme)
 
-(evil-leader/set-key "t t" 'nice-toggle-theme)
+(evil-leader/set-key "t t t" 'nice-toggle-theme)
+
+(defvar nice-theme-and-font-combos
+  '((:key "1"
+     :name "Day (Leuven + Noto Sans)"
+     :theme leuven
+     :font  "JetBrains Mono")
+    (:key "2"
+     :name "Green (organic-green + Noto Sans)"
+     :theme organic-green
+     :font  "Noto Sans"))
+  "Ordered list of theme+font preset combinations")
+
+(defun nice--apply-theme (theme)
+  "Disable current themes and load THEME."
+  (mapc #'disable-theme custom-enabled-themes)
+  (load-theme theme t))
+
+(defun nice--apply-font (font)
+  "Set frame FONT for all frames and future ones."
+  (set-frame-font font t t))
+
+(defun nice-apply-theme-font-preset (preset)
+  "Apply the theme+font PRESET from `nice-theme-and-font-combos'."
+  (let* ((theme (plist-get preset :theme))
+         (font  (plist-get preset :font))
+         (name  (plist-get preset :name)))
+    (nice--apply-theme theme)
+    (nice--apply-font font)
+    (message "Applied: %s (theme: %s, font: %s)" name theme font)))
+
+(dolist (preset nice-theme-and-font-combos)
+  (let* ((key (plist-get preset :key))
+         (name (plist-get preset :name))
+         (fname (intern (format "nice-apply-theme-font-%s" key))))
+    (when key
+      (defalias fname
+        `(lambda () (interactive)
+           (nice-apply-theme-font-preset ',preset)))
+      (evil-leader/set-key (concat "t t " key) fname)
+      (which-key-add-key-based-replacements (concat "SPC t t " key)
+                                            (format "Theme+Font: %s" name)))))
+
+
+
+
 ;; Theme: Leuven:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Other][Other:1]]
@@ -412,6 +457,7 @@ already in its own frame."
         ("SPC s" . "Shell/Search")
         ("SPC S" . "Spelling")
         ("SPC t" . "Toggles")
+	("SPC t t" . "Themes and fonts")
         ("SPC v" . "Visitors")
         ("SPC v b" . "Bibtex")
         ("SPC v f" . "Files")
@@ -1312,7 +1358,7 @@ backup dictionary."
          unless (member word writegood-weasel-words)
          do (add-to-list 'writegood-weasel-words word))
 
-(evil-leader/set-key "t w" 'writegood-mode)
+(evil-leader/set-key "t t w" 'writegood-mode)
 
 ;; Formatting text
 ;; ---------------
