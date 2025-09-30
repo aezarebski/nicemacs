@@ -846,6 +846,10 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 ;;
 ;; See https://github.com/aezarebski/whipper-snipper
 ;;
+(defun nice-insert-pound-symbol ()
+  "Insert the pound (£) symbol at point."
+  (interactive)
+  (insert "£"))
 
 (use-package yasnippet
   :ensure t
@@ -857,7 +861,8 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
     "y r" 'yas-reload-all
     "y c" 'yas-compile-directory
     "y l" 'nice-load-snippets
-    "y e" 'emoji-list))
+    "y e" 'emoji-list
+    "y p" 'nice-insert-pound-symbol))
 
 (defun nice-load-snippets ()
   "Load the snippets in my snippet directory"
