@@ -98,6 +98,9 @@
 ;;
 ;; + C-c C-a - will align the columns
 ;; + C-c C-u - will un-align the columns
+;;
+;; NOTE that the `rainbow-csv` package needs to be downloaded from
+;; GitHub. The `:ensure t` won't work for this package.
 (use-package csv-mode
   :ensure t
   :mode (("\\.csv\\'" . csv-mode)
@@ -105,7 +108,6 @@
   :hook (csv-mode . rainbow-csv-mode))
 
 (use-package rainbow-csv
-  :ensure t
   :load-path "~/.emacs.d/rainbow-csv/"
   :after csv-mode)
 ;; CSV:1 ends here
