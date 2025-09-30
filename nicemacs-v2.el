@@ -105,6 +105,7 @@
   :hook (csv-mode . rainbow-csv-mode))
 
 (use-package rainbow-csv
+  :ensure t
   :load-path "~/.emacs.d/rainbow-csv/"
   :after csv-mode)
 ;; CSV:1 ends here
@@ -1957,6 +1958,10 @@ backup dictionary."
 	("projects" (filename . "~/projects/")
 	 (front-context-string . ".\n  drwxr-x--- 3")
 	 (rear-context-string . "0K Apr 26 18:18 ") (position . 65))
+	("reading notes 2"
+	 (filename . "~/Documents/bibliography/review2/review.org")
+	 (front-context-string . "#+title: Literat") (rear-context-string)
+	 (position . 1))
 	("manuscripts" (filename . "~/Documents/manuscripts/")
 	 (front-context-string . "zarebski2024derp")
 	 (rear-context-string . "0K Mar 28 13:39 ") (position . 547))
