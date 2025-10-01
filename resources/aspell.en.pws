@@ -18,6 +18,7 @@ CrI
 CrIs
 DAGs
 DSL
+Daniela
 Elsevier
 FASTA
 FFX
@@ -38,6 +39,7 @@ Kalman
 LLHD
 Lotka
 MCMC
+MLE
 MNIST
 MSE
 Monash
@@ -45,11 +47,13 @@ Multiscale
 Newick
 Neyman
 Nonparametric
+Normalizing
 ODEs
 PDE
 PDEs
 PGF
 PHEIC
+PMF
 PNG
 PRNG
 Paneer
@@ -80,10 +84,13 @@ XSLT
 YAML
 Zarebski
 acyclic
+affine
+amortized
 antifungal
 antiretroviral
 arborio
 autocorrelated
+autocovariance
 automata
 bijective
 bioinformatic
@@ -122,6 +129,7 @@ differentiable
 dimensionality
 discretised
 discretization
+discriminative
 dissolvable
 durations
 eduroam
@@ -169,6 +177,7 @@ multinomial
 multiscale
 nonparametric
 normalization
+normalizing
 nucleotides
 nullclines
 onwards
@@ -216,8 +225,10 @@ repurposing
 rescaling
 scalability
 serotype
+sharehouse
 shish
 sigmoid
+softmax
 speciation
 stochastically
 stochasticity
