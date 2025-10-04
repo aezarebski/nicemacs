@@ -1077,6 +1077,10 @@ can be slow).
   ;;
   ;; See https://github.com/aezarebski/whipper-snipper
   ;;
+  (defun nice-insert-pound-symbol ()
+    "Insert the pound (£) symbol at point."
+    (interactive)
+    (insert "£"))
 
   (use-package yasnippet
     :ensure t
@@ -1088,7 +1092,8 @@ can be slow).
       "y r" 'yas-reload-all
       "y c" 'yas-compile-directory
       "y l" 'nice-load-snippets
-      "y e" 'emoji-list))
+      "y e" 'emoji-list
+      "y p" 'nice-insert-pound-symbol))
 
   (defun nice-load-snippets ()
     "Load the snippets in my snippet directory"
@@ -2405,11 +2410,15 @@ for =org-latex-preview= below.
 	  ("derp training" (filename . "~/projects/derp-training/")
 	   (front-context-string . ".\n  drwxrwxr-x 1")
 	   (rear-context-string . "0K Apr 10 15:57 ") (position . 79))
-	  ("bibliography reading notes"
+	  ("bibliography - reading notes"
 	   (filename . "~/Documents/bibliography/review2/review.org")
 	   (front-context-string . "#+title: Literat") (rear-context-string)
 	   (position . 1))
-	  ("bibliography bibtex"
+	  ("bibliography - recreational"
+	   (filename . "~/Documents/bibliography/review/popular-science.tex")
+	   (front-context-string . "\\section{Miscell") (rear-context-string)
+	   (position . 1) (last-modified 26849 5517 998041 730000))
+	  ("bibliography - bibtex"
 	   (filename . "~/Documents/bibliography/references.bib")
 	   (front-context-string . "@article{abdar20") (rear-context-string)
 	   (position . 1))

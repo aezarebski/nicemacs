@@ -1986,11 +1986,15 @@ backup dictionary."
 	("derp training" (filename . "~/projects/derp-training/")
 	 (front-context-string . ".\n  drwxrwxr-x 1")
 	 (rear-context-string . "0K Apr 10 15:57 ") (position . 79))
-	("bibliography reading notes"
+	("bibliography - reading notes"
 	 (filename . "~/Documents/bibliography/review2/review.org")
 	 (front-context-string . "#+title: Literat") (rear-context-string)
 	 (position . 1))
-	("bibliography bibtex"
+	("bibliography - recreational"
+	 (filename . "~/Documents/bibliography/review/popular-science.tex")
+	 (front-context-string . "\\section{Miscell") (rear-context-string)
+	 (position . 1) (last-modified 26849 5517 998041 730000))
+	("bibliography - bibtex"
 	 (filename . "~/Documents/bibliography/references.bib")
 	 (front-context-string . "@article{abdar20") (rear-context-string)
 	 (position . 1))
