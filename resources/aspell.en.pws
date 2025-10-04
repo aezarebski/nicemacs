@@ -1,4 +1,4 @@
-personal_ws-1.1 en 241 
+personal_ws-1.1 en 241
 AIC
 ANZIAM
 BDSIR
@@ -19,6 +19,7 @@ CrI
 CrIs
 DAGs
 DSL
+Daniela
 Elsevier
 FASTA
 FFX
@@ -39,6 +40,7 @@ Kalman
 LLHD
 Lotka
 MCMC
+MLE
 MNIST
 MSE
 Monash
@@ -46,11 +48,13 @@ Multiscale
 Newick
 Neyman
 Nonparametric
+Normalizing
 ODEs
 PDE
 PDEs
 PGF
 PHEIC
+PMF
 PNG
 PRNG
 Paneer
@@ -82,10 +86,13 @@ XSLT
 YAML
 Zarebski
 acyclic
+affine
+amortized
 antifungal
 antiretroviral
 arborio
 autocorrelated
+autocovariance
 automata
 autoregressive
 bijection
@@ -128,6 +135,7 @@ differentiable
 dimensionality
 discretised
 discretization
+discriminative
 dissolvable
 durations
 eduroam
@@ -176,6 +184,7 @@ multinomial
 multiscale
 nonparametric
 normalization
+normalizing
 nowcasting
 nucleotides
 nullclines
@@ -224,8 +233,10 @@ repurposing
 rescaling
 scalability
 serotype
+sharehouse
 shish
 sigmoid
+softmax
 speciation
 stochastically
 stochasticity

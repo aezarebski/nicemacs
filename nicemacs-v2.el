@@ -98,6 +98,9 @@
 ;;
 ;; + C-c C-a - will align the columns
 ;; + C-c C-u - will un-align the columns
+;;
+;; NOTE that the `rainbow-csv` package needs to be downloaded from
+;; GitHub. The `:ensure t` won't work for this package.
 (use-package csv-mode
   :ensure t
   :mode (("\\.csv\\'" . csv-mode)
@@ -843,6 +846,10 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 ;;
 ;; See https://github.com/aezarebski/whipper-snipper
 ;;
+(defun nice-insert-pound-symbol ()
+  "Insert the pound (£) symbol at point."
+  (interactive)
+  (insert "£"))
 
 (use-package yasnippet
   :ensure t
@@ -854,7 +861,8 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
     "y r" 'yas-reload-all
     "y c" 'yas-compile-directory
     "y l" 'nice-load-snippets
-    "y e" 'emoji-list))
+    "y e" 'emoji-list
+    "y p" 'nice-insert-pound-symbol))
 
 (defun nice-load-snippets ()
   "Load the snippets in my snippet directory"
@@ -1957,6 +1965,10 @@ backup dictionary."
 	("projects" (filename . "~/projects/")
 	 (front-context-string . ".\n  drwxr-x--- 3")
 	 (rear-context-string . "0K Apr 26 18:18 ") (position . 65))
+	("reading notes 2"
+	 (filename . "~/Documents/bibliography/review2/review.org")
+	 (front-context-string . "#+title: Literat") (rear-context-string)
+	 (position . 1))
 	("manuscripts" (filename . "~/Documents/manuscripts/")
 	 (front-context-string . "zarebski2024derp")
 	 (rear-context-string . "0K Mar 28 13:39 ") (position . 547))
