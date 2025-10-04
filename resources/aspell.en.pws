@@ -10,6 +10,7 @@ CDF
 CERN
 COVID
 CRAN
+CSV
 CTMC
 CTMCs
 Combinatorics
@@ -53,6 +54,7 @@ PHEIC
 PNG
 PRNG
 Paneer
+Parameterizing
 Petri
 README
 REPL
@@ -85,6 +87,8 @@ antiretroviral
 arborio
 autocorrelated
 automata
+autoregressive
+bijection
 bijective
 bioinformatic
 bioinformaticians
@@ -99,6 +103,8 @@ choropleths
 clade
 clades
 cobwebbing
+colour
+colours
 combinatorial
 combinatorics
 combinators
@@ -158,6 +164,7 @@ linearized
 lockdown
 logit
 misspecification
+modelled
 modelling
 modularity
 monadic
@@ -169,6 +176,7 @@ multinomial
 multiscale
 nonparametric
 normalization
+nowcasting
 nucleotides
 nullclines
 onwards
