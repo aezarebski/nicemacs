@@ -1305,6 +1305,13 @@ year, and the first two words of the title."
 ;; [[file:nicemacs-v2.org::*Anki][Anki:1]]
 ;; Anki-editor
 ;; -----------
+;;
+;; You will need to have the Anki application running to use this
+;; package fully. The `anki-editor-sync-collection' command
+;; synchronizes the local version to the web collection (so seems to
+;; be more of a "pull" operation). The `anki-editor-push-notes'
+;; command is needed to push the current collection to the web.
+;;
 ;; Anki:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Writing natural language][Writing natural language:1]]
@@ -1554,6 +1561,9 @@ backup dictionary."
 
 ;; The following projects are available for publishing when the
 ;; `org-publish' command is given.
+;;
+;; NOTE if you want to publish only a single file you are visiting,
+;; use the `org-publish-current-file' command.
 (setq org-publish-project-alist
       `(("website-notes-org-files"
          :base-directory "~/public-site/org/notes/"
