@@ -339,13 +339,17 @@ active, and turns it off if it is."
 ;; [[file:nicemacs-v2.org::*Font and theme combos][Font and theme combos:1]]
 (defvar nice-theme-and-font-combos
   '((:key "1"
-     :name "Day (Leuven + Noto Sans)"
+     :name "Day (Leuven + JetBrains Mono"
      :theme leuven
      :font  "JetBrains Mono")
     (:key "2"
      :name "Green (organic-green + Noto Sans)"
      :theme organic-green
-     :font  "Noto Sans"))
+     :font  "Noto Sans")
+    (:key "3"
+     :name "Dark (modus-vivendi-tinted + JetBrains Mono"
+     :theme modus-vivendi-tinted
+     :font  "JetBrains Mono"))
   "Ordered list of theme+font preset combinations")
 
 (defun nice--apply-theme (theme)
@@ -376,7 +380,9 @@ active, and turns it off if it is."
            (nice-apply-theme-font-preset ',preset)))
       (evil-leader/set-key (concat "t t " key) fname)
       (which-key-add-key-based-replacements (concat "SPC t t " key)
-                                            (format "Theme+Font: %s" name)))))
+        (format "Theme+Font: %s" name)))))
+
+(nice-apply-theme-font-1)
 ;; Font and theme combos:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Other][Other:1]]
