@@ -1967,6 +1967,10 @@ backup dictionary."
 	 (filename . "~/public-site/org/notes/latex-notes.org")
 	 (front-context-string . "#+title: LaTeX n") (rear-context-string)
 	 (position . 1))
+	("website notes linux"
+	 (filename . "~/public-site/org/notes/linux-notes.org")
+	 (front-context-string . "#+TITLE: Linux n") (rear-context-string)
+	 (position . 1) (last-modified 26871 33671 580045 356000))
 	("website notes python"
 	 (filename . "~/public-site/org/notes/python-notes.org")
 	 (front-context-string . "#+title: Python ") (rear-context-string)
@@ -1978,6 +1982,9 @@ backup dictionary."
 	 (filename . "~/public-site/org/lists/movies-and-series.org")
 	 (front-context-string . "#+TITLE: movies!") (rear-context-string)
 	 (position . 1) (last-modified 26738 35974 417887 969000))
+	("website ml" (filename . "~/public-site/org/misc/ml/readme.org")
+	 (front-context-string . "* Neural network") (rear-context-string)
+	 (position . 1) (last-modified 26865 7204 50335 648000))
 	("projects" (filename . "~/projects/")
 	 (front-context-string . ".\n  drwxr-x--- 3")
 	 (rear-context-string . "0K Apr 26 18:18 ") (position . 65))
