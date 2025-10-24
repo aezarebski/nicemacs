@@ -227,6 +227,7 @@
     (global-ligature-mode 1)))
 
 (evil-leader/set-key
+  "t F" 'toggle-frame-fullscreen
   "t w" 'nice-toggle-font
   "t l" 'toggle-ligatures)
 ;; Fonts:1 ends here
@@ -242,7 +243,7 @@
 (pixel-scroll-precision-mode 1)
 (setq pixel-dead-time 0)
 
-(setq scroll-margin 2)
+(setq scroll-margin 1)
 ;; (setq scroll-conservatively 101)
 ;; (setq scroll-preserve-screen-position 1)
 
@@ -423,8 +424,6 @@ already in its own frame."
     (let ((current-buffer (current-buffer)))
       (delete-window)
       (display-buffer-pop-up-frame current-buffer nil))))
-
-(evil-leader/set-key "F p" 'nice-pop-out-window)
 
 (defun nice-select-all ()
   "Select the entire buffer."
@@ -697,6 +696,7 @@ amount of the of the frame's width and height."
   "d b" 'kill-buffer
   "d w" 'delete-window
   "d F" 'delete-frame
+  "F p" 'nice-pop-out-window
   "F d" 'delete-frame)
 
 (defun nice-dired ()
