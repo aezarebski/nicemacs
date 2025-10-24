@@ -264,6 +264,7 @@ scrolling (which gives a smoother scroll).
       (global-ligature-mode 1)))
 
   (evil-leader/set-key
+    "t F" 'toggle-frame-fullscreen
     "t w" 'nice-toggle-font
     "t l" 'toggle-ligatures)
 #+end_src
@@ -281,7 +282,7 @@ scrolling (which gives a smoother scroll).
   (pixel-scroll-precision-mode 1)
   (setq pixel-dead-time 0)
 
-  (setq scroll-margin 2)
+  (setq scroll-margin 1)
   ;; (setq scroll-conservatively 101)
   ;; (setq scroll-preserve-screen-position 1)
 
@@ -532,8 +533,6 @@ scrolling (which gives a smoother scroll).
       (let ((current-buffer (current-buffer)))
 	(delete-window)
 	(display-buffer-pop-up-frame current-buffer nil))))
-
-  (evil-leader/set-key "F p" 'nice-pop-out-window)
 
   (defun nice-select-all ()
     "Select the entire buffer."
@@ -919,6 +918,7 @@ Ibuffer include
     "d b" 'kill-buffer
     "d w" 'delete-window
     "d F" 'delete-frame
+    "F p" 'nice-pop-out-window
     "F d" 'delete-frame)
 
   (defun nice-dired ()
@@ -2398,6 +2398,10 @@ for =org-latex-preview= below.
 	   (filename . "~/public-site/org/notes/latex-notes.org")
 	   (front-context-string . "#+title: LaTeX n") (rear-context-string)
 	   (position . 1))
+	  ("website notes linux"
+	   (filename . "~/public-site/org/notes/linux-notes.org")
+	   (front-context-string . "#+TITLE: Linux n") (rear-context-string)
+	   (position . 1) (last-modified 26871 33671 580045 356000))
 	  ("website notes python"
 	   (filename . "~/public-site/org/notes/python-notes.org")
 	   (front-context-string . "#+title: Python ") (rear-context-string)
@@ -2409,6 +2413,9 @@ for =org-latex-preview= below.
 	   (filename . "~/public-site/org/lists/movies-and-series.org")
 	   (front-context-string . "#+TITLE: movies!") (rear-context-string)
 	   (position . 1) (last-modified 26738 35974 417887 969000))
+	  ("website ml" (filename . "~/public-site/org/misc/ml/readme.org")
+	   (front-context-string . "* Neural network") (rear-context-string)
+	   (position . 1) (last-modified 26865 7204 50335 648000))
 	  ("projects" (filename . "~/projects/")
 	   (front-context-string . ".\n  drwxr-x--- 3")
 	   (rear-context-string . "0K Apr 26 18:18 ") (position . 65))
