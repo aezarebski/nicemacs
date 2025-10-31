@@ -1528,7 +1528,8 @@ backup dictionary."
   "Copy my website homepage if it exists."
   (interactive)
   (let* ((notes-root "~/public-site/org/")
-         (misc-root "~/public-site/org/misc/papers/")
+         (misc-papers-root "~/public-site/org/misc/papers/")
+         (misc-root "~/public-site/org/misc/")
          (local-notes (concat notes-root "index-notes.html"))
          (remote-notes (concat nice-website-directory "notes.html"))
          (local-mininyan (concat notes-root "mininyan.js"))
@@ -1537,11 +1538,15 @@ backup dictionary."
          (remote-landing (concat nice-website-directory "index.html"))
          (local-css (concat notes-root "microgram.css"))
          (remote-css (concat nice-website-directory "microgram.css"))
-         (local-misc-index (concat misc-root "index.html"))
+         ;; -----------------------------------------
+         (local-loltex (concat misc-root "loltex.py"))
+         (remote-loltex (concat nice-website-directory "misc/loltex.py"))
+         ;; -----------------------------------------
+         (local-misc-index (concat misc-papers-root "index.html"))
          (remote-misc-index (concat nice-website-directory "misc/papers/index.html"))
-         (local-misc-data (concat misc-root "data.min.json"))
+         (local-misc-data (concat misc-papers-root "data.min.json"))
          (remote-misc-data (concat nice-website-directory "misc/papers/data.min.json"))
-         (local-misc-script (concat misc-root "script.min.js"))
+         (local-misc-script (concat misc-papers-root "script.min.js"))
          (remote-misc-script (concat nice-website-directory "misc/papers/script.min.js")))
     (when (file-exists-p local-notes)
       (copy-file local-notes remote-notes t)
@@ -1555,6 +1560,11 @@ backup dictionary."
     (when (file-exists-p local-css)
       (copy-file local-css remote-css t)
       (message "Copied %s to %s" local-css remote-css))
+    ;; -----------------------------------------
+    (when (file-exists-p local-loltex)
+      (copy-file local-loltex remote-loltex t)
+      (message "Copied %s to %s" local-loltex remote-loltex))
+    ;; -----------------------------------------
     (when (file-exists-p local-misc-index)
       (copy-file local-misc-index remote-misc-index t)
       (message "Copied %s to %s" local-misc-index remote-misc-index))
