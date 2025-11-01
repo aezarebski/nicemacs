@@ -1973,22 +1973,22 @@ backup dictionary."
 	("website org" (filename . "~/public-site/org/")
 	 (front-context-string . ".\n  drwxrwxr-x  ")
 	 (rear-context-string . "0K Mar 27 21:32 ") (position . 105))
-	("website notes latex"
+	("website - notes - latex"
 	 (filename . "~/public-site/org/notes/latex-notes.org")
 	 (front-context-string . "#+title: LaTeX n") (rear-context-string)
 	 (position . 1))
-	("website notes linux"
+	("website - notes - linux"
 	 (filename . "~/public-site/org/notes/linux-notes.org")
 	 (front-context-string . "#+TITLE: Linux n") (rear-context-string)
-	 (position . 1) (last-modified 26871 33671 580045 356000))
-	("website notes python"
+	 (position . 1) (last-modified 26866 44515 112442 337000))
+	("website - notes - python"
 	 (filename . "~/public-site/org/notes/python-notes.org")
 	 (front-context-string . "#+title: Python ") (rear-context-string)
 	 (position . 1))
-	("website lists books" (filename . "~/public-site/org/lists/books.org")
+	("website - lists - books" (filename . "~/public-site/org/lists/books.org")
 	 (front-context-string . "#+title: books!\n") (rear-context-string)
 	 (position . 1) (last-modified 26786 61572 347304 260000))
-	("website lists movies"
+	("website - lists - movies"
 	 (filename . "~/public-site/org/lists/movies-and-series.org")
 	 (front-context-string . "#+TITLE: movies!") (rear-context-string)
 	 (position . 1) (last-modified 26738 35974 417887 969000))
