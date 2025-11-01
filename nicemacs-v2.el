@@ -22,6 +22,10 @@
 ;;
 ;;  ~ Tim Vaughan (2023)
 ;;
+;; The main alternative [to RStudio] is Emacs Speaks Statistics...
+;;
+;;  ~ Hadley Wickham, R Packages (removed in the 2nd edition).
+;;
 ;; Packages used
 ;; -------------
 ;;
