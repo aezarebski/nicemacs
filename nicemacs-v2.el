@@ -223,7 +223,7 @@
         (mod (1+ nice-current-font-index) (length nice-font-list)))
   (nice-apply-current-font))
 
-(defun toggle-ligatures ()
+(defun nice-toggle-ligatures ()
   "Toggle ligatures on and off."
   (interactive)
   (if (bound-and-true-p global-ligature-mode)
@@ -233,7 +233,9 @@
 (evil-leader/set-key
   "t F" 'toggle-frame-fullscreen
   "t w" 'nice-toggle-font
-  "t l" 'toggle-ligatures)
+  "t a" 'nice-toggle-ligatures
+  "t l" 'toggle-truncate-lines)		;; toggle how lines are
+					;; displayed.
 ;; Fonts:1 ends here
 
 ;; [[file:nicemacs-v2.org::*General][General:1]]
@@ -1310,6 +1312,11 @@ year, and the first two words of the title."
 
 (setq initial-major-mode 'org-mode
       initial-scratch-message nil)
+
+;; Provides an alias for the export function that is easier to
+;; remember.
+(defalias 'nice-export #'org-export-dispatch)
+
 ;; Org-mode:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Anki][Anki:1]]
