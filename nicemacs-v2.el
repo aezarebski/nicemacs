@@ -1316,6 +1316,8 @@ year, and the first two words of the title."
 ;; Provides an alias for the export function that is easier to
 ;; remember.
 (defalias 'nice-export #'org-export-dispatch)
+(defalias 'nice-beamer #'org-beamer-export-to-pdf)
+(defalias 'nice-publish-this #'org-publish-current-file)
 
 ;; Org-mode:1 ends here
 
@@ -1984,6 +1986,9 @@ backup dictionary."
 	("website org" (filename . "~/public-site/org/")
 	 (front-context-string . ".\n  drwxrwxr-x  ")
 	 (rear-context-string . "0K Mar 27 21:32 ") (position . 105))
+	("website - notes - git" (filename . "~/public-site/org/notes/git-notes.org")
+	 (front-context-string . "#+TITLE: Git not") (rear-context-string)
+	 (position . 1) (last-modified 26894 5543 292921 316000))
 	("website - notes - latex"
 	 (filename . "~/public-site/org/notes/latex-notes.org")
 	 (front-context-string . "#+title: LaTeX n") (rear-context-string)
@@ -1996,6 +2001,9 @@ backup dictionary."
 	 (filename . "~/public-site/org/notes/python-notes.org")
 	 (front-context-string . "#+title: Python ") (rear-context-string)
 	 (position . 1))
+	("website - notes - R" (filename . "~/public-site/org/notes/r-notes.org")
+	 (front-context-string . "#+TITLE: R notes") (rear-context-string)
+	 (position . 1) (last-modified 26894 16854 758847 20000))
 	("website - lists - books" (filename . "~/public-site/org/lists/books.org")
 	 (front-context-string . "#+title: books!\n") (rear-context-string)
 	 (position . 1) (last-modified 26786 61572 347304 260000))
