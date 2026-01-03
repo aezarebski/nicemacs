@@ -44,6 +44,10 @@
   ;;
   ;;  ~ Tim Vaughan (2023)
   ;;
+  ;; The main alternative [to RStudio] is Emacs Speaks Statistics...
+  ;;
+  ;;  ~ Hadley Wickham, R Packages (removed in the 2nd edition).
+  ;;
   ;; Packages used
   ;; -------------
   ;;
@@ -130,7 +134,7 @@
   (use-package csv-mode
     :ensure t
     :mode (("\\.csv\\'" . csv-mode)
-	   ("\\.tsv\\'" . csv-mode))
+           ("\\.tsv\\'" . csv-mode))
     :hook (csv-mode . rainbow-csv-mode))
 
   (use-package rainbow-csv
@@ -253,20 +257,22 @@ scrolling (which gives a smoother scroll).
     "Cycle through fonts in `nice-font-list`."
     (interactive)
     (setq nice-current-font-index
-	  (mod (1+ nice-current-font-index) (length nice-font-list)))
+          (mod (1+ nice-current-font-index) (length nice-font-list)))
     (nice-apply-current-font))
 
-  (defun toggle-ligatures ()
+  (defun nice-toggle-ligatures ()
     "Toggle ligatures on and off."
     (interactive)
     (if (bound-and-true-p global-ligature-mode)
-	(global-ligature-mode -1)
+        (global-ligature-mode -1)
       (global-ligature-mode 1)))
 
   (evil-leader/set-key
     "t F" 'toggle-frame-fullscreen
     "t w" 'nice-toggle-font
-    "t l" 'toggle-ligatures)
+    "t a" 'nice-toggle-ligatures
+    "t l" 'toggle-truncate-lines)                ;; toggle how lines are
+                                          ;; displayed.
 #+end_src
 
 *** General
@@ -319,16 +325,16 @@ scrolling (which gives a smoother scroll).
      This face will be bold and boxed with the same colour as the foreground."
     (let ((width (or line-width 1)))
       `((t (:foreground ,colour
-	    :weight bold
-	    :background ,background
-	    :box (:line-width ,width
-		  :color ,colour))))))
+            :weight bold
+            :background ,background
+            :box (:line-width ,width
+                  :color ,colour))))))
 
   (setq hl-todo-keyword-faces
-	`(("TODO"   . ,(boxed-face "red" "#ffc8c8"))
-	  ("FIXME"  . ,(boxed-face "magenta"))
-	  ("NOTE"   . ,(boxed-face "cyan"))
-	  ("DONE"   . ,(boxed-face "blue" "#E6ECFF"))))
+        `(("TODO"   . ,(boxed-face "red" "#ffc8c8"))
+          ("FIXME"  . ,(boxed-face "magenta"))
+          ("NOTE"   . ,(boxed-face "cyan"))
+          ("DONE"   . ,(boxed-face "blue" "#E6ECFF"))))
 
   (setq fill-column 70)
 
@@ -343,8 +349,8 @@ scrolling (which gives a smoother scroll).
     (when display-fill-column-indicator-mode
       (setq display-fill-column-indicator-character ?\u2502)
       (set-face-attribute 'fill-column-indicator nil
-			  :foreground "magenta"
-			  :weight 'bold)))
+                          :foreground "magenta"
+                          :weight 'bold)))
 
   (evil-leader/set-key "t f" 'nice-toggle-fill-column-indicator)
 #+end_src
@@ -369,7 +375,7 @@ scrolling (which gives a smoother scroll).
     "Cycle through themes in `nice-theme-list`."
     (interactive)
     (setq nice-current-theme-index
-	  (mod (1+ nice-current-theme-index) (length nice-theme-list)))
+          (mod (1+ nice-current-theme-index) (length nice-theme-list)))
     (nice-apply-current-theme))
 
   ;; Initially load the first theme
@@ -382,18 +388,18 @@ scrolling (which gives a smoother scroll).
 
 #+begin_src emacs-lisp
   (setq nice-colours-alist
-	'((strong-warning . "red")
-	  (weak-warning . "magenta")
-	  (weak-note . "cyan")
-	  (strong-note . "blue")
-	  (light-theme-comment-background . "#e4ecda")
-	  (light-theme-comment-foreground . "#207e7b")
-	  (light-theme-shadow-background . "#eee8d5")
-	  (light-theme-shadow-foreground . "#93a1a1")
-	  (dark-theme-comment-background . "#207e7b")
-	  (dark-theme-comment-foreground . "#e4ecda")
-	  (dark-theme-shadow-background . "#202c2a")
-	  (dark-theme-shadow-foreground . "#254d48")))
+        '((strong-warning . "red")
+          (weak-warning . "magenta")
+          (weak-note . "cyan")
+          (strong-note . "blue")
+          (light-theme-comment-background . "#e4ecda")
+          (light-theme-comment-foreground . "#207e7b")
+          (light-theme-shadow-background . "#eee8d5")
+          (light-theme-shadow-foreground . "#93a1a1")
+          (dark-theme-comment-background . "#207e7b")
+          (dark-theme-comment-foreground . "#e4ecda")
+          (dark-theme-shadow-background . "#202c2a")
+          (dark-theme-shadow-foreground . "#254d48")))
 
   (defun nice-colour (colour)
     "Return the colour associated with the symbol COLOUR."
@@ -401,7 +407,7 @@ scrolling (which gives a smoother scroll).
 
 
   (set-face-attribute 'hl-line nil
-		      :background (nice-color 'light-theme-shadow-background)
+                      :background (nice-color 'light-theme-shadow-background)
 
   (add-to-list `custom-theme-load-path "~/.emacs.d/themes/")
   (load-theme 'solarized-light-high-contrast t)
@@ -409,8 +415,8 @@ scrolling (which gives a smoother scroll).
   (defun nice-set-theme (theme comment-bg comment-fg shadow-bg shadow-fg)
     (load-theme theme t)
     (let ((comment-face `((t (:background ,comment-bg
-					  :foreground ,comment-fg
-					  :slant normal)))))
+                                          :foreground ,comment-fg
+                                          :slant normal)))))
       (setq font-lock-comment-delimiter-face comment-face)
       (setq font-lock-comment-face comment-face))
     (set-face-background 'mode-line comment-bg)
@@ -424,20 +430,20 @@ scrolling (which gives a smoother scroll).
   that is visible in both."
     (interactive)
     (if (eq (car custom-enabled-themes) 'solarized-light-high-contrast)
-	(progn
-	  (disable-theme 'solarized-light-high-contrast)
-	  (nice-set-theme 'solarized-dark-high-contrast
-			  (nice-colour 'dark-theme-comment-background)
-			  (nice-colour 'dark-theme-comment-foreground)
-			  (nice-colour 'dark-theme-shadow-background)
-			  (nice-colour 'dark-theme-shadow-foreground)))
+        (progn
+          (disable-theme 'solarized-light-high-contrast)
+          (nice-set-theme 'solarized-dark-high-contrast
+                          (nice-colour 'dark-theme-comment-background)
+                          (nice-colour 'dark-theme-comment-foreground)
+                          (nice-colour 'dark-theme-shadow-background)
+                          (nice-colour 'dark-theme-shadow-foreground)))
       (progn
-	(disable-theme 'solarized-dark-high-contrast)
-	(nice-set-theme 'solarized-light-high-contrast
-			(nice-colour 'light-theme-comment-background)
-			(nice-colour 'light-theme-comment-foreground)
-			(nice-colour 'light-theme-shadow-background)
-			(nice-colour 'light-theme-shadow-foreground)))))
+        (disable-theme 'solarized-dark-high-contrast)
+        (nice-set-theme 'solarized-light-high-contrast
+                        (nice-colour 'light-theme-comment-background)
+                        (nice-colour 'light-theme-comment-foreground)
+                        (nice-colour 'light-theme-shadow-background)
+                        (nice-colour 'light-theme-shadow-foreground)))))
 
   (evil-leader/set-key "t t" 'nice-toggle-themes)
 #+end_src
@@ -472,23 +478,23 @@ scrolling (which gives a smoother scroll).
   (defun nice-apply-theme-font-preset (preset)
     "Apply the theme+font PRESET from `nice-theme-and-font-combos'."
     (let* ((theme (plist-get preset :theme))
-	   (font  (plist-get preset :font))
-	   (name  (plist-get preset :name)))
+           (font  (plist-get preset :font))
+           (name  (plist-get preset :name)))
       (nice--apply-theme theme)
       (nice--apply-font font)
       (message "Applied: %s (theme: %s, font: %s)" name theme font)))
 
   (dolist (preset nice-theme-and-font-combos)
     (let* ((key (plist-get preset :key))
-	   (name (plist-get preset :name))
-	   (fname (intern (format "nice-apply-theme-font-%s" key))))
+           (name (plist-get preset :name))
+           (fname (intern (format "nice-apply-theme-font-%s" key))))
       (when key
-	(defalias fname
-	  `(lambda () (interactive)
-	     (nice-apply-theme-font-preset ',preset)))
-	(evil-leader/set-key (concat "t t " key) fname)
-	(which-key-add-key-based-replacements (concat "SPC t t " key)
-	  (format "Theme+Font: %s" name)))))
+        (defalias fname
+          `(lambda () (interactive)
+             (nice-apply-theme-font-preset ',preset)))
+        (evil-leader/set-key (concat "t t " key) fname)
+        (which-key-add-key-based-replacements (concat "SPC t t " key)
+          (format "Theme+Font: %s" name)))))
 
   (nice-apply-theme-font-1)
 #+end_src
@@ -501,7 +507,7 @@ scrolling (which gives a smoother scroll).
   (use-package rainbow-mode
     :ensure t
     :hook ((emacs-lisp-mode . rainbow-mode)
-	   (ess-mode . rainbow-mode)))
+           (ess-mode . rainbow-mode)))
 
   (setq inhibit-splash-screen t)
 
@@ -531,8 +537,8 @@ scrolling (which gives a smoother scroll).
     (interactive)
     (unless (one-window-p)
       (let ((current-buffer (current-buffer)))
-	(delete-window)
-	(display-buffer-pop-up-frame current-buffer nil))))
+        (delete-window)
+        (display-buffer-pop-up-frame current-buffer nil))))
 
   (defun nice-select-all ()
     "Select the entire buffer."
@@ -558,33 +564,33 @@ Get information on partial keys to help you remember/discover functionality.
     (setq which-key-idle-delay 0.3))
 
   (setq key-description-pairs
-	'(("SPC a" . "Agenda (org-mode)")
-	  ("SPC b" . "Buffers/Babel")
-	  ("SPC c" . "Cursors")
-	  ("SPC c" . "Delete")
-	  ("SPC f" . "Files/Dired")
-	  ("SPC F" . "Frame")
-	  ("SPC g" . "Git (magit)")
-	  ("SPC g c" . "Commits")
-	  ("SPC H" . "HELP!!!")
-	  ("SPC m" . "Major")
-	  ("SPC m v" . "EnVironment")
-	  ("SPC m d" . "devtools (ESS)")
-	  ("SPC m s" . "REPL (prog)/Sort (dired)")
-	  ("SPC m c" . "Code lint/format")
-	  ("SPC q" . "Quit/Exit")
-	  ("SPC s" . "Shell/Search")
-	  ("SPC S" . "Spelling")
-	  ("SPC t" . "Toggles")
-	  ("SPC t t" . "Themes and fonts")
-	  ("SPC v" . "Visitors")
-	  ("SPC v b" . "Bibtex")
-	  ("SPC v f" . "Files")
-	  ("SPC v d" . "Directories")
-	  ("SPC v m" . "Bookmarks")
-	  ("SPC w" . "Windows")
-	  ("SPC y" . "Yasnippet")
-	  ("SPC z" . "Zoom (without a mouse)")))
+        '(("SPC a" . "Agenda (org-mode)")
+          ("SPC b" . "Buffers/Babel")
+          ("SPC c" . "Cursors")
+          ("SPC c" . "Delete")
+          ("SPC f" . "Files/Dired")
+          ("SPC F" . "Frame")
+          ("SPC g" . "Git (magit)")
+          ("SPC g c" . "Commits")
+          ("SPC H" . "HELP!!!")
+          ("SPC m" . "Major")
+          ("SPC m v" . "EnVironment")
+          ("SPC m d" . "devtools (ESS)")
+          ("SPC m s" . "REPL (prog)/Sort (dired)")
+          ("SPC m c" . "Code lint/format")
+          ("SPC q" . "Quit/Exit")
+          ("SPC s" . "Shell/Search")
+          ("SPC S" . "Spelling")
+          ("SPC t" . "Toggles")
+          ("SPC t t" . "Themes and fonts")
+          ("SPC v" . "Visitors")
+          ("SPC v b" . "Bibtex")
+          ("SPC v f" . "Files")
+          ("SPC v d" . "Directories")
+          ("SPC v m" . "Bookmarks")
+          ("SPC w" . "Windows")
+          ("SPC y" . "Yasnippet")
+          ("SPC z" . "Zoom (without a mouse)")))
 
   (dolist (pair key-description-pairs)
     (which-key-add-key-based-replacements (car pair) (cdr pair)))
@@ -612,26 +618,26 @@ seems simpler (although has a clunkier UI than Meld).
   files FA and FB using SPC f m KEY."
     `(progn
        (defun ,(intern (format "nice-diff-%s" name)) ()
-	 (interactive)
-	 (async-shell-command ,(format "kompare %s %s &" fa fb)))
+         (interactive)
+         (async-shell-command ,(format "kompare %s %s &" fa fb)))
        (evil-leader/set-key ,(concat "f m " key) (intern ,(format "nice-diff-%s" name)))))
 
   ;;(expand-file-name "nicemacs-v2.el" nice-nicemacs-directory)
   (nice-diff-files "init" "~/.emacs.d/init.el"
-		   "/home/aez/nicemacs/nicemacs-v2.el"
-		   "i")
+                   "/home/aez/nicemacs/nicemacs-v2.el"
+                   "i")
 
   ;; (expand-file-name "aspell.en.pws" nice-resources-dir)
   (nice-diff-files "aspell" "~/.aspell.en.pws"
-		   "/home/aez/nicemacs/resources/aspell.en.pws"
-		   "a")
+                   "/home/aez/nicemacs/resources/aspell.en.pws"
+                   "a")
 
   (defun nice-diff ()
     "Prompt for two files and show the difference between them using
   `kompare`."
     (interactive)
     (let ((file1 (read-file-name "First file: "))
-	  (file2 (read-file-name "Second file: ")))
+          (file2 (read-file-name "Second file: ")))
       (shell-command (format "kompare %s %s &" file1 file2))))
 
   (evil-leader/set-key "f m m" 'nice-diff)
@@ -652,11 +658,11 @@ seems simpler (although has a clunkier UI than Meld).
     (setq winum-format " %s "))
 
   (set-face-attribute 'winum-face nil
-		      :foreground "black"
-		      :background "gold"
-		      :weight 'bold
-		      :underline nil
-		      :height 1.1)
+                      :foreground "black"
+                      :background "gold"
+                      :weight 'bold
+                      :underline nil
+                      :height 1.1)
   (evil-leader/set-key
     "0" 'winum-select-window-0
     "1" 'winum-select-window-1
@@ -675,14 +681,14 @@ seems simpler (although has a clunkier UI than Meld).
   those windows. Window numbers are assigned by the `winum' package."
     (interactive)
     (let* ((win1 (winum-get-window-by-number
-		  (read-number "First window number: ")))
-	   (win2 (winum-get-window-by-number
-		  (read-number "Second window number: ")))
-	   (buffer1 (and win1 (window-buffer win1)))
-	   (buffer2 (and win2 (window-buffer win2))))
+                  (read-number "First window number: ")))
+           (win2 (winum-get-window-by-number
+                  (read-number "Second window number: ")))
+           (buffer1 (and win1 (window-buffer win1)))
+           (buffer2 (and win2 (window-buffer win2))))
       (when (and buffer1 buffer2)
-	(set-window-buffer win1 buffer2)
-	(set-window-buffer win2 buffer1))))
+        (set-window-buffer win1 buffer2)
+        (set-window-buffer win2 buffer1))))
 #+end_src
 
 *** Evil window management
@@ -693,10 +699,10 @@ seems simpler (although has a clunkier UI than Meld).
        (interactive)
        (,move-func 1)
        (let ((ov (make-overlay (point-min) (point-max))))
-	 (overlay-put ov 'window (selected-window))
-	 (overlay-put ov 'face '(:background "magenta"))
-	 (sit-for 0.1)
-	 (delete-overlay ov))))
+         (overlay-put ov 'window (selected-window))
+         (overlay-put ov 'face '(:background "magenta"))
+         (sit-for 0.1)
+         (delete-overlay ov))))
 
   (define-nice-window-move nice-window-up evil-window-up)
   (define-nice-window-move nice-window-down evil-window-down)
@@ -723,10 +729,10 @@ seems simpler (although has a clunkier UI than Meld).
     (interactive)
     (balance-windows)
     (let* ((proportion 0.7)
-	   (frame-width (frame-width))
-	   (frame-height (frame-height))
-	   (desired-width (floor (* proportion frame-width)))
-	   (desired-height (floor (* proportion frame-height))))
+           (frame-width (frame-width))
+           (frame-height (frame-height))
+           (desired-width (floor (* proportion frame-width)))
+           (desired-height (floor (* proportion frame-height))))
       (enlarge-window-horizontally (- desired-width (window-width)))
       (enlarge-window (- desired-height (window-height)))))
 #+end_src
@@ -741,29 +747,29 @@ seems simpler (although has a clunkier UI than Meld).
     "Open an existing or new eshell buffer in a vertical split."
     (interactive)
     (let ((eshell-buffer (get-buffer "*eshell*"))
-	  (width (/ (frame-width) 2)))
+          (width (/ (frame-width) 2)))
       (split-window-horizontally)
       (other-window 1)
       (window-resize nil (- width (window-width)) t)
       (if eshell-buffer
-	  (switch-to-buffer eshell-buffer)
-	(eshell))))
+          (switch-to-buffer eshell-buffer)
+        (eshell))))
 
   (defun nice-eshell-prompt ()
     (let* ((directory (abbreviate-file-name (eshell/pwd)))
-	   (parent (file-name-directory directory))
-	   (name (file-name-nondirectory directory))
-	   (base-prompt (concat (if parent
-				    (concat "... " (file-name-nondirectory (directory-file-name parent)) "/")
-				  "")
-				name
-				" $ "))
-	   (trimmed-prompt (if (> (length base-prompt) 50)
-			       (concat "[...] " (substring base-prompt (- (length base-prompt) 44)))
-			     base-prompt)))
+           (parent (file-name-directory directory))
+           (name (file-name-nondirectory directory))
+           (base-prompt (concat (if parent
+                                    (concat "... " (file-name-nondirectory (directory-file-name parent)) "/")
+                                  "")
+                                name
+                                " $ "))
+           (trimmed-prompt (if (> (length base-prompt) 50)
+                               (concat "[...] " (substring base-prompt (- (length base-prompt) 44)))
+                             base-prompt)))
       (if (string-match-p "~" trimmed-prompt)
-	  (replace-regexp-in-string "^\\.\\.\\. " "" trimmed-prompt)
-	trimmed-prompt)))
+          (replace-regexp-in-string "^\\.\\.\\. " "" trimmed-prompt)
+        trimmed-prompt)))
 
   (setq eshell-prompt-function 'nice-eshell-prompt)
 
@@ -780,13 +786,13 @@ seems simpler (although has a clunkier UI than Meld).
    FILEPATH."
     (let ((dir (file-name-directory filepath)))
       (when (file-directory-p dir)
-	(eshell/cd dir))))
+        (eshell/cd dir))))
 
   (defun ls1 (&optional dir)
     "Run `ls -1` in DIR (or `default-directory` if none is given)."
     (let ((dir (or dir default-directory)))
       (when (file-directory-p dir)
-	(eshell/ls "-1" dir))))
+        (eshell/ls "-1" dir))))
 
   (defun nice-eshell-mode-setup ()
     (setenv "TERM" "dumb")
@@ -817,7 +823,7 @@ this is more convenient.
   ;;
   (use-package dired
     :bind (:map dired-mode-map
-		("-" . dired-up-directory))
+                ("-" . dired-up-directory))
     :config
     (setq dired-listing-switches "-alh")
     (setq dired-dwim-target t)
@@ -842,9 +848,9 @@ opening PNGs.
     :ensure t
     :config
     (setq openwith-associations
-	  (list (list (openwith-make-extension-regexp '("pdf"))
-		      "okular"
-		      '(file))))
+          (list (list (openwith-make-extension-regexp '("pdf"))
+                      "okular"
+                      '(file))))
     (openwith-mode t))
 #+end_src
 
@@ -891,18 +897,18 @@ Ibuffer include
 
   (defface ibuffer-modified-buffer
     '((t (:foreground "white"
-	  :weight bold
-	  :background "red")))
+          :weight bold
+          :background "red")))
     "Face used for highlighting unsaved buffers in IBuffer.")
 
   ;; Declare that IBuffer should use the `ibuffer-modified-buffer' face
   ;; for modified buffers so that they stand out.
   (add-hook 'ibuffer-mode-hook
-	    (lambda ()
-	      (ibuffer-auto-mode 1)
-	      (ibuffer-switch-to-saved-filter-groups "default")
-	      (add-to-list 'ibuffer-fontification-alist
-			   '(0 (buffer-modified-p) 'ibuffer-modified-buffer))))
+            (lambda ()
+              (ibuffer-auto-mode 1)
+              (ibuffer-switch-to-saved-filter-groups "default")
+              (add-to-list 'ibuffer-fontification-alist
+                           '(0 (buffer-modified-p) 'ibuffer-modified-buffer))))
 
   ;; File stuff
   ;; ----------
@@ -927,16 +933,16 @@ Ibuffer include
    the current buffer is a shell, or the home directory otherwise."
     (interactive)
     (let* ((buffer-mode (with-current-buffer (current-buffer) major-mode))
-	   (dir (cond ((buffer-file-name)
-		       (file-name-directory (buffer-file-name)))
-		      ((or (eq buffer-mode 'term-mode)
-			   (eq buffer-mode 'eshell-mode)
-			   (eq buffer-mode 'inferior-ess-r-mode))
-		       (with-current-buffer (if (eq buffer-mode 'inferior-ess-r-mode)
-						(process-buffer (ess-get-process ess-current-process-name))
-					      (current-buffer))
-			 (file-name-directory default-directory)))
-		      (t (expand-file-name "~/")))))
+           (dir (cond ((buffer-file-name)
+                       (file-name-directory (buffer-file-name)))
+                      ((or (eq buffer-mode 'term-mode)
+                           (eq buffer-mode 'eshell-mode)
+                           (eq buffer-mode 'inferior-ess-r-mode))
+                       (with-current-buffer (if (eq buffer-mode 'inferior-ess-r-mode)
+                                                (process-buffer (ess-get-process ess-current-process-name))
+                                              (current-buffer))
+                         (file-name-directory default-directory)))
+                      (t (expand-file-name "~/")))))
       (dired dir)))
 
   (defun nice-touch-file ()
@@ -944,7 +950,7 @@ Ibuffer include
   retreived from the prompt."
     (interactive)
     (if (not (eq major-mode 'dired-mode))
-	(error "Not in dired mode"))
+        (error "Not in dired mode"))
     (let ((filename (read-string "Filename: ")))
       (shell-command (format "touch %s" filename))
       (revert-buffer)))
@@ -952,14 +958,14 @@ Ibuffer include
   (defmacro nice-scratch-buffer (mode key)
     "Create a nice-scratch-buffer function for MODE and bind it to KEY."
     (let ((func-name (intern (format "nice-scratch-buffer-%s" (symbol-name mode))))
-	  (docstring (format "Open the scratch buffer and set the major mode to `%s'." mode)))
+          (docstring (format "Open the scratch buffer and set the major mode to `%s'." mode)))
       `(progn
-	 (defun ,func-name ()
-	   ,docstring
-	   (interactive)
-	   (switch-to-buffer "*scratch*")
-	   (,mode))
-	 (evil-leader/set-key ,key ',func-name))))
+         (defun ,func-name ()
+           ,docstring
+           (interactive)
+           (switch-to-buffer "*scratch*")
+           (,mode))
+         (evil-leader/set-key ,key ',func-name))))
   (nice-scratch-buffer text-mode "b s t")
   (nice-scratch-buffer org-mode "b s o")
   (nice-scratch-buffer emacs-lisp-mode "b s e")
@@ -985,21 +991,21 @@ Ibuffer include
   minibuffer and store this on the kill ring."
     (interactive)
     (let ((path (or buffer-file-name
-		    (and (eq major-mode 'dired-mode)
-			 (dired-current-directory)))))
+                    (and (eq major-mode 'dired-mode)
+                         (dired-current-directory)))))
       (when path
-	(kill-new path)
-	(message path))))
+        (kill-new path)
+        (message path))))
 
   (defun message-link-at-point ()
     "Print the full path of a link at the point so we know where this
   will take us."
     (interactive)
     (let* ((link (org-element-context))
-	   (link-file-name (org-element-property :path link)))
+           (link-file-name (org-element-property :path link)))
       (when (eq (org-element-type link) 'link)
-	(kill-new link-file-name)
-	(message "%s" link-file-name))))
+        (kill-new link-file-name)
+        (message "%s" link-file-name))))
 
   (evil-leader/set-key "H l m" 'message-link-at-point)
 
@@ -1016,9 +1022,9 @@ Ibuffer include
   KEY is the keybinding (as a string) to trigger the rgrep function."
     `(progn
        (defun ,(intern (format "nice-rgrep-%s" dname)) ()
-	 ,(format "Search for a string in %s using rgrep." dname)
-	 (interactive)
-	 (rgrep (read-string "Search terms: ") ,pattern ,path))
+         ,(format "Search for a string in %s using rgrep." dname)
+         (interactive)
+         (rgrep (read-string "Search terms: ") ,pattern ,path))
        (evil-leader/set-key ,(concat "s g " key) (intern ,(format "nice-rgrep-%s" dname)))))
 
   (nice-rgrep-directory "website" "~/public-site/org" "*" "w")
@@ -1027,24 +1033,24 @@ Ibuffer include
   (nice-rgrep-directory "reviews" "~/Documents/bibliography" "*" "r")
 
   (evil-leader/set-key "s g ." (lambda ()
-				 (interactive)
-				 (rgrep (read-string "Search terms: ")
-					"*")))
+                                 (interactive)
+                                 (rgrep (read-string "Search terms: ")
+                                        "*")))
 
   ;; Be virtuous and lead by example
   ;; ===============================
 
   (setq-default major-mode
-		(lambda ()
-		  (unless buffer-file-name
-		    (let ((buffer-file-name (buffer-name)))
-		      (set-auto-mode)))))
+                (lambda ()
+                  (unless buffer-file-name
+                    (let ((buffer-file-name (buffer-name)))
+                      (set-auto-mode)))))
   (setq confirm-kill-emacs #'yes-or-no-p)
   (recentf-mode t)
 
   (setq read-buffer-completion-ignore-case t
-	read-file-name-completion-ignore-case t
-	completion-ignore-case t)
+        read-file-name-completion-ignore-case t
+        completion-ignore-case t)
 
 
   ;; Be powerful with packages
@@ -1106,7 +1112,7 @@ can be slow).
     (interactive)
     (let ((snippets-dir nice-snippet-directory))
       (unless (file-exists-p snippets-dir)
-	(make-directory snippets-dir))
+        (make-directory snippets-dir))
       (yas-load-directory snippets-dir)))
 
   (nice-load-snippets)
@@ -1184,7 +1190,7 @@ asking what the corresponding value is in a regular terminal with
     :ensure t
     :config
     (setq magit-display-buffer-function
-	  #'magit-display-buffer-fullframe-status-v1)
+          #'magit-display-buffer-fullframe-status-v1)
     ;; (setenv "SSH_AUTH_SOCK" "<ADD THE CORRECT PATH HERE>")
     (setenv "SSH_AUTH_SOCK" "/run/user/1000/keyring/ssh")
     (evil-leader/set-key
@@ -1239,12 +1245,12 @@ be careful to get the right value here.
     (nice-canned-commit-message \"my-canned-commit\" \"Fix some bugs\" \"c\")"
     `(progn
        (defun ,(intern (format "nccm-%s" fname)) ()
-	 "Generate a canned commit message with a timestamp."
-	 (interactive)
-	 (let ((commit-message (format "%s %s"
-				       ,cmessage
-				       (downcase (format-time-string "%A %l:%M %p")))))
-	   (magit-commit-create (list "--edit" (concat "-m \"" commit-message "\"")))))
+         "Generate a canned commit message with a timestamp."
+         (interactive)
+         (let ((commit-message (format "%s %s"
+                                       ,cmessage
+                                       (downcase (format-time-string "%A %l:%M %p")))))
+           (magit-commit-create (list "--edit" (concat "-m \"" commit-message "\"")))))
        (evil-leader/set-key ,(concat "g c " key) (intern ,(format "nccm-%s" fname)))))
 
   (nice-canned-commit-message emacs "update emacs config" "e")
@@ -1277,10 +1283,10 @@ version of an S-expression on the kill ring.
   kill ring."
     (interactive)
     (let ((sexp (read (thing-at-point 'sexp)))
-	  (temp-buffer (generate-new-buffer "*temp*")))
+          (temp-buffer (generate-new-buffer "*temp*")))
       (with-current-buffer temp-buffer
-	(pp-emacs-lisp-code sexp)
-	(kill-new (buffer-string)))
+        (pp-emacs-lisp-code sexp)
+        (kill-new (buffer-string)))
       (kill-buffer temp-buffer)))
 
   (evil-leader/set-key-for-mode 'emacs-lisp-mode
@@ -1303,7 +1309,7 @@ version of an S-expression on the kill ring.
     :mode ("\\.Rmd" . Rmd-mode)
     :config
     (setq ess-default-style 'DEFAULT
-	  ess-history-file nil)
+          ess-history-file nil)
     (evil-leader/set-key-for-mode 'ess-r-mode
       "m d t" 'ess-r-devtools-test-package
       "m d l" 'ess-r-devtools-load-package
@@ -1502,18 +1508,18 @@ files. Some thing like an SQL search would be useful.
   FILES should be a list of file paths as strings."
     (when (and files (seq-every-p #'stringp files))
       (cl-flet* ((file-mod-time (file)
-		   (nth 5 (file-attributes file)))
-		 (mod-time-less-p (a b)
-		   (time-less-p (file-mod-time b)
-				(file-mod-time a))))
-	(car (sort files #'mod-time-less-p)))))
+                   (nth 5 (file-attributes file)))
+                 (mod-time-less-p (a b)
+                   (time-less-p (file-mod-time b)
+                                (file-mod-time a))))
+        (car (sort files #'mod-time-less-p)))))
 
   (defun copy-file-with-bib-extension (file-path)
     "Create a copy of the file at FILE-PATH with a .bib extension."
     (let* ((file-name (file-name-nondirectory file-path))
-	   (file-base-name (file-name-sans-extension file-name))
-	   (new-file-name (concat file-base-name ".bib"))
-	   (new-file-path (concat (file-name-directory file-path) new-file-name)))
+           (file-base-name (file-name-sans-extension file-name))
+           (new-file-name (concat file-base-name ".bib"))
+           (new-file-path (concat (file-name-directory file-path) new-file-name)))
       (copy-file file-path new-file-path t)
       new-file-path))
 
@@ -1523,17 +1529,17 @@ files. Some thing like an SQL search would be useful.
   indicate this."
     (interactive)
     (let* ((bib-files (directory-files "~/Downloads" t ".*bib" "ctime"))
-	   (most-recent-bib (most-recent-file bib-files))
-	   (txt-files (directory-files "~/Downloads" t ".*txt" "ctime"))
-	   (most-recent-txt (most-recent-file txt-files)))
+           (most-recent-bib (most-recent-file bib-files))
+           (txt-files (directory-files "~/Downloads" t ".*txt" "ctime"))
+           (most-recent-txt (most-recent-file txt-files)))
       (if most-recent-bib
-	  (if (and most-recent-txt
-		   (time-less-p (nth 5 (file-attributes most-recent-bib))
-				(nth 5 (file-attributes most-recent-txt))))
-	      (progn (message (concat "A more recent .txt file exists: " most-recent-txt))
-		     (find-file (copy-file-with-bib-extension most-recent-txt)))
-	    (find-file most-recent-bib))
-	(message "No bib files found in ~/Downloads/"))))
+          (if (and most-recent-txt
+                   (time-less-p (nth 5 (file-attributes most-recent-bib))
+                                (nth 5 (file-attributes most-recent-txt))))
+              (progn (message (concat "A more recent .txt file exists: " most-recent-txt))
+                     (find-file (copy-file-with-bib-extension most-recent-txt)))
+            (find-file most-recent-bib))
+        (message "No bib files found in ~/Downloads/"))))
 
   (defun nice-ris2bib ()
     "Convert the most recent RIS file in my downloads to a BIB
@@ -1542,28 +1548,28 @@ files. Some thing like an SQL search would be useful.
     (interactive "*")
 
     (let* ((all-ris-files (directory-files "~/Downloads" t ".*ris"))
-	   (ris-filepath (most-recent-file all-ris-files))
-	   (target-bib "~/Downloads/new.bib")
-	   (ris2xml-command (format "ris2xml \"%s\" | xml2bib > %s" ris-filepath
-				    target-bib))
-	   (command-result (shell-command ris2xml-command)))
+           (ris-filepath (most-recent-file all-ris-files))
+           (target-bib "~/Downloads/new.bib")
+           (ris2xml-command (format "ris2xml \"%s\" | xml2bib > %s" ris-filepath
+                                    target-bib))
+           (command-result (shell-command ris2xml-command)))
       (unless ris-filepath
-	(error "No RIS files found in the directory"))
+        (error "No RIS files found in the directory"))
       (unless (zerop command-result)
-	(error "Conversion from RIS to BIB failed with error code: %s" command-result))))
+        (error "Conversion from RIS to BIB failed with error code: %s" command-result))))
 
   (defun nice-bibtex-braces ()
     "Wrap upper case letters with brackets for bibtex titles within
   the selected region."
     (interactive)
     (if (use-region-p)
-	(let ((start (region-beginning))
-	      (end (region-end))
-	      (case-fold-search nil))
-	  (save-excursion
-	    (goto-char start)
-	    (while (re-search-forward "\\([A-Z]+\\)" end t)
-	      (replace-match (format "{%s}" (match-string 0)) t))))
+        (let ((start (region-beginning))
+              (end (region-end))
+              (case-fold-search nil))
+          (save-excursion
+            (goto-char start)
+            (while (re-search-forward "\\([A-Z]+\\)" end t)
+              (replace-match (format "{%s}" (match-string 0)) t))))
       (message "No region selected.")))
 
   (defun nice-bibtex-guess-key ()
@@ -1572,20 +1578,20 @@ files. Some thing like an SQL search would be useful.
     (interactive)
     (bibtex-beginning-of-entry)
     (let* ((entry (bibtex-parse-entry))
-	   (author (downcase (replace-regexp-in-string "," "" (car (split-string (bibtex-text-in-field "author"))))))
-	   (year (bibtex-text-in-field "year"))
-	   (title (bibtex-text-in-field "title"))
-	       (first-two-words (when title
-			  (let ((split-title (split-string title)))
-			    (if (>= (length split-title) 2)
-				(format "%s%s" (nth 0 split-title) (nth 1 split-title))
-			      (car split-title))))))
+           (author (downcase (replace-regexp-in-string "," "" (car (split-string (bibtex-text-in-field "author"))))))
+           (year (bibtex-text-in-field "year"))
+           (title (bibtex-text-in-field "title"))
+               (first-two-words (when title
+                          (let ((split-title (split-string title)))
+                            (if (>= (length split-title) 2)
+                                (format "%s%s" (nth 0 split-title) (nth 1 split-title))
+                              (car split-title))))))
       (if (and author year first-two-words)
-	  (let ((newkey (format "%s%s%s" author year first-two-words)))
-	    (kill-new (replace-regexp-in-string "[{}]" "" newkey))
-	    (evil-jump-item)
-	    (message "New key generated and copied to clipboard: %s" newkey))
-	(error "Author, Year or Title is missing in the current BibTeX entry."))))
+          (let ((newkey (format "%s%s%s" author year first-two-words)))
+            (kill-new (replace-regexp-in-string "[{}]" "" newkey))
+            (evil-jump-item)
+            (message "New key generated and copied to clipboard: %s" newkey))
+        (error "Author, Year or Title is missing in the current BibTeX entry."))))
 
   (defun nice-browse-url-of-doi ()
     "Open the DOI of the current bibtex entry in the web browser."
@@ -1593,9 +1599,9 @@ files. Some thing like an SQL search would be useful.
     (save-excursion
       (bibtex-beginning-of-entry)
       (let ((doi (bibtex-autokey-get-field "doi")))
-	(if doi
-	    (browse-url (concat "https://doi.org/" doi))
-	  (message "No DOI found for this entry")))))
+        (if doi
+            (browse-url (concat "https://doi.org/" doi))
+          (message "No DOI found for this entry")))))
 
   (evil-leader/set-key
     "v b l" 'nice-visit-last-bib
@@ -1614,13 +1620,13 @@ In the following we use =with-eval-after-load= because otherwise the
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   (with-eval-after-load 'ox-latex
     (add-to-list 'org-latex-classes
-		 '("scrartcl"
-		   "\\documentclass{scrartcl}"
-		   ("\\section{%s}" . "\\section*{%s}")
-		   ("\\subsection{%s}" . "\\subsection*{%s}")
-		   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-		   ("\\paragraph{%s}" . "\\paragraph*{%s}")
-		   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+                 '("scrartcl"
+                   "\\documentclass{scrartcl}"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 #+end_src
 
 ** Markdown
@@ -1634,7 +1640,7 @@ functions that sneak in here too.
 
   (use-package markdown-mode
     :mode (("\\.md\\'" . markdown-mode)
-	   ("\\.Rmd\\'" . markdown-mode))
+           ("\\.Rmd\\'" . markdown-mode))
     :config
     (evil-leader/set-key-for-mode 'markdown-mode
       "m s r" 'ess-eval-region
@@ -1668,7 +1674,13 @@ functions that sneak in here too.
   (add-hook 'org-mode-hook #'nice-org-mode-hook)
 
   (setq initial-major-mode 'org-mode
-	initial-scratch-message nil)
+        initial-scratch-message nil)
+
+  ;; Provides an alias for the export function that is easier to
+  ;; remember.
+  (defalias 'nice-export #'org-export-dispatch)
+  (defalias 'nice-beamer #'org-beamer-export-to-pdf)
+  (defalias 'nice-publish-this #'org-publish-current-file)
 #+end_src
 
 *** Anki
@@ -1708,13 +1720,13 @@ functions that sneak in here too.
     (setq ispell-program-name "aspell")
     (setq ispell-personal-dictionary "~/.aspell.en.pws")
     (set-face-attribute 'flyspell-duplicate nil
-			:underline nil
-			:foreground "white"
-			:background "red")
+                        :underline nil
+                        :foreground "white"
+                        :background "red")
     (set-face-attribute 'flyspell-incorrect nil
-			:underline nil
-			:foreground "white"
-			:background "red"))
+                        :underline nil
+                        :foreground "white"
+                        :background "red"))
 
   (use-package lorem-ipsum)
 
@@ -1723,7 +1735,7 @@ functions that sneak in here too.
   backup dictionary."
     (interactive)
     (let ((backup-dictionary
-	   (concat nice-resources-dir "/aspell.en.pws")))
+           (concat nice-resources-dir "/aspell.en.pws")))
       (ediff-files ispell-personal-dictionary backup-dictionary)))
 
   (evil-leader/set-key
@@ -1737,19 +1749,19 @@ functions that sneak in here too.
   (use-package writegood-mode)
 
   (setq words-to-add
-	'("many" "various" "very" "quite" "somewhat" "several"
-	  "extremely" "exceedingly" "fairly" "rather" "remarkably" "few"
-	  "surprisingly" "mostly" "largely" "almost" "nearly" "in which"
-	  "generally" "virtually" "essentially" "often" "substantially"
-	  "significantly" "considerably" "typically" "widely" "really"
-	  "actually" "basically" "certainly" "possibly" "probably"
-	  "arguably" "likely" "apparently" "clearly" "naturally"
-	  "obviously" "seemingly" "surely" "somewhat" "allegedly"
-	  "supposedly" "purportedly" "perhaps" "maybe" "kind of"
-	  "sort of" "potentially" "ultimately" "respectively"))
+        '("many" "various" "very" "quite" "somewhat" "several"
+          "extremely" "exceedingly" "fairly" "rather" "remarkably" "few"
+          "surprisingly" "mostly" "largely" "almost" "nearly" "in which"
+          "generally" "virtually" "essentially" "often" "substantially"
+          "significantly" "considerably" "typically" "widely" "really"
+          "actually" "basically" "certainly" "possibly" "probably"
+          "arguably" "likely" "apparently" "clearly" "naturally"
+          "obviously" "seemingly" "surely" "somewhat" "allegedly"
+          "supposedly" "purportedly" "perhaps" "maybe" "kind of"
+          "sort of" "potentially" "ultimately" "respectively"))
   (cl-loop for word in words-to-add
-	   unless (member word writegood-weasel-words)
-	   do (add-to-list 'writegood-weasel-words word))
+           unless (member word writegood-weasel-words)
+           do (add-to-list 'writegood-weasel-words word))
 
   (evil-leader/set-key "t t w" 'writegood-mode)
 
@@ -1775,10 +1787,10 @@ functions that sneak in here too.
     (interactive)
     (save-excursion
       (let ((start (progn (backward-paragraph 1) (point)))
-	    (end (progn (forward-paragraph 1) (point))))
-	(goto-char start)
-	(while (re-search-forward "[ \t]*\n[ \t]*" end t)
-	  (replace-match " "))))
+            (end (progn (forward-paragraph 1) (point))))
+        (goto-char start)
+        (while (re-search-forward "[ \t]*\n[ \t]*" end t)
+          (replace-match " "))))
     (message "Single long line."))
 
   (defun nice-org-each-sentence-new-line ()
@@ -1786,13 +1798,13 @@ functions that sneak in here too.
     (interactive)
     (save-excursion
       (let ((end (save-excursion (forward-paragraph) (point)))
-	    (beg (save-excursion (backward-paragraph) (point))))
-	(goto-char beg)
-	(while (< (point) end)
-	  (forward-sentence)
-	  ;; Insert newline at the end of a sentence, unless it's the last one.
-	  (unless (or (= (point) end) (eobp))
-	    (insert "\n")))))
+            (beg (save-excursion (backward-paragraph) (point))))
+        (goto-char beg)
+        (while (< (point) end)
+          (forward-sentence)
+          ;; Insert newline at the end of a sentence, unless it's the last one.
+          (unless (or (= (point) end) (eobp))
+            (insert "\n")))))
     (message "Each sentence on a new line."))
 #+end_src
 
@@ -1831,38 +1843,38 @@ for =org-latex-preview= below.
   ;; - `s' in agenda view will save the current org files.
   ;;
   (setq org-agenda-start-day "-14d"
-	org-agenda-span 30
-	org-agenda-start-on-weekday nil
-	org-agenda-start-with-log-mode t
-	org-agenda-window-setup 'other-frame
-	org-log-done 'time
-	org-log-schedule 'time)
+        org-agenda-span 30
+        org-agenda-start-on-weekday nil
+        org-agenda-start-with-log-mode t
+        org-agenda-window-setup 'other-frame
+        org-log-done 'time
+        org-log-schedule 'time)
 
   (setq org-todo-keywords
-	'((sequence "TODO" "DONE")
-	  (sequence "MEETING" "|" "DONE")
-	  (sequence "SEMINAR" "|" "DONE")
-	  (sequence "RESEARCH" "|" "DONE")
-	  (sequence "ADMIN" "|" "DONE")
-	  (sequence "DEADLINE" "|" "DONE")
-	  (sequence "TEACHING" "|" "DONE")
-	  (sequence "SOCIAL" "|" "DONE")))
+        '((sequence "TODO" "DONE")
+          (sequence "MEETING" "|" "DONE")
+          (sequence "SEMINAR" "|" "DONE")
+          (sequence "RESEARCH" "|" "DONE")
+          (sequence "ADMIN" "|" "DONE")
+          (sequence "DEADLINE" "|" "DONE")
+          (sequence "TEACHING" "|" "DONE")
+          (sequence "SOCIAL" "|" "DONE")))
 
   (setq org-todo-keyword-faces
-	`(("MEETING" . ,(boxed-face "magenta"))
-	  ("SEMINAR" . ,(boxed-face "magenta"))
-	  ("RESEARCH" . ,(boxed-face "dark green" "light green"))
-	  ("DEADLINE" . ,(boxed-face "red" "white"))
-	  ("ADMIN" . ,(boxed-face "red" "white"))
-	  ("TEACHING" . ,(boxed-face "magenta"))
-	  ("SOCIAL" . ,(boxed-face "blue" "#E6ECFF"))))
+        `(("MEETING" . ,(boxed-face "magenta"))
+          ("SEMINAR" . ,(boxed-face "magenta"))
+          ("RESEARCH" . ,(boxed-face "dark green" "light green"))
+          ("DEADLINE" . ,(boxed-face "red" "white"))
+          ("ADMIN" . ,(boxed-face "red" "white"))
+          ("TEACHING" . ,(boxed-face "magenta"))
+          ("SOCIAL" . ,(boxed-face "blue" "#E6ECFF"))))
 
   (defun nice-org-agenda-goto-today-advice-after (&rest _args)
     "Adjust the window after calling `org-agenda-goto-today'."
     (recenter-top-bottom 4))
 
   (advice-add 'org-agenda-goto-today
-	      :after #'nice-org-agenda-goto-today-advice-after)
+              :after #'nice-org-agenda-goto-today-advice-after)
   (evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
   (evil-leader/set-key "a a" 'org-agenda-list)
 #+end_src
@@ -1937,42 +1949,52 @@ for =org-latex-preview= below.
     "Copy my website homepage if it exists."
     (interactive)
     (let* ((notes-root "~/public-site/org/")
-	   (misc-root "~/public-site/org/misc/papers/")
-	   (local-notes (concat notes-root "index-notes.html"))
-	   (remote-notes (concat nice-website-directory "notes.html"))
-	   (local-mininyan (concat notes-root "mininyan.js"))
-	   (remote-mininyan (concat nice-website-directory "mininyan.js"))
-	   (local-landing (concat notes-root "index-academic.html"))
-	   (remote-landing (concat nice-website-directory "index.html"))
-	   (local-css (concat notes-root "microgram.css"))
-	   (remote-css (concat nice-website-directory "microgram.css"))
-	   (local-misc-index (concat misc-root "index.html"))
-	   (remote-misc-index (concat nice-website-directory "misc/papers/index.html"))
-	   (local-misc-data (concat misc-root "data.min.json"))
-	   (remote-misc-data (concat nice-website-directory "misc/papers/data.min.json"))
-	   (local-misc-script (concat misc-root "script.min.js"))
-	   (remote-misc-script (concat nice-website-directory "misc/papers/script.min.js")))
+           (misc-papers-root "~/public-site/org/misc/papers/")
+           (misc-root "~/public-site/org/misc/")
+           (local-notes (concat notes-root "index-notes.html"))
+           (remote-notes (concat nice-website-directory "notes.html"))
+           (local-mininyan (concat notes-root "mininyan.js"))
+           (remote-mininyan (concat nice-website-directory "mininyan.js"))
+           (local-landing (concat notes-root "index-academic.html"))
+           (remote-landing (concat nice-website-directory "index.html"))
+           (local-css (concat notes-root "microgram.css"))
+           (remote-css (concat nice-website-directory "microgram.css"))
+           ;; -----------------------------------------
+           (local-loltex (concat misc-root "loltex.py"))
+           (remote-loltex (concat nice-website-directory "misc/loltex.py"))
+           ;; -----------------------------------------
+           (local-misc-index (concat misc-papers-root "index.html"))
+           (remote-misc-index (concat nice-website-directory "misc/papers/index.html"))
+           (local-misc-data (concat misc-papers-root "data.min.json"))
+           (remote-misc-data (concat nice-website-directory "misc/papers/data.min.json"))
+           (local-misc-script (concat misc-papers-root "script.min.js"))
+           (remote-misc-script (concat nice-website-directory "misc/papers/script.min.js")))
       (when (file-exists-p local-notes)
-	(copy-file local-notes remote-notes t)
-	(message "Copied %s to %s" local-notes remote-notes))
+        (copy-file local-notes remote-notes t)
+        (message "Copied %s to %s" local-notes remote-notes))
       (when (file-exists-p local-mininyan)
-	(copy-file local-mininyan remote-mininyan t)
-	(message "Copied %s to %s" local-mininyan remote-mininyan))
+        (copy-file local-mininyan remote-mininyan t)
+        (message "Copied %s to %s" local-mininyan remote-mininyan))
       (when (file-exists-p local-landing)
-	(copy-file local-landing remote-landing t)
-	(message "Copied %s to %s" local-landing remote-landing))
+        (copy-file local-landing remote-landing t)
+        (message "Copied %s to %s" local-landing remote-landing))
       (when (file-exists-p local-css)
-	(copy-file local-css remote-css t)
-	(message "Copied %s to %s" local-css remote-css))
+        (copy-file local-css remote-css t)
+        (message "Copied %s to %s" local-css remote-css))
+      ;; -----------------------------------------
+      (when (file-exists-p local-loltex)
+        (copy-file local-loltex remote-loltex t)
+        (message "Copied %s to %s" local-loltex remote-loltex))
+      ;; -----------------------------------------
       (when (file-exists-p local-misc-index)
-	(copy-file local-misc-index remote-misc-index t)
-	(message "Copied %s to %s" local-misc-index remote-misc-index))
+        (copy-file local-misc-index remote-misc-index t)
+        (message "Copied %s to %s" local-misc-index remote-misc-index))
       (when (file-exists-p local-misc-data)
-	(copy-file local-misc-data remote-misc-data t)
-	(message "Copied %s to %s" local-misc-data remote-misc-data))
+        (copy-file local-misc-data remote-misc-data t)
+        (message "Copied %s to %s" local-misc-data remote-misc-data))
       (when (file-exists-p local-misc-script)
-	(copy-file local-misc-script remote-misc-script t)
-	(message "Copied %s to %s" local-misc-script remote-misc-script))))
+        (copy-file local-misc-script remote-misc-script t)
+        (message "Copied %s to %s" local-misc-script remote-misc-script))))
 
   ;; The following projects are available for publishing when the
   ;; `org-publish' command is given.
@@ -1980,178 +2002,178 @@ for =org-latex-preview= below.
   ;; NOTE if you want to publish only a single file you are visiting,
   ;; use the `org-publish-current-file' command.
   (setq org-publish-project-alist
-	`(("website-notes-org-files"
-	   :base-directory "~/public-site/org/notes/"
-	   :base-extension "org"
-	   :publishing-directory "~/aezarebski.github.io/notes/"
-	   :publishing-function org-html-publish-to-html)
-	  ("website-teaching-org-files"
-	   :base-directory "~/public-site/org/teaching/"
-	   :base-extension "org"
-	   :publishing-directory "~/aezarebski.github.io/teaching/"
-	   :publishing-function org-html-publish-to-html)
-	  ("website-teaching-static"
-	   :base-directory "~/public-site/org/teaching/"
-	   :base-extension "css\\|pdf"
-	   :publishing-directory "~/aezarebski.github.io/teaching/"
-	   :recursive t
-	   :publishing-function org-publish-attachment)
-	  ("website-lists-org-files"
-	   :base-directory "~/public-site/org/lists/"
-	   :base-extension "org"
-	   :publishing-directory "~/aezarebski.github.io/lists/"
-	   :publishing-function org-html-publish-to-html)
-	  ("website-images-static"
-	   :base-directory "~/public-site/org/images/"
-	   :base-extension "png"
-	   :publishing-directory "~/aezarebski.github.io/images/"
-	   :publishing-function org-publish-attachment)
-	  ("website-misc-ggplot2-org-files"
-	   :base-directory "~/public-site/org/misc/ggplot2/"
-	   :base-extension "org"
-	   :publishing-directory "~/aezarebski.github.io/misc/ggplot2/"
-	   :publishing-function org-html-publish-to-html)
-	  ("website-misc-ggplot2-static"
-	   :base-directory "~/public-site/org/misc/ggplot2/"
-	   :base-extension "png\\|jpg\\|pdf"
-	   :publishing-directory "~/aezarebski.github.io/misc/ggplot2/"
-	   :publishing-function org-publish-attachment)
-	  ("website-misc-basegraphicsR-org-files"
-	   :base-directory "~/public-site/org/misc/basegraphicsR/"
-	   :base-extension "org"
-	   :publishing-directory "~/aezarebski.github.io/misc/basegraphicsR/"
-	   :publishing-function org-html-publish-to-html)
-	  ("website-misc-basegraphicsR-static"
-	   :base-directory "~/public-site/org/misc/basegraphicsR/"
-	   :base-extension "png\\|jpg\\|pdf"
-	   :publishing-directory "~/aezarebski.github.io/misc/basegraphicsR/"
-	   :publishing-function org-publish-attachment)
-	  ("website-misc-latex-org-files"
-	   :base-directory "~/public-site/org/misc/latex/"
-	   :base-extension "org"
-	   :publishing-directory "~/aezarebski.github.io/misc/latex/"
-	   :publishing-function org-html-publish-to-html)
-	  ("website-misc-latex-static"
-	   :base-directory "~/public-site/org/misc/latex/"
-	   :base-extension "png\\|jpg\\|pdf"
-	   :publishing-directory "~/aezarebski.github.io/misc/latex/"
-	   :publishing-function org-publish-attachment)
-	  ("website-misc-tikz-org-files"
-	   :base-directory "~/public-site/org/misc/tikz/"
-	   :base-extension "org"
-	   :publishing-directory "~/aezarebski.github.io/misc/tikz/"
-	   :publishing-function org-html-publish-to-html)
-	  ("website-misc-tikz-static"
-	   :base-directory "~/public-site/org/misc/tikz/"
-	   :base-extension "png\\|jpg\\|pdf"
-	   :publishing-directory "~/aezarebski.github.io/misc/tikz/"
-	   :publishing-function org-publish-attachment)
-	  ("website-misc-matplotlib-org-files"
-	   :base-directory "~/public-site/org/misc/matplotlib/"
-	   :base-extension "org"
-	   :publishing-directory "~/aezarebski.github.io/misc/matplotlib/"
-	   :publishing-function org-html-publish-to-html)
-	  ("website-misc-matplotlib-static"
-	   :base-directory "~/public-site/org/misc/matplotlib/"
-	   :base-extension "png\\|jpg\\|pdf"
-	   :publishing-directory "~/aezarebski.github.io/misc/matplotlib/"
-	   :publishing-function org-publish-attachment)
-	  ("website-misc-ml-org-files"
-	   :base-directory "~/public-site/org/misc/ml/"
-	   :base-extension "org"
-	   :publishing-directory "~/aezarebski.github.io/misc/ml/"
-	   :publishing-function org-html-publish-to-html)
-	  ("website-misc-ml-static"
-	   :base-directory "~/public-site/org/misc/ml/"
-	   :base-extension "webp\\|png\\|py"
-	   :recursive t
-	   :publishing-directory "~/aezarebski.github.io/misc/ml/"
-	   :publishing-function org-publish-attachment
-	   :exclude "venv/")
-	  ("website-misc-ml-diagrams-static"
-	   :base-directory "~/public-site/org/misc/ml/diagrams/"
-	   :base-extension "png"
-	   :publishing-directory "~/aezarebski.github.io/misc/ml/diagrams/"
-	   :publishing-function org-publish-attachment)
-	  ("website-misc-plotnine-org-files"
-	   :base-directory "~/public-site/org/misc/plotnine/"
-	   :base-extension "org"
-	   :publishing-directory "~/aezarebski.github.io/misc/plotnine/"
-	   :publishing-function org-html-publish-to-html)
-	  ("website-misc-plotnine-static"
-	   :base-directory "~/public-site/org/misc/plotnine/"
-	   :base-extension "png\\|jpg\\|pdf"
-	   :publishing-directory "~/aezarebski.github.io/misc/plotnine/"
-	   :publishing-function org-publish-attachment)
-	  ("website-misc-recipes"
-	   :base-directory "~/public-site/org/misc/recipes/"
-	   :base-extension "org"
-	   :publishing-directory "~/aezarebski.github.io/misc/recipes/"
-	   :publishing-function org-html-publish-to-html)
-	  ("website-misc-recipes-static"
-	   :base-directory "~/public-site/org/misc/recipes/"
-	   :base-extension "png\\|css"
-	   :publishing-directory "~/aezarebski.github.io/misc/recipes/"
-	   :recursive ()
-	   :publishing-function org-publish-attachment)
-	  ("review2-org"
-	   :base-directory "~/Documents/bibliography/review2"
-	   :base-extension "org"
-	   :publishing-directory "~/aezarebski.github.io/notes/review2"
-	   :recursive ()
-	   :publishing-function org-html-publish-to-html
-	   )
-	  ("review2-static"
-	   :base-directory "~/Documents/bibliography/review2"
-	   :base-extension "css\\|png"
-	   :publishing-directory "~/aezarebski.github.io/notes/review2"
-	   :recursive t
-	   :publishing-function org-publish-attachment
-	   )
-	  ("nicemacs-org-files"
-	   :base-directory nice-nicemacs-directory
-	   :base-extension "org"
-	   :publishing-directory "~/aezarebski.github.io/misc/nicemacs/"
-	   :publishing-function org-html-publish-to-html)
-	  ("python"
-	   :components ("website-misc-matplotlib-org-files"
-			"website-misc-matplotlib-static"
-			"website-misc-plotnine-org-files"
-			"website-misc-plotnine-static"))
-	  ("ml"
-	   :components ("website-misc-ml-org-files"
-			"website-misc-ml-static"
-			"website-misc-ml-diagrams-static"))
-	  ("R"
-	   :components ("website-misc-basegraphicsR-org-files"
-			"website-misc-basegraphicsR-static"
-			"website-misc-ggplot2-org-files"
-			"website-misc-ggplot2-static"))
-	  ("review"
-	   :components ("review2-org"
-			"review2-static"))
-	  ("latex"
-	   :components ("website-misc-latex-org-files"
-			"website-misc-latex-static"
-			"website-misc-tikz-org-files"
-			"website-misc-tikz-static"))
-	  ("recipes"
-	   :components ("website-misc-recipes"
-			"website-misc-recipes-static"))
-	  ("teaching"
-	   :components ("website-teaching-org-files"
-			"website-teaching-static"))
-	  ("website"
-	   :components ("website-notes-org-files"
-			"website-images-static"
-			"website-lists-org-files"
-			"ml"
-			"nicemacs-org-files"
-			"recipes"
-			"review"
-			"latex"
-			"python"
-			"R"))))
+        `(("website-notes-org-files"
+           :base-directory "~/public-site/org/notes/"
+           :base-extension "org"
+           :publishing-directory "~/aezarebski.github.io/notes/"
+           :publishing-function org-html-publish-to-html)
+          ("website-teaching-org-files"
+           :base-directory "~/public-site/org/teaching/"
+           :base-extension "org"
+           :publishing-directory "~/aezarebski.github.io/teaching/"
+           :publishing-function org-html-publish-to-html)
+          ("website-teaching-static"
+           :base-directory "~/public-site/org/teaching/"
+           :base-extension "css\\|pdf"
+           :publishing-directory "~/aezarebski.github.io/teaching/"
+           :recursive t
+           :publishing-function org-publish-attachment)
+          ("website-lists-org-files"
+           :base-directory "~/public-site/org/lists/"
+           :base-extension "org"
+           :publishing-directory "~/aezarebski.github.io/lists/"
+           :publishing-function org-html-publish-to-html)
+          ("website-images-static"
+           :base-directory "~/public-site/org/images/"
+           :base-extension "png"
+           :publishing-directory "~/aezarebski.github.io/images/"
+           :publishing-function org-publish-attachment)
+          ("website-misc-ggplot2-org-files"
+           :base-directory "~/public-site/org/misc/ggplot2/"
+           :base-extension "org"
+           :publishing-directory "~/aezarebski.github.io/misc/ggplot2/"
+           :publishing-function org-html-publish-to-html)
+          ("website-misc-ggplot2-static"
+           :base-directory "~/public-site/org/misc/ggplot2/"
+           :base-extension "png\\|jpg\\|pdf"
+           :publishing-directory "~/aezarebski.github.io/misc/ggplot2/"
+           :publishing-function org-publish-attachment)
+          ("website-misc-basegraphicsR-org-files"
+           :base-directory "~/public-site/org/misc/basegraphicsR/"
+           :base-extension "org"
+           :publishing-directory "~/aezarebski.github.io/misc/basegraphicsR/"
+           :publishing-function org-html-publish-to-html)
+          ("website-misc-basegraphicsR-static"
+           :base-directory "~/public-site/org/misc/basegraphicsR/"
+           :base-extension "png\\|jpg\\|pdf"
+           :publishing-directory "~/aezarebski.github.io/misc/basegraphicsR/"
+           :publishing-function org-publish-attachment)
+          ("website-misc-latex-org-files"
+           :base-directory "~/public-site/org/misc/latex/"
+           :base-extension "org"
+           :publishing-directory "~/aezarebski.github.io/misc/latex/"
+           :publishing-function org-html-publish-to-html)
+          ("website-misc-latex-static"
+           :base-directory "~/public-site/org/misc/latex/"
+           :base-extension "png\\|jpg\\|pdf"
+           :publishing-directory "~/aezarebski.github.io/misc/latex/"
+           :publishing-function org-publish-attachment)
+          ("website-misc-tikz-org-files"
+           :base-directory "~/public-site/org/misc/tikz/"
+           :base-extension "org"
+           :publishing-directory "~/aezarebski.github.io/misc/tikz/"
+           :publishing-function org-html-publish-to-html)
+          ("website-misc-tikz-static"
+           :base-directory "~/public-site/org/misc/tikz/"
+           :base-extension "png\\|jpg\\|pdf"
+           :publishing-directory "~/aezarebski.github.io/misc/tikz/"
+           :publishing-function org-publish-attachment)
+          ("website-misc-matplotlib-org-files"
+           :base-directory "~/public-site/org/misc/matplotlib/"
+           :base-extension "org"
+           :publishing-directory "~/aezarebski.github.io/misc/matplotlib/"
+           :publishing-function org-html-publish-to-html)
+          ("website-misc-matplotlib-static"
+           :base-directory "~/public-site/org/misc/matplotlib/"
+           :base-extension "png\\|jpg\\|pdf"
+           :publishing-directory "~/aezarebski.github.io/misc/matplotlib/"
+           :publishing-function org-publish-attachment)
+          ("website-misc-ml-org-files"
+           :base-directory "~/public-site/org/misc/ml/"
+           :base-extension "org"
+           :publishing-directory "~/aezarebski.github.io/misc/ml/"
+           :publishing-function org-html-publish-to-html)
+          ("website-misc-ml-static"
+           :base-directory "~/public-site/org/misc/ml/"
+           :base-extension "webp\\|png\\|py"
+           :recursive t
+           :publishing-directory "~/aezarebski.github.io/misc/ml/"
+           :publishing-function org-publish-attachment
+           :exclude "venv/")
+          ("website-misc-ml-diagrams-static"
+           :base-directory "~/public-site/org/misc/ml/diagrams/"
+           :base-extension "png"
+           :publishing-directory "~/aezarebski.github.io/misc/ml/diagrams/"
+           :publishing-function org-publish-attachment)
+          ("website-misc-plotnine-org-files"
+           :base-directory "~/public-site/org/misc/plotnine/"
+           :base-extension "org"
+           :publishing-directory "~/aezarebski.github.io/misc/plotnine/"
+           :publishing-function org-html-publish-to-html)
+          ("website-misc-plotnine-static"
+           :base-directory "~/public-site/org/misc/plotnine/"
+           :base-extension "png\\|jpg\\|pdf"
+           :publishing-directory "~/aezarebski.github.io/misc/plotnine/"
+           :publishing-function org-publish-attachment)
+          ("website-misc-recipes"
+           :base-directory "~/public-site/org/misc/recipes/"
+           :base-extension "org"
+           :publishing-directory "~/aezarebski.github.io/misc/recipes/"
+           :publishing-function org-html-publish-to-html)
+          ("website-misc-recipes-static"
+           :base-directory "~/public-site/org/misc/recipes/"
+           :base-extension "png\\|css"
+           :publishing-directory "~/aezarebski.github.io/misc/recipes/"
+           :recursive ()
+           :publishing-function org-publish-attachment)
+          ("review2-org"
+           :base-directory "~/Documents/bibliography/review2"
+           :base-extension "org"
+           :publishing-directory "~/aezarebski.github.io/notes/review2"
+           :recursive ()
+           :publishing-function org-html-publish-to-html
+           )
+          ("review2-static"
+           :base-directory "~/Documents/bibliography/review2"
+           :base-extension "css\\|png"
+           :publishing-directory "~/aezarebski.github.io/notes/review2"
+           :recursive t
+           :publishing-function org-publish-attachment
+           )
+          ("nicemacs-org-files"
+           :base-directory nice-nicemacs-directory
+           :base-extension "org"
+           :publishing-directory "~/aezarebski.github.io/misc/nicemacs/"
+           :publishing-function org-html-publish-to-html)
+          ("python"
+           :components ("website-misc-matplotlib-org-files"
+                        "website-misc-matplotlib-static"
+                        "website-misc-plotnine-org-files"
+                        "website-misc-plotnine-static"))
+          ("ml"
+           :components ("website-misc-ml-org-files"
+                        "website-misc-ml-static"
+                        "website-misc-ml-diagrams-static"))
+          ("R"
+           :components ("website-misc-basegraphicsR-org-files"
+                        "website-misc-basegraphicsR-static"
+                        "website-misc-ggplot2-org-files"
+                        "website-misc-ggplot2-static"))
+          ("review"
+           :components ("review2-org"
+                        "review2-static"))
+          ("latex"
+           :components ("website-misc-latex-org-files"
+                        "website-misc-latex-static"
+                        "website-misc-tikz-org-files"
+                        "website-misc-tikz-static"))
+          ("recipes"
+           :components ("website-misc-recipes"
+                        "website-misc-recipes-static"))
+          ("teaching"
+           :components ("website-teaching-org-files"
+                        "website-teaching-static"))
+          ("website"
+           :components ("website-notes-org-files"
+                        "website-images-static"
+                        "website-lists-org-files"
+                        "ml"
+                        "nicemacs-org-files"
+                        "recipes"
+                        "review"
+                        "latex"
+                        "python"
+                        "R"))))
 #+end_src
 
 ** STUFF 8
@@ -2178,11 +2200,11 @@ for =org-latex-preview= below.
 
     `(progn
        (defun ,(intern (format "nice-visit-%s" fname)) ()
-	 "Visit a notes file."
-	 (interactive)
-	 (progn
-	   (message ,(format "Visiting %s" pname))
-	   (find-file ,(concat nice-notes-directory "/" file))))
+         "Visit a notes file."
+         (interactive)
+         (progn
+           (message ,(format "Visiting %s" pname))
+           (find-file ,(concat nice-notes-directory "/" file))))
        (evil-leader/set-key ,(concat "v n " key) (intern ,(format "nice-visit-%s" fname)))))
 
   (defmacro NVD (dname pname path key)
@@ -2202,12 +2224,12 @@ for =org-latex-preview= below.
 
     `(progn
        (defun ,(intern (format "nice-visit-%s" dname)) ()
-	 "Visit a directory."
-	 (interactive)
-	 (progn
-	   (message ,(format "Visiting %s" pname))
-	   (dired-jump nil ,path)
-	   (revert-buffer)))
+         "Visit a directory."
+         (interactive)
+         (progn
+           (message ,(format "Visiting %s" pname))
+           (dired-jump nil ,path)
+           (revert-buffer)))
        (evil-leader/set-key ,(concat "v d " key) (intern ,(format "nice-visit-%s" dname)))))
 
   (NVNF academia-notes "Academia notes" "academic-journal-notes.org" "a")
@@ -2234,7 +2256,7 @@ for =org-latex-preview= below.
   (NVD yasnippet "Yasnippet" "~/.emacs.d/snippets/fake.org" "y")
 
   (setq org-agenda-files
-	(list (expand-file-name "bike.org" nice-journal-directory)))
+        (list (expand-file-name "bike.org" nice-journal-directory)))
 
   (defun nice-visit-journal ()
     "Opens the current journal file. If it does not yet exist, it
@@ -2243,16 +2265,16 @@ for =org-latex-preview= below.
     files and that a previous one is not."
     (interactive)
     (let* ((filepath-template (concat nice-journal-directory "journal-%s.org"))
-	   (curr-file (format filepath-template (format-time-string "%Y-%m")))
-	   (prev-file (format filepath-template (format-time-string "%Y-%m" (time-subtract (current-time) (* 7 24 60 60))))))
+           (curr-file (format filepath-template (format-time-string "%Y-%m")))
+           (prev-file (format filepath-template (format-time-string "%Y-%m" (time-subtract (current-time) (* 7 24 60 60))))))
       (unless (file-exists-p curr-file)
-	(message "Creating new journal file")
-	(copy-file prev-file curr-file))
+        (message "Creating new journal file")
+        (copy-file prev-file curr-file))
       (message "Opening journal file")
       (when (member prev-file org-agenda-files)
-	(setq org-agenda-files (remove prev-file org-agenda-files)))
+        (setq org-agenda-files (remove prev-file org-agenda-files)))
       (unless (member curr-file org-agenda-files)
-	(add-to-list 'org-agenda-files curr-file))
+        (add-to-list 'org-agenda-files curr-file))
       (find-file curr-file)
       (goto-char (point-min))
       (recenter-top-bottom)))
@@ -2305,7 +2327,7 @@ for =org-latex-preview= below.
     "Accept the current suggestion provided by copilot."
     (interactive)
     (or (copilot-accept-completion)
-	(indent-for-tab-command)))
+        (indent-for-tab-command)))
 
   (with-eval-after-load 'copilot
     (evil-define-key 'insert copilot-mode-map
@@ -2315,7 +2337,7 @@ for =org-latex-preview= below.
     "Accept the current suggestion by line."
     (interactive)
     (or (copilot-accept-completion-by-line)
-	(indent-for-tab-command)))
+        (indent-for-tab-command)))
 
   (with-eval-after-load 'copilot
     (evil-define-key 'insert copilot-mode-map
@@ -2358,104 +2380,110 @@ for =org-latex-preview= below.
 
 
   (setq bookmark-alist
-	'(("emacs init"
-	   (filename . "~/.emacs.d/init.el")
-	   (front-context-string . ";; Customization") (position . 1))
-	  ("documents" (filename . "~/Documents/")
-	   (front-context-string . ".\n  drwxrwxr-x 4")
-	   (rear-context-string . "0K Jun 12 14:39 ") (position . 66)
-	   (last-modified 26755 26250 648776 264000))
-	  ("ons-cis renewal code" (filename . "~/projects/renewal-model/")
-	   (front-context-string . ".\n  drwxrwxr-x 1")
-	   (rear-context-string . "0K Feb 25 14:59 ") (position . 79))
-	  ("ons-cis renewal code stan"
-	   (filename . "~/projects/renewal-model/stan-renewal-model.stan")
-	   (front-context-string . "pper=1>[d] v;\n\n ")
-	   (rear-context-string . "vector<lower=0,u") (position . 90))
-	  ("ons-cis renewal manuscript"
-	   (filename . "~/Documents/manuscripts/zarebski202Xrenewal/")
-	   (front-context-string . ".\n  drwxrwxr-x 1")
-	   (rear-context-string . "0K Mar 13 16:09 ") (position . 98))
-	  ("professional" (filename . "~/Documents/professional/")
-	   (front-context-string . ".\n  drwxr-xr-x  ")
-	   (rear-context-string . "0K Apr 25 15:28 ") (position . 79))
-	  ("professional cv"
-	   (filename . "~/Documents/professional/cv-2.0/cv.tex")
-	   (front-context-string . "}\n\n\\usepackage[m")
-	   (rear-context-string . "e=12pt]{scrartcl") (position . 48))
-	  ("professional funding"
-	   (filename . "~/Documents/professional/funding-grants/")
-	   (front-context-string . "AI4S Challenge G")
-	   (rear-context-string . "0M Jan  9 09:29 ") (position . 183)
-	   (last-modified 26707 64109 924013 135000))
-	  ("website html" (filename . "~/aezarebski.github.io/")
-	   (front-context-string . ".\n  drwx------ 8")
-	   (rear-context-string . "0K Jan 28 23:44 ") (position . 110))
-	  ("website org" (filename . "~/public-site/org/")
-	   (front-context-string . ".\n  drwxrwxr-x  ")
-	   (rear-context-string . "0K Mar 27 21:32 ") (position . 105))
-	  ("website - notes - latex"
-	   (filename . "~/public-site/org/notes/latex-notes.org")
-	   (front-context-string . "#+title: LaTeX n") (rear-context-string)
-	   (position . 1))
-	  ("website - notes - linux"
-	   (filename . "~/public-site/org/notes/linux-notes.org")
-	   (front-context-string . "#+TITLE: Linux n") (rear-context-string)
-	   (position . 1) (last-modified 26866 44515 112442 337000))
-	  ("website - notes - python"
-	   (filename . "~/public-site/org/notes/python-notes.org")
-	   (front-context-string . "#+title: Python ") (rear-context-string)
-	   (position . 1))
-	  ("website - lists - books" (filename . "~/public-site/org/lists/books.org")
-	   (front-context-string . "#+title: books!\n") (rear-context-string)
-	   (position . 1) (last-modified 26786 61572 347304 260000))
-	  ("website - lists - movies"
-	   (filename . "~/public-site/org/lists/movies-and-series.org")
-	   (front-context-string . "#+TITLE: movies!") (rear-context-string)
-	   (position . 1) (last-modified 26738 35974 417887 969000))
-	  ("website ml" (filename . "~/public-site/org/misc/ml/readme.org")
-	   (front-context-string . "* Neural network") (rear-context-string)
-	   (position . 1) (last-modified 26865 7204 50335 648000))
-	  ("projects" (filename . "~/projects/")
-	   (front-context-string . ".\n  drwxr-x--- 3")
-	   (rear-context-string . "0K Apr 26 18:18 ") (position . 65))
-	  ("reading notes 2"
-	   (filename . "~/Documents/bibliography/review2/review.org")
-	   (front-context-string . "#+title: Literat") (rear-context-string)
-	   (position . 1))
-	  ("manuscripts" (filename . "~/Documents/manuscripts/")
-	   (front-context-string . "zarebski2024derp")
-	   (rear-context-string . "0K Mar 28 13:39 ") (position . 547))
-	  ("derp manuscript"
-	   (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex")
-	   (front-context-string . "\\documentclass[1") (rear-context-string)
-	   (position . 1))
-	  ("derp calibration study beast"
-	   (filename . "~/projects/derp-calibration-study-beast/")
-	   (front-context-string . ".\n  drwxrwxr-x 1")
-	   (rear-context-string . "0K May  9 12:37 ") (position . 94))
-	  ("derp simulation" (filename . "~/projects/derp-simulation/")
-	   (front-context-string . ".\n  drwxrwxr-x 1")
-	   (rear-context-string . "0K Apr 10 16:16 ") (position . 81))
-	  ("derp training" (filename . "~/projects/derp-training/")
-	   (front-context-string . ".\n  drwxrwxr-x 1")
-	   (rear-context-string . "0K Apr 10 15:57 ") (position . 79))
-	  ("bibliography - reading notes"
-	   (filename . "~/Documents/bibliography/review2/review.org")
-	   (front-context-string . "#+title: Literat") (rear-context-string)
-	   (position . 1))
-	  ("bibliography - recreational"
-	   (filename . "~/Documents/bibliography/review/popular-science.tex")
-	   (front-context-string . "\\section{Miscell") (rear-context-string)
-	   (position . 1) (last-modified 26849 5517 998041 730000))
-	  ("bibliography - bibtex"
-	   (filename . "~/Documents/bibliography/references.bib")
-	   (front-context-string . "@article{abdar20") (rear-context-string)
-	   (position . 1))
-	  ("emacs nicemacs elisp"
-	   (filename . "~/nicemacs/nicemacs-v2.el")
-	   (front-context-string . ";;         / __ ")
-	   (rear-context-string . "___ ___________\n") (position . 244))))
+        '(("emacs init"
+           (filename . "~/.emacs.d/init.el")
+           (front-context-string . ";; Customization") (position . 1))
+          ("documents" (filename . "~/Documents/")
+           (front-context-string . ".\n  drwxrwxr-x 4")
+           (rear-context-string . "0K Jun 12 14:39 ") (position . 66)
+           (last-modified 26755 26250 648776 264000))
+          ("ons-cis renewal code" (filename . "~/projects/renewal-model/")
+           (front-context-string . ".\n  drwxrwxr-x 1")
+           (rear-context-string . "0K Feb 25 14:59 ") (position . 79))
+          ("ons-cis renewal code stan"
+           (filename . "~/projects/renewal-model/stan-renewal-model.stan")
+           (front-context-string . "pper=1>[d] v;\n\n ")
+           (rear-context-string . "vector<lower=0,u") (position . 90))
+          ("ons-cis renewal manuscript"
+           (filename . "~/Documents/manuscripts/zarebski202Xrenewal/")
+           (front-context-string . ".\n  drwxrwxr-x 1")
+           (rear-context-string . "0K Mar 13 16:09 ") (position . 98))
+          ("professional" (filename . "~/Documents/professional/")
+           (front-context-string . ".\n  drwxr-xr-x  ")
+           (rear-context-string . "0K Apr 25 15:28 ") (position . 79))
+          ("professional cv"
+           (filename . "~/Documents/professional/cv-2.0/cv.tex")
+           (front-context-string . "}\n\n\\usepackage[m")
+           (rear-context-string . "e=12pt]{scrartcl") (position . 48))
+          ("professional funding"
+           (filename . "~/Documents/professional/funding-grants/")
+           (front-context-string . "AI4S Challenge G")
+           (rear-context-string . "0M Jan  9 09:29 ") (position . 183)
+           (last-modified 26707 64109 924013 135000))
+          ("website html" (filename . "~/aezarebski.github.io/")
+           (front-context-string . ".\n  drwx------ 8")
+           (rear-context-string . "0K Jan 28 23:44 ") (position . 110))
+          ("website org" (filename . "~/public-site/org/")
+           (front-context-string . ".\n  drwxrwxr-x  ")
+           (rear-context-string . "0K Mar 27 21:32 ") (position . 105))
+          ("website - notes - git" (filename . "~/public-site/org/notes/git-notes.org")
+           (front-context-string . "#+TITLE: Git not") (rear-context-string)
+           (position . 1) (last-modified 26894 5543 292921 316000))
+          ("website - notes - latex"
+           (filename . "~/public-site/org/notes/latex-notes.org")
+           (front-context-string . "#+title: LaTeX n") (rear-context-string)
+           (position . 1))
+          ("website - notes - linux"
+           (filename . "~/public-site/org/notes/linux-notes.org")
+           (front-context-string . "#+TITLE: Linux n") (rear-context-string)
+           (position . 1) (last-modified 26866 44515 112442 337000))
+          ("website - notes - python"
+           (filename . "~/public-site/org/notes/python-notes.org")
+           (front-context-string . "#+title: Python ") (rear-context-string)
+           (position . 1))
+          ("website - notes - R" (filename . "~/public-site/org/notes/r-notes.org")
+           (front-context-string . "#+TITLE: R notes") (rear-context-string)
+           (position . 1) (last-modified 26894 16854 758847 20000))
+          ("website - lists - books" (filename . "~/public-site/org/lists/books.org")
+           (front-context-string . "#+title: books!\n") (rear-context-string)
+           (position . 1) (last-modified 26786 61572 347304 260000))
+          ("website - lists - movies"
+           (filename . "~/public-site/org/lists/movies-and-series.org")
+           (front-context-string . "#+TITLE: movies!") (rear-context-string)
+           (position . 1) (last-modified 26738 35974 417887 969000))
+          ("website ml" (filename . "~/public-site/org/misc/ml/readme.org")
+           (front-context-string . "* Neural network") (rear-context-string)
+           (position . 1) (last-modified 26865 7204 50335 648000))
+          ("projects" (filename . "~/projects/")
+           (front-context-string . ".\n  drwxr-x--- 3")
+           (rear-context-string . "0K Apr 26 18:18 ") (position . 65))
+          ("reading notes 2"
+           (filename . "~/Documents/bibliography/review2/review.org")
+           (front-context-string . "#+title: Literat") (rear-context-string)
+           (position . 1))
+          ("manuscripts" (filename . "~/Documents/manuscripts/")
+           (front-context-string . "zarebski2024derp")
+           (rear-context-string . "0K Mar 28 13:39 ") (position . 547))
+          ("derp manuscript"
+           (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex")
+           (front-context-string . "\\documentclass[1") (rear-context-string)
+           (position . 1))
+          ("derp calibration study beast"
+           (filename . "~/projects/derp-calibration-study-beast/")
+           (front-context-string . ".\n  drwxrwxr-x 1")
+           (rear-context-string . "0K May  9 12:37 ") (position . 94))
+          ("derp simulation" (filename . "~/projects/derp-simulation/")
+           (front-context-string . ".\n  drwxrwxr-x 1")
+           (rear-context-string . "0K Apr 10 16:16 ") (position . 81))
+          ("derp training" (filename . "~/projects/derp-training/")
+           (front-context-string . ".\n  drwxrwxr-x 1")
+           (rear-context-string . "0K Apr 10 15:57 ") (position . 79))
+          ("bibliography - reading notes"
+           (filename . "~/Documents/bibliography/review2/review.org")
+           (front-context-string . "#+title: Literat") (rear-context-string)
+           (position . 1))
+          ("bibliography - recreational"
+           (filename . "~/Documents/bibliography/review/popular-science.tex")
+           (front-context-string . "\\section{Miscell") (rear-context-string)
+           (position . 1) (last-modified 26849 5517 998041 730000))
+          ("bibliography - bibtex"
+           (filename . "~/Documents/bibliography/references.bib")
+           (front-context-string . "@article{abdar20") (rear-context-string)
+           (position . 1))
+          ("emacs nicemacs elisp"
+           (filename . "~/nicemacs/nicemacs-v2.el")
+           (front-context-string . ";;         / __ ")
+           (rear-context-string . "___ ___________\n") (position . 244))))
 
   (defun nice-copy-bookmark-alist ()
     "Copy the current `bookmark-alist' to the kill-ring in a pretty-printed format."
