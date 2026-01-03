@@ -1588,6 +1588,12 @@ backup dictionary."
       (copy-file local-misc-script remote-misc-script t)
       (message "Copied %s to %s" local-misc-script remote-misc-script))))
 
+(defun nice-publish-website-misc-ggplot2 ()
+  "Publish ggplot2 org files and static assets."
+  (interactive)
+  (org-publish "website-misc-ggplot2-org-files" nil t)
+  (org-publish "website-misc-ggplot2-static" nil t))
+
 ;; The following projects are available for publishing when the
 ;; `org-publish' command is given.
 ;;
