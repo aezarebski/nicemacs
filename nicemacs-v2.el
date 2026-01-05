@@ -2003,6 +2003,10 @@ backup dictionary."
 	 (filename . "~/public-site/org/notes/linux-notes.org")
 	 (front-context-string . "#+TITLE: Linux n") (rear-context-string)
 	 (position . 1) (last-modified 26866 44515 112442 337000))
+	("website - notes - org-mode"
+	 (filename . "~/public-site/org/notes/org-mode-notes.org")
+	 (front-context-string . "#+TITLE: org-mod") (rear-context-string)
+	 (position . 1) (last-modified 26971 41650 320277 831000))
 	("website - notes - python"
 	 (filename . "~/public-site/org/notes/python-notes.org")
 	 (front-context-string . "#+title: Python ") (rear-context-string)
