@@ -425,9 +425,6 @@ active, and turns it off if it is."
   "q r" 'restart-emacs
   "q q" 'save-buffers-kill-emacs)
 
-;; Frame related commands will have keys starting with `F'.
-(evil-leader/set-key "F f" 'toggle-frame-fullscreen)
-
 (defun nice-pop-out-window ()
   "Pop the current window out into a new frame.
 
