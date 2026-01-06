@@ -579,6 +579,12 @@ amount of the of the frame's width and height."
 ;; Shell stuff
 ;; -----------
 ;;
+(defun nice-ansi-term ()
+  "Start `ansi-term'."
+  (interactive)
+  (let* ((shell (or explicit-shell-file-name shell-file-name "/bin/bash")))
+    (ansi-term shell)))
+
 (defun nice-eshell ()
   "Open an existing or new eshell buffer in a vertical split."
   (interactive)
@@ -612,7 +618,7 @@ amount of the of the frame's width and height."
 (setq eshell-cmpl-ignore-case t)
 (evil-leader/set-key
   "s e" 'eshell
-  "s b" (lambda () (interactive) (ansi-term "/bin/bash"))
+  "s b" 'nice-ansi-term
   "s i" 'ielm
   "s r" 'R
   "'" 'nice-eshell)
