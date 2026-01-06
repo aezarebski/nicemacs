@@ -230,8 +230,16 @@
       (global-ligature-mode -1)
     (global-ligature-mode 1)))
 
+(defun nice-toggle-menu-bar ()
+  "Toggle the visibility of the menu bar."
+  (interactive)
+  (if menu-bar-mode
+	  (menu-bar-mode -1)
+	(menu-bar-mode 1)))
+
 (evil-leader/set-key
   "t F" 'toggle-frame-fullscreen
+  "t m" 'nice-toggle-menu-bar
   "t w" 'nice-toggle-font
   "t a" 'nice-toggle-ligatures
   "t l" 'toggle-truncate-lines)		;; toggle how lines are
