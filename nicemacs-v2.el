@@ -2093,6 +2093,20 @@ backup dictionary."
   "v m j" 'bookmark-jump
   "v m l" 'bookmark-bmenu-list)
 
+;; -------------------------------------------------------------------
+;; Get emacs to act as my $EDITOR. This is useful when using a TUI
+;; such as @openai/codex.
+;;
+;; Remember to add the following to your .bashrc so the terminal knows
+;; which editor it should be using:
+;;
+;; export EDITOR="emacsclient -t -w"
+;; export VISUAL="emacsclient -c"
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+;; -------------------------------------------------------------------
+
 ;; Customization
 ;; =============
 
