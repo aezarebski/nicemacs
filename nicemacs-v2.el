@@ -2105,6 +2105,9 @@ backup dictionary."
 (require 'server)
 (unless (server-running-p)
   (server-start))
+(evil-leader/set-key
+  "f #" #'server-edit)
+
 ;; -------------------------------------------------------------------
 
 ;; Customization
