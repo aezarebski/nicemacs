@@ -507,15 +507,17 @@ files FA and FB using SPC f m KEY."
        (async-shell-command ,(format "kompare %s %s &" fa fb)))
      (evil-leader/set-key ,(concat "f m " key) (intern ,(format "nice-diff-%s" name)))))
 
-;;(expand-file-name "nicemacs-v2.el" nice-nicemacs-directory)
 (nice-diff-files "init" "~/.emacs.d/init.el"
 		 "/home/aez/nicemacs/nicemacs-v2.el"
                  "i")
 
-;; (expand-file-name "aspell.en.pws" nice-resources-dir)
 (nice-diff-files "aspell" "~/.aspell.en.pws"
 		 "/home/aez/nicemacs/resources/aspell.en.pws"
                  "a")
+
+(nice-diff-files "library index" "~/Documents/library/index.html"
+		 "/home/aez/Documents/bibliography/library/index.html"
+                 "l")
 
 (defun nice-diff ()
   "Prompt for two files and show the difference between them using
@@ -1907,23 +1909,24 @@ backup dictionary."
   :ensure t)
 (use-package editorconfig
   :ensure t)
+
 (use-package exec-path-from-shell
   :ensure t
   :config
-  (setq exec-path (append '("/home/alex/.nvm/versions/node/v20.19.0/bin/") exec-path))
-  ;; (setq exec-path (append '("/home/alex/.nvm/versions/node/v22.13.1/bin/") exec-path))
-  (exec-path-from-shell-initialize))
+  (exec-path-from-shell-initialize)
+  ;; this needs to point to a node executable that works with tools like codex.
+  ;; - 2026-01-29 :: v24.12.0 works
+  (setq exec-path (append '("/home/aez/.nvm/versions/node/v24.12.0/bin/") exec-path)))
+
 (use-package copilot
   :after evil-leader
   :load-path "~/.emacs.d/copilot.el/"
   :config
   (global-evil-leader-mode)
   (evil-leader/set-key "t c" 'copilot-mode)
-  (setq copilot-node-executable "~/.nvm/versions/node/v20.19.0/bin/node")
-  ;; (setq copilot-node-executable "~/.nvm/versions/node/v22.13.1/bin/node")
-  ;; (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
-  ;; (setq copilot-node-executable "/usr/bin/node")
-  (message "Copilot configuration loaded successfully!"))
+  ;; this needs to point to a node executable that works with copilot.
+  ;; - 2026-01-29 :: v20.19.0 works
+  (setq copilot-node-executable "~/.nvm/versions/node/v20.19.0/bin/node"))
 
 (defun nice-copilot-tab ()
   "Accept the current suggestion provided by copilot."
