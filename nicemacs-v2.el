@@ -196,7 +196,6 @@
 ;;
 (defalias 'nice-find-replace-regexp #'query-replace-regexp)
 (evil-leader/set-key "s g x" 'nice-find-replace-regexp)
-
 ;; Evil:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Fonts][Fonts:1]]
@@ -260,16 +259,16 @@
   "Toggle the visibility of the menu bar."
   (interactive)
   (if menu-bar-mode
-	  (menu-bar-mode -1)
-	(menu-bar-mode 1)))
+          (menu-bar-mode -1)
+        (menu-bar-mode 1)))
 
 (evil-leader/set-key
   "t F" 'toggle-frame-fullscreen
   "t m" 'nice-toggle-menu-bar
   "t w" 'nice-toggle-font
   "t a" 'nice-toggle-ligatures
-  "t l" 'toggle-truncate-lines)		;; toggle how lines are
-					;; displayed.
+  "t l" 'toggle-truncate-lines)        ;; toggle how lines are
+                                       ;; displayed.
 ;; Fonts:1 ends here
 
 ;; [[file:nicemacs-v2.org::*General][General:1]]
@@ -500,7 +499,7 @@ already in its own frame."
         ("SPC s" . "Shell/Search")
         ("SPC S" . "Spelling")
         ("SPC t" . "Toggles")
-	("SPC t t" . "Themes and fonts")
+        ("SPC t t" . "Themes and fonts")
         ("SPC v" . "Visitors")
         ("SPC v b" . "Bibtex")
         ("SPC v f" . "Files")
@@ -534,15 +533,15 @@ files FA and FB using SPC f m KEY."
      (evil-leader/set-key ,(concat "f m " key) (intern ,(format "nice-diff-%s" name)))))
 
 (nice-diff-files "init" "~/.emacs.d/init.el"
-		 "/home/aez/nicemacs/nicemacs-v2.el"
+                 "/home/aez/nicemacs/nicemacs-v2.el"
                  "i")
 
 (nice-diff-files "aspell" "~/.aspell.en.pws"
-		 "/home/aez/nicemacs/resources/aspell.en.pws"
+                 "/home/aez/nicemacs/resources/aspell.en.pws"
                  "a")
 
 (nice-diff-files "library index" "~/Documents/library/index.html"
-		 "/home/aez/Documents/bibliography/library/index.html"
+                 "/home/aez/Documents/bibliography/library/index.html"
                  "l")
 
 (defun nice-diff ()
@@ -1357,7 +1356,6 @@ year, and the first two words of the title."
 (defalias 'nice-export #'org-export-dispatch)
 (defalias 'nice-beamer #'org-beamer-export-to-pdf)
 (defalias 'nice-publish-this #'org-publish-current-file)
-
 ;; Org-mode:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Anki][Anki:1]]
@@ -1917,7 +1915,7 @@ backup dictionary."
 (evil-leader/set-key "v f j" 'nice-visit-journal)
 ;; STUFF 8:1 ends here
 
-;; [[file:nicemacs-v2.org::*Copilot][Copilot:1]]
+;; [[file:nicemacs-v2.org::#sec:copilot][Copilot:1]]
 ;; Copilot
 ;; =======
 ;;
@@ -1997,113 +1995,113 @@ backup dictionary."
 
 (setq bookmark-alist
       '(("emacs init"
-	 (filename . "~/.emacs.d/init.el")
-	 (front-context-string . ";; Customization") (position . 1))
-	("documents" (filename . "~/Documents/")
-	 (front-context-string . ".\n  drwxrwxr-x 4")
-	 (rear-context-string . "0K Jun 12 14:39 ") (position . 66)
-	 (last-modified 26755 26250 648776 264000))
-	("ons-cis renewal code" (filename . "~/projects/renewal-model/")
-	 (front-context-string . ".\n  drwxrwxr-x 1")
-	 (rear-context-string . "0K Feb 25 14:59 ") (position . 79))
-	("ons-cis renewal code stan"
-	 (filename . "~/projects/renewal-model/stan-renewal-model.stan")
-	 (front-context-string . "pper=1>[d] v;\n\n ")
-	 (rear-context-string . "vector<lower=0,u") (position . 90))
-	("ons-cis renewal manuscript"
-	 (filename . "~/Documents/manuscripts/zarebski202Xrenewal/")
-	 (front-context-string . ".\n  drwxrwxr-x 1")
-	 (rear-context-string . "0K Mar 13 16:09 ") (position . 98))
-	("professional" (filename . "~/Documents/professional/")
-	 (front-context-string . ".\n  drwxr-xr-x  ")
-	 (rear-context-string . "0K Apr 25 15:28 ") (position . 79))
-	("professional cv"
-	 (filename . "~/Documents/professional/cv-2.0/cv.tex")
-	 (front-context-string . "}\n\n\\usepackage[m")
-	 (rear-context-string . "e=12pt]{scrartcl") (position . 48))
-	("professional funding"
-	 (filename . "~/Documents/professional/funding-grants/")
-	 (front-context-string . "AI4S Challenge G")
-	 (rear-context-string . "0M Jan  9 09:29 ") (position . 183)
-	 (last-modified 26707 64109 924013 135000))
-	("website html" (filename . "~/aezarebski.github.io/")
-	 (front-context-string . ".\n  drwx------ 8")
-	 (rear-context-string . "0K Jan 28 23:44 ") (position . 110))
-	("website org" (filename . "~/public-site/org/")
-	 (front-context-string . ".\n  drwxrwxr-x  ")
-	 (rear-context-string . "0K Mar 27 21:32 ") (position . 105))
-	("website - notes - git" (filename . "~/public-site/org/notes/git-notes.org")
-	 (front-context-string . "#+TITLE: Git not") (rear-context-string)
-	 (position . 1) (last-modified 26894 5543 292921 316000))
-	("website - notes - latex"
-	 (filename . "~/public-site/org/notes/latex-notes.org")
-	 (front-context-string . "#+title: LaTeX n") (rear-context-string)
-	 (position . 1))
-	("website - notes - linux"
-	 (filename . "~/public-site/org/notes/linux-notes.org")
-	 (front-context-string . "#+TITLE: Linux n") (rear-context-string)
-	 (position . 1) (last-modified 26866 44515 112442 337000))
-	("website - notes - org-mode"
-	 (filename . "~/public-site/org/notes/org-mode-notes.org")
-	 (front-context-string . "#+TITLE: org-mod") (rear-context-string)
-	 (position . 1) (last-modified 26971 41650 320277 831000))
-	("website - notes - python"
-	 (filename . "~/public-site/org/notes/python-notes.org")
-	 (front-context-string . "#+title: Python ") (rear-context-string)
-	 (position . 1))
-	("website - notes - R" (filename . "~/public-site/org/notes/r-notes.org")
-	 (front-context-string . "#+TITLE: R notes") (rear-context-string)
-	 (position . 1) (last-modified 26894 16854 758847 20000))
-	("website - lists - books" (filename . "~/public-site/org/lists/books.org")
-	 (front-context-string . "#+title: books!\n") (rear-context-string)
-	 (position . 1) (last-modified 26786 61572 347304 260000))
-	("website - lists - movies"
-	 (filename . "~/public-site/org/lists/movies-and-series.org")
-	 (front-context-string . "#+TITLE: movies!") (rear-context-string)
-	 (position . 1) (last-modified 26738 35974 417887 969000))
-	("website ml" (filename . "~/public-site/org/misc/ml/readme.org")
-	 (front-context-string . "* Neural network") (rear-context-string)
-	 (position . 1) (last-modified 26865 7204 50335 648000))
-	("projects" (filename . "~/projects/")
-	 (front-context-string . ".\n  drwxr-x--- 3")
-	 (rear-context-string . "0K Apr 26 18:18 ") (position . 65))
-	("reading notes 2"
-	 (filename . "~/Documents/bibliography/review2/review.org")
-	 (front-context-string . "#+title: Literat") (rear-context-string)
-	 (position . 1))
-	("manuscripts" (filename . "~/Documents/manuscripts/")
-	 (front-context-string . "zarebski2024derp")
-	 (rear-context-string . "0K Mar 28 13:39 ") (position . 547))
-	("derp manuscript"
-	 (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex")
-	 (front-context-string . "\\documentclass[1") (rear-context-string)
-	 (position . 1))
-	("derp calibration study beast"
-	 (filename . "~/projects/derp-calibration-study-beast/")
-	 (front-context-string . ".\n  drwxrwxr-x 1")
-	 (rear-context-string . "0K May  9 12:37 ") (position . 94))
-	("derp simulation" (filename . "~/projects/derp-simulation/")
-	 (front-context-string . ".\n  drwxrwxr-x 1")
-	 (rear-context-string . "0K Apr 10 16:16 ") (position . 81))
-	("derp training" (filename . "~/projects/derp-training/")
-	 (front-context-string . ".\n  drwxrwxr-x 1")
-	 (rear-context-string . "0K Apr 10 15:57 ") (position . 79))
-	("bibliography - reading notes"
-	 (filename . "~/Documents/bibliography/review2/review.org")
-	 (front-context-string . "#+title: Literat") (rear-context-string)
-	 (position . 1))
-	("bibliography - recreational"
-	 (filename . "~/Documents/bibliography/review/popular-science.tex")
-	 (front-context-string . "\\section{Miscell") (rear-context-string)
-	 (position . 1) (last-modified 26849 5517 998041 730000))
-	("bibliography - bibtex"
-	 (filename . "~/Documents/bibliography/references.bib")
-	 (front-context-string . "@article{abdar20") (rear-context-string)
-	 (position . 1))
-	("emacs nicemacs elisp"
-	 (filename . "~/nicemacs/nicemacs-v2.el")
-	 (front-context-string . ";;         / __ ")
-	 (rear-context-string . "___ ___________\n") (position . 244))))
+         (filename . "~/.emacs.d/init.el")
+         (front-context-string . ";; Customization") (position . 1))
+        ("documents" (filename . "~/Documents/")
+         (front-context-string . ".\n  drwxrwxr-x 4")
+         (rear-context-string . "0K Jun 12 14:39 ") (position . 66)
+         (last-modified 26755 26250 648776 264000))
+        ("ons-cis renewal code" (filename . "~/projects/renewal-model/")
+         (front-context-string . ".\n  drwxrwxr-x 1")
+         (rear-context-string . "0K Feb 25 14:59 ") (position . 79))
+        ("ons-cis renewal code stan"
+         (filename . "~/projects/renewal-model/stan-renewal-model.stan")
+         (front-context-string . "pper=1>[d] v;\n\n ")
+         (rear-context-string . "vector<lower=0,u") (position . 90))
+        ("ons-cis renewal manuscript"
+         (filename . "~/Documents/manuscripts/zarebski202Xrenewal/")
+         (front-context-string . ".\n  drwxrwxr-x 1")
+         (rear-context-string . "0K Mar 13 16:09 ") (position . 98))
+        ("professional" (filename . "~/Documents/professional/")
+         (front-context-string . ".\n  drwxr-xr-x  ")
+         (rear-context-string . "0K Apr 25 15:28 ") (position . 79))
+        ("professional cv"
+         (filename . "~/Documents/professional/cv-2.0/cv.tex")
+         (front-context-string . "}\n\n\\usepackage[m")
+         (rear-context-string . "e=12pt]{scrartcl") (position . 48))
+        ("professional funding"
+         (filename . "~/Documents/professional/funding-grants/")
+         (front-context-string . "AI4S Challenge G")
+         (rear-context-string . "0M Jan  9 09:29 ") (position . 183)
+         (last-modified 26707 64109 924013 135000))
+        ("website html" (filename . "~/aezarebski.github.io/")
+         (front-context-string . ".\n  drwx------ 8")
+         (rear-context-string . "0K Jan 28 23:44 ") (position . 110))
+        ("website org" (filename . "~/public-site/org/")
+         (front-context-string . ".\n  drwxrwxr-x  ")
+         (rear-context-string . "0K Mar 27 21:32 ") (position . 105))
+        ("website - notes - git" (filename . "~/public-site/org/notes/git-notes.org")
+         (front-context-string . "#+TITLE: Git not") (rear-context-string)
+         (position . 1) (last-modified 26894 5543 292921 316000))
+        ("website - notes - latex"
+         (filename . "~/public-site/org/notes/latex-notes.org")
+         (front-context-string . "#+title: LaTeX n") (rear-context-string)
+         (position . 1))
+        ("website - notes - linux"
+         (filename . "~/public-site/org/notes/linux-notes.org")
+         (front-context-string . "#+TITLE: Linux n") (rear-context-string)
+         (position . 1) (last-modified 26866 44515 112442 337000))
+        ("website - notes - org-mode"
+         (filename . "~/public-site/org/notes/org-mode-notes.org")
+         (front-context-string . "#+TITLE: org-mod") (rear-context-string)
+         (position . 1) (last-modified 26971 41650 320277 831000))
+        ("website - notes - python"
+         (filename . "~/public-site/org/notes/python-notes.org")
+         (front-context-string . "#+title: Python ") (rear-context-string)
+         (position . 1))
+        ("website - notes - R" (filename . "~/public-site/org/notes/r-notes.org")
+         (front-context-string . "#+TITLE: R notes") (rear-context-string)
+         (position . 1) (last-modified 26894 16854 758847 20000))
+        ("website - lists - books" (filename . "~/public-site/org/lists/books.org")
+         (front-context-string . "#+title: books!\n") (rear-context-string)
+         (position . 1) (last-modified 26786 61572 347304 260000))
+        ("website - lists - movies"
+         (filename . "~/public-site/org/lists/movies-and-series.org")
+         (front-context-string . "#+TITLE: movies!") (rear-context-string)
+         (position . 1) (last-modified 26738 35974 417887 969000))
+        ("website ml" (filename . "~/public-site/org/misc/ml/readme.org")
+         (front-context-string . "* Neural network") (rear-context-string)
+         (position . 1) (last-modified 26865 7204 50335 648000))
+        ("projects" (filename . "~/projects/")
+         (front-context-string . ".\n  drwxr-x--- 3")
+         (rear-context-string . "0K Apr 26 18:18 ") (position . 65))
+        ("reading notes 2"
+         (filename . "~/Documents/bibliography/review2/review.org")
+         (front-context-string . "#+title: Literat") (rear-context-string)
+         (position . 1))
+        ("manuscripts" (filename . "~/Documents/manuscripts/")
+         (front-context-string . "zarebski2024derp")
+         (rear-context-string . "0K Mar 28 13:39 ") (position . 547))
+        ("derp manuscript"
+         (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex")
+         (front-context-string . "\\documentclass[1") (rear-context-string)
+         (position . 1))
+        ("derp calibration study beast"
+         (filename . "~/projects/derp-calibration-study-beast/")
+         (front-context-string . ".\n  drwxrwxr-x 1")
+         (rear-context-string . "0K May  9 12:37 ") (position . 94))
+        ("derp simulation" (filename . "~/projects/derp-simulation/")
+         (front-context-string . ".\n  drwxrwxr-x 1")
+         (rear-context-string . "0K Apr 10 16:16 ") (position . 81))
+        ("derp training" (filename . "~/projects/derp-training/")
+         (front-context-string . ".\n  drwxrwxr-x 1")
+         (rear-context-string . "0K Apr 10 15:57 ") (position . 79))
+        ("bibliography - reading notes"
+         (filename . "~/Documents/bibliography/review2/review.org")
+         (front-context-string . "#+title: Literat") (rear-context-string)
+         (position . 1))
+        ("bibliography - recreational"
+         (filename . "~/Documents/bibliography/review/popular-science.tex")
+         (front-context-string . "\\section{Miscell") (rear-context-string)
+         (position . 1) (last-modified 26849 5517 998041 730000))
+        ("bibliography - bibtex"
+         (filename . "~/Documents/bibliography/references.bib")
+         (front-context-string . "@article{abdar20") (rear-context-string)
+         (position . 1))
+        ("emacs nicemacs elisp"
+         (filename . "~/nicemacs/nicemacs-v2.el")
+         (front-context-string . ";;         / __ ")
+         (rear-context-string . "___ ___________\n") (position . 244))))
 
 (defun nice-copy-bookmark-alist ()
   "Copy the current `bookmark-alist' to the kill-ring in a pretty-printed format."
@@ -2121,7 +2119,9 @@ backup dictionary."
   "v m s" 'bookmark-set
   "v m j" 'bookmark-jump
   "v m l" 'bookmark-bmenu-list)
+;; STUFF 9:1 ends here
 
+;; [[file:nicemacs-v2.org::*Emacs client][Emacs client:1]]
 ;; -------------------------------------------------------------------
 ;; Get emacs to act as my $EDITOR. This is useful when using a TUI
 ;; such as @openai/codex.
@@ -2138,10 +2138,12 @@ backup dictionary."
   "f #" #'server-edit)
 
 ;; -------------------------------------------------------------------
+;; Emacs client:1 ends here
 
+;; [[file:nicemacs-v2.org::*STUFF 11][STUFF 11:1]]
 ;; Customization
 ;; =============
 
 ;; There be dragons here
 ;; ---------------------
-;; STUFF 9:1 ends here
+;; STUFF 11:1 ends here
