@@ -2344,23 +2344,24 @@ for =org-latex-preview= below.
     :ensure t)
   (use-package editorconfig
     :ensure t)
+
   (use-package exec-path-from-shell
     :ensure t
     :config
-    (setq exec-path (append '("/home/alex/.nvm/versions/node/v20.19.0/bin/") exec-path))
-    ;; (setq exec-path (append '("/home/alex/.nvm/versions/node/v22.13.1/bin/") exec-path))
-    (exec-path-from-shell-initialize))
+    (exec-path-from-shell-initialize)
+    ;; this needs to point to a node executable that works with tools like codex.
+    ;; - 2026-01-29 :: v24.12.0 works
+    (setq exec-path (append '("/home/aez/.nvm/versions/node/v24.12.0/bin/") exec-path)))
+
   (use-package copilot
     :after evil-leader
     :load-path "~/.emacs.d/copilot.el/"
     :config
     (global-evil-leader-mode)
     (evil-leader/set-key "t c" 'copilot-mode)
-    (setq copilot-node-executable "~/.nvm/versions/node/v20.19.0/bin/node")
-    ;; (setq copilot-node-executable "~/.nvm/versions/node/v22.13.1/bin/node")
-    ;; (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
-    ;; (setq copilot-node-executable "/usr/bin/node")
-    (message "Copilot configuration loaded successfully!"))
+    ;; this needs to point to a node executable that works with copilot.
+    ;; - 2026-01-29 :: v20.19.0 works
+    (setq copilot-node-executable "~/.nvm/versions/node/v20.19.0/bin/node"))
 
   (defun nice-copilot-tab ()
     "Accept the current suggestion provided by copilot."
@@ -2466,6 +2467,10 @@ for =org-latex-preview= below.
            (filename . "~/public-site/org/notes/linux-notes.org")
            (front-context-string . "#+TITLE: Linux n") (rear-context-string)
            (position . 1) (last-modified 26866 44515 112442 337000))
+          ("website - notes - org-mode"
+           (filename . "~/public-site/org/notes/org-mode-notes.org")
+           (front-context-string . "#+TITLE: org-mod") (rear-context-string)
+           (position . 1) (last-modified 26971 41650 320277 831000))
           ("website - notes - python"
            (filename . "~/public-site/org/notes/python-notes.org")
            (front-context-string . "#+title: Python ") (rear-context-string)
