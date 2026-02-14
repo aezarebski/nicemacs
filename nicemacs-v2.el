@@ -171,6 +171,32 @@
   :ensure t
   :config
   (evil-leader/set-key "J" 'avy-goto-line))
+
+
+;; Regular Expression Builder
+;; --------------------------
+;;
+;; NOTE that `+' doesn't work in the replacement function, you need to
+;; use `\{1,\}' instead.
+;;
+;; Set the `re-build' syntax to `string' to avoid needing double
+;; backslashes.
+(setq reb-re-syntax 'string)
+
+(with-eval-after-load 're-builder
+  (evil-leader/set-key-for-mode 'reb-mode
+    "m q" #'reb-quit
+    "m n" #'reb-next-match
+    "m p" #'reb-prev-match))
+
+;; alias `query-replace-regexp' to `nice-find-replace-regexp' and bind
+;; it to `SPC s g x' for easy access.
+;;
+;; NOTE you can use C-y to paste a copied string into the query.
+;;
+(defalias 'nice-find-replace-regexp #'query-replace-regexp)
+(evil-leader/set-key "s g x" 'nice-find-replace-regexp)
+
 ;; Evil:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Fonts][Fonts:1]]
