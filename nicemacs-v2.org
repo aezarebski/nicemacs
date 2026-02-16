@@ -559,9 +559,6 @@ scrolling (which gives a smoother scroll).
     "q r" 'restart-emacs
     "q q" 'save-buffers-kill-emacs)
 
-  ;; Frame related commands will have keys starting with `F'.
-  (evil-leader/set-key "F f" 'toggle-frame-fullscreen)
-
   (defun nice-pop-out-window ()
     "Pop the current window out into a new frame.
 
@@ -655,15 +652,17 @@ seems simpler (although has a clunkier UI than Meld).
          (async-shell-command ,(format "kompare %s %s &" fa fb)))
        (evil-leader/set-key ,(concat "f m " key) (intern ,(format "nice-diff-%s" name)))))
 
-  ;;(expand-file-name "nicemacs-v2.el" nice-nicemacs-directory)
   (nice-diff-files "init" "~/.emacs.d/init.el"
                    "/home/aez/nicemacs/nicemacs-v2.el"
                    "i")
 
-  ;; (expand-file-name "aspell.en.pws" nice-resources-dir)
   (nice-diff-files "aspell" "~/.aspell.en.pws"
                    "/home/aez/nicemacs/resources/aspell.en.pws"
                    "a")
+
+  (nice-diff-files "library index" "~/Documents/library/index.html"
+                   "/home/aez/Documents/bibliography/library/index.html"
+                   "l")
 
   (defun nice-diff ()
     "Prompt for two files and show the difference between them using
@@ -776,6 +775,12 @@ seems simpler (although has a clunkier UI than Meld).
   ;; Shell stuff
   ;; -----------
   ;;
+  (defun nice-ansi-term ()
+    "Start `ansi-term'."
+    (interactive)
+    (let* ((shell (or explicit-shell-file-name shell-file-name "/bin/bash")))
+      (ansi-term shell)))
+
   (defun nice-eshell ()
     "Open an existing or new eshell buffer in a vertical split."
     (interactive)
@@ -809,7 +814,7 @@ seems simpler (although has a clunkier UI than Meld).
   (setq eshell-cmpl-ignore-case t)
   (evil-leader/set-key
     "s e" 'eshell
-    "s b" (lambda () (interactive) (ansi-term "/bin/bash"))
+    "s b" 'nice-ansi-term
     "s i" 'ielm
     "s r" 'R
     "'" 'nice-eshell)
@@ -2545,7 +2550,32 @@ for =org-latex-preview= below.
     "v m s" 'bookmark-set
     "v m j" 'bookmark-jump
     "v m l" 'bookmark-bmenu-list)
+#+end_src
 
+** Emacs client
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  ;; -------------------------------------------------------------------
+  ;; Get emacs to act as my $EDITOR. This is useful when using a TUI
+  ;; such as @openai/codex.
+  ;;
+  ;; Remember to add the following to your .bashrc so the terminal knows
+  ;; which editor it should be using:
+  ;;
+  ;; export EDITOR="emacsclient -t -w"
+  ;; export VISUAL="emacsclient -c"
+  (require 'server)
+  (unless (server-running-p)
+    (server-start))
+  (evil-leader/set-key
+    "f #" #'server-edit)
+
+  ;; -------------------------------------------------------------------
+#+end_src
+
+** STUFF 11
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Customization
   ;; =============
 
