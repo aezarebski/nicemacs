@@ -2114,11 +2114,16 @@ backup dictionary."
     (kill-new output)
     (message "bookmark-alist copied to kill-ring!")))
 
+;; Bookmarks offer a way to navigate to files and directories that
+;; persist across Emacs sessions. The main commands you need are:
+;; `bookmark-set', `bookmark-jump' and `bookmark-bmenu-list'. There
+;; are also registers https://www.gnu.org/software/emacs/manual/html_node/emacs/Registers.html
 (evil-leader/set-key
   "v m a" 'nice-copy-bookmark-alist
   "v m s" 'bookmark-set
   "v m j" 'bookmark-jump
   "v m l" 'bookmark-bmenu-list)
+
 ;; STUFF 9:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Emacs client][Emacs client:1]]
