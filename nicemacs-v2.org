@@ -2409,20 +2409,9 @@ for =org-latex-preview= below.
     (dired "/ssh:brahms:~"))
 #+end_src
 
-** STUFF 9
+** Bookmarks
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
-  ;; Explore new worlds
-  ;; ==================
-
-  ;; TODO Work out how to browse gopher with =gopher.el=.
-
-  ;; TODO Work out how to configure auth-source.
-
-  ;; TODO Work out how to use mediawiki-mode to read and edit wikipedia.
-
-  ;; TODO Explore running spotify through emacs
-
   ;; NOTE the `bookmark-alist' variable is a list of files available for
   ;; easy access. Each entry is a cons cell where the car is the name of
   ;; the bookmark and the cdr is an alist containing information about
@@ -2500,6 +2489,21 @@ for =org-latex-preview= below.
     "f #" #'server-edit)
 
   ;; -------------------------------------------------------------------
+#+end_src
+
+** STUFF 9
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  ;; Explore new worlds
+  ;; ==================
+
+  ;; TODO Work out how to browse gopher with =gopher.el=.
+
+  ;; TODO Work out how to configure auth-source.
+
+  ;; TODO Work out how to use mediawiki-mode to read and edit wikipedia.
+
+  ;; TODO Explore running spotify through emacs
 #+end_src
 
 ** STUFF 11

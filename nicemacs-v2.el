@@ -1980,53 +1980,42 @@ backup dictionary."
   (dired "/ssh:brahms:~"))
 ;; TRAMP:1 ends here
 
-;; [[file:nicemacs-v2.org::*STUFF 9][STUFF 9:1]]
-;; Explore new worlds
-;; ==================
-
-;; TODO Work out how to browse gopher with =gopher.el=.
-
-;; TODO Work out how to configure auth-source.
-
-;; TODO Work out how to use mediawiki-mode to read and edit wikipedia.
-
-;; TODO Explore running spotify through emacs
-
+;; [[file:nicemacs-v2.org::*Bookmarks][Bookmarks:1]]
 ;; NOTE the `bookmark-alist' variable is a list of files available for
 ;; easy access. Each entry is a cons cell where the car is the name of
 ;; the bookmark and the cdr is an alist containing information about
 ;; the bookmark: the `filename' is the only required field.
 (setq bookmark-alist
       '(("emacs init"(filename . "~/.emacs.d/init.el"))
-	("documents" (filename . "~/Documents/"))
-	("ons-cis renewal code" (filename . "~/projects/renewal-model/"))
-	("ons-cis renewal code stan" (filename . "~/projects/renewal-model/stan-renewal-model.stan"))
-	("ons-cis renewal manuscript" (filename . "~/Documents/manuscripts/zarebski202Xrenewal/"))
-	("professional" (filename . "~/Documents/professional/"))
-	("professional cv" (filename . "~/Documents/professional/cv-2.0/cv.tex"))
-	("professional funding" (filename . "~/Documents/professional/funding-grants/"))
-	("website html" (filename . "~/aezarebski.github.io/"))
-	("website org" (filename . "~/public-site/org/"))
-	("website - notes - git" (filename . "~/public-site/org/notes/git-notes.org"))
-	("website - notes - latex" (filename . "~/public-site/org/notes/latex-notes.org"))
-	("website - notes - linux" (filename . "~/public-site/org/notes/linux-notes.org"))
-	("website - notes - org-mode" (filename . "~/public-site/org/notes/org-mode-notes.org"))
-	("website - notes - python" (filename . "~/public-site/org/notes/python-notes.org"))
-	("website - notes - R" (filename . "~/public-site/org/notes/r-notes.org"))
-	("website - lists - books" (filename . "~/public-site/org/lists/books.org"))
-	("website - lists - movies" (filename . "~/public-site/org/lists/movies-and-series.org"))
-	("website ml" (filename . "~/public-site/org/misc/ml/readme.org"))
-	("projects" (filename . "~/projects/"))
-	("reading notes 2" (filename . "~/Documents/bibliography/review2/review.org"))
-	("manuscripts" (filename . "~/Documents/manuscripts/"))
-	("derp manuscript" (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex"))
-	("derp calibration study beast" (filename . "~/projects/derp-calibration-study-beast/"))
-	("derp simulation" (filename . "~/projects/derp-simulation/"))
-	("derp training" (filename . "~/projects/derp-training/"))
-	("bibliography - reading notes" (filename . "~/Documents/bibliography/review2/review.org"))
-	("bibliography - recreational" (filename . "~/Documents/bibliography/review/popular-science.tex"))
-	("bibliography - bibtex" (filename . "~/Documents/bibliography/references.bib"))
-	("emacs nicemacs elisp" (filename . "~/nicemacs/nicemacs-v2.el"))))
+        ("documents" (filename . "~/Documents/"))
+        ("ons-cis renewal code" (filename . "~/projects/renewal-model/"))
+        ("ons-cis renewal code stan" (filename . "~/projects/renewal-model/stan-renewal-model.stan"))
+        ("ons-cis renewal manuscript" (filename . "~/Documents/manuscripts/zarebski202Xrenewal/"))
+        ("professional" (filename . "~/Documents/professional/"))
+        ("professional cv" (filename . "~/Documents/professional/cv-2.0/cv.tex"))
+        ("professional funding" (filename . "~/Documents/professional/funding-grants/"))
+        ("website html" (filename . "~/aezarebski.github.io/"))
+        ("website org" (filename . "~/public-site/org/"))
+        ("website - notes - git" (filename . "~/public-site/org/notes/git-notes.org"))
+        ("website - notes - latex" (filename . "~/public-site/org/notes/latex-notes.org"))
+        ("website - notes - linux" (filename . "~/public-site/org/notes/linux-notes.org"))
+        ("website - notes - org-mode" (filename . "~/public-site/org/notes/org-mode-notes.org"))
+        ("website - notes - python" (filename . "~/public-site/org/notes/python-notes.org"))
+        ("website - notes - R" (filename . "~/public-site/org/notes/r-notes.org"))
+        ("website - lists - books" (filename . "~/public-site/org/lists/books.org"))
+        ("website - lists - movies" (filename . "~/public-site/org/lists/movies-and-series.org"))
+        ("website ml" (filename . "~/public-site/org/misc/ml/readme.org"))
+        ("projects" (filename . "~/projects/"))
+        ("reading notes 2" (filename . "~/Documents/bibliography/review2/review.org"))
+        ("manuscripts" (filename . "~/Documents/manuscripts/"))
+        ("derp manuscript" (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex"))
+        ("derp calibration study beast" (filename . "~/projects/derp-calibration-study-beast/"))
+        ("derp simulation" (filename . "~/projects/derp-simulation/"))
+        ("derp training" (filename . "~/projects/derp-training/"))
+        ("bibliography - reading notes" (filename . "~/Documents/bibliography/review2/review.org"))
+        ("bibliography - recreational" (filename . "~/Documents/bibliography/review/popular-science.tex"))
+        ("bibliography - bibtex" (filename . "~/Documents/bibliography/references.bib"))
+        ("emacs nicemacs elisp" (filename . "~/nicemacs/nicemacs-v2.el"))))
 
 (defun nice-copy-bookmark-alist ()
   "Copy the current `bookmark-alist' to the kill-ring in a pretty-printed format."
@@ -2048,8 +2037,7 @@ backup dictionary."
   "v m s" 'bookmark-set
   "v m j" 'bookmark-jump
   "v m l" 'bookmark-bmenu-list)
-
-;; STUFF 9:1 ends here
+;; Bookmarks:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Emacs client][Emacs client:1]]
 ;; -------------------------------------------------------------------
@@ -2069,6 +2057,19 @@ backup dictionary."
 
 ;; -------------------------------------------------------------------
 ;; Emacs client:1 ends here
+
+;; [[file:nicemacs-v2.org::*STUFF 9][STUFF 9:1]]
+;; Explore new worlds
+;; ==================
+
+;; TODO Work out how to browse gopher with =gopher.el=.
+
+;; TODO Work out how to configure auth-source.
+
+;; TODO Work out how to use mediawiki-mode to read and edit wikipedia.
+
+;; TODO Explore running spotify through emacs
+;; STUFF 9:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 11][STUFF 11:1]]
 ;; Customization
