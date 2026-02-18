@@ -171,6 +171,31 @@
   :ensure t
   :config
   (evil-leader/set-key "J" 'avy-goto-line))
+
+
+;; Regular Expression Builder
+;; --------------------------
+;;
+;; NOTE that `+' doesn't work in the replacement function, you need to
+;; use `\{1,\}' instead.
+;;
+;; Set the `re-build' syntax to `string' to avoid needing double
+;; backslashes.
+(setq reb-re-syntax 'string)
+
+(with-eval-after-load 're-builder
+  (evil-leader/set-key-for-mode 'reb-mode
+    "m q" #'reb-quit
+    "m n" #'reb-next-match
+    "m p" #'reb-prev-match))
+
+;; alias `query-replace-regexp' to `nice-find-replace-regexp' and bind
+;; it to `SPC s g x' for easy access.
+;;
+;; NOTE you can use C-y to paste a copied string into the query.
+;;
+(defalias 'nice-find-replace-regexp #'query-replace-regexp)
+(evil-leader/set-key "s g x" 'nice-find-replace-regexp)
 ;; Evil:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Fonts][Fonts:1]]
@@ -234,16 +259,16 @@
   "Toggle the visibility of the menu bar."
   (interactive)
   (if menu-bar-mode
-	  (menu-bar-mode -1)
-	(menu-bar-mode 1)))
+          (menu-bar-mode -1)
+        (menu-bar-mode 1)))
 
 (evil-leader/set-key
   "t F" 'toggle-frame-fullscreen
   "t m" 'nice-toggle-menu-bar
   "t w" 'nice-toggle-font
   "t a" 'nice-toggle-ligatures
-  "t l" 'toggle-truncate-lines)		;; toggle how lines are
-					;; displayed.
+  "t l" 'toggle-truncate-lines)        ;; toggle how lines are
+                                       ;; displayed.
 ;; Fonts:1 ends here
 
 ;; [[file:nicemacs-v2.org::*General][General:1]]
@@ -474,7 +499,7 @@ already in its own frame."
         ("SPC s" . "Shell/Search")
         ("SPC S" . "Spelling")
         ("SPC t" . "Toggles")
-	("SPC t t" . "Themes and fonts")
+        ("SPC t t" . "Themes and fonts")
         ("SPC v" . "Visitors")
         ("SPC v b" . "Bibtex")
         ("SPC v f" . "Files")
@@ -507,15 +532,17 @@ files FA and FB using SPC f m KEY."
        (async-shell-command ,(format "kompare %s %s &" fa fb)))
      (evil-leader/set-key ,(concat "f m " key) (intern ,(format "nice-diff-%s" name)))))
 
-;;(expand-file-name "nicemacs-v2.el" nice-nicemacs-directory)
 (nice-diff-files "init" "~/.emacs.d/init.el"
-		 "/home/aez/nicemacs/nicemacs-v2.el"
+                 "/home/aez/nicemacs/nicemacs-v2.el"
                  "i")
 
-;; (expand-file-name "aspell.en.pws" nice-resources-dir)
 (nice-diff-files "aspell" "~/.aspell.en.pws"
-		 "/home/aez/nicemacs/resources/aspell.en.pws"
+                 "/home/aez/nicemacs/resources/aspell.en.pws"
                  "a")
+
+(nice-diff-files "library index" "~/Documents/library/index.html"
+                 "/home/aez/Documents/bibliography/library/index.html"
+                 "l")
 
 (defun nice-diff ()
   "Prompt for two files and show the difference between them using
@@ -1329,7 +1356,6 @@ year, and the first two words of the title."
 (defalias 'nice-export #'org-export-dispatch)
 (defalias 'nice-beamer #'org-beamer-export-to-pdf)
 (defalias 'nice-publish-this #'org-publish-current-file)
-
 ;; Org-mode:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Anki][Anki:1]]
@@ -1889,7 +1915,7 @@ backup dictionary."
 (evil-leader/set-key "v f j" 'nice-visit-journal)
 ;; STUFF 8:1 ends here
 
-;; [[file:nicemacs-v2.org::*Copilot][Copilot:1]]
+;; [[file:nicemacs-v2.org::#sec:copilot][Copilot:1]]
 ;; Copilot
 ;; =======
 ;;
@@ -1907,23 +1933,24 @@ backup dictionary."
   :ensure t)
 (use-package editorconfig
   :ensure t)
+
 (use-package exec-path-from-shell
   :ensure t
   :config
-  (setq exec-path (append '("/home/alex/.nvm/versions/node/v20.19.0/bin/") exec-path))
-  ;; (setq exec-path (append '("/home/alex/.nvm/versions/node/v22.13.1/bin/") exec-path))
-  (exec-path-from-shell-initialize))
+  (exec-path-from-shell-initialize)
+  ;; this needs to point to a node executable that works with tools like codex.
+  ;; - 2026-01-29 :: v24.12.0 works
+  (setq exec-path (append '("/home/aez/.nvm/versions/node/v24.12.0/bin/") exec-path)))
+
 (use-package copilot
   :after evil-leader
   :load-path "~/.emacs.d/copilot.el/"
   :config
   (global-evil-leader-mode)
   (evil-leader/set-key "t c" 'copilot-mode)
-  (setq copilot-node-executable "~/.nvm/versions/node/v20.19.0/bin/node")
-  ;; (setq copilot-node-executable "~/.nvm/versions/node/v22.13.1/bin/node")
-  ;; (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
-  ;; (setq copilot-node-executable "/usr/bin/node")
-  (message "Copilot configuration loaded successfully!"))
+  ;; this needs to point to a node executable that works with copilot.
+  ;; - 2026-01-29 :: v20.19.0 works
+  (setq copilot-node-executable "~/.nvm/versions/node/v20.19.0/bin/node"))
 
 (defun nice-copilot-tab ()
   "Accept the current suggestion provided by copilot."
@@ -2012,12 +2039,19 @@ backup dictionary."
     (kill-new output)
     (message "bookmark-alist copied to kill-ring!")))
 
+;; Bookmarks offer a way to navigate to files and directories that
+;; persist across Emacs sessions. The main commands you need are:
+;; `bookmark-set', `bookmark-jump' and `bookmark-bmenu-list'. There
+;; are also registers https://www.gnu.org/software/emacs/manual/html_node/emacs/Registers.html
 (evil-leader/set-key
   "v m a" 'nice-copy-bookmark-alist
   "v m s" 'bookmark-set
   "v m j" 'bookmark-jump
   "v m l" 'bookmark-bmenu-list)
 
+;; STUFF 9:1 ends here
+
+;; [[file:nicemacs-v2.org::*Emacs client][Emacs client:1]]
 ;; -------------------------------------------------------------------
 ;; Get emacs to act as my $EDITOR. This is useful when using a TUI
 ;; such as @openai/codex.
@@ -2034,10 +2068,12 @@ backup dictionary."
   "f #" #'server-edit)
 
 ;; -------------------------------------------------------------------
+;; Emacs client:1 ends here
 
+;; [[file:nicemacs-v2.org::*STUFF 11][STUFF 11:1]]
 ;; Customization
 ;; =============
 
 ;; There be dragons here
 ;; ---------------------
-;; STUFF 9:1 ends here
+;; STUFF 11:1 ends here

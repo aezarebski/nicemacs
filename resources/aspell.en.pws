@@ -1,4 +1,4 @@
-personal_ws-1.1 en 263 
+personal_ws-1.1 en 285 
 AIC
 ANZIAM
 BDSIR
@@ -9,11 +9,14 @@ Bonferroni
 CDF
 CERN
 COVID
+CPUs
 CRAN
 CSV
 CTMC
 CTMCs
+Centre
 Combinatorics
+Contrastive
 Coronavirus
 CrI
 CrIs
@@ -25,6 +28,7 @@ FASTA
 FFX
 GISAID
 GLM
+GNNs
 GPUs
 Genotype
 Gnuplot
@@ -42,6 +46,7 @@ Lotka
 MCMC
 MLE
 MNIST
+MSA
 MSE
 Monash
 Multiscale
@@ -50,12 +55,14 @@ Neyman
 Nonparametric
 Normalizing
 ODEs
+PCR
 PDE
 PDEs
 PGF
 PHEIC
 PMF
 PNG
+POMPs
 PRNG
 Paneer
 Parameterizing
@@ -66,14 +73,18 @@ RGB
 RNN
 RNNs
 Ribosomal
+SBI
 SDE
 SGD
+SNP
 SVG
+Sankey
 Scalable
 Sigmoid
 Speciation
 Stadler
 Stadler's
+Stochastics
 Studentized
 TMRCA
 TODO
@@ -88,6 +99,7 @@ Zarebski
 acyclic
 affine
 amortized
+anonymized
 antifungal
 antiretroviral
 arborio
@@ -96,6 +108,7 @@ autocovariance
 automata
 autoregressive
 behaviour
+behavioural
 bijection
 bijective
 bioinformatic
@@ -106,6 +119,7 @@ breakpoint
 cephalopod
 cheatsheet
 checksums
+chmod
 choropleth
 choropleths
 clade
@@ -145,8 +159,10 @@ embeddings
 epidemiologically
 executables
 feedforward
+flavour
 formatter
 frequentist
+functionals
 funder
 genomic
 genotype
@@ -196,6 +212,7 @@ optimization
 optimizer
 orthonormal
 outdegree
+overdispersion
 overfitting
 paneer
 parameterization
@@ -226,6 +243,7 @@ prespecified
 priori
 prioritize
 probabilist
+probabilists
 probit
 programme
 pseudocode
@@ -240,11 +258,14 @@ sharehouse
 shish
 sigmoid
 softmax
+spatiotemporal
 speciation
 stochastically
 stochasticity
 stoichiometric
 subcritical
+subdirectories
+subdirectory
 superspreading
 surveil
 tanh
@@ -259,6 +280,7 @@ unrooted
 untick
 unvaccinated
 vectorization
+vectorizations
 vectorize
 vectorized
 virions
