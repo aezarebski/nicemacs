@@ -1,6 +1,7 @@
 personal_ws-1.1 en 285 
 AIC
 ANZIAM
+Autoregressive
 BDSIR
 BDSky
 Basmati
@@ -102,6 +103,7 @@ amortized
 anonymized
 antifungal
 antiretroviral
+arXiv
 arborio
 autocorrelated
 autocovariance
@@ -164,6 +166,7 @@ formatter
 frequentist
 functionals
 funder
+generalization
 genomic
 genotype
 genotyping
@@ -275,10 +278,12 @@ transmissibility
 tumorigenesis
 tuple
 ultrametric
+unimodal
 univariate
 unrooted
 untick
 unvaccinated
+variational
 vectorization
 vectorizations
 vectorize
