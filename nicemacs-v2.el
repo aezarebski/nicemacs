@@ -389,6 +389,10 @@ active, and turns it off if it is."
     (:key "3"
      :name "Dark (modus-vivendi-tinted + JetBrains Mono"
      :theme modus-vivendi-tinted
+     :font  "JetBrains Mono")
+    (:key "4"
+     :name "Day (solarized-light + JetBrains Mono"
+     :theme solarized-light-high-contrast
      :font  "JetBrains Mono"))
   "Ordered list of theme+font preset combinations")
 
