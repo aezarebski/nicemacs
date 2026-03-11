@@ -321,6 +321,24 @@ scrolling (which gives a smoother scroll).
   (pixel-scroll-precision-mode 1)
   (setq pixel-dead-time 0)
 
+  (defun nice-page-up ()
+    "Scroll up by one page with smooth interpolation when available."
+    (interactive)
+    (if (fboundp 'pixel-scroll-interpolate-up)
+        (pixel-scroll-interpolate-up)
+      (scroll-down-command)))
+
+  (defun nice-page-down ()
+    "Scroll down by one page with smooth interpolation when available."
+    (interactive)
+    (if (fboundp 'pixel-scroll-interpolate-down)
+        (pixel-scroll-interpolate-down)
+      (scroll-up-command)))
+
+  (evil-leader/set-key
+    "p u" 'nice-page-up
+    "p d" 'nice-page-down)
+
   (setq scroll-margin 1)
   ;; (setq scroll-conservatively 101)
   ;; (setq scroll-preserve-screen-position 1)
