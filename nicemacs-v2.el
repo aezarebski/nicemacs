@@ -613,6 +613,20 @@ amount of the of the frame's width and height."
   (let* ((shell (or explicit-shell-file-name shell-file-name "/bin/bash")))
     (ansi-term shell)))
 
+(defun nice-open-ansi-term ()
+  "Switch to the most recently used live term buffer, or start one."
+  (interactive)
+  (let ((term-buffer
+         (catch 'found
+           (dolist (buffer (buffer-list))
+             (with-current-buffer buffer
+               (when (and (derived-mode-p 'term-mode)
+                          (term-check-proc buffer))
+                 (throw 'found buffer)))))))
+    (if term-buffer
+        (switch-to-buffer term-buffer)
+      (nice-ansi-term))))
+
 (defun nice-eshell ()
   "Open an existing or new eshell buffer in a vertical split."
   (interactive)
@@ -649,7 +663,7 @@ amount of the of the frame's width and height."
   "s b" 'nice-ansi-term
   "s i" 'ielm
   "s r" 'R
-  "'" 'nice-eshell)
+  "'" 'nice-open-ansi-term)
 
 (defun cdf (filepath)
   "Change the current directory in Eshell to the directory of
