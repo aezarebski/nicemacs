@@ -1059,6 +1059,7 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
      (evil-leader/set-key ,(concat "g c " key) (intern ,(format "nccm-%s" fname)))))
 
 (nice-canned-commit-message emacs "update emacs config" "e")
+(nice-canned-commit-message bibtex "update bibtex entries" "b")
 (nice-canned-commit-message flashcards "flashcards" "f")
 (nice-canned-commit-message journal "update journal" "j")
 (nice-canned-commit-message notes "update notes" "n")
@@ -2023,6 +2024,7 @@ backup dictionary."
 ;; the bookmark: the `filename' is the only required field.
 (setq bookmark-alist
       '(("emacs init"(filename . "~/.emacs.d/init.el"))
+        ("cheatsheet - spelling" (filename . "~/Documents/professional/cheatsheet-spelling.tex"))
         ("documents" (filename . "~/Documents/"))
         ("ons-cis renewal code" (filename . "~/projects/renewal-model/"))
         ("ons-cis renewal code stan" (filename . "~/projects/renewal-model/stan-renewal-model.stan"))
@@ -2030,6 +2032,7 @@ backup dictionary."
         ("professional" (filename . "~/Documents/professional/"))
         ("professional cv" (filename . "~/Documents/professional/cv-2.0/cv.tex"))
         ("professional funding" (filename . "~/Documents/professional/funding-grants/"))
+        ("professional jobs" (filename . "~/Documents/professional/job-applications/"))
         ("website html" (filename . "~/aezarebski.github.io/"))
         ("website org" (filename . "~/public-site/org/"))
         ("website - notes - git" (filename . "~/public-site/org/notes/git-notes.org"))
