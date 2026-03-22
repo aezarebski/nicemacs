@@ -2104,12 +2104,24 @@ backup dictionary."
 ;; Explore new worlds
 ;; ==================
 
+
+;; PlantUML
+;; ========
+;;
+;; C-c C-c to preview the diagram
+;;
+;; $ java -jar </path/to/plantuml.jar> -tpng </path/to/diagram.puml>
+;;
 (use-package plantuml-mode
   :ensure t
+  :mode
+  (("\\.puml\\'" . plantuml-mode)
+   ("\\.plantuml\\'" . plantuml-mode))
   :config
   (let ((plantuml-jar "~/.emacs.d/plantuml/plantuml-1.2026.2.jar"))
   (setq plantuml-default-exec-mode 'jar
 	plantuml-jar-path plantuml-jar
+	plantuml-output-type "png"
 	org-plantuml-jar-path plantuml-jar)))
 
 
