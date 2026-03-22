@@ -66,6 +66,7 @@
 
 ;; [[file:nicemacs-v2.org::*STUFF 1][STUFF 1:1]]
 (require 'package)
+(setq package-install-upgrade-built-in t)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
@@ -1586,6 +1587,7 @@ backup dictionary."
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((R . t)
+   (plantuml . t)
    (python . t)))
 
 (evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
@@ -1697,7 +1699,7 @@ backup dictionary."
          :publishing-function org-html-publish-to-html)
         ("website-images-static"
          :base-directory "~/public-site/org/images/"
-         :base-extension "png"
+         :base-extension "png\\|svg"
          :publishing-directory "~/aezarebski.github.io/images/"
          :publishing-function org-publish-attachment)
         ("website-misc-ggplot2-org-files"
@@ -2043,6 +2045,7 @@ backup dictionary."
         ("website - notes - R" (filename . "~/public-site/org/notes/r-notes.org"))
         ("website - lists - books" (filename . "~/public-site/org/lists/books.org"))
         ("website - lists - movies" (filename . "~/public-site/org/lists/movies-and-series.org"))
+        ("website - misc - basegraphicsR" (filename . "~/public-site/org/misc/basegraphicsR/"))
         ("website ml" (filename . "~/public-site/org/misc/ml/readme.org"))
         ("projects" (filename . "~/projects/"))
         ("reading notes 2" (filename . "~/Documents/bibliography/review2/review.org"))
@@ -2100,6 +2103,15 @@ backup dictionary."
 ;; [[file:nicemacs-v2.org::*STUFF 9][STUFF 9:1]]
 ;; Explore new worlds
 ;; ==================
+
+(use-package plantuml-mode
+  :ensure t
+  :config
+  (let ((plantuml-jar "~/.emacs.d/plantuml/plantuml-1.2026.2.jar"))
+  (setq plantuml-default-exec-mode 'jar
+	plantuml-jar-path plantuml-jar
+	org-plantuml-jar-path plantuml-jar)))
+
 
 ;; TODO Work out how to browse gopher with =gopher.el=.
 
