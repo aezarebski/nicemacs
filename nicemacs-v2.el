@@ -454,6 +454,7 @@ active, and turns it off if it is."
 (use-package rainbow-mode
   :ensure t
   :hook ((emacs-lisp-mode . rainbow-mode)
+	 (plantuml-mode . rainbow-mode)
          (ess-mode . rainbow-mode)))
 
 (setq inhibit-splash-screen t)
@@ -1065,6 +1066,7 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 (nice-canned-commit-message journal "update journal" "j")
 (nice-canned-commit-message notes "update notes" "n")
 (nice-canned-commit-message review "update reading list" "r")
+(nice-canned-commit-message spelling "update spelling cheatsheet" "s")
 (nice-canned-commit-message website "update website" "w")
 (nice-canned-commit-message yasnippet "yasnippet" "y")
 ;; Configuration:3 ends here
@@ -1324,6 +1326,7 @@ year, and the first two words of the title."
           (evil-jump-item)
           (message "New key generated and copied to clipboard: %s" newkey))
       (error "Author, Year or Title is missing in the current BibTeX entry."))))
+
 
 (defun nice-browse-url-of-doi ()
   "Open the DOI of the current bibtex entry in the web browser."
@@ -1664,14 +1667,13 @@ backup dictionary."
       (copy-file local-misc-script remote-misc-script t)
       (message "Copied %s to %s" local-misc-script remote-misc-script))))
 
-(defun nice-publish-website-misc-ggplot2 ()
-  "Publish ggplot2 org files and static assets."
-  (interactive)
-  (org-publish "website-misc-ggplot2-org-files" nil t)
-  (org-publish "website-misc-ggplot2-static" nil t))
-
 ;; The following projects are available for publishing when the
-;; `org-publish' command is given.
+;; `org-publish' command is given. Note that there are some
+;; "components" below this that publish several of these things
+;; together (without doing everything). For example,
+;;
+;; - R (the plotting galleries)
+;; - ml (the blog files)
 ;;
 ;; NOTE if you want to publish only a single file you are visiting,
 ;; use the `org-publish-current-file' command.
@@ -1759,7 +1761,7 @@ backup dictionary."
          :publishing-function org-html-publish-to-html)
         ("website-misc-ml-static"
          :base-directory "~/public-site/org/misc/ml/"
-         :base-extension "webp\\|png\\|py"
+         :base-extension "webp\\|png\\|py\\|puml"
          :recursive t
          :publishing-directory "~/aezarebski.github.io/misc/ml/"
          :publishing-function org-publish-attachment
@@ -1848,6 +1850,7 @@ backup dictionary."
                       "latex"
                       "python"
                       "R"))))
+
 ;; Website/Publishing:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 8][STUFF 8:1]]
