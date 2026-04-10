@@ -1063,7 +1063,6 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 (nice-canned-commit-message emacs "update emacs config" "e")
 (nice-canned-commit-message bibtex "update bibtex entries" "b")
 (nice-canned-commit-message flashcards "flashcards" "f")
-(nice-canned-commit-message journal "update journal" "j")
 (nice-canned-commit-message notes "update notes" "n")
 (nice-canned-commit-message review "update reading list" "r")
 (nice-canned-commit-message spelling "update spelling cheatsheet" "s")
@@ -1359,6 +1358,15 @@ year, and the first two words of the title."
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+(with-eval-after-load 'ox-latex
+  (setq org-latex-src-block-backend 'listings))
+(with-eval-after-load 'ox-latex
+  (add-to-list 'org-latex-packages-alist '("" "listings")))
+(with-eval-after-load 'ox-latex
+  (add-to-list 'org-latex-packages-alist '("" "xcolor")))
+
+
 ;; LaTeX/BibTeX:2 ends here
 
 ;; [[file:nicemacs-v2.org::*Markdown][Markdown:1]]
