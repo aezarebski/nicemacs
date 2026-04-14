@@ -553,7 +553,7 @@ files FA and FB using SPC f m KEY."
   `(progn
      (defun ,(intern (format "nice-diff-%s" name)) ()
        (interactive)
-       (async-shell-command ,(format "kompare %s %s &" fa fb)))
+       (async-shell-command ,(format "meld %s %s &" fa fb)))
      (evil-leader/set-key ,(concat "f m " key) (intern ,(format "nice-diff-%s" name)))))
 
 (nice-diff-files "init" "~/.emacs.d/init.el"
@@ -572,9 +572,10 @@ files FA and FB using SPC f m KEY."
   "Prompt for two files and show the difference between them using
 `kompare`."
   (interactive)
-  (let ((file1 (read-file-name "First file: "))
+  (let ((program "meld")
+	(file1 (read-file-name "First file: "))
         (file2 (read-file-name "Second file: ")))
-    (shell-command (format "kompare %s %s &" file1 file2))))
+    (shell-command (format "%s %s %s &" program file1 file2))))
 
 (evil-leader/set-key "f m m" 'nice-diff)
 ;; Diff-ing files:1 ends here
@@ -2036,7 +2037,8 @@ backup dictionary."
 ;; the bookmark and the cdr is an alist containing information about
 ;; the bookmark: the `filename' is the only required field.
 (setq bookmark-alist
-      '(("emacs init"(filename . "~/.emacs.d/init.el"))
+      '(("emacs init" (filename . "~/.emacs.d/init.el"))
+	("flash - linear algebra" (filename . "~/Documents/flash/anki/linear-algebra.org"))
         ("cheatsheet - spelling" (filename . "~/Documents/professional/cheatsheet-spelling.tex"))
         ("documents" (filename . "~/Documents/"))
         ("ons-cis renewal code" (filename . "~/projects/renewal-model/"))
@@ -2049,7 +2051,7 @@ backup dictionary."
         ("website html" (filename . "~/aezarebski.github.io/"))
         ("website org" (filename . "~/public-site/org/"))
         ("website - notes - git" (filename . "~/public-site/org/notes/git-notes.org"))
-        ("website - notes - latex" (filename . "~/public-site/org/notes/latex-notes.org"))
+        ("website - notes - latex/bibtex/jabref" (filename . "~/public-site/org/notes/latex-notes.org"))
         ("website - notes - linux" (filename . "~/public-site/org/notes/linux-notes.org"))
         ("website - notes - org-mode" (filename . "~/public-site/org/notes/org-mode-notes.org"))
         ("website - notes - python" (filename . "~/public-site/org/notes/python-notes.org"))
@@ -2061,6 +2063,7 @@ backup dictionary."
         ("projects" (filename . "~/projects/"))
         ("reading notes 2" (filename . "~/Documents/bibliography/review2/review.org"))
         ("manuscripts" (filename . "~/Documents/manuscripts/"))
+        ("manuscripts - genie" (filename . "~/Documents/manuscripts/bradley2026genie/"))
         ("derp manuscript" (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex"))
         ("derp calibration study beast" (filename . "~/projects/derp-calibration-study-beast/"))
         ("derp simulation" (filename . "~/projects/derp-simulation/"))
