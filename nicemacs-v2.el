@@ -2126,6 +2126,15 @@ backup dictionary."
 ;;
 ;; $ java -jar </path/to/plantuml.jar> -tpng </path/to/diagram.puml>
 ;;
+(let ((jar "~/.emacs.d/plantuml/plantuml-1.2026.2.jar"))
+  (setq org-plantuml-jar-path jar)
+  (setq plantuml-jar-path jar)
+  (unless (file-exists-p jar)
+    (display-warning
+     'plantuml
+     (format "PlantUML jar not found: %s" jar)
+     :warning)))
+
 (use-package plantuml-mode
   :ensure t
   :mode
@@ -2134,9 +2143,7 @@ backup dictionary."
   :config
   (let ((plantuml-jar "~/.emacs.d/plantuml/plantuml-1.2026.2.jar"))
   (setq plantuml-default-exec-mode 'jar
-	plantuml-jar-path plantuml-jar
-	plantuml-output-type "png"
-	org-plantuml-jar-path plantuml-jar)))
+	plantuml-output-type "png")))
 
 
 ;; TODO Work out how to browse gopher with =gopher.el=.
