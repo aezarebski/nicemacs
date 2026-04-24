@@ -2071,6 +2071,7 @@ backup dictionary."
         ("bibliography - reading notes" (filename . "~/Documents/bibliography/review2/review.org"))
         ("bibliography - recreational" (filename . "~/Documents/bibliography/review/popular-science.tex"))
         ("bibliography - bibtex" (filename . "~/Documents/bibliography/references.bib"))
+	("bibliography - library" (filename . "~/Documents/library/"))
         ("emacs nicemacs elisp" (filename . "~/nicemacs/nicemacs-v2.el"))))
 
 (defun nice-copy-bookmark-alist ()
@@ -2145,6 +2146,9 @@ backup dictionary."
   (setq plantuml-default-exec-mode 'jar
 	plantuml-output-type "png")))
 
+(add-hook 'plantuml-mode-hook
+          (lambda ()
+            (electric-indent-local-mode -1)))
 
 ;; TODO Work out how to browse gopher with =gopher.el=.
 
