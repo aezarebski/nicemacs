@@ -1763,6 +1763,16 @@ backup dictionary."
          :base-extension "png\\|jpg\\|pdf"
          :publishing-directory "~/aezarebski.github.io/misc/matplotlib/"
          :publishing-function org-publish-attachment)
+        ("website-misc-plantuml-org-files"
+         :base-directory "~/public-site/org/misc/plantuml/"
+         :base-extension "org"
+         :publishing-directory "~/aezarebski.github.io/misc/plantuml/"
+         :publishing-function org-html-publish-to-html)
+        ("website-misc-plantuml-static"
+         :base-directory "~/public-site/org/misc/plantuml/"
+         :base-extension "png\\|jpg\\|pdf"
+         :publishing-directory "~/aezarebski.github.io/misc/plantuml/"
+         :publishing-function org-publish-attachment)
         ("website-misc-ml-org-files"
          :base-directory "~/public-site/org/misc/ml/"
          :base-extension "org"
@@ -1825,6 +1835,9 @@ backup dictionary."
                       "website-misc-matplotlib-static"
                       "website-misc-plotnine-org-files"
                       "website-misc-plotnine-static"))
+        ("plantuml"
+         :components ("website-misc-plantuml-org-files"
+                      "website-misc-plantuml-static"))
         ("ml"
          :components ("website-misc-ml-org-files"
                       "website-misc-ml-static"
@@ -2053,12 +2066,14 @@ backup dictionary."
         ("website - notes - git" (filename . "~/public-site/org/notes/git-notes.org"))
         ("website - notes - latex/bibtex/jabref" (filename . "~/public-site/org/notes/latex-notes.org"))
         ("website - notes - linux" (filename . "~/public-site/org/notes/linux-notes.org"))
+        ("website - notes - ml" (filename . "~/public-site/org/notes/ml-notes.org"))
         ("website - notes - org-mode" (filename . "~/public-site/org/notes/org-mode-notes.org"))
         ("website - notes - python" (filename . "~/public-site/org/notes/python-notes.org"))
         ("website - notes - R" (filename . "~/public-site/org/notes/r-notes.org"))
         ("website - lists - books" (filename . "~/public-site/org/lists/books.org"))
         ("website - lists - movies" (filename . "~/public-site/org/lists/movies-and-series.org"))
         ("website - misc - basegraphicsR" (filename . "~/public-site/org/misc/basegraphicsR/"))
+        ("website - misc - matplotlib" (filename . "~/public-site/org/misc/matplotlib/"))
         ("website ml" (filename . "~/public-site/org/misc/ml/readme.org"))
         ("projects" (filename . "~/projects/"))
         ("reading notes 2" (filename . "~/Documents/bibliography/review2/review.org"))
