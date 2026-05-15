@@ -2083,6 +2083,7 @@ backup dictionary."
         ("derp calibration study beast" (filename . "~/projects/derp-calibration-study-beast/"))
         ("derp simulation" (filename . "~/projects/derp-simulation/"))
         ("derp training" (filename . "~/projects/derp-training/"))
+        ("bibliography - computer science" (filename . "~/Documents/bibliography/review2/review-computer-science.org"))
         ("bibliography - reading notes" (filename . "~/Documents/bibliography/review2/review.org"))
         ("bibliography - recreational" (filename . "~/Documents/bibliography/review/popular-science.tex"))
         ("bibliography - bibtex" (filename . "~/Documents/bibliography/references.bib"))
