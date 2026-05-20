@@ -1838,6 +1838,9 @@ backup dictionary."
         ("plantuml"
          :components ("website-misc-plantuml-org-files"
                       "website-misc-plantuml-static"))
+        ("matplotlib"
+         :components ("website-misc-matplotlib-org-files"
+                      "website-misc-matplotlib-static"))
         ("ml"
          :components ("website-misc-ml-org-files"
                       "website-misc-ml-static"
@@ -2014,6 +2017,7 @@ backup dictionary."
   (evil-leader/set-key "t c" 'copilot-mode)
   ;; this needs to point to a node executable that works with copilot.
   ;; - 2026-01-29 :: v20.19.0 works
+  ;; (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
   (setq copilot-node-executable "~/.nvm/versions/node/v20.19.0/bin/node"))
 
 (defun nice-copilot-tab ()
