@@ -628,6 +628,32 @@ amount of the of the frame's width and height."
 ;; Shell stuff
 ;; -----------
 ;;
+
+(use-package vterm
+  :ensure t
+  :commands vterm
+  :config
+  (setq vterm-shell "/bin/bash"))
+
+(defun nice-vterm ()
+  "Start `vterm'."
+  (interactive)
+  (vterm))
+
+(defun nice-open-vterm ()
+  "Switch to the most recently used live vterm buffer, or start one."
+  (interactive)
+  (let ((vterm-buffer
+         (catch 'found
+           (dolist (buffer (buffer-list))
+             (with-current-buffer buffer
+               (when (and (derived-mode-p 'vterm-mode)
+                          (get-buffer-process buffer))
+                 (throw 'found buffer)))))))
+    (if vterm-buffer
+        (switch-to-buffer vterm-buffer)
+      (nice-vterm))))
+
 (defun nice-ansi-term ()
   "Start `ansi-term'."
   (interactive)
@@ -681,10 +707,11 @@ amount of the of the frame's width and height."
 (setq eshell-cmpl-ignore-case t)
 (evil-leader/set-key
   "s e" 'eshell
-  "s b" 'nice-ansi-term
+  "s a" 'nice-ansi-term
+  "s v" 'nice-vterm
   "s i" 'ielm
   "s r" 'R
-  "'" 'nice-open-ansi-term)
+  "'" 'nice-open-vterm)
 
 (defun cdf (filepath)
   "Change the current directory in Eshell to the directory of
@@ -693,15 +720,9 @@ amount of the of the frame's width and height."
     (when (file-directory-p dir)
       (eshell/cd dir))))
 
-(defun ls1 (&optional dir)
-  "Run `ls -1` in DIR (or `default-directory` if none is given)."
-  (let ((dir (or dir default-directory)))
-    (when (file-directory-p dir)
-      (eshell/ls "-1" dir))))
-
-(defun nice-eshell-mode-setup ()
-  (setenv "TERM" "dumb")
-  (setenv "GIT_PAGER" "cat"))
+;; (defun nice-eshell-mode-setup ()
+;;   (setenv "TERM" "dumb")
+;;   (setenv "GIT_PAGER" "cat"))
 
 (add-hook 'eshell-mode-hook 'nice-eshell-mode-setup)
 ;; Shells:1 ends here
