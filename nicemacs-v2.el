@@ -629,11 +629,14 @@ amount of the of the frame's width and height."
 ;; -----------
 ;;
 
+;; C-c C-t toggles copy-mode on/off in vterm. This is a useful mode
+;; for scrolling through TUIs that produce a lot of output.
 (use-package vterm
   :ensure t
   :commands vterm
   :config
-  (setq vterm-shell "/bin/bash"))
+  (setq vterm-shell "/bin/bash"
+	vterm-max-scrollback 100000))
 
 (defun nice-vterm ()
   "Start `vterm'."
