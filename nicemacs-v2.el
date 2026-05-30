@@ -635,6 +635,19 @@ amount of the of the frame's width and height."
   :config
   (setq vterm-shell "/bin/bash"))
 
+(defun nice-vterm-current-directory ()
+  "Return the current working directory of the process in a vterm buffer.
+
+This uses /proc so may be fragile..."
+  (when (and (eq major-mode 'vterm-mode)
+             (boundp 'vterm--process)
+             vterm--process
+             (process-live-p vterm--process))
+    (let* ((pid (process-id vterm--process))
+           (cwd-link (format "/proc/%d/cwd/" pid)))
+      (when (file-exists-p cwd-link)
+        (file-truename cwd-link)))))
+
 (defun nice-vterm ()
   "Start `vterm'."
   (interactive)
@@ -804,22 +817,36 @@ amount of the of the frame's width and height."
   "F d" 'delete-frame)
 
 (defun nice-dired ()
-  "Open dired for the current buffer's directory if it
- corresponds to a file, the working directory of the shell if
- the current buffer is a shell, or the home directory otherwise."
+  "Open dired for the current context."
   (interactive)
-  (let* ((buffer-mode (with-current-buffer (current-buffer) major-mode))
-         (dir (cond ((buffer-file-name)
-                     (file-name-directory (buffer-file-name)))
-                    ((or (eq buffer-mode 'term-mode)
-                         (eq buffer-mode 'eshell-mode)
-                         (eq buffer-mode 'inferior-ess-r-mode))
-                     (with-current-buffer (if (eq buffer-mode 'inferior-ess-r-mode)
-                                              (process-buffer (ess-get-process ess-current-process-name))
-                                            (current-buffer))
-                       (file-name-directory default-directory)))
-                    (t (expand-file-name "~/")))))
-    (dired dir)))
+  (let* ((buffer-mode major-mode)
+         (dir
+          (cond
+           ((buffer-file-name)
+            (file-name-directory (buffer-file-name)))
+
+           ((eq buffer-mode 'dired-mode)
+            (dired-current-directory))
+
+           ((eq buffer-mode 'vterm-mode)
+            (or (nice-vterm-current-directory)
+                default-directory))
+
+           ((or (eq buffer-mode 'term-mode)
+                (eq buffer-mode 'eshell-mode)
+                (eq buffer-mode 'inferior-ess-r-mode))
+            (with-current-buffer
+                (if (eq buffer-mode 'inferior-ess-r-mode)
+                    (process-buffer
+                     (ess-get-process ess-current-process-name))
+                  (current-buffer))
+              default-directory))
+
+           (t
+            (expand-file-name "~/")))))
+    (dired (file-name-as-directory (expand-file-name dir)))))
+
+
 
 (defun nice-touch-file ()
   "In the current dired buffer touch a new file with a name
