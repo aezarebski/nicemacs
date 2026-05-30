@@ -514,6 +514,10 @@ scrolling (which gives a smoother scroll).
       (:key "3"
        :name "Dark (modus-vivendi-tinted + JetBrains Mono"
        :theme modus-vivendi-tinted
+       :font  "JetBrains Mono")
+      (:key "4"
+       :name "Day (solarized-light + JetBrains Mono"
+       :theme solarized-light-high-contrast
        :font  "JetBrains Mono"))
     "Ordered list of theme+font preset combinations")
 
@@ -558,6 +562,7 @@ scrolling (which gives a smoother scroll).
   (use-package rainbow-mode
     :ensure t
     :hook ((emacs-lisp-mode . rainbow-mode)
+           (plantuml-mode . rainbow-mode)
            (ess-mode . rainbow-mode)))
 
   (setq inhibit-splash-screen t)
@@ -667,7 +672,7 @@ seems simpler (although has a clunkier UI than Meld).
     `(progn
        (defun ,(intern (format "nice-diff-%s" name)) ()
          (interactive)
-         (async-shell-command ,(format "kompare %s %s &" fa fb)))
+         (async-shell-command ,(format "meld %s %s &" fa fb)))
        (evil-leader/set-key ,(concat "f m " key) (intern ,(format "nice-diff-%s" name)))))
 
   (nice-diff-files "init" "~/.emacs.d/init.el"
@@ -686,9 +691,10 @@ seems simpler (although has a clunkier UI than Meld).
     "Prompt for two files and show the difference between them using
   `kompare`."
     (interactive)
-    (let ((file1 (read-file-name "First file: "))
+    (let ((program "meld")
+          (file1 (read-file-name "First file: "))
           (file2 (read-file-name "Second file: ")))
-      (shell-command (format "kompare %s %s &" file1 file2))))
+      (shell-command (format "%s %s %s &" program file1 file2))))
 
   (evil-leader/set-key "f m m" 'nice-diff)
 #+end_src
@@ -793,11 +799,67 @@ seems simpler (although has a clunkier UI than Meld).
   ;; Shell stuff
   ;; -----------
   ;;
+
+  ;; C-c C-t toggles copy-mode on/off in vterm. This is a useful mode
+  ;; for scrolling through TUIs that produce a lot of output.
+  (use-package vterm
+    :ensure t
+    :commands vterm
+    :config
+    (setq vterm-shell "/bin/bash"
+          vterm-max-scrollback 100000))
+
+  (defun nice-vterm-current-directory ()
+    "Return the current working directory of the process in a vterm buffer.
+
+  This uses /proc so may be fragile..."
+    (when (and (eq major-mode 'vterm-mode)
+               (boundp 'vterm--process)
+               vterm--process
+               (process-live-p vterm--process))
+      (let* ((pid (process-id vterm--process))
+             (cwd-link (format "/proc/%d/cwd/" pid)))
+        (when (file-exists-p cwd-link)
+          (file-truename cwd-link)))))
+
+  (defun nice-vterm ()
+    "Start `vterm'."
+    (interactive)
+    (vterm))
+
+  (defun nice-open-vterm ()
+    "Switch to the most recently used live vterm buffer, or start one."
+    (interactive)
+    (let ((vterm-buffer
+           (catch 'found
+             (dolist (buffer (buffer-list))
+               (with-current-buffer buffer
+                 (when (and (derived-mode-p 'vterm-mode)
+                            (get-buffer-process buffer))
+                   (throw 'found buffer)))))))
+      (if vterm-buffer
+          (switch-to-buffer vterm-buffer)
+        (nice-vterm))))
+
   (defun nice-ansi-term ()
     "Start `ansi-term'."
     (interactive)
     (let* ((shell (or explicit-shell-file-name shell-file-name "/bin/bash")))
       (ansi-term shell)))
+
+  (defun nice-open-ansi-term ()
+    "Switch to the most recently used live term buffer, or start one."
+    (interactive)
+    (let ((term-buffer
+           (catch 'found
+             (dolist (buffer (buffer-list))
+               (with-current-buffer buffer
+                 (when (and (derived-mode-p 'term-mode)
+                            (term-check-proc buffer))
+                   (throw 'found buffer)))))))
+      (if term-buffer
+          (switch-to-buffer term-buffer)
+        (nice-ansi-term))))
 
   (defun nice-eshell ()
     "Open an existing or new eshell buffer in a vertical split."
@@ -832,10 +894,11 @@ seems simpler (although has a clunkier UI than Meld).
   (setq eshell-cmpl-ignore-case t)
   (evil-leader/set-key
     "s e" 'eshell
-    "s b" 'nice-ansi-term
+    "s a" 'nice-ansi-term
+    "s v" 'nice-vterm
     "s i" 'ielm
     "s r" 'R
-    "'" 'nice-eshell)
+    "'" 'nice-open-vterm)
 
   (defun cdf (filepath)
     "Change the current directory in Eshell to the directory of
@@ -844,15 +907,9 @@ seems simpler (although has a clunkier UI than Meld).
       (when (file-directory-p dir)
         (eshell/cd dir))))
 
-  (defun ls1 (&optional dir)
-    "Run `ls -1` in DIR (or `default-directory` if none is given)."
-    (let ((dir (or dir default-directory)))
-      (when (file-directory-p dir)
-        (eshell/ls "-1" dir))))
-
-  (defun nice-eshell-mode-setup ()
-    (setenv "TERM" "dumb")
-    (setenv "GIT_PAGER" "cat"))
+  ;; (defun nice-eshell-mode-setup ()
+  ;;   (setenv "TERM" "dumb")
+  ;;   (setenv "GIT_PAGER" "cat"))
 
   (add-hook 'eshell-mode-hook 'nice-eshell-mode-setup)
 #+end_src
@@ -984,22 +1041,36 @@ Ibuffer include
     "F d" 'delete-frame)
 
   (defun nice-dired ()
-    "Open dired for the current buffer's directory if it
-   corresponds to a file, the working directory of the shell if
-   the current buffer is a shell, or the home directory otherwise."
+    "Open dired for the current context."
     (interactive)
-    (let* ((buffer-mode (with-current-buffer (current-buffer) major-mode))
-           (dir (cond ((buffer-file-name)
-                       (file-name-directory (buffer-file-name)))
-                      ((or (eq buffer-mode 'term-mode)
-                           (eq buffer-mode 'eshell-mode)
-                           (eq buffer-mode 'inferior-ess-r-mode))
-                       (with-current-buffer (if (eq buffer-mode 'inferior-ess-r-mode)
-                                                (process-buffer (ess-get-process ess-current-process-name))
-                                              (current-buffer))
-                         (file-name-directory default-directory)))
-                      (t (expand-file-name "~/")))))
-      (dired dir)))
+    (let* ((buffer-mode major-mode)
+           (dir
+            (cond
+             ((buffer-file-name)
+              (file-name-directory (buffer-file-name)))
+
+             ((eq buffer-mode 'dired-mode)
+              (dired-current-directory))
+
+             ((eq buffer-mode 'vterm-mode)
+              (or (nice-vterm-current-directory)
+                  default-directory))
+
+             ((or (eq buffer-mode 'term-mode)
+                  (eq buffer-mode 'eshell-mode)
+                  (eq buffer-mode 'inferior-ess-r-mode))
+              (with-current-buffer
+                  (if (eq buffer-mode 'inferior-ess-r-mode)
+                      (process-buffer
+                       (ess-get-process ess-current-process-name))
+                    (current-buffer))
+                default-directory))
+
+             (t
+              (expand-file-name "~/")))))
+      (dired (file-name-as-directory (expand-file-name dir)))))
+
+
 
   (defun nice-touch-file ()
     "In the current dired buffer touch a new file with a name
@@ -1310,10 +1381,11 @@ be careful to get the right value here.
        (evil-leader/set-key ,(concat "g c " key) (intern ,(format "nccm-%s" fname)))))
 
   (nice-canned-commit-message emacs "update emacs config" "e")
+  (nice-canned-commit-message bibtex "update bibtex entries" "b")
   (nice-canned-commit-message flashcards "flashcards" "f")
-  (nice-canned-commit-message journal "update journal" "j")
   (nice-canned-commit-message notes "update notes" "n")
   (nice-canned-commit-message review "update reading list" "r")
+  (nice-canned-commit-message spelling "update spelling cheatsheet" "s")
   (nice-canned-commit-message website "update website" "w")
   (nice-canned-commit-message yasnippet "yasnippet" "y")
 #+end_src
@@ -1649,6 +1721,7 @@ files. Some thing like an SQL search would be useful.
             (message "New key generated and copied to clipboard: %s" newkey))
         (error "Author, Year or Title is missing in the current BibTeX entry."))))
 
+
   (defun nice-browse-url-of-doi ()
     "Open the DOI of the current bibtex entry in the web browser."
     (interactive)
@@ -1683,6 +1756,13 @@ In the following we use =with-eval-after-load= because otherwise the
                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+  (with-eval-after-load 'ox-latex
+    (setq org-latex-src-block-backend 'listings))
+  (with-eval-after-load 'ox-latex
+    (add-to-list 'org-latex-packages-alist '("" "listings")))
+  (with-eval-after-load 'ox-latex
+    (add-to-list 'org-latex-packages-alist '("" "xcolor")))
 #+end_src
 
 ** Markdown
@@ -1974,6 +2054,7 @@ for =org-latex-preview= below.
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((R . t)
+     (plantuml . t)
      (python . t)))
 
   (evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
@@ -2052,14 +2133,13 @@ for =org-latex-preview= below.
         (copy-file local-misc-script remote-misc-script t)
         (message "Copied %s to %s" local-misc-script remote-misc-script))))
 
-  (defun nice-publish-website-misc-ggplot2 ()
-    "Publish ggplot2 org files and static assets."
-    (interactive)
-    (org-publish "website-misc-ggplot2-org-files" nil t)
-    (org-publish "website-misc-ggplot2-static" nil t))
-
   ;; The following projects are available for publishing when the
-  ;; `org-publish' command is given.
+  ;; `org-publish' command is given. Note that there are some
+  ;; "components" below this that publish several of these things
+  ;; together (without doing everything). For example,
+  ;;
+  ;; - R (the plotting galleries)
+  ;; - ml (the blog files)
   ;;
   ;; NOTE if you want to publish only a single file you are visiting,
   ;; use the `org-publish-current-file' command.
@@ -2087,7 +2167,7 @@ for =org-latex-preview= below.
            :publishing-function org-html-publish-to-html)
           ("website-images-static"
            :base-directory "~/public-site/org/images/"
-           :base-extension "png"
+           :base-extension "png\\|svg"
            :publishing-directory "~/aezarebski.github.io/images/"
            :publishing-function org-publish-attachment)
           ("website-misc-ggplot2-org-files"
@@ -2140,6 +2220,16 @@ for =org-latex-preview= below.
            :base-extension "png\\|jpg\\|pdf"
            :publishing-directory "~/aezarebski.github.io/misc/matplotlib/"
            :publishing-function org-publish-attachment)
+          ("website-misc-plantuml-org-files"
+           :base-directory "~/public-site/org/misc/plantuml/"
+           :base-extension "org"
+           :publishing-directory "~/aezarebski.github.io/misc/plantuml/"
+           :publishing-function org-html-publish-to-html)
+          ("website-misc-plantuml-static"
+           :base-directory "~/public-site/org/misc/plantuml/"
+           :base-extension "png\\|jpg\\|pdf"
+           :publishing-directory "~/aezarebski.github.io/misc/plantuml/"
+           :publishing-function org-publish-attachment)
           ("website-misc-ml-org-files"
            :base-directory "~/public-site/org/misc/ml/"
            :base-extension "org"
@@ -2147,7 +2237,7 @@ for =org-latex-preview= below.
            :publishing-function org-html-publish-to-html)
           ("website-misc-ml-static"
            :base-directory "~/public-site/org/misc/ml/"
-           :base-extension "webp\\|png\\|py"
+           :base-extension "webp\\|png\\|py\\|puml"
            :recursive t
            :publishing-directory "~/aezarebski.github.io/misc/ml/"
            :publishing-function org-publish-attachment
@@ -2202,6 +2292,12 @@ for =org-latex-preview= below.
                         "website-misc-matplotlib-static"
                         "website-misc-plotnine-org-files"
                         "website-misc-plotnine-static"))
+          ("plantuml"
+           :components ("website-misc-plantuml-org-files"
+                        "website-misc-plantuml-static"))
+          ("matplotlib"
+           :components ("website-misc-matplotlib-org-files"
+                        "website-misc-matplotlib-static"))
           ("ml"
            :components ("website-misc-ml-org-files"
                         "website-misc-ml-static"
@@ -2384,6 +2480,7 @@ for =org-latex-preview= below.
     (evil-leader/set-key "t c" 'copilot-mode)
     ;; this needs to point to a node executable that works with copilot.
     ;; - 2026-01-29 :: v20.19.0 works
+    ;; (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
     (setq copilot-node-executable "~/.nvm/versions/node/v20.19.0/bin/node"))
 
   (defun nice-copilot-tab ()
@@ -2435,7 +2532,9 @@ for =org-latex-preview= below.
   ;; the bookmark and the cdr is an alist containing information about
   ;; the bookmark: the `filename' is the only required field.
   (setq bookmark-alist
-        '(("emacs init"(filename . "~/.emacs.d/init.el"))
+        '(("emacs init" (filename . "~/.emacs.d/init.el"))
+          ("flash - linear algebra" (filename . "~/Documents/flash/anki/linear-algebra.org"))
+          ("cheatsheet - spelling" (filename . "~/Documents/professional/cheatsheet-spelling.tex"))
           ("documents" (filename . "~/Documents/"))
           ("ons-cis renewal code" (filename . "~/projects/renewal-model/"))
           ("ons-cis renewal code stan" (filename . "~/projects/renewal-model/stan-renewal-model.stan"))
@@ -2443,27 +2542,34 @@ for =org-latex-preview= below.
           ("professional" (filename . "~/Documents/professional/"))
           ("professional cv" (filename . "~/Documents/professional/cv-2.0/cv.tex"))
           ("professional funding" (filename . "~/Documents/professional/funding-grants/"))
+          ("professional jobs" (filename . "~/Documents/professional/job-applications/"))
           ("website html" (filename . "~/aezarebski.github.io/"))
           ("website org" (filename . "~/public-site/org/"))
           ("website - notes - git" (filename . "~/public-site/org/notes/git-notes.org"))
-          ("website - notes - latex" (filename . "~/public-site/org/notes/latex-notes.org"))
+          ("website - notes - latex/bibtex/jabref" (filename . "~/public-site/org/notes/latex-notes.org"))
           ("website - notes - linux" (filename . "~/public-site/org/notes/linux-notes.org"))
+          ("website - notes - ml" (filename . "~/public-site/org/notes/ml-notes.org"))
           ("website - notes - org-mode" (filename . "~/public-site/org/notes/org-mode-notes.org"))
           ("website - notes - python" (filename . "~/public-site/org/notes/python-notes.org"))
           ("website - notes - R" (filename . "~/public-site/org/notes/r-notes.org"))
           ("website - lists - books" (filename . "~/public-site/org/lists/books.org"))
           ("website - lists - movies" (filename . "~/public-site/org/lists/movies-and-series.org"))
+          ("website - misc - basegraphicsR" (filename . "~/public-site/org/misc/basegraphicsR/"))
+          ("website - misc - matplotlib" (filename . "~/public-site/org/misc/matplotlib/"))
           ("website ml" (filename . "~/public-site/org/misc/ml/readme.org"))
           ("projects" (filename . "~/projects/"))
           ("reading notes 2" (filename . "~/Documents/bibliography/review2/review.org"))
           ("manuscripts" (filename . "~/Documents/manuscripts/"))
+          ("manuscripts - genie" (filename . "~/Documents/manuscripts/bradley2026genie/"))
           ("derp manuscript" (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex"))
           ("derp calibration study beast" (filename . "~/projects/derp-calibration-study-beast/"))
           ("derp simulation" (filename . "~/projects/derp-simulation/"))
           ("derp training" (filename . "~/projects/derp-training/"))
+          ("bibliography - computer science" (filename . "~/Documents/bibliography/review2/review-computer-science.org"))
           ("bibliography - reading notes" (filename . "~/Documents/bibliography/review2/review.org"))
           ("bibliography - recreational" (filename . "~/Documents/bibliography/review/popular-science.tex"))
           ("bibliography - bibtex" (filename . "~/Documents/bibliography/references.bib"))
+          ("bibliography - library" (filename . "~/Documents/library/"))
           ("emacs nicemacs elisp" (filename . "~/nicemacs/nicemacs-v2.el"))))
 
   (defun nice-copy-bookmark-alist ()
@@ -2514,6 +2620,37 @@ for =org-latex-preview= below.
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Explore new worlds
   ;; ==================
+
+
+  ;; PlantUML
+  ;; ========
+  ;;
+  ;; C-c C-c to preview the diagram
+  ;;
+  ;; $ java -jar </path/to/plantuml.jar> -tpng </path/to/diagram.puml>
+  ;;
+  (let ((jar "~/.emacs.d/plantuml/plantuml-1.2026.2.jar"))
+    (setq org-plantuml-jar-path jar)
+    (setq plantuml-jar-path jar)
+    (unless (file-exists-p jar)
+      (display-warning
+       'plantuml
+       (format "PlantUML jar not found: %s" jar)
+       :warning)))
+
+  (use-package plantuml-mode
+    :ensure t
+    :mode
+    (("\\.puml\\'" . plantuml-mode)
+     ("\\.plantuml\\'" . plantuml-mode))
+    :config
+    (let ((plantuml-jar "~/.emacs.d/plantuml/plantuml-1.2026.2.jar"))
+    (setq plantuml-default-exec-mode 'jar
+          plantuml-output-type "png")))
+
+  (add-hook 'plantuml-mode-hook
+            (lambda ()
+              (electric-indent-local-mode -1)))
 
   ;; TODO Work out how to browse gopher with =gopher.el=.
 
