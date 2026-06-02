@@ -140,38 +140,44 @@
 ;; matches with `n' and `N'. You can use the up-and-down arrows to
 ;; move through previous searches.
 
-(setq evil-want-keybinding nil)
-
 (use-package evil
   :ensure t
   :init
-  (setq evil-search-module 'evil-search)
-  (setq evil-ex-search-incremental nil)
-  (evil-mode 1))
-
-(use-package evil-leader
-  :ensure t
+  (setq evil-want-keybinding nil
+        evil-default-cursor 'box
+        evil-normal-state-cursor 'box
+        evil-insert-state-cursor 'bar
+        evil-visual-state-cursor 'hollow
+        evil-replace-state-cursor 'hbar
+        evil-motion-state-cursor 'box
+        evil-emacs-state-cursor 'box)
   :config
-  (evil-leader-mode 1)
-  (global-evil-leader-mode 1)
-  (evil-leader/set-key "t s" 'evil-surround-mode)
-  (evil-leader/set-leader "<SPC>")
-  (evil-leader/set-key "<SPC>" 'execute-extended-command))
+  (evil-mode 1)
+  (evil-set-initial-state 'comint-mode 'emacs)
+  (evil-set-initial-state 'inferior-ess-mode 'emacs)
+  (evil-set-initial-state 'inferior-ess-r-mode 'emacs)
+  (evil-set-initial-state 'inferior-python-mode 'emacs))
 
 (use-package evil-collection
   :ensure t
+  :after evil
   :config
   (evil-collection-init))
 
+(use-package evil-leader
+  :ensure t
+  :after evil
+  :config
+  (evil-leader/set-leader "<SPC>")
+  (global-evil-leader-mode 1)
+  (evil-leader/set-key
+    "<SPC>" #'execute-extended-command))
+
 (use-package evil-surround
   :ensure t
+  :after evil
   :config
   (global-evil-surround-mode 1))
-
-(use-package avy
-  :ensure t
-  :config
-  (evil-leader/set-key "J" 'avy-goto-line))
 
 
 ;; Regular Expression Builder
@@ -297,9 +303,6 @@
       (pixel-scroll-interpolate-down)
     (scroll-up-command)))
 
-(evil-leader/set-key
-  "p u" 'nice-page-up
-  "p d" 'nice-page-down)
 
 (setq scroll-margin 1)
 ;; (setq scroll-conservatively 101)
@@ -365,7 +368,10 @@ active, and turns it off if it is."
                         :foreground "magenta"
                         :weight 'bold)))
 
-(evil-leader/set-key "t f" 'nice-toggle-fill-column-indicator)
+(evil-leader/set-key
+  "p u" 'nice-page-up
+  "p d" 'nice-page-down
+  "t f" 'nice-toggle-fill-column-indicator)
 ;; General:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Theme: Leuven][Theme: Leuven:1]]
@@ -382,17 +388,10 @@ active, and turns it off if it is."
     (load-theme theme t)
     (message "Switched to theme: %s" theme)))
 
-(defun nice-toggle-theme ()
-  "Cycle through themes in `nice-theme-list`."
-  (interactive)
-  (setq nice-current-theme-index
-        (mod (1+ nice-current-theme-index) (length nice-theme-list)))
-  (nice-apply-current-theme))
 
 ;; Initially load the first theme
 (nice-apply-current-theme)
 
-(evil-leader/set-key "t t t" 'nice-toggle-theme)
 ;; Theme: Leuven:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Font and theme combos][Font and theme combos:1]]
@@ -459,9 +458,6 @@ active, and turns it off if it is."
 
 (setq inhibit-splash-screen t)
 
-(evil-leader/set-key
-  "z j" 'text-scale-decrease
-  "z k" 'text-scale-increase)
 
 ;; Be sensible
 ;; -----------
@@ -472,7 +468,9 @@ active, and turns it off if it is."
 
 (evil-leader/set-key
   "q r" 'restart-emacs
-  "q q" 'save-buffers-kill-emacs)
+  "q q" 'save-buffers-kill-emacs
+  "z j" 'text-scale-decrease
+  "z k" 'text-scale-increase)
 
 (defun nice-pop-out-window ()
   "Pop the current window out into a new frame.
@@ -564,9 +562,6 @@ files FA and FB using SPC f m KEY."
                  "/home/aez/nicemacs/resources/aspell.en.pws"
                  "a")
 
-(nice-diff-files "library index" "~/Documents/library/index.html"
-                 "/home/aez/Documents/bibliography/library/index.html"
-                 "l")
 
 (defun nice-diff ()
   "Prompt for two files and show the difference between them using
@@ -596,6 +591,19 @@ files FA and FB using SPC f m KEY."
 (define-nice-window-move nice-window-left evil-window-left)
 (define-nice-window-move nice-window-right evil-window-right)
 
+(defun nice-balance-windows-alt ()
+  "Balance windows such that the current window receives a certain
+amount of the of the frame's width and height."
+  (interactive)
+  (balance-windows)
+  (let* ((proportion 0.7)
+         (frame-width (frame-width))
+         (frame-height (frame-height))
+         (desired-width (floor (* proportion frame-width)))
+         (desired-height (floor (* proportion frame-height))))
+    (enlarge-window-horizontally (- desired-width (window-width)))
+    (enlarge-window (- desired-height (window-height)))))
+
 (evil-leader/set-key
   "k" 'nice-window-up
   "j" 'nice-window-down
@@ -609,19 +617,6 @@ files FA and FB using SPC f m KEY."
   "w H" 'evil-window-move-far-left
   "w J" 'evil-window-move-very-bottom
   "w K" 'evil-window-move-very-top)
-
-(defun nice-balance-windows-alt ()
-  "Balance windows such that the current window receives a certain
-amount of the of the frame's width and height."
-  (interactive)
-  (balance-windows)
-  (let* ((proportion 0.7)
-         (frame-width (frame-width))
-         (frame-height (frame-height))
-         (desired-width (floor (* proportion frame-width)))
-         (desired-height (floor (* proportion frame-height))))
-    (enlarge-window-horizontally (- desired-width (window-width)))
-    (enlarge-window (- desired-height (window-height)))))
 ;; Evil window management:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Shells][Shells:1]]
@@ -727,6 +722,7 @@ This uses /proc so may be fragile..."
   "s v" 'nice-vterm
   "s i" 'ielm
   "s r" 'R
+  "s p" 'run-python
   "'" 'nice-open-vterm)
 
 (defun cdf (filepath)
@@ -761,8 +757,7 @@ This uses /proc so may be fragile..."
               ("-" . dired-up-directory))
   :config
   (setq dired-listing-switches "-alh")
-  (setq dired-dwim-target t)
-  (evil-leader/set-key-for-mode 'dired-mode "m s" 'dired-sort-toggle-or-edit))
+  (setq dired-dwim-target t))
 ;; Dired:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Dired][Dired:2]]
@@ -782,10 +777,6 @@ This uses /proc so may be fragile..."
 ;; Buffer stuff
 ;; ------------
 
-(evil-leader/set-key
-  "b r" 'revert-buffer
-  "b l" 'ibuffer
-  "s f" 'find-name-dired)
 
 (defface ibuffer-modified-buffer
   '((t (:foreground "white"
@@ -806,6 +797,9 @@ This uses /proc so may be fragile..."
 ;; ----------
 
 (evil-leader/set-key
+  "b r" 'revert-buffer
+  "b l" 'ibuffer
+  "s f" 'find-name-dired
   "f f" 'find-file
   "f l" 'find-file-literally
   "f t" 'nice-touch-file
@@ -965,7 +959,6 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 (require 'zone)
 (zone-when-idle 0)
 (setq zone-programs [zone-pgm-whack-chars])
-(evil-leader/set-key "z z" 'zone)
 
 
 ;; NXML
@@ -1015,42 +1008,6 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 (nice-load-snippets)
 ;; Yasnippet:1 ends here
 
-;; [[file:nicemacs-v2.org::*STUFF 3][STUFF 3:1]]
-;; Multiple cursors
-;; ----------------
-;;
-;; Using mutiple cursors is a little bit tricky but here are some
-;; simple steps you can try on the following example text.
-;;
-;; ```
-;; the cat sat on the mat
-;; catch this ball said pat
-;; the food was eaten by the cat
-;; ```
-;;
-;; 1. Select the an instance of "cat" with the cursor at the start
-;; 2. Use the keys below, e.g. `SPC c n` to select occurrences
-;; 3. Use `evil-insert' (`SPC c i`) to start editing.
-;; 4. Exit using `mc/keyboard-quit' (`SPC c q`)
-
-(use-package multiple-cursors
-  :ensure t)
-
-(use-package evil-mc
-  :ensure t
-  :config (global-evil-mc-mode 1))
-
-(evil-leader/set-key
-  "c n" 'mc/mark-next-like-this        ; Mark next occurrence
-  "c p" 'mc/mark-previous-like-this    ; Mark previous occurrence
-  "c N" 'mc/skip-to-next-like-this     ; Skip and mark next occurrence
-  "c P" 'mc/skip-to-previous-like-this ; Skip and mark previous occurrence
-  "c u" 'mc/unmark-next-like-this      ; Unmark next cursor
-  "c U" 'mc/unmark-previous-like-this  ; Unmark previous cursor
-  "c i" 'evil-insert                   ; Drop into using the cursors
-  "c q" 'mc/keyboard-quit              ; Quit multiple-cursors mode
-  )
-;; STUFF 3:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Configuration][Configuration:1]]
 ;; Magit
@@ -1160,12 +1117,6 @@ kill ring."
   (setq ess-default-style 'DEFAULT
         ess-history-file nil)
   (evil-leader/set-key-for-mode 'ess-r-mode
-    "m d t" 'ess-r-devtools-test-package
-    "m d l" 'ess-r-devtools-load-package
-    "m d b" 'ess-r-devtools-build
-    "m d i" 'ess-r-devtools-install-package
-    "m d c" 'ess-r-devtools-check-package
-    "m d d" 'ess-r-devtools-document-package
     "m s b" 'ess-eval-buffer
     "m s r" 'ess-eval-region
     "m s u" 'nice-ess-eval-to-current-line
@@ -1265,23 +1216,6 @@ kill ring."
   "m '" 'run-python)
   ;; "m '" 'python-shell-switch-to-shell)
 ;; Python:1 ends here
-
-;; [[file:nicemacs-v2.org::*Julia][Julia:1]]
-;; Julia
-;; -----
-
-(use-package julia-mode
-  :ensure t)
-
-(use-package julia-repl
-  :ensure t)
-
-(with-eval-after-load 'julia-mode
-  (evil-leader/set-key-for-mode 'julia-mode
-    "m '" #'julia-repl
-    "m s b" #'julia-repl-send-buffer
-    "m s r" #'julia-repl-send-region-or-line))
-;; Julia:1 ends here
 
 ;; [[file:nicemacs-v2.org::*LaTeX/BibTeX][LaTeX/BibTeX:1]]
 ;; LaTeX/BibTeX
@@ -1653,17 +1587,12 @@ backup dictionary."
    (plantuml . t)
    (python . t)))
 
-(evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
-(evil-leader/set-key-for-mode 'org-mode "b e" 'org-babel-execute-src-block)
-
 (defun nice-detangle-nicemacs-v2 ()
   "Detangle the nicemacs-v2.el file."
   (interactive)
   (let ((nicemacs-v2-source (expand-file-name "nicemacs-v2.el" nice-nicemacs-directory)))
     (org-babel-detangle nicemacs-v2-source)))
 
-(evil-leader/set-key-for-mode 'emacs-lisp-mode "b d"
-  'nice-detangle-nicemacs-v2)
 
 (setq org-image-actual-width 300)
 (evil-leader/set-key-for-mode 'org-mode
@@ -1929,109 +1858,6 @@ backup dictionary."
 
 ;; Website/Publishing:1 ends here
 
-;; [[file:nicemacs-v2.org::*STUFF 8][STUFF 8:1]]
-;; Visitors
-;; ========
-
-(defmacro NVNF (fname pname file key)
-  "Macro to define a function for visiting a notes file and set an Evil leader key binding.
-
-  This macro takes in four arguments:
-  - FNAME: A string that will be used to construct the function name.
-  - PNAME: A string that will be used in the message displayed to the user.
-  - FILE: A string that represents the name of the notes file.
-  - KEY: A string that represents the keybinding for the function using the Evil leader.
-
-  The function created by this macro opens the notes file specified by FILE in
-  the directory specified by `nice-notes-directory'. The keybinding is set using
-  the Evil leader, and is constructed using the specified KEY string.
-
-  Example usage:
-  (NVNF \"my-notes\" \"My Notes\" \"my-notes.org\" \"n\")"
-
-  `(progn
-     (defun ,(intern (format "nice-visit-%s" fname)) ()
-       "Visit a notes file."
-       (interactive)
-       (progn
-         (message ,(format "Visiting %s" pname))
-         (find-file ,(concat nice-notes-directory "/" file))))
-     (evil-leader/set-key ,(concat "v n " key) (intern ,(format "nice-visit-%s" fname)))))
-
-(defmacro NVD (dname pname path key)
-  "Macro to define a function for visiting a directory and set an Evil leader key binding.
-
-  This macro takes in four arguments:
-  - DNAME: A string that will be used to construct the function name.
-  - PNAME: A string that will be used in the message displayed to the user.
-  - PATH: A string that represents the path of the directory.
-  - KEY: A string that represents the keybinding for the function using the Evil leader.
-
-  The function created by this macro jumps to the directory specified by PATH using `dired-jump'.
-  The keybinding is set using the Evil leader, and is constructed using the specified KEY string.
-
-  Example usage:
-  (NVD \"my-dir\" \"My Directory\" \"/path/to/directory\" \"d\")"
-
-  `(progn
-     (defun ,(intern (format "nice-visit-%s" dname)) ()
-       "Visit a directory."
-       (interactive)
-       (progn
-         (message ,(format "Visiting %s" pname))
-         (dired-jump nil ,path)
-         (revert-buffer)))
-     (evil-leader/set-key ,(concat "v d " key) (intern ,(format "nice-visit-%s" dname)))))
-
-(NVNF academia-notes "Academia notes" "academic-journal-notes.org" "a")
-(NVNF beast-notes "BEAST2 notes" "beast2-notes.org" "b")
-(NVNF git-notes "Git notes" "git-notes.org" "g")
-(NVNF haskell-notes "Haskell notes" "haskell-notes.org" "h")
-(NVNF java-notes "Java notes" "java-notes.org" "j")
-(NVNF latex-notes "LaTeX notes" "latex-notes.org" "l")
-(NVNF mathematica-notes "Mathematica notes" "mathematica-notes.org" "m")
-(NVNF org-mode-notes "org-mode notes" "org-mode-notes.org" "o")
-(NVNF python-notes "Python notes" "python-notes.org" "p")
-(NVNF r-notes "R notes" "r-notes.org" "r")
-(NVNF ubuntu-notes "Ubuntu/Linux notes" "linux-notes.org" "u")
-
-(NVD emacs "Emacs" "~/.emacs.d/fake.org" "e")
-(NVD journal-dir "Journal Directory" "~/Documents/journal/fake.org" "j")
-(NVD library "Library" "~/Documents/library/fake.org" "l")
-(NVD music "Music" "~/Music/fake.org" "M")
-(NVD documents "Documents" "~/Documents/fake.org" "d")
-(NVD downloads "Downloads" "~/Downloads/fake.org" "D")
-(NVD professional "Professional" "~/Documents/professional/README.org" "p")
-(NVD teaching "Teaching" "~/Documents/teaching/fake.org" "t")
-(NVD notes "My notes" "~/public-site/org/notes/fake.org" "n")
-(NVD yasnippet "Yasnippet" "~/.emacs.d/snippets/fake.org" "y")
-
-(setq org-agenda-files
-      (list (expand-file-name "bike.org" nice-journal-directory)))
-
-(defun nice-visit-journal ()
-  "Opens the current journal file. If it does not yet exist, it
-  makes a copy of the one from one week ago. This will also
-  ensure that the current journal file is among the org agenda
-  files and that a previous one is not."
-  (interactive)
-  (let* ((filepath-template (concat nice-journal-directory "journal-%s.org"))
-         (curr-file (format filepath-template (format-time-string "%Y-%m")))
-         (prev-file (format filepath-template (format-time-string "%Y-%m" (time-subtract (current-time) (* 7 24 60 60))))))
-    (unless (file-exists-p curr-file)
-      (message "Creating new journal file")
-      (copy-file prev-file curr-file))
-    (message "Opening journal file")
-    (when (member prev-file org-agenda-files)
-      (setq org-agenda-files (remove prev-file org-agenda-files)))
-    (unless (member curr-file org-agenda-files)
-      (add-to-list 'org-agenda-files curr-file))
-    (find-file curr-file)
-    (goto-char (point-min))
-    (recenter-top-bottom)))
-
-(evil-leader/set-key "v f j" 'nice-visit-journal)
-;; STUFF 8:1 ends here
 
 ;; [[file:nicemacs-v2.org::#sec:copilot][Copilot:1]]
 ;; Copilot
