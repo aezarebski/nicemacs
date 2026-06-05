@@ -604,6 +604,7 @@ amount of the of the frame's width and height."
     (enlarge-window-horizontally (- desired-width (window-width)))
     (enlarge-window (- desired-height (window-height)))))
 
+;; C-x o  :: this will move you to the [o]ther window.
 (evil-leader/set-key
   "k" 'nice-window-up
   "j" 'nice-window-down
@@ -807,9 +808,9 @@ This uses /proc so may be fragile..."
   "f s" 'save-buffer
   "f d" 'nice-dired
   "b b" 'switch-to-buffer
-  "d b" 'kill-buffer
-  "d w" 'delete-window
-  "d F" 'delete-frame
+  "d b" 'kill-buffer           ; C-x k
+  "d w" 'delete-window         ; C-x 0
+  "d F" 'delete-frame          ; C-x 5 0
   "F p" 'nice-pop-out-window
   "F d" 'delete-frame)
 
@@ -1960,6 +1961,7 @@ backup dictionary."
         ("reading notes 2" (filename . "~/Documents/bibliography/review2/review.org"))
         ("manuscripts" (filename . "~/Documents/manuscripts/"))
         ("manuscripts - genie" (filename . "~/Documents/manuscripts/bradley2026genie/"))
+	("manuscripts - phyloscope" (filename . "~/Documents/manuscripts/capobianco2026phyloscope/"))
         ("derp manuscript" (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex"))
         ("derp calibration study beast" (filename . "~/projects/derp-calibration-study-beast/"))
         ("derp simulation" (filename . "~/projects/derp-simulation/"))
@@ -1968,7 +1970,7 @@ backup dictionary."
         ("bibliography - reading notes" (filename . "~/Documents/bibliography/review2/review.org"))
         ("bibliography - recreational" (filename . "~/Documents/bibliography/review/popular-science.tex"))
         ("bibliography - bibtex" (filename . "~/Documents/bibliography/references.bib"))
-	("bibliography - library" (filename . "~/Documents/library/"))
+	("bibliography - library" (filename . "~/Documents/library/index.html"))
         ("emacs nicemacs elisp" (filename . "~/nicemacs/nicemacs-v2.el"))))
 
 (defun nice-copy-bookmark-alist ()
