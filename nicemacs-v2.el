@@ -130,6 +130,13 @@
 ;;    and closing pair, the opening includes a space and the closing
 ;;    does not.)
 ;;
+;; Evil state
+;; -----------
+;;
+;; `C-z' toggles between emacs state and evil state. Some situations
+;; clash with evil keybindings, so being able to toggle between
+;; vanilla emacs and evil is useful.
+;;
 ;; Evil search
 ;; -----------
 ;;
