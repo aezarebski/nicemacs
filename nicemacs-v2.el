@@ -453,7 +453,7 @@ active, and turns it off if it is."
 (use-package rainbow-mode
   :ensure t
   :hook ((emacs-lisp-mode . rainbow-mode)
-	 (plantuml-mode . rainbow-mode)
+         (plantuml-mode . rainbow-mode)
          (ess-mode . rainbow-mode)))
 
 (setq inhibit-splash-screen t)
@@ -568,7 +568,7 @@ files FA and FB using SPC f m KEY."
 `kompare`."
   (interactive)
   (let ((program "meld")
-	(file1 (read-file-name "First file: "))
+        (file1 (read-file-name "First file: "))
         (file2 (read-file-name "Second file: ")))
     (shell-command (format "%s %s %s &" program file1 file2))))
 
@@ -632,7 +632,7 @@ amount of the of the frame's width and height."
   :commands vterm
   :config
   (setq vterm-shell "/bin/bash"
-	vterm-max-scrollback 100000))
+        vterm-max-scrollback 100000))
 
 (defun nice-vterm-current-directory ()
   "Return the current working directory of the process in a vterm buffer.
@@ -949,6 +949,8 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 
 (setq read-buffer-completion-ignore-case t
       read-file-name-completion-ignore-case t
+      completions-format 'one-column    ; the one-column is less
+                                        ; overwhelming.
       completion-ignore-case t)
 
 
@@ -1933,7 +1935,7 @@ backup dictionary."
 ;; the bookmark: the `filename' is the only required field.
 (setq bookmark-alist
       '(("emacs init" (filename . "~/.emacs.d/init.el"))
-	("flash - linear algebra" (filename . "~/Documents/flash/anki/linear-algebra.org"))
+        ("flash - linear algebra" (filename . "~/Documents/flash/anki/linear-algebra.org"))
         ("cheatsheet - spelling" (filename . "~/Documents/professional/cheatsheet-spelling.tex"))
         ("documents" (filename . "~/Documents/"))
         ("ons-cis renewal code" (filename . "~/projects/renewal-model/"))
@@ -1961,7 +1963,7 @@ backup dictionary."
         ("reading notes 2" (filename . "~/Documents/bibliography/review2/review.org"))
         ("manuscripts" (filename . "~/Documents/manuscripts/"))
         ("manuscripts - genie" (filename . "~/Documents/manuscripts/bradley2026genie/"))
-	("manuscripts - phyloscope" (filename . "~/Documents/manuscripts/capobianco2026phyloscope/"))
+        ("manuscripts - phyloscope" (filename . "~/Documents/manuscripts/capobianco2026phyloscope/"))
         ("derp manuscript" (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex"))
         ("derp calibration study beast" (filename . "~/projects/derp-calibration-study-beast/"))
         ("derp simulation" (filename . "~/projects/derp-simulation/"))
@@ -1970,7 +1972,7 @@ backup dictionary."
         ("bibliography - reading notes" (filename . "~/Documents/bibliography/review2/review.org"))
         ("bibliography - recreational" (filename . "~/Documents/bibliography/review/popular-science.tex"))
         ("bibliography - bibtex" (filename . "~/Documents/bibliography/references.bib"))
-	("bibliography - library" (filename . "~/Documents/library/index.html"))
+        ("bibliography - library" (filename . "~/Documents/library/index.html"))
         ("emacs nicemacs elisp" (filename . "~/nicemacs/nicemacs-v2.el"))))
 
 (defun nice-copy-bookmark-alist ()
@@ -2043,7 +2045,7 @@ backup dictionary."
   :config
   (let ((plantuml-jar "~/.emacs.d/plantuml/plantuml-1.2026.2.jar"))
   (setq plantuml-default-exec-mode 'jar
-	plantuml-output-type "png")))
+        plantuml-output-type "png")))
 
 (add-hook 'plantuml-mode-hook
           (lambda ()
