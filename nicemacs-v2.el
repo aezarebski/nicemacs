@@ -1199,7 +1199,19 @@ kill ring."
   "m s b" 'python-shell-send-buffer
   "m s r" 'python-shell-send-region
   "m '" 'run-python)
-  ;; "m '" 'python-shell-switch-to-shell)
+;; "m '" 'python-shell-switch-to-shell)
+
+
+;; The following are useful for navigating your code using `eglot'.
+;; - SPC m g d  --  go to definition  --  `xref-find-definitions'
+;; - SPC m g r  --  go to references  --  `xref-find-references'
+;; - SPC m g b  --  go back!  --  `xref-go-back'
+(evil-leader/set-key-for-mode 'python-mode
+  "m g d" #'xref-find-definitions
+  "m g r" #'xref-find-references
+  "m g b" #'xref-go-back)
+
+
 ;; Python:1 ends here
 
 ;; [[file:nicemacs-v2.org::*LaTeX/BibTeX][LaTeX/BibTeX:1]]
