@@ -1490,10 +1490,6 @@ backup dictionary."
   (message "Each sentence on a new line."))
 ;; Writing natural language:1 ends here
 
-;; [[file:nicemacs-v2.org::*LaTeX preview][LaTeX preview:1]]
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
-;; LaTeX preview:1 ends here
-
 ;; [[file:nicemacs-v2.org::*Agenda and calendar (org-mode)][Agenda and calendar (org-mode):1]]
 ;; Org-agenda
 ;; ----------
@@ -1838,9 +1834,11 @@ backup dictionary."
                       "latex"
                       "python"
                       "R"))))
-
 ;; Website/Publishing:1 ends here
 
+;; [[file:nicemacs-v2.org::*LaTeX preview][LaTeX preview:1]]
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+;; LaTeX preview:1 ends here
 
 ;; [[file:nicemacs-v2.org::#sec:copilot][Copilot:1]]
 ;; Copilot

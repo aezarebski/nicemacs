@@ -1938,15 +1938,6 @@ functions that sneak in here too.
     (message "Each sentence on a new line."))
 #+end_src
 
-*** LaTeX preview
-
-The following adjusts the size of the latex preview in org-mode. See the binding
-for =org-latex-preview= below.
-
-#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
-#+end_src
-
 *** Agenda and calendar (org-mode)
 
 - I have had some weird warning messages from =org-persist= about there being
@@ -2321,6 +2312,15 @@ for =org-latex-preview= below.
                         "latex"
                         "python"
                         "R"))))
+#+end_src
+
+*** LaTeX preview
+
+The following adjusts the size of the latex preview in org-mode. See the binding
+for =org-latex-preview= below.
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 #+end_src
 
 ** Copilot
