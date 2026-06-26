@@ -398,7 +398,6 @@ active, and turns it off if it is."
 
 ;; Initially load the first theme
 (nice-apply-current-theme)
-
 ;; Theme: Leuven:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Font and theme combos][Font and theme combos:1]]
@@ -1018,7 +1017,6 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 (nice-load-snippets)
 ;; Yasnippet:1 ends here
 
-
 ;; [[file:nicemacs-v2.org::*Configuration][Configuration:1]]
 ;; Magit
 ;; -----
@@ -1361,8 +1359,6 @@ year, and the first two words of the title."
   (add-to-list 'org-latex-packages-alist '("" "listings")))
 (with-eval-after-load 'ox-latex
   (add-to-list 'org-latex-packages-alist '("" "xcolor")))
-
-
 ;; LaTeX/BibTeX:2 ends here
 
 ;; [[file:nicemacs-v2.org::*Markdown][Markdown:1]]
@@ -1934,6 +1930,21 @@ backup dictionary."
   (interactive)
   (dired "/ssh:brahms:~"))
 ;; TRAMP:1 ends here
+
+;; [[file:nicemacs-v2.org::*SQL][SQL:1]]
+(use-package sql
+  :ensure nil
+  :config
+  (setq sql-sqlite-program
+        (or (executable-find "sqlite3")
+            "/usr/bin/sqlite3"))
+  (setq sql-sqlite-options
+        '("-box" "-header")))
+
+(evil-leader/set-key-for-mode 'sql-mode
+  "m s b" 'sql-send-buffer
+  "m s r" 'sql-send-region)
+;; SQL:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Bookmarks][Bookmarks:1]]
 ;; NOTE the `bookmark-alist' variable is a list of files available for
