@@ -162,6 +162,13 @@ scrolling (which gives a smoother scroll).
   ;;    and closing pair, the opening includes a space and the closing
   ;;    does not.)
   ;;
+  ;; Evil state
+  ;; -----------
+  ;;
+  ;; `C-z' toggles between emacs state and evil state. Some situations
+  ;; clash with evil keybindings, so being able to toggle between
+  ;; vanilla emacs and evil is useful.
+  ;;
   ;; Evil search
   ;; -----------
   ;;
@@ -172,38 +179,44 @@ scrolling (which gives a smoother scroll).
   ;; matches with `n' and `N'. You can use the up-and-down arrows to
   ;; move through previous searches.
 
-  (setq evil-want-keybinding nil)
-
   (use-package evil
     :ensure t
     :init
-    (setq evil-search-module 'evil-search)
-    (setq evil-ex-search-incremental nil)
-    (evil-mode 1))
-
-  (use-package evil-leader
-    :ensure t
+    (setq evil-want-keybinding nil
+          evil-default-cursor 'box
+          evil-normal-state-cursor 'box
+          evil-insert-state-cursor 'bar
+          evil-visual-state-cursor 'hollow
+          evil-replace-state-cursor 'hbar
+          evil-motion-state-cursor 'box
+          evil-emacs-state-cursor 'box)
     :config
-    (evil-leader-mode 1)
-    (global-evil-leader-mode 1)
-    (evil-leader/set-key "t s" 'evil-surround-mode)
-    (evil-leader/set-leader "<SPC>")
-    (evil-leader/set-key "<SPC>" 'execute-extended-command))
+    (evil-mode 1)
+    (evil-set-initial-state 'comint-mode 'emacs)
+    (evil-set-initial-state 'inferior-ess-mode 'emacs)
+    (evil-set-initial-state 'inferior-ess-r-mode 'emacs)
+    (evil-set-initial-state 'inferior-python-mode 'emacs))
 
   (use-package evil-collection
     :ensure t
+    :after evil
     :config
     (evil-collection-init))
 
+  (use-package evil-leader
+    :ensure t
+    :after evil
+    :config
+    (evil-leader/set-leader "<SPC>")
+    (global-evil-leader-mode 1)
+    (evil-leader/set-key
+      "<SPC>" #'execute-extended-command))
+
   (use-package evil-surround
     :ensure t
+    :after evil
     :config
     (global-evil-surround-mode 1))
-
-  (use-package avy
-    :ensure t
-    :config
-    (evil-leader/set-key "J" 'avy-goto-line))
 
 
   ;; Regular Expression Builder
@@ -335,9 +348,6 @@ scrolling (which gives a smoother scroll).
         (pixel-scroll-interpolate-down)
       (scroll-up-command)))
 
-  (evil-leader/set-key
-    "p u" 'nice-page-up
-    "p d" 'nice-page-down)
 
   (setq scroll-margin 1)
   ;; (setq scroll-conservatively 101)
@@ -403,7 +413,10 @@ scrolling (which gives a smoother scroll).
                           :foreground "magenta"
                           :weight 'bold)))
 
-  (evil-leader/set-key "t f" 'nice-toggle-fill-column-indicator)
+  (evil-leader/set-key
+    "p u" 'nice-page-up
+    "p d" 'nice-page-down
+    "t f" 'nice-toggle-fill-column-indicator)
 #+end_src
 
 *** Theme: Leuven
@@ -422,17 +435,9 @@ scrolling (which gives a smoother scroll).
       (load-theme theme t)
       (message "Switched to theme: %s" theme)))
 
-  (defun nice-toggle-theme ()
-    "Cycle through themes in `nice-theme-list`."
-    (interactive)
-    (setq nice-current-theme-index
-          (mod (1+ nice-current-theme-index) (length nice-theme-list)))
-    (nice-apply-current-theme))
 
   ;; Initially load the first theme
   (nice-apply-current-theme)
-
-  (evil-leader/set-key "t t t" 'nice-toggle-theme)
 #+end_src
 
 *** Theme: Solarized :EXCLUDED:
@@ -567,9 +572,6 @@ scrolling (which gives a smoother scroll).
 
   (setq inhibit-splash-screen t)
 
-  (evil-leader/set-key
-    "z j" 'text-scale-decrease
-    "z k" 'text-scale-increase)
 
   ;; Be sensible
   ;; -----------
@@ -580,7 +582,9 @@ scrolling (which gives a smoother scroll).
 
   (evil-leader/set-key
     "q r" 'restart-emacs
-    "q q" 'save-buffers-kill-emacs)
+    "q q" 'save-buffers-kill-emacs
+    "z j" 'text-scale-decrease
+    "z k" 'text-scale-increase)
 
   (defun nice-pop-out-window ()
     "Pop the current window out into a new frame.
@@ -683,9 +687,6 @@ seems simpler (although has a clunkier UI than Meld).
                    "/home/aez/nicemacs/resources/aspell.en.pws"
                    "a")
 
-  (nice-diff-files "library index" "~/Documents/library/index.html"
-                   "/home/aez/Documents/bibliography/library/index.html"
-                   "l")
 
   (defun nice-diff ()
     "Prompt for two files and show the difference between them using
@@ -765,6 +766,20 @@ seems simpler (although has a clunkier UI than Meld).
   (define-nice-window-move nice-window-left evil-window-left)
   (define-nice-window-move nice-window-right evil-window-right)
 
+  (defun nice-balance-windows-alt ()
+    "Balance windows such that the current window receives a certain
+  amount of the of the frame's width and height."
+    (interactive)
+    (balance-windows)
+    (let* ((proportion 0.7)
+           (frame-width (frame-width))
+           (frame-height (frame-height))
+           (desired-width (floor (* proportion frame-width)))
+           (desired-height (floor (* proportion frame-height))))
+      (enlarge-window-horizontally (- desired-width (window-width)))
+      (enlarge-window (- desired-height (window-height)))))
+
+  ;; C-x o  :: this will move you to the [o]ther window.
   (evil-leader/set-key
     "k" 'nice-window-up
     "j" 'nice-window-down
@@ -778,19 +793,6 @@ seems simpler (although has a clunkier UI than Meld).
     "w H" 'evil-window-move-far-left
     "w J" 'evil-window-move-very-bottom
     "w K" 'evil-window-move-very-top)
-
-  (defun nice-balance-windows-alt ()
-    "Balance windows such that the current window receives a certain
-  amount of the of the frame's width and height."
-    (interactive)
-    (balance-windows)
-    (let* ((proportion 0.7)
-           (frame-width (frame-width))
-           (frame-height (frame-height))
-           (desired-width (floor (* proportion frame-width)))
-           (desired-height (floor (* proportion frame-height))))
-      (enlarge-window-horizontally (- desired-width (window-width)))
-      (enlarge-window (- desired-height (window-height)))))
 #+end_src
 
 ** Shells
@@ -898,6 +900,7 @@ seems simpler (although has a clunkier UI than Meld).
     "s v" 'nice-vterm
     "s i" 'ielm
     "s r" 'R
+    "s p" 'run-python
     "'" 'nice-open-vterm)
 
   (defun cdf (filepath)
@@ -939,8 +942,7 @@ this is more convenient.
                 ("-" . dired-up-directory))
     :config
     (setq dired-listing-switches "-alh")
-    (setq dired-dwim-target t)
-    (evil-leader/set-key-for-mode 'dired-mode "m s" 'dired-sort-toggle-or-edit))
+    (setq dired-dwim-target t))
 #+end_src
 
 *Note* that there is no =:ensure t= here. This is because the =dired= package is
@@ -1003,10 +1005,6 @@ Ibuffer include
   ;; Buffer stuff
   ;; ------------
 
-  (evil-leader/set-key
-    "b r" 'revert-buffer
-    "b l" 'ibuffer
-    "s f" 'find-name-dired)
 
   (defface ibuffer-modified-buffer
     '((t (:foreground "white"
@@ -1027,6 +1025,9 @@ Ibuffer include
   ;; ----------
 
   (evil-leader/set-key
+    "b r" 'revert-buffer
+    "b l" 'ibuffer
+    "s f" 'find-name-dired
     "f f" 'find-file
     "f l" 'find-file-literally
     "f t" 'nice-touch-file
@@ -1034,9 +1035,9 @@ Ibuffer include
     "f s" 'save-buffer
     "f d" 'nice-dired
     "b b" 'switch-to-buffer
-    "d b" 'kill-buffer
-    "d w" 'delete-window
-    "d F" 'delete-frame
+    "d b" 'kill-buffer           ; C-x k
+    "d w" 'delete-window         ; C-x 0
+    "d F" 'delete-frame          ; C-x 5 0
     "F p" 'nice-pop-out-window
     "F d" 'delete-frame)
 
@@ -1188,7 +1189,6 @@ Ibuffer include
   (require 'zone)
   (zone-when-idle 0)
   (setq zone-programs [zone-pgm-whack-chars])
-  (evil-leader/set-key "z z" 'zone)
 
 
   ;; NXML
@@ -1439,12 +1439,6 @@ version of an S-expression on the kill ring.
     (setq ess-default-style 'DEFAULT
           ess-history-file nil)
     (evil-leader/set-key-for-mode 'ess-r-mode
-      "m d t" 'ess-r-devtools-test-package
-      "m d l" 'ess-r-devtools-load-package
-      "m d b" 'ess-r-devtools-build
-      "m d i" 'ess-r-devtools-install-package
-      "m d c" 'ess-r-devtools-check-package
-      "m d d" 'ess-r-devtools-document-package
       "m s b" 'ess-eval-buffer
       "m s r" 'ess-eval-region
       "m s u" 'nice-ess-eval-to-current-line
@@ -2057,17 +2051,12 @@ for =org-latex-preview= below.
      (plantuml . t)
      (python . t)))
 
-  (evil-leader/set-key-for-mode 'org-mode "b t" 'org-babel-tangle)
-  (evil-leader/set-key-for-mode 'org-mode "b e" 'org-babel-execute-src-block)
-
   (defun nice-detangle-nicemacs-v2 ()
     "Detangle the nicemacs-v2.el file."
     (interactive)
     (let ((nicemacs-v2-source (expand-file-name "nicemacs-v2.el" nice-nicemacs-directory)))
       (org-babel-detangle nicemacs-v2-source)))
 
-  (evil-leader/set-key-for-mode 'emacs-lisp-mode "b d"
-    'nice-detangle-nicemacs-v2)
 
   (setq org-image-actual-width 300)
   (evil-leader/set-key-for-mode 'org-mode
@@ -2561,6 +2550,7 @@ for =org-latex-preview= below.
           ("reading notes 2" (filename . "~/Documents/bibliography/review2/review.org"))
           ("manuscripts" (filename . "~/Documents/manuscripts/"))
           ("manuscripts - genie" (filename . "~/Documents/manuscripts/bradley2026genie/"))
+          ("manuscripts - phyloscope" (filename . "~/Documents/manuscripts/capobianco2026phyloscope/"))
           ("derp manuscript" (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex"))
           ("derp calibration study beast" (filename . "~/projects/derp-calibration-study-beast/"))
           ("derp simulation" (filename . "~/projects/derp-simulation/"))
@@ -2569,7 +2559,7 @@ for =org-latex-preview= below.
           ("bibliography - reading notes" (filename . "~/Documents/bibliography/review2/review.org"))
           ("bibliography - recreational" (filename . "~/Documents/bibliography/review/popular-science.tex"))
           ("bibliography - bibtex" (filename . "~/Documents/bibliography/references.bib"))
-          ("bibliography - library" (filename . "~/Documents/library/"))
+          ("bibliography - library" (filename . "~/Documents/library/index.html"))
           ("emacs nicemacs elisp" (filename . "~/nicemacs/nicemacs-v2.el"))))
 
   (defun nice-copy-bookmark-alist ()
