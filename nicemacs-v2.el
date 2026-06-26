@@ -1166,29 +1166,6 @@ kill ring."
   (setq stan-indentation-offset 2))
 ;; Stan:1 ends here
 
-;; [[file:nicemacs-v2.org::*RealGUD debugging][RealGUD debugging:1]]
-;; Debugging
-;; ---------
-;;
-;; Commands
-;;   - `n' next line
-;;   - `s' step into expression
-;;   - `c' continue
-;;   - `l' list context
-;;   - `p' print variable
-;;   - `q' quit debugger
-;;
-;; Debug a Python script by
-;;   1. adding `import pdb; pdb.set_trace()'
-;;   2. running the script with `realgud:pdb'
-;;
-
-(use-package realgud
-  :ensure t
-  :config
-  (setq realgud:pdb-command-name "python -m pdb"))
-;; RealGUD debugging:1 ends here
-
 ;; [[file:nicemacs-v2.org::*Python][Python:1]]
 ;; Python
 ;; ------
