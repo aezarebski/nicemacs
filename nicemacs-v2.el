@@ -876,6 +876,7 @@ retreived from the prompt."
 (nice-scratch-buffer text-mode "b s t")
 (nice-scratch-buffer org-mode "b s o")
 (nice-scratch-buffer emacs-lisp-mode "b s e")
+(nice-scratch-buffer markdown-mode "b s m")
 ;; Buffers, files, and dired:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 2][STUFF 2:1]]
@@ -1198,20 +1199,13 @@ kill ring."
   "m v a" 'pyvenv-activate
   "m s b" 'python-shell-send-buffer
   "m s r" 'python-shell-send-region
-  "m '" 'run-python)
+  "m '" 'run-python
+  ;; The following commands require `eglot' to be activated, and are
+  ;; extremely useful for navigating python projects.
+  "m g d" #'xref-find-definitions	; go to definition
+  "m g r" #'xref-find-references	; go to references
+  "m g b" #'xref-go-back)		; return to previous location
 ;; "m '" 'python-shell-switch-to-shell)
-
-
-;; The following are useful for navigating your code using `eglot'.
-;; - SPC m g d  --  go to definition  --  `xref-find-definitions'
-;; - SPC m g r  --  go to references  --  `xref-find-references'
-;; - SPC m g b  --  go back!  --  `xref-go-back'
-(evil-leader/set-key-for-mode 'python-mode
-  "m g d" #'xref-find-definitions
-  "m g r" #'xref-find-references
-  "m g b" #'xref-go-back)
-
-
 ;; Python:1 ends here
 
 ;; [[file:nicemacs-v2.org::*LaTeX/BibTeX][LaTeX/BibTeX:1]]
@@ -1386,6 +1380,10 @@ year, and the first two words of the title."
 (defalias 'nice-export #'org-export-dispatch)
 (defalias 'nice-beamer #'org-beamer-export-to-pdf)
 (defalias 'nice-publish-this #'org-publish-current-file)
+
+(evil-leader/set-key-for-mode 'org-mode
+  "m e" 'org-export-dispatch)
+
 ;; Org-mode:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Anki][Anki:1]]
