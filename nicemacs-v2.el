@@ -417,7 +417,15 @@ active, and turns it off if it is."
     (:key "4"
      :name "Day (solarized-light + JetBrains Mono"
      :theme solarized-light-high-contrast
-     :font  "JetBrains Mono"))
+     :font  "JetBrains Mono")
+    (:key "5"
+     :name "Day (solarized-light + Inclusive"
+     :theme solarized-light-high-contrast
+     :font  "Inclusive Sans")
+    (:key "6"
+     :name "Night (solarized-dark + Inclusive"
+     :theme solarized-dark-high-contrast
+     :font  "Inclusive Sans"))
   "Ordered list of theme+font preset combinations")
 
 (defun nice--apply-theme (theme)
