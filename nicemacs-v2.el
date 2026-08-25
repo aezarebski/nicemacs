@@ -1946,16 +1946,18 @@ backup dictionary."
 ;; the bookmark: the `filename' is the only required field.
 (setq bookmark-alist
       '(("emacs init" (filename . "~/.emacs.d/init.el"))
+	("CIS - blueberry" (filename . "~/projects/blueberry/"))
+	("CIS - writing" (filename . "~/Documents/manuscripts/zarebski2026renewal/"))
+	("CIS - code" (filename . "~/public-site/org/misc/ml/example-2026-06-17/"))
         ("flash - linear algebra" (filename . "~/Documents/flash/anki/linear-algebra.org"))
         ("cheatsheet - spelling" (filename . "~/Documents/professional/cheatsheet-spelling.tex"))
         ("documents" (filename . "~/Documents/"))
-        ("ons-cis renewal code" (filename . "~/projects/renewal-model/"))
-        ("ons-cis renewal code stan" (filename . "~/projects/renewal-model/stan-renewal-model.stan"))
-        ("ons-cis renewal manuscript" (filename . "~/Documents/manuscripts/zarebski202Xrenewal/"))
+	("presentations" (filename . "~/Documents/presentations/"))
         ("professional" (filename . "~/Documents/professional/"))
         ("professional cv" (filename . "~/Documents/professional/cv-2.0/cv.tex"))
         ("professional funding" (filename . "~/Documents/professional/funding-grants/"))
         ("professional jobs" (filename . "~/Documents/professional/job-applications/"))
+        ("professional research statement" (filename . "~/Documents/professional/research-statement/"))
         ("website html" (filename . "~/aezarebski.github.io/"))
         ("website org" (filename . "~/public-site/org/"))
         ("website - notes - git" (filename . "~/public-site/org/notes/git-notes.org"))
@@ -1967,6 +1969,7 @@ backup dictionary."
         ("website - notes - R" (filename . "~/public-site/org/notes/r-notes.org"))
         ("website - lists - books" (filename . "~/public-site/org/lists/books.org"))
         ("website - lists - movies" (filename . "~/public-site/org/lists/movies-and-series.org"))
+        ("website - misc - ggplot2" (filename . "~/public-site/org/misc/ggplot2/"))
         ("website - misc - basegraphicsR" (filename . "~/public-site/org/misc/basegraphicsR/"))
         ("website - misc - matplotlib" (filename . "~/public-site/org/misc/matplotlib/"))
         ("website ml" (filename . "~/public-site/org/misc/ml/readme.org"))
@@ -2031,6 +2034,11 @@ backup dictionary."
 ;; Explore new worlds
 ;; ==================
 
+;; Setting the backup directory in this way means that backup files
+;; will live in `~/.emacs.d/backups/' rather than in the directory of
+;; the original file.
+(setq backup-directory-alist
+      `(("." . ,(expand-file-name "backups/" user-emacs-directory))))
 
 ;; PlantUML
 ;; ========
