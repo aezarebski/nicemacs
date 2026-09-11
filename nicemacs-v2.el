@@ -1383,14 +1383,14 @@ year, and the first two words of the title."
 (setq initial-major-mode 'org-mode
       initial-scratch-message nil)
 
-;; Provides an alias for the export function that is easier to
-;; remember.
+;; Provides aliases which are easier to remember.
 (defalias 'nice-export #'org-export-dispatch)
 (defalias 'nice-beamer #'org-beamer-export-to-pdf)
 (defalias 'nice-publish-this #'org-publish-current-file)
 
 (evil-leader/set-key-for-mode 'org-mode
-  "m e" 'org-export-dispatch)
+  "m e" 'org-export-dispatch
+  "m p t" 'nice-publish-this)
 
 ;; Org-mode:1 ends here
 
