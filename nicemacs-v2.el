@@ -1973,6 +1973,7 @@ backup dictionary."
         ("website - misc - ggplot2" (filename . "~/public-site/org/misc/ggplot2/"))
         ("website - misc - basegraphicsR" (filename . "~/public-site/org/misc/basegraphicsR/"))
         ("website - misc - matplotlib" (filename . "~/public-site/org/misc/matplotlib/"))
+        ("website - misc - plantuml" (filename . "~/public-site/org/misc/plantuml/"))
         ("website ml" (filename . "~/public-site/org/misc/ml/readme.org"))
         ("projects" (filename . "~/projects/"))
         ("reading notes 2" (filename . "~/Documents/bibliography/review2/review.org"))
