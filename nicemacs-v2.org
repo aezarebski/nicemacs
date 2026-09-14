@@ -2661,6 +2661,7 @@ Follow the instructions in the =INSTALL= file to build emacs.
 
 *** Notes
 
+- =emacs-31.1=: no =--with-json=.
 - =emacs-30.1=: by default this now uses a faster native JSON parser
   and native compilation (provided you have =libgccjit=) so these do
   not need to be included when running =./configure=. Adding
