@@ -505,6 +505,26 @@ already in its own frame."
   (evil-goto-line))
 
 (global-set-key (kbd "C-a") 'nice-select-all)
+
+
+;; -------------------------------------------------------------------
+;; Put a `.dir-locals.el` file in the root of a project so `project`
+;; (and consequently `eglot`) know where the root of your project is.
+;; An example might be the following:
+;;
+;; #+begin_src elisp
+;; ((python-mode
+;;   (python-indent-offset . 4))
+;;  (ess-r-mode
+;;   (fill-column . 100)))
+;; #+end_src
+;;
+(use-package project
+  :config
+  (add-to-list 'project-vc-extra-root-markers ".dir-locals.el"))
+;; -------------------------------------------------------------------
+
+
 ;; Other:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Which-key][Which-key:1]]
@@ -1142,7 +1162,10 @@ kill ring."
     "m s s" 'ess-eval-region-or-function-or-paragraph-and-step
     "m c l" 'nice-code-lint-buffer-r
     "m c i" 'indent-region
-    "m '" 'ess-switch-to-inferior-or-script-buffer))
+    "m '" 'ess-switch-to-inferior-or-script-buffer
+    "m g d" #'xref-find-definitions	; go to definition
+    "m g r" #'xref-find-references	; go to references
+    "m g b" #'xref-go-back))		; return to previous location
 
 (defun nice-ess-eval-to-current-line ()
   "Evaluate all code from the start of the buffer up to and including the current line."
@@ -1616,6 +1639,8 @@ backup dictionary."
          (remote-landing (concat nice-website-directory "index.html"))
          (local-css (concat notes-root "microgram.css"))
          (remote-css (concat nice-website-directory "microgram.css"))
+         (local-css-toc (concat notes-root "microgram-toc.css"))
+         (remote-css-toc (concat nice-website-directory "microgram-toc.css"))
          ;; -----------------------------------------
          (local-loltex (concat misc-root "loltex.py"))
          (remote-loltex (concat nice-website-directory "misc/loltex.py"))
@@ -1638,6 +1663,9 @@ backup dictionary."
     (when (file-exists-p local-css)
       (copy-file local-css remote-css t)
       (message "Copied %s to %s" local-css remote-css))
+    (when (file-exists-p local-css-toc)
+      (copy-file local-css-toc remote-css-toc t)
+      (message "Copied %s to %s" local-css-toc remote-css-toc))
     ;; -----------------------------------------
     (when (file-exists-p local-loltex)
       (copy-file local-loltex remote-loltex t)
