@@ -471,8 +471,9 @@ active, and turns it off if it is."
          (ess-mode . rainbow-mode)))
 
 (setq inhibit-splash-screen t)
+;; Other:1 ends here
 
-
+;; [[file:nicemacs-v2.org::*Essentials][Essentials:1]]
 ;; Be sensible
 ;; -----------
 
@@ -505,9 +506,9 @@ already in its own frame."
   (evil-goto-line))
 
 (global-set-key (kbd "C-a") 'nice-select-all)
+;; Essentials:1 ends here
 
-
-;; -------------------------------------------------------------------
+;; [[file:nicemacs-v2.org::*Project management][Project management:1]]
 ;; Put a `.dir-locals.el` file in the root of a project so `project`
 ;; (and consequently `eglot`) know where the root of your project is.
 ;; An example might be the following:
@@ -522,10 +523,7 @@ already in its own frame."
 (use-package project
   :config
   (add-to-list 'project-vc-extra-root-markers ".dir-locals.el"))
-;; -------------------------------------------------------------------
-
-
-;; Other:1 ends here
+;; Project management:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Which-key][Which-key:1]]
 ;; The which-key package is a great way to be reminded of what keys
@@ -1414,7 +1412,6 @@ year, and the first two words of the title."
 (evil-leader/set-key-for-mode 'org-mode
   "m e" 'org-export-dispatch
   "m p t" 'nice-publish-this)
-
 ;; Org-mode:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Anki][Anki:1]]
