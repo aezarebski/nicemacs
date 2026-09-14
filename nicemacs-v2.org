@@ -523,7 +523,15 @@ scrolling (which gives a smoother scroll).
       (:key "4"
        :name "Day (solarized-light + JetBrains Mono"
        :theme solarized-light-high-contrast
-       :font  "JetBrains Mono"))
+       :font  "JetBrains Mono")
+      (:key "5"
+       :name "Day (solarized-light + Inclusive"
+       :theme solarized-light-high-contrast
+       :font  "Inclusive Sans")
+      (:key "6"
+       :name "Night (solarized-dark + Inclusive"
+       :theme solarized-dark-high-contrast
+       :font  "Inclusive Sans"))
     "Ordered list of theme+font preset combinations")
 
   (defun nice--apply-theme (theme)
@@ -605,6 +613,24 @@ scrolling (which gives a smoother scroll).
     (evil-goto-line))
 
   (global-set-key (kbd "C-a") 'nice-select-all)
+
+
+  ;; -------------------------------------------------------------------
+  ;; Put a `.dir-locals.el` file in the root of a project so `project`
+  ;; (and consequently `eglot`) know where the root of your project is.
+  ;; An example might be the following:
+  ;;
+  ;; #+begin_src elisp
+  ;; ((python-mode
+  ;;   (python-indent-offset . 4))
+  ;;  (ess-r-mode
+  ;;   (fill-column . 100)))
+  ;; #+end_src
+  ;;
+  (use-package project
+    :config
+    (add-to-list 'project-vc-extra-root-markers ".dir-locals.el"))
+  ;; -------------------------------------------------------------------
 #+end_src
 
 ** Which-key
@@ -1097,6 +1123,7 @@ Ibuffer include
   (nice-scratch-buffer text-mode "b s t")
   (nice-scratch-buffer org-mode "b s o")
   (nice-scratch-buffer emacs-lisp-mode "b s e")
+  (nice-scratch-buffer markdown-mode "b s m")
 #+end_src
 
 ** STUFF 2
@@ -1178,6 +1205,8 @@ Ibuffer include
 
   (setq read-buffer-completion-ignore-case t
         read-file-name-completion-ignore-case t
+        completions-format 'one-column    ; the one-column is less
+                                          ; overwhelming.
         completion-ignore-case t)
 
 
@@ -1447,7 +1476,10 @@ version of an S-expression on the kill ring.
       "m s s" 'ess-eval-region-or-function-or-paragraph-and-step
       "m c l" 'nice-code-lint-buffer-r
       "m c i" 'indent-region
-      "m '" 'ess-switch-to-inferior-or-script-buffer))
+      "m '" 'ess-switch-to-inferior-or-script-buffer
+      "m g d" #'xref-find-definitions        ; go to definition
+      "m g r" #'xref-find-references        ; go to references
+      "m g b" #'xref-go-back))                ; return to previous location
 
   (defun nice-ess-eval-to-current-line ()
     "Evaluate all code from the start of the buffer up to and including the current line."
@@ -1572,8 +1604,13 @@ inferior process, which runs =comint-quit-subjob=.
     "m v a" 'pyvenv-activate
     "m s b" 'python-shell-send-buffer
     "m s r" 'python-shell-send-region
-    "m '" 'run-python)
-    ;; "m '" 'python-shell-switch-to-shell)
+    "m '" 'run-python
+    ;; The following commands require `eglot' to be activated, and are
+    ;; extremely useful for navigating python projects.
+    "m g d" #'xref-find-definitions        ; go to definition
+    "m g r" #'xref-find-references        ; go to references
+    "m g b" #'xref-go-back)                ; return to previous location
+  ;; "m '" 'python-shell-switch-to-shell)
 #+end_src
 
 ** Scheme/Racket :EXCLUDED:
@@ -1806,11 +1843,14 @@ functions that sneak in here too.
   (setq initial-major-mode 'org-mode
         initial-scratch-message nil)
 
-  ;; Provides an alias for the export function that is easier to
-  ;; remember.
+  ;; Provides aliases which are easier to remember.
   (defalias 'nice-export #'org-export-dispatch)
   (defalias 'nice-beamer #'org-beamer-export-to-pdf)
   (defalias 'nice-publish-this #'org-publish-current-file)
+
+  (evil-leader/set-key-for-mode 'org-mode
+    "m e" 'org-export-dispatch
+    "m p t" 'nice-publish-this)
 #+end_src
 
 *** Anki
@@ -2076,6 +2116,8 @@ functions that sneak in here too.
            (remote-landing (concat nice-website-directory "index.html"))
            (local-css (concat notes-root "microgram.css"))
            (remote-css (concat nice-website-directory "microgram.css"))
+           (local-css-toc (concat notes-root "microgram-toc.css"))
+           (remote-css-toc (concat nice-website-directory "microgram-toc.css"))
            ;; -----------------------------------------
            (local-loltex (concat misc-root "loltex.py"))
            (remote-loltex (concat nice-website-directory "misc/loltex.py"))
@@ -2098,6 +2140,9 @@ functions that sneak in here too.
       (when (file-exists-p local-css)
         (copy-file local-css remote-css t)
         (message "Copied %s to %s" local-css remote-css))
+      (when (file-exists-p local-css-toc)
+        (copy-file local-css-toc remote-css-toc t)
+        (message "Copied %s to %s" local-css-toc remote-css-toc))
       ;; -----------------------------------------
       (when (file-exists-p local-loltex)
         (copy-file local-loltex remote-loltex t)
@@ -2410,18 +2455,18 @@ for =org-latex-preview= below.
 ** SQL
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
-(use-package sql
-  :ensure nil
-  :config
-  (setq sql-sqlite-program
-        (or (executable-find "sqlite3")
-            "/usr/bin/sqlite3"))
-  (setq sql-sqlite-options
-        '("-box" "-header")))
+  (use-package sql
+    :ensure nil
+    :config
+    (setq sql-sqlite-program
+          (or (executable-find "sqlite3")
+              "/usr/bin/sqlite3"))
+    (setq sql-sqlite-options
+          '("-box" "-header")))
 
-(evil-leader/set-key-for-mode 'sql-mode
-  "m s b" 'sql-send-buffer
-  "m s r" 'sql-send-region)
+  (evil-leader/set-key-for-mode 'sql-mode
+    "m s b" 'sql-send-buffer
+    "m s r" 'sql-send-region)
 #+end_src
 
 ** Bookmarks
@@ -2433,16 +2478,18 @@ for =org-latex-preview= below.
   ;; the bookmark: the `filename' is the only required field.
   (setq bookmark-alist
         '(("emacs init" (filename . "~/.emacs.d/init.el"))
+          ("CIS - blueberry" (filename . "~/projects/blueberry/"))
+          ("CIS - writing" (filename . "~/Documents/manuscripts/zarebski2026renewal/"))
+          ("CIS - code" (filename . "~/public-site/org/misc/ml/example-2026-06-17/"))
           ("flash - linear algebra" (filename . "~/Documents/flash/anki/linear-algebra.org"))
           ("cheatsheet - spelling" (filename . "~/Documents/professional/cheatsheet-spelling.tex"))
           ("documents" (filename . "~/Documents/"))
-          ("ons-cis renewal code" (filename . "~/projects/renewal-model/"))
-          ("ons-cis renewal code stan" (filename . "~/projects/renewal-model/stan-renewal-model.stan"))
-          ("ons-cis renewal manuscript" (filename . "~/Documents/manuscripts/zarebski202Xrenewal/"))
+          ("presentations" (filename . "~/Documents/presentations/"))
           ("professional" (filename . "~/Documents/professional/"))
           ("professional cv" (filename . "~/Documents/professional/cv-2.0/cv.tex"))
           ("professional funding" (filename . "~/Documents/professional/funding-grants/"))
           ("professional jobs" (filename . "~/Documents/professional/job-applications/"))
+          ("professional research statement" (filename . "~/Documents/professional/research-statement/"))
           ("website html" (filename . "~/aezarebski.github.io/"))
           ("website org" (filename . "~/public-site/org/"))
           ("website - notes - git" (filename . "~/public-site/org/notes/git-notes.org"))
@@ -2452,20 +2499,23 @@ for =org-latex-preview= below.
           ("website - notes - org-mode" (filename . "~/public-site/org/notes/org-mode-notes.org"))
           ("website - notes - python" (filename . "~/public-site/org/notes/python-notes.org"))
           ("website - notes - R" (filename . "~/public-site/org/notes/r-notes.org"))
+          ("website - notes - trials" (filename . "~/public-site/org/notes/trials-notes.org"))
           ("website - lists - books" (filename . "~/public-site/org/lists/books.org"))
           ("website - lists - movies" (filename . "~/public-site/org/lists/movies-and-series.org"))
+          ("website - misc - ggplot2" (filename . "~/public-site/org/misc/ggplot2/"))
           ("website - misc - basegraphicsR" (filename . "~/public-site/org/misc/basegraphicsR/"))
           ("website - misc - matplotlib" (filename . "~/public-site/org/misc/matplotlib/"))
+          ("website - misc - plantuml" (filename . "~/public-site/org/misc/plantuml/"))
           ("website ml" (filename . "~/public-site/org/misc/ml/readme.org"))
           ("projects" (filename . "~/projects/"))
           ("reading notes 2" (filename . "~/Documents/bibliography/review2/review.org"))
           ("manuscripts" (filename . "~/Documents/manuscripts/"))
-          ("manuscripts - genie" (filename . "~/Documents/manuscripts/bradley2026genie/"))
+          ;; ("manuscripts - genie" (filename . "~/Documents/manuscripts/bradley2026genie/"))
           ("manuscripts - phyloscope" (filename . "~/Documents/manuscripts/capobianco2026phyloscope/"))
-          ("derp manuscript" (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex"))
-          ("derp calibration study beast" (filename . "~/projects/derp-calibration-study-beast/"))
-          ("derp simulation" (filename . "~/projects/derp-simulation/"))
-          ("derp training" (filename . "~/projects/derp-training/"))
+          ;; ("derp manuscript" (filename . "~/Documents/manuscripts/zarebski202Xderp/document.tex"))
+          ;; ("derp calibration study beast" (filename . "~/projects/derp-calibration-study-beast/"))
+          ;; ("derp simulation" (filename . "~/projects/derp-simulation/"))
+          ;; ("derp training" (filename . "~/projects/derp-training/"))
           ("bibliography - computer science" (filename . "~/Documents/bibliography/review2/review-computer-science.org"))
           ("bibliography - reading notes" (filename . "~/Documents/bibliography/review2/review.org"))
           ("bibliography - recreational" (filename . "~/Documents/bibliography/review/popular-science.tex"))
@@ -2522,6 +2572,11 @@ for =org-latex-preview= below.
   ;; Explore new worlds
   ;; ==================
 
+  ;; Setting the backup directory in this way means that backup files
+  ;; will live in `~/.emacs.d/backups/' rather than in the directory of
+  ;; the original file.
+  (setq backup-directory-alist
+        `(("." . ,(expand-file-name "backups/" user-emacs-directory))))
 
   ;; PlantUML
   ;; ========
