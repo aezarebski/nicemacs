@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;; [[file:nicemacs-v2.org::*Preamble][Preamble:1]]
 ;;; Nicemacs.v2 -*- lexical-binding: t -*-
 ;;; ==================================================================
@@ -36,7 +37,6 @@
 ;; - `ess' Emacs Speaks Statistics
 ;; - `evil' Extensible Vi layer for Emacs.
 ;; - `evil-collection' A set of keybindings for Evil mode
-;; - `evil-leader' let there be <leader>
 ;; - `evil-mc'
 ;; - `evil-mc-extras' Extra functionality for evil-mc
 ;; - `evil-surround'
@@ -69,6 +69,8 @@
 (setq package-install-upgrade-built-in t)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
+
+(setq load-prefer-newer t)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -147,11 +149,12 @@
 ;; matches with `n' and `N'. You can use the up-and-down arrows to
 ;; move through previous searches.
 
+(setq evil-want-keybinding nil)
+
 (use-package evil
   :ensure t
   :init
-  (setq evil-want-keybinding nil
-        evil-default-cursor 'box
+  (setq evil-default-cursor 'box
         evil-normal-state-cursor 'box
         evil-insert-state-cursor 'bar
         evil-visual-state-cursor 'hollow
@@ -195,6 +198,7 @@
 ;;
 ;; Set the `re-build' syntax to `string' to avoid needing double
 ;; backslashes.
+(require 're-builder)
 (setq reb-re-syntax 'string)
 
 (with-eval-after-load 're-builder
@@ -394,10 +398,6 @@ active, and turns it off if it is."
   (let ((theme (nth nice-current-theme-index nice-theme-list)))
     (load-theme theme t)
     (message "Switched to theme: %s" theme)))
-
-
-;; Initially load the first theme
-(nice-apply-current-theme)
 ;; Theme: Leuven:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Font and theme combos][Font and theme combos:1]]
@@ -809,7 +809,7 @@ This uses /proc so may be fragile..."
 ;; [[file:nicemacs-v2.org::*Buffers, files, and dired][Buffers, files, and dired:1]]
 ;; Buffer stuff
 ;; ------------
-
+(require 'ibuffer)
 
 (defface ibuffer-modified-buffer
   '((t (:foreground "white"
@@ -1185,17 +1185,6 @@ kill ring."
   (ess-eval-linewise (format "print(lint(\"%s\"))\n" buffer-file-name)))
 ;; Emacs Speaks Statistics (ESS):1 ends here
 
-;; [[file:nicemacs-v2.org::*Stan][Stan:1]]
-;; Stan
-;; ----
-;;
-(use-package stan-mode
-  :mode ("\\.stan\\'" . stan-mode)
-  :hook (stan-mode . stan-mode-setup)
-  :config
-  (setq stan-indentation-offset 2))
-;; Stan:1 ends here
-
 ;; [[file:nicemacs-v2.org::*Python][Python:1]]
 ;; Python
 ;; ------
@@ -1241,6 +1230,7 @@ kill ring."
 ;; LaTeX/BibTeX
 ;; ------------
 ;;
+(require 'bibtex)
 
 (defun most-recent-file (files)
   "Return the most recent file from a list of FILES.
@@ -2109,7 +2099,7 @@ backup dictionary."
 ;; [[file:nicemacs-v2.org::*STUFF 11][STUFF 11:1]]
 ;; Customization
 ;; =============
-
+(message "=== REACHED END OF INIT ===")
 ;; There be dragons here
 ;; ---------------------
 ;; STUFF 11:1 ends here
