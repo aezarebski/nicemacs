@@ -58,7 +58,6 @@
   ;; - `ess' Emacs Speaks Statistics
   ;; - `evil' Extensible Vi layer for Emacs.
   ;; - `evil-collection' A set of keybindings for Evil mode
-  ;; - `evil-leader' let there be <leader>
   ;; - `evil-mc'
   ;; - `evil-mc-extras' Extra functionality for evil-mc
   ;; - `evil-surround'
@@ -90,8 +89,11 @@
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   (require 'package)
+  (setq package-install-upgrade-built-in t)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (package-initialize)
+
+  (setq load-prefer-newer t)
 
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
@@ -179,11 +181,12 @@ scrolling (which gives a smoother scroll).
   ;; matches with `n' and `N'. You can use the up-and-down arrows to
   ;; move through previous searches.
 
+  (setq evil-want-keybinding nil)
+
   (use-package evil
     :ensure t
     :init
-    (setq evil-want-keybinding nil
-          evil-default-cursor 'box
+    (setq evil-default-cursor 'box
           evil-normal-state-cursor 'box
           evil-insert-state-cursor 'bar
           evil-visual-state-cursor 'hollow
@@ -227,6 +230,7 @@ scrolling (which gives a smoother scroll).
   ;;
   ;; Set the `re-build' syntax to `string' to avoid needing double
   ;; backslashes.
+  (require 're-builder)
   (setq reb-re-syntax 'string)
 
   (with-eval-after-load 're-builder
@@ -434,10 +438,6 @@ scrolling (which gives a smoother scroll).
     (let ((theme (nth nice-current-theme-index nice-theme-list)))
       (load-theme theme t)
       (message "Switched to theme: %s" theme)))
-
-
-  ;; Initially load the first theme
-  (nice-apply-current-theme)
 #+end_src
 
 *** Theme: Solarized :EXCLUDED:
@@ -1034,7 +1034,7 @@ Ibuffer include
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Buffer stuff
   ;; ------------
-
+  (require 'ibuffer)
 
   (defface ibuffer-modified-buffer
     '((t (:foreground "white"
@@ -1665,6 +1665,7 @@ files. Some thing like an SQL search would be useful.
   ;; LaTeX/BibTeX
   ;; ------------
   ;;
+  (require 'bibtex)
 
   (defun most-recent-file (files)
     "Return the most recent file from a list of FILES.
@@ -2626,7 +2627,7 @@ for =org-latex-preview= below.
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   ;; Customization
   ;; =============
-
+  (message "=== REACHED END OF INIT ===")
   ;; There be dragons here
   ;; ---------------------
 #+end_src
