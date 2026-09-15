@@ -1961,13 +1961,13 @@ backup dictionary."
 ;; the bookmark: the `filename' is the only required field.
 (setq bookmark-alist
       '(("emacs init" (filename . "~/.emacs.d/init.el"))
-	("CIS - blueberry" (filename . "~/projects/blueberry/"))
-	("CIS - writing" (filename . "~/Documents/manuscripts/zarebski2026renewal/"))
-	("CIS - code" (filename . "~/public-site/org/misc/ml/example-2026-06-17/"))
+        ("CIS - blueberry" (filename . "~/projects/blueberry/"))
+        ("CIS - writing" (filename . "~/Documents/manuscripts/zarebski2026renewal/"))
+        ("CIS - code" (filename . "~/public-site/org/misc/ml/example-2026-06-17/"))
         ("flash - linear algebra" (filename . "~/Documents/flash/anki/linear-algebra.org"))
         ("cheatsheet - spelling" (filename . "~/Documents/professional/cheatsheet-spelling.tex"))
         ("documents" (filename . "~/Documents/"))
-	("presentations" (filename . "~/Documents/presentations/"))
+        ("presentations" (filename . "~/Documents/presentations/"))
         ("professional" (filename . "~/Documents/professional/"))
         ("professional cv" (filename . "~/Documents/professional/cv-2.0/cv.tex"))
         ("professional funding" (filename . "~/Documents/professional/funding-grants/"))

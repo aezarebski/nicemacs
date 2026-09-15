@@ -1505,14 +1505,14 @@ version of an S-expression on the kill ring.
     (ess-eval-linewise (format "print(lint(\"%s\"))\n" buffer-file-name)))
 #+end_src
 
-** Stan
+** Stan :EXCLUDED:
 
 - [[https://mc-stan.org/docs/reference-manual/][Reference manual which describes the language]]
 - [[https://mc-stan.org/docs/stan-users-guide/][User guide with example models]]
 - [[https://github.com/stan-dev/stan-mode][Stan mode for Emacs users]]
 - [[https://aezarebski.github.io/notes/stan-notes.html][My Stan notes]]
 
-#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+#+begin_src emacs-lisp
   ;; Stan
   ;; ----
   ;;
