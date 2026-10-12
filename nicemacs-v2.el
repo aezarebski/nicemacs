@@ -1160,6 +1160,7 @@ kill ring."
     "m s s" 'ess-eval-region-or-function-or-paragraph-and-step
     "m c l" 'nice-code-lint-buffer-r
     "m c i" 'indent-region
+    "m c r" #'eglot-rename		; rename variable
     "m '" 'ess-switch-to-inferior-or-script-buffer
     "m g d" #'xref-find-definitions	; go to definition
     "m g r" #'xref-find-references	; go to references
