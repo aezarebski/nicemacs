@@ -1009,40 +1009,16 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
   "m n" 'forward-sexp)
 ;; STUFF 2:1 ends here
 
-;; [[file:nicemacs-v2.org::*Yasnippet][Yasnippet:1]]
-;; Yasnippet
-;; ---------
-;;
-;; See https://github.com/aezarebski/whipper-snipper
-;;
+;; [[file:nicemacs-v2.org::*STUFF 4][STUFF 4:1]]
 (defun nice-insert-pound-symbol ()
   "Insert the pound (£) symbol at point."
   (interactive)
   (insert "£"))
 
-(use-package yasnippet
-  :ensure t
-  :config
-  (yas-global-mode 1)
-  (evil-leader/set-key
-    "y i" 'yas-insert-snippet
-    "y n" 'yas-new-snippet
-    "y r" 'yas-reload-all
-    "y c" 'yas-compile-directory
-    "y l" 'nice-load-snippets
+(evil-leader/set-key
     "y e" 'emoji-list
-    "y p" 'nice-insert-pound-symbol))
-
-(defun nice-load-snippets ()
-  "Load the snippets in my snippet directory"
-  (interactive)
-  (let ((snippets-dir nice-snippet-directory))
-    (unless (file-exists-p snippets-dir)
-      (make-directory snippets-dir))
-    (yas-load-directory snippets-dir)))
-
-(nice-load-snippets)
-;; Yasnippet:1 ends here
+    "y p" 'nice-insert-pound-symbol)
+;; STUFF 4:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Configuration][Configuration:1]]
 ;; Magit

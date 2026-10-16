@@ -1236,14 +1236,14 @@ Ibuffer include
     "m n" 'forward-sexp)
 #+end_src
 
-** Yasnippet
+** Yasnippet :EXCLUDED:
 
 I have a collection of yasnippets [[https://github.com/aezarebski/whipper-snipper][here]]. To use these snippets clone
 that repository into your =.emacs.d/= under the name =snippets= and
 use =yas-reload-all= (possibly after =yas-recompile-all= although this
 can be slow).
 
-#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+#+begin_src emacs-lisp
   ;; Yasnippet
   ;; ---------
   ;;
@@ -1315,6 +1315,19 @@ can be slow).
     "c i" 'evil-insert                   ; Drop into using the cursors
     "c q" 'mc/keyboard-quit              ; Quit multiple-cursors mode
     )
+#+end_src
+
+** STUFF 4
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  (defun nice-insert-pound-symbol ()
+    "Insert the pound (£) symbol at point."
+    (interactive)
+    (insert "£"))
+
+  (evil-leader/set-key
+      "y e" 'emoji-list
+      "y p" 'nice-insert-pound-symbol)
 #+end_src
 
 ** Magit
