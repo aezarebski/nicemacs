@@ -1874,7 +1874,7 @@ backup dictionary."
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 ;; LaTeX preview:1 ends here
 
-;; [[file:nicemacs-v2.org::#sec:copilot][Copilot:1]]
+;; [[file:nicemacs-v2.org::*Nicemacs v2][Nicemacs v2:1]]
 ;; Copilot
 ;; =======
 ;;
@@ -1931,7 +1931,7 @@ backup dictionary."
 (with-eval-after-load 'copilot
   (evil-define-key 'insert copilot-mode-map
     (kbd "C-<tab>") #'nice-copilot-by-line))
-;; Copilot:1 ends here
+;; Nicemacs v2:1 ends here
 
 ;; [[file:nicemacs-v2.org::*TRAMP][TRAMP:1]]
 (defun nice-connect-brahms ()
