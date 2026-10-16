@@ -473,7 +473,7 @@ active, and turns it off if it is."
 (setq inhibit-splash-screen t)
 ;; Other:1 ends here
 
-;; [[file:nicemacs-v2.org::*Nicemacs v2][Nicemacs v2:1]]
+;; [[file:nicemacs-v2.org::*Essentials][Essentials:1]]
 ;; Be sensible
 ;; -----------
 
@@ -506,7 +506,7 @@ already in its own frame."
   (evil-goto-line))
 
 (global-set-key (kbd "C-a") 'nice-select-all)
-;; Nicemacs v2:1 ends here
+;; Essentials:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Project management][Project management:1]]
 ;; Put a `.dir-locals.el` file in the root of a project so `project`
@@ -1874,7 +1874,7 @@ backup dictionary."
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 ;; LaTeX preview:1 ends here
 
-;; [[file:nicemacs-v2.org::*Nicemacs v2][Nicemacs v2:1]]
+;; [[file:nicemacs-v2.org::#sec:copilot][Copilot:1]]
 ;; Copilot
 ;; =======
 ;;
@@ -1931,7 +1931,7 @@ backup dictionary."
 (with-eval-after-load 'copilot
   (evil-define-key 'insert copilot-mode-map
     (kbd "C-<tab>") #'nice-copilot-by-line))
-;; Nicemacs v2:1 ends here
+;; Copilot:1 ends here
 
 ;; [[file:nicemacs-v2.org::*TRAMP][TRAMP:1]]
 (defun nice-connect-brahms ()
