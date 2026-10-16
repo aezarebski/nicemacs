@@ -473,7 +473,7 @@ active, and turns it off if it is."
 (setq inhibit-splash-screen t)
 ;; Other:1 ends here
 
-;; [[file:nicemacs-v2.org::*Essentials][Essentials:1]]
+;; [[file:nicemacs-v2.org::*Nicemacs v2][Nicemacs v2:1]]
 ;; Be sensible
 ;; -----------
 
@@ -506,7 +506,7 @@ already in its own frame."
   (evil-goto-line))
 
 (global-set-key (kbd "C-a") 'nice-select-all)
-;; Essentials:1 ends here
+;; Nicemacs v2:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Project management][Project management:1]]
 ;; Put a `.dir-locals.el` file in the root of a project so `project`
@@ -1160,11 +1160,11 @@ kill ring."
     "m s s" 'ess-eval-region-or-function-or-paragraph-and-step
     "m c l" 'nice-code-lint-buffer-r
     "m c i" 'indent-region
-    "m c r" #'eglot-rename		; rename variable
+    "m c r" #'eglot-rename                ; rename variable
     "m '" 'ess-switch-to-inferior-or-script-buffer
-    "m g d" #'xref-find-definitions	; go to definition
-    "m g r" #'xref-find-references	; go to references
-    "m g b" #'xref-go-back))		; return to previous location
+    "m g d" #'xref-find-definitions        ; go to definition
+    "m g r" #'xref-find-references        ; go to references
+    "m g b" #'xref-go-back))                ; return to previous location
 
 (defun nice-ess-eval-to-current-line ()
   "Evaluate all code from the start of the buffer up to and including the current line."
@@ -1221,9 +1221,9 @@ kill ring."
   "m '" 'run-python
   ;; The following commands require `eglot' to be activated, and are
   ;; extremely useful for navigating python projects.
-  "m g d" #'xref-find-definitions	; go to definition
-  "m g r" #'xref-find-references	; go to references
-  "m g b" #'xref-go-back)		; return to previous location
+  "m g d" #'xref-find-definitions        ; go to definition
+  "m g r" #'xref-find-references        ; go to references
+  "m g b" #'xref-go-back)                ; return to previous location
 ;; "m '" 'python-shell-switch-to-shell)
 ;; Python:1 ends here
 
