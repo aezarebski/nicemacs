@@ -168,26 +168,31 @@
   (evil-set-initial-state 'inferior-ess-r-mode 'emacs)
   (evil-set-initial-state 'inferior-python-mode 'emacs))
 
+(use-package general
+  :ensure t
+  :demand t
+  :config
+  (general-evil-setup t)
+
+  ;; Global commands: SPC ...
+  (general-create-definer nice-leader
+    :states '(normal visual motion)
+    :keymaps 'override
+    :prefix "SPC")
+
+  ;; Mode-specific commands: SPC m ...
+  (general-create-definer nice-local-leader
+    :states '(normal visual motion)
+    :prefix "SPC m")
+
+  (nice-leader
+   "SPC" #'execute-extended-command))
+
 (use-package evil-collection
   :ensure t
   :after evil
   :config
   (evil-collection-init))
-
-(use-package evil-leader
-  :ensure t
-  :after evil
-  :config
-  (evil-leader/set-leader "<SPC>")
-  (global-evil-leader-mode 1)
-  (evil-leader/set-key
-    "<SPC>" #'execute-extended-command))
-
-(use-package evil-surround
-  :ensure t
-  :after evil
-  :config
-  (global-evil-surround-mode 1))
 
 
 ;; Regular Expression Builder
@@ -202,10 +207,13 @@
 (setq reb-re-syntax 'string)
 
 (with-eval-after-load 're-builder
-  (evil-leader/set-key-for-mode 'reb-mode
-    "m q" #'reb-quit
-    "m n" #'reb-next-match
-    "m p" #'reb-prev-match))
+  (general-define-key
+   :states '(normal visual motion)
+   :keymaps 'reb-mode-map
+   :prefix "SPC"
+   "m q" #'reb-quit
+   "m n" #'reb-next-match
+   "m p" #'reb-prev-match))
 
 ;; alias `query-replace-regexp' to `nice-find-replace-regexp' and bind
 ;; it to `SPC s g x' for easy access.
@@ -213,7 +221,7 @@
 ;; NOTE you can use C-y to paste a copied string into the query.
 ;;
 (defalias 'nice-find-replace-regexp #'query-replace-regexp)
-(evil-leader/set-key "s g x" 'nice-find-replace-regexp)
+(nice-leader "s g x" 'nice-find-replace-regexp)
 ;; Evil:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Fonts][Fonts:1]]
@@ -280,7 +288,7 @@
           (menu-bar-mode -1)
         (menu-bar-mode 1)))
 
-(evil-leader/set-key
+(nice-leader
   "t F" 'toggle-frame-fullscreen
   "t m" 'nice-toggle-menu-bar
   "t w" 'nice-toggle-font
@@ -379,7 +387,7 @@ active, and turns it off if it is."
                         :foreground "magenta"
                         :weight 'bold)))
 
-(evil-leader/set-key
+(nice-leader
   "p u" 'nice-page-up
   "p d" 'nice-page-down
   "t f" 'nice-toggle-fill-column-indicator)
@@ -454,7 +462,7 @@ active, and turns it off if it is."
       (defalias fname
         `(lambda () (interactive)
            (nice-apply-theme-font-preset ',preset)))
-      (evil-leader/set-key (concat "t t " key) fname)
+      (nice-leader (concat "t t " key) fname)
       (which-key-add-key-based-replacements (concat "SPC t t " key)
         (format "Theme+Font: %s" name)))))
 
@@ -473,7 +481,7 @@ active, and turns it off if it is."
 (setq inhibit-splash-screen t)
 ;; Other:1 ends here
 
-;; [[file:nicemacs-v2.org::*Essentials][Essentials:1]]
+;; [[file:nicemacs-v2.org::*Nicemacs v2][Nicemacs v2:1]]
 ;; Be sensible
 ;; -----------
 
@@ -481,7 +489,7 @@ active, and turns it off if it is."
   :ensure t
   :bind ("M-q" . unfill-toggle))
 
-(evil-leader/set-key
+(nice-leader
   "q r" 'restart-emacs
   "q q" 'save-buffers-kill-emacs
   "z j" 'text-scale-decrease
@@ -506,7 +514,7 @@ already in its own frame."
   (evil-goto-line))
 
 (global-set-key (kbd "C-a") 'nice-select-all)
-;; Essentials:1 ends here
+;; Nicemacs v2:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Project management][Project management:1]]
 ;; Put a `.dir-locals.el` file in the root of a project so `project`
@@ -583,8 +591,9 @@ files FA and FB using SPC f m KEY."
   `(progn
      (defun ,(intern (format "nice-diff-%s" name)) ()
        (interactive)
-       (async-shell-command ,(format "meld %s %s &" fa fb)))
-     (evil-leader/set-key ,(concat "f m " key) (intern ,(format "nice-diff-%s" name)))))
+       (async-shell-command ,(format "GDK_BACKEND=x11 meld %s %s &" fa fb)))
+       ;; (async-shell-command ,(format "kompare %s %s &" fa fb)))
+     (nice-leader ,(concat "f m " key) (intern ,(format "nice-diff-%s" name)))))
 
 (nice-diff-files "init" "~/.emacs.d/init.el"
                  "/home/aez/nicemacs/nicemacs-v2.el"
@@ -602,9 +611,9 @@ files FA and FB using SPC f m KEY."
   (let ((program "meld")
         (file1 (read-file-name "First file: "))
         (file2 (read-file-name "Second file: ")))
-    (shell-command (format "%s %s %s &" program file1 file2))))
+    (shell-command (format "GDK_BACKEND=x11 %s %s %s &" program file1 file2))))
 
-(evil-leader/set-key "f m m" 'nice-diff)
+(nice-leader "f m m" 'nice-diff)
 ;; Diff-ing files:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Evil window management][Evil window management:1]]
@@ -637,7 +646,7 @@ amount of the of the frame's width and height."
     (enlarge-window (- desired-height (window-height)))))
 
 ;; C-x o  :: this will move you to the [o]ther window.
-(evil-leader/set-key
+(nice-leader
   "k" 'nice-window-up
   "j" 'nice-window-down
   "h" 'nice-window-left
@@ -749,7 +758,7 @@ This uses /proc so may be fragile..."
 (setq eshell-prompt-function 'nice-eshell-prompt)
 
 (setq eshell-cmpl-ignore-case t)
-(evil-leader/set-key
+(nice-leader
   "s e" 'eshell
   "s a" 'nice-ansi-term
   "s v" 'nice-vterm
@@ -829,7 +838,7 @@ This uses /proc so may be fragile..."
 ;; File stuff
 ;; ----------
 
-(evil-leader/set-key
+(nice-leader
   "b r" 'revert-buffer
   "b l" 'ibuffer
   "s f" 'find-name-dired
@@ -898,7 +907,7 @@ retreived from the prompt."
          (interactive)
          (switch-to-buffer "*scratch*")
          (,mode))
-       (evil-leader/set-key ,key ',func-name))))
+       (nice-leader ,key ',func-name))))
 (nice-scratch-buffer text-mode "b s t")
 (nice-scratch-buffer org-mode "b s o")
 (nice-scratch-buffer emacs-lisp-mode "b s e")
@@ -909,7 +918,7 @@ retreived from the prompt."
 ;; Consult the oracle
 ;; ------------------
 
-(evil-leader/set-key
+(nice-leader
   "H s" 'apropos
   "H d b" 'message-buffer-file-name
   "H d f" 'describe-function
@@ -939,7 +948,7 @@ will take us."
       (kill-new link-file-name)
       (message "%s" link-file-name))))
 
-(evil-leader/set-key "H l m" 'message-link-at-point)
+(nice-leader "H l m" 'message-link-at-point)
 
 ;; Learn from your past
 ;; --------------------
@@ -957,14 +966,14 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
        ,(format "Search for a string in %s using rgrep." dname)
        (interactive)
        (rgrep (read-string "Search terms: ") ,pattern ,path))
-     (evil-leader/set-key ,(concat "s g " key) (intern ,(format "nice-rgrep-%s" dname)))))
+     (nice-leader ,(concat "s g " key) (intern ,(format "nice-rgrep-%s" dname)))))
 
 (nice-rgrep-directory "website" "~/public-site/org" "*" "w")
 (nice-rgrep-directory "notes" "~/public-site/org/notes" "*" "n")
 (nice-rgrep-directory "journal" "~/Documents/journal" "*.org" "j")
 (nice-rgrep-directory "reviews" "~/Documents/bibliography" "*" "r")
 
-(evil-leader/set-key "s g ." (lambda ()
+(nice-leader "s g ." (lambda ()
                                (interactive)
                                (rgrep (read-string "Search terms: ")
                                       "*")))
@@ -1003,10 +1012,12 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
 ;; u - up to parent.
 ;; p - previous tag.
 ;; n - next tag.
-(evil-leader/set-key-for-mode 'nxml-mode
-  "m u" 'nxml-backward-up-element
-  "m p" 'nxml-backward-element
-  "m n" 'forward-sexp)
+(with-eval-after-load 'nxml-mode
+  (nice-local-leader
+    :keymaps 'nxml-mode-map
+    "u" #'nxml-backward-up-element
+    "p" #'nxml-backward-element
+    "n" #'forward-sexp))
 ;; STUFF 2:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 4][STUFF 4:1]]
@@ -1015,7 +1026,7 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
   (interactive)
   (insert "£"))
 
-(evil-leader/set-key
+(nice-leader
     "y e" 'emoji-list
     "y p" 'nice-insert-pound-symbol)
 ;; STUFF 4:1 ends here
@@ -1030,7 +1041,7 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
         #'magit-display-buffer-fullframe-status-v1)
   ;; (setenv "SSH_AUTH_SOCK" "<ADD THE CORRECT PATH HERE>")
   (setenv "SSH_AUTH_SOCK" "/run/user/1000/keyring/ssh")
-  (evil-leader/set-key
+  (nice-leader
     "g s" 'nice/magit-status
     "g q" 'with-editor-cancel))
 ;; Configuration:1 ends here
@@ -1078,7 +1089,7 @@ KEY is the keybinding (as a string) to trigger the rgrep function."
                                      ,cmessage
                                      (downcase (format-time-string "%A %l:%M %p")))))
          (magit-commit-create (list "--edit" (concat "-m \"" commit-message "\"")))))
-     (evil-leader/set-key ,(concat "g c " key) (intern ,(format "nccm-%s" fname)))))
+     (nice-leader ,(concat "g c " key) (intern ,(format "nccm-%s" fname)))))
 
 (nice-canned-commit-message emacs "update emacs config" "e")
 (nice-canned-commit-message bibtex "update bibtex entries" "b")
@@ -1108,11 +1119,13 @@ kill ring."
       (kill-new (buffer-string)))
     (kill-buffer temp-buffer)))
 
-(evil-leader/set-key-for-mode 'emacs-lisp-mode
-  "m s c" 'eval-last-sexp
-  "m s b" 'eval-buffer
-  "m s r" 'eval-region
-  "m c l" 'pp-sexp-to-kill-ring)
+(with-eval-after-load 'elisp-mode
+  (nice-local-leader
+    :keymaps 'emacs-lisp-mode-map
+    "s c" #'eval-last-sexp
+    "s b" #'eval-buffer
+    "s r" #'eval-region
+    "c l" #'pp-sexp-to-kill-ring))
 ;; Emacs lisp:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Emacs Speaks Statistics (ESS)][Emacs Speaks Statistics (ESS):1]]
@@ -1127,20 +1140,21 @@ kill ring."
   :config
   (setq ess-default-style 'DEFAULT
         ess-history-file nil)
-  (evil-leader/set-key-for-mode 'ess-r-mode
-    "m s b" 'ess-eval-buffer
-    "m s r" 'ess-eval-region
-    "m s u" 'nice-ess-eval-to-current-line
-    "m s d" 'nice-ess-eval-from-current-line
-    "m s c" 'ess-eval-region-or-line-visibly-and-step
-    "m s s" 'ess-eval-region-or-function-or-paragraph-and-step
-    "m c l" 'nice-code-lint-buffer-r
-    "m c i" 'indent-region
-    "m c r" #'eglot-rename                ; rename variable
-    "m '" 'ess-switch-to-inferior-or-script-buffer
-    "m g d" #'xref-find-definitions        ; go to definition
-    "m g r" #'xref-find-references        ; go to references
-    "m g b" #'xref-go-back))                ; return to previous location
+  (nice-local-leader
+    :keymaps 'ess-r-mode-map
+    "s b" #'ess-eval-buffer
+    "s r" #'ess-eval-region
+    "s u" #'nice-ess-eval-to-current-line
+    "s d" #'nice-ess-eval-from-current-line
+    "s c" #'ess-eval-region-or-line-visibly-and-step
+    "s s" #'ess-eval-region-or-function-or-paragraph-and-step
+    "c l" #'nice-code-lint-buffer-r
+    "c i" #'indent-region
+    "c r" #'eglot-rename
+    "'"   #'ess-switch-to-inferior-or-script-buffer
+    "g d" #'xref-find-definitions
+    "g r" #'xref-find-references
+    "g b" #'xref-go-back))
 
 (defun nice-ess-eval-to-current-line ()
   "Evaluate all code from the start of the buffer up to and including the current line."
@@ -1175,7 +1189,17 @@ kill ring."
   :ensure t
   :config
   (setq python-shell-interpreter "python3")
-  (setq python-indent-offset 4))
+  (setq python-indent-offset 4)
+
+  (nice-local-leader
+    :keymaps '(python-mode-map python-ts-mode-map)
+    "v a" #'pyvenv-activate
+    "s b" #'python-shell-send-buffer
+    "s r" #'python-shell-send-region
+    "'"   #'run-python
+    "g d" #'xref-find-definitions
+    "g r" #'xref-find-references
+    "g b" #'xref-go-back))
 
 (use-package snakemake-mode
   :ensure t)
@@ -1190,135 +1214,129 @@ kill ring."
   (setq indent-guide-char "|")
   (setq indent-guide-recursive t))
 
-(evil-leader/set-key-for-mode 'python-mode
-  "m v a" 'pyvenv-activate
-  "m s b" 'python-shell-send-buffer
-  "m s r" 'python-shell-send-region
-  "m '" 'run-python
-  ;; The following commands require `eglot' to be activated, and are
-  ;; extremely useful for navigating python projects.
-  "m g d" #'xref-find-definitions        ; go to definition
-  "m g r" #'xref-find-references        ; go to references
-  "m g b" #'xref-go-back)                ; return to previous location
-;; "m '" 'python-shell-switch-to-shell)
 ;; Python:1 ends here
 
 ;; [[file:nicemacs-v2.org::*LaTeX/BibTeX][LaTeX/BibTeX:1]]
 ;; LaTeX/BibTeX
-;; ------------
-;;
-(require 'bibtex)
+  ;; ------------
+  ;;
+  (require 'bibtex)
 
-(defun most-recent-file (files)
-  "Return the most recent file from a list of FILES.
-FILES should be a list of file paths as strings."
-  (when (and files (seq-every-p #'stringp files))
-    (cl-flet* ((file-mod-time (file)
-                 (nth 5 (file-attributes file)))
-               (mod-time-less-p (a b)
-                 (time-less-p (file-mod-time b)
-                              (file-mod-time a))))
-      (car (sort files #'mod-time-less-p)))))
+  (defun most-recent-file (files)
+    "Return the most recent file from a list of FILES.
+  FILES should be a list of file paths as strings."
+    (when (and files (seq-every-p #'stringp files))
+      (cl-flet* ((file-mod-time (file)
+                   (nth 5 (file-attributes file)))
+                 (mod-time-less-p (a b)
+                   (time-less-p (file-mod-time b)
+                                (file-mod-time a))))
+        (car (sort files #'mod-time-less-p)))))
 
-(defun copy-file-with-bib-extension (file-path)
-  "Create a copy of the file at FILE-PATH with a .bib extension."
-  (let* ((file-name (file-name-nondirectory file-path))
-         (file-base-name (file-name-sans-extension file-name))
-         (new-file-name (concat file-base-name ".bib"))
-         (new-file-path (concat (file-name-directory file-path) new-file-name)))
-    (copy-file file-path new-file-path t)
-    new-file-path))
+  (defun copy-file-with-bib-extension (file-path)
+    "Create a copy of the file at FILE-PATH with a .bib extension."
+    (let* ((file-name (file-name-nondirectory file-path))
+           (file-base-name (file-name-sans-extension file-name))
+           (new-file-name (concat file-base-name ".bib"))
+           (new-file-path (concat (file-name-directory file-path) new-file-name)))
+      (copy-file file-path new-file-path t)
+      new-file-path))
 
-(defun nice-visit-last-bib ()
-  "Visit the most recent BIB file in Downloads. If there is a TXT
-file that is younger than the last BIB file, send a message to
-indicate this."
-  (interactive)
-  (let* ((bib-files (directory-files "~/Downloads" t ".*bib" "ctime"))
-         (most-recent-bib (most-recent-file bib-files))
-         (txt-files (directory-files "~/Downloads" t ".*txt" "ctime"))
-         (most-recent-txt (most-recent-file txt-files)))
-    (if most-recent-bib
-        (if (and most-recent-txt
-                 (time-less-p (nth 5 (file-attributes most-recent-bib))
-                              (nth 5 (file-attributes most-recent-txt))))
-            (progn (message (concat "A more recent .txt file exists: " most-recent-txt))
-                   (find-file (copy-file-with-bib-extension most-recent-txt)))
-          (find-file most-recent-bib))
-      (message "No bib files found in ~/Downloads/"))))
+  (defun nice-visit-last-bib ()
+    "Visit the most recent BIB file in Downloads. If there is a TXT
+  file that is younger than the last BIB file, send a message to
+  indicate this."
+    (interactive)
+    (let* ((bib-files (directory-files "~/Downloads" t ".*bib" "ctime"))
+           (most-recent-bib (most-recent-file bib-files))
+           (txt-files (directory-files "~/Downloads" t ".*txt" "ctime"))
+           (most-recent-txt (most-recent-file txt-files)))
+      (if most-recent-bib
+          (if (and most-recent-txt
+                   (time-less-p (nth 5 (file-attributes most-recent-bib))
+                                (nth 5 (file-attributes most-recent-txt))))
+              (progn (message (concat "A more recent .txt file exists: " most-recent-txt))
+                     (find-file (copy-file-with-bib-extension most-recent-txt)))
+            (find-file most-recent-bib))
+        (message "No bib files found in ~/Downloads/"))))
 
-(defun nice-ris2bib ()
-  "Convert the most recent RIS file in my downloads to a BIB
-file. Signal an error if there are no RIS files or if the
-conversion fails."
-  (interactive "*")
+  (defun nice-ris2bib ()
+    "Convert the most recent RIS file in my downloads to a BIB
+  file. Signal an error if there are no RIS files or if the
+  conversion fails."
+    (interactive "*")
 
-  (let* ((all-ris-files (directory-files "~/Downloads" t ".*ris"))
-         (ris-filepath (most-recent-file all-ris-files))
-         (target-bib "~/Downloads/new.bib")
-         (ris2xml-command (format "ris2xml \"%s\" | xml2bib > %s" ris-filepath
-                                  target-bib))
-         (command-result (shell-command ris2xml-command)))
-    (unless ris-filepath
-      (error "No RIS files found in the directory"))
-    (unless (zerop command-result)
-      (error "Conversion from RIS to BIB failed with error code: %s" command-result))))
+    (let* ((all-ris-files (directory-files "~/Downloads" t ".*ris"))
+           (ris-filepath (most-recent-file all-ris-files))
+           (target-bib "~/Downloads/new.bib")
+           (ris2xml-command (format "ris2xml \"%s\" | xml2bib > %s" ris-filepath
+                                    target-bib))
+           (command-result (shell-command ris2xml-command)))
+      (unless ris-filepath
+        (error "No RIS files found in the directory"))
+      (unless (zerop command-result)
+        (error "Conversion from RIS to BIB failed with error code: %s" command-result))))
 
-(defun nice-bibtex-braces ()
-  "Wrap upper case letters with brackets for bibtex titles within
-the selected region."
-  (interactive)
-  (if (use-region-p)
-      (let ((start (region-beginning))
-            (end (region-end))
-            (case-fold-search nil))
-        (save-excursion
-          (goto-char start)
-          (while (re-search-forward "\\([A-Z]+\\)" end t)
-            (replace-match (format "{%s}" (match-string 0)) t))))
-    (message "No region selected.")))
+  (defun nice-bibtex-braces ()
+    "Wrap upper case letters with brackets for bibtex titles within
+  the selected region."
+    (interactive)
+    (if (use-region-p)
+        (let ((start (region-beginning))
+              (end (region-end))
+              (case-fold-search nil))
+          (save-excursion
+            (goto-char start)
+            (while (re-search-forward "\\([A-Z]+\\)" end t)
+              (replace-match (format "{%s}" (match-string 0)) t))))
+      (message "No region selected.")))
 
-(defun nice-bibtex-guess-key ()
-  "Generate a new key for the current BibTeX entry based on author,
-year, and the first two words of the title."
-  (interactive)
-  (bibtex-beginning-of-entry)
-  (let* ((entry (bibtex-parse-entry))
-         (author (downcase (replace-regexp-in-string "," "" (car (split-string (bibtex-text-in-field "author"))))))
-         (year (bibtex-text-in-field "year"))
-         (title (bibtex-text-in-field "title"))
-             (first-two-words (when title
-                        (let ((split-title (split-string title)))
-                          (if (>= (length split-title) 2)
-                              (format "%s%s" (nth 0 split-title) (nth 1 split-title))
-                            (car split-title))))))
-    (if (and author year first-two-words)
-        (let ((newkey (format "%s%s%s" author year first-two-words)))
-          (kill-new (replace-regexp-in-string "[{}]" "" newkey))
-          (evil-jump-item)
-          (message "New key generated and copied to clipboard: %s" newkey))
-      (error "Author, Year or Title is missing in the current BibTeX entry."))))
+  (defun nice-browse-url-of-doi ()
+    "Open the DOI of the current bibtex entry in the web browser."
+    (interactive)
+    (save-excursion
+      (bibtex-beginning-of-entry)
+      (let ((doi (bibtex-autokey-get-field "doi")))
+        (if doi
+            (browse-url (concat "https://doi.org/" doi))
+          (message "No DOI found for this entry")))))
 
+  (nice-leader
+    "v b l" 'nice-visit-last-bib
+    "v b d" 'nice-browse-url-of-doi
+    "v b r" 'nice-ris2bib)
 
-(defun nice-browse-url-of-doi ()
-  "Open the DOI of the current bibtex entry in the web browser."
-  (interactive)
-  (save-excursion
-    (bibtex-beginning-of-entry)
-    (let ((doi (bibtex-autokey-get-field "doi")))
-      (if doi
-          (browse-url (concat "https://doi.org/" doi))
-        (message "No DOI found for this entry")))))
+  (nice-local-leader
+    :keymaps 'bibtex-mode-map
+    "b b" #'nice-bibtex-braces
+    "b f" #'bibtex-reformat)
 
-(evil-leader/set-key
-  "v b l" 'nice-visit-last-bib
-  "v b d" 'nice-browse-url-of-doi
-  "v b r" 'nice-ris2bib)
+(use-package tex
+  :ensure auctex
+  :defer t
+  :mode ("\\.tex\\'" . LaTeX-mode)
+  :init
+  (setq TeX-auto-save t
+        TeX-parse-self t
+        TeX-PDF-mode t)
+  :hook
+  ((LaTeX-mode . turn-on-reftex)
+   (LaTeX-mode . outline-minor-mode)
+   (LaTeX-mode . LaTeX-math-mode)
+   (LaTeX-mode . flyspell-mode))
+  :config
+  (nice-local-leader
+    :keymaps 'LaTeX-mode-map
+    "t" #'reftex-toc
+    "j" #'outline-next-visible-heading
+    "k" #'outline-previous-visible-heading
+    "c" #'reftex-citation))
 
-(evil-leader/set-key-for-mode 'bibtex-mode
-  "m b b" 'nice-bibtex-braces
-  "m b f" 'bibtex-reformat
-  "m b k" 'nice-bibtex-guess-key)
+(use-package reftex
+  :ensure nil                       ; Included with Emacs
+  :defer t
+  :init
+  (setq reftex-plug-into-AUCTeX t))
 ;; LaTeX/BibTeX:1 ends here
 
 ;; [[file:nicemacs-v2.org::*LaTeX/BibTeX][LaTeX/BibTeX:2]]
@@ -1348,9 +1366,10 @@ year, and the first two words of the title."
   :mode (("\\.md\\'" . markdown-mode)
          ("\\.Rmd\\'" . markdown-mode))
   :config
-  (evil-leader/set-key-for-mode 'markdown-mode
-    "m s r" 'ess-eval-region
-    "m '" 'ess-switch-to-inferior-or-script-buffer))
+  (nice-local-leader
+    :keymaps 'markdown-mode-map
+    "s r" #'ess-eval-region
+    "'"   #'ess-switch-to-inferior-or-script-buffer))
 ;; Markdown:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Org-mode][Org-mode:1]]
@@ -1359,7 +1378,6 @@ year, and the first two words of the title."
 
 ;; FIXME Work out why the configuration based approach does not work!
 (setq org-return-follows-link t)
-(evil-leader/set-key-for-mode 'org-mode "RET" 'org-open-at-point)
 
 (setq org-confirm-babel-evaluate t)
 (defun nice-org-mode-hook ()
@@ -1376,9 +1394,16 @@ year, and the first two words of the title."
 (defalias 'nice-beamer #'org-beamer-export-to-pdf)
 (defalias 'nice-publish-this #'org-publish-current-file)
 
-(evil-leader/set-key-for-mode 'org-mode
-  "m e" 'org-export-dispatch
-  "m p t" 'nice-publish-this)
+;; Mode-specific bindings, all prefixed with SPC m.
+(with-eval-after-load 'org
+  (nice-local-leader
+    :keymaps 'org-mode-map
+    "RET"   #'org-open-at-point
+    "e"     #'org-export-dispatch
+    "p t"   #'nice-publish-this
+    "a s"   #'org-schedule
+    "o t l" #'org-latex-preview
+    "o t i" #'org-toggle-inline-images))
 ;; Org-mode:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Anki][Anki:1]]
@@ -1425,7 +1450,7 @@ backup dictionary."
          (concat nice-resources-dir "/aspell.en.pws")))
     (ediff-files ispell-personal-dictionary backup-dictionary)))
 
-(evil-leader/set-key
+(nice-leader
   "t S" 'flyspell-mode ; toggle flyspell on/off.
   "S b" 'flyspell-buffer
   "S n" 'flyspell-goto-next-error
@@ -1450,7 +1475,7 @@ backup dictionary."
          unless (member word writegood-weasel-words)
          do (add-to-list 'writegood-weasel-words word))
 
-(evil-leader/set-key "t t w" 'writegood-mode)
+;; (nice-leader "t w" 'writegood-mode)
 
 ;; Formatting text
 ;; ---------------
@@ -1544,8 +1569,7 @@ backup dictionary."
 
 (advice-add 'org-agenda-goto-today
             :after #'nice-org-agenda-goto-today-advice-after)
-(evil-leader/set-key-for-mode 'org-mode "a s" 'org-schedule)
-(evil-leader/set-key "a a" 'org-agenda-list)
+(nice-leader "a a" 'org-agenda-list)
 ;; Agenda and calendar (org-mode):1 ends here
 
 ;; [[file:nicemacs-v2.org::*Literate programming][Literate programming:1]]
@@ -1579,9 +1603,6 @@ backup dictionary."
 
 
 (setq org-image-actual-width 300)
-(evil-leader/set-key-for-mode 'org-mode
-  "o t l" 'org-latex-preview
-  "o t i" 'org-toggle-inline-images)
 ;; Literate programming:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Website/Publishing][Website/Publishing:1]]
@@ -1850,7 +1871,7 @@ backup dictionary."
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 ;; LaTeX preview:1 ends here
 
-;; [[file:nicemacs-v2.org::#sec:copilot][Copilot:1]]
+;; [[file:nicemacs-v2.org::*Nicemacs v2][Nicemacs v2:1]]
 ;; Copilot
 ;; =======
 ;;
@@ -1882,7 +1903,7 @@ backup dictionary."
   :load-path "~/.emacs.d/copilot.el/"
   :config
   (global-evil-leader-mode)
-  (evil-leader/set-key "t c" 'copilot-mode)
+  (nice-leader "t c" 'copilot-mode)
   ;; this needs to point to a node executable that works with copilot.
   ;; - 2026-01-29 :: v20.19.0 works
   ;; (setq copilot-node-executable "~/.nvm/versions/node/v17.3.1/bin/node")
@@ -1907,7 +1928,7 @@ backup dictionary."
 (with-eval-after-load 'copilot
   (evil-define-key 'insert copilot-mode-map
     (kbd "C-<tab>") #'nice-copilot-by-line))
-;; Copilot:1 ends here
+;; Nicemacs v2:1 ends here
 
 ;; [[file:nicemacs-v2.org::*TRAMP][TRAMP:1]]
 (defun nice-connect-brahms ()
@@ -1926,9 +1947,11 @@ backup dictionary."
   (setq sql-sqlite-options
         '("-box" "-header")))
 
-(evil-leader/set-key-for-mode 'sql-mode
-  "m s b" 'sql-send-buffer
-  "m s r" 'sql-send-region)
+(with-eval-after-load 'sql
+  (nice-local-leader
+    :keymaps 'sql-mode-map
+    "s b" #'sql-send-buffer
+    "s r" #'sql-send-region))
 ;; SQL:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Bookmarks][Bookmarks:1]]
@@ -1998,7 +2021,7 @@ backup dictionary."
 ;; persist across Emacs sessions. The main commands you need are:
 ;; `bookmark-set', `bookmark-jump' and `bookmark-bmenu-list'. There
 ;; are also registers https://www.gnu.org/software/emacs/manual/html_node/emacs/Registers.html
-(evil-leader/set-key
+(nice-leader
   "v m a" 'nice-copy-bookmark-alist
   "v m s" 'bookmark-set
   "v m j" 'bookmark-jump
@@ -2018,7 +2041,7 @@ backup dictionary."
 (require 'server)
 (unless (server-running-p)
   (server-start))
-(evil-leader/set-key
+(nice-leader
   "f #" #'server-edit)
 
 ;; -------------------------------------------------------------------
