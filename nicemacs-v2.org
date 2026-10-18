@@ -1750,28 +1750,6 @@ files. Some thing like an SQL search would be useful.
               (replace-match (format "{%s}" (match-string 0)) t))))
       (message "No region selected.")))
 
-  (defun nice-bibtex-guess-key ()
-    "Generate a new key for the current BibTeX entry based on author,
-  year, and the first two words of the title."
-    (interactive)
-    (bibtex-beginning-of-entry)
-    (let* ((entry (bibtex-parse-entry))
-           (author (downcase (replace-regexp-in-string "," "" (car (split-string (bibtex-text-in-field "author"))))))
-           (year (bibtex-text-in-field "year"))
-           (title (bibtex-text-in-field "title"))
-               (first-two-words (when title
-                          (let ((split-title (split-string title)))
-                            (if (>= (length split-title) 2)
-                                (format "%s%s" (nth 0 split-title) (nth 1 split-title))
-                              (car split-title))))))
-      (if (and author year first-two-words)
-          (let ((newkey (format "%s%s%s" author year first-two-words)))
-            (kill-new (replace-regexp-in-string "[{}]" "" newkey))
-            (evil-jump-item)
-            (message "New key generated and copied to clipboard: %s" newkey))
-        (error "Author, Year or Title is missing in the current BibTeX entry."))))
-
-
   (defun nice-browse-url-of-doi ()
     "Open the DOI of the current bibtex entry in the web browser."
     (interactive)
