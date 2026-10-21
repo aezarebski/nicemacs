@@ -168,6 +168,12 @@
   (evil-set-initial-state 'inferior-ess-r-mode 'emacs)
   (evil-set-initial-state 'inferior-python-mode 'emacs))
 
+(use-package evil-surround
+  :ensure t
+  :after evil
+  :config
+  (global-evil-surround-mode 1))
+
 (use-package general
   :ensure t
   :demand t
