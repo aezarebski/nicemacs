@@ -2639,18 +2639,19 @@ Get the source code from [[https://ftp.gnu.org/gnu/emacs][here]] with
   tar -xf emacs-VERSION.tar.xz
 #+end_src
 
-Alternatively, you can get clone the [[https://github.com/emacs-mirror/emacs][emacs mirror]] from GitHub and check out the
-=emacs-28= branch (or whatever version you want).
-
 Follow the instructions in the =INSTALL= file to build emacs.
-- This seems to just be =./configure= then =make= then =sudo make install=.
+- This seems to just be =./configure= then =make= then =sudo make
+  install=.
   + =./configure --with-rsvg --with-imagemagick=.
-  + If you cannot find the =configure= script, you may need to run =autogen.sh=
-    first.
+  + If you cannot find the =configure= script, you may need to run
+    =autogen.sh= first.
 - If you have spare compute you can use multiple jobs to speed up the
   compilation with =make -j[N]= to use =N= jobs during compilation.
-- If you are using Copilot, don't forget to clone that [[https://github.com/aezarebski/copilot.el][repo]] into
-  =~/.emacs.d/= as well. There are notes [[#sec:copilot][here]].
+
+#+begin_src sh
+  ./configure --with-rsvg --with-imagemagick CFLAGS='-g3 -O3'
+  make -j[N]
+#+end_src
 
 *** Notes
 
