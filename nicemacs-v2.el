@@ -472,7 +472,14 @@ active, and turns it off if it is."
       (which-key-add-key-based-replacements (concat "SPC t t " key)
         (format "Theme+Font: %s" name)))))
 
-(nice-apply-theme-font-1)
+(nice-leader
+  "t t 1" #'nice-apply-theme-font-1
+  "t t 2" #'nice-apply-theme-font-2
+  "t t 3" #'nice-apply-theme-font-3
+  "t t 4" #'nice-apply-theme-font-4
+  "t t 5" #'nice-apply-theme-font-5
+  "t t 6" #'nice-apply-theme-font-6)
+
 ;; Font and theme combos:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Other][Other:1]]
