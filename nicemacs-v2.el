@@ -1986,6 +1986,7 @@ backup dictionary."
         ("professional funding" (filename . "~/Documents/professional/funding-grants/"))
         ("professional jobs" (filename . "~/Documents/professional/job-applications/"))
         ("professional research statement" (filename . "~/Documents/professional/research-statement/"))
+        ("professional style guide: visualisation" (filename . "~/Documents/professional/visualisation/aez-style-guide.md"))
         ("website html" (filename . "~/aezarebski.github.io/"))
         ("website org" (filename . "~/public-site/org/"))
         ("website - notes - git" (filename . "~/public-site/org/notes/git-notes.org"))
