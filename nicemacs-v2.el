@@ -421,9 +421,9 @@ active, and turns it off if it is."
      :theme leuven
      :font  "JetBrains Mono")
     (:key "2"
-     :name "Green (organic-green + Noto Sans)"
+     :name "Green (organic-green + JetBrains Mono)"
      :theme organic-green
-     :font  "Noto Sans")
+     :font "JetBrains Mono")
     (:key "3"
      :name "Dark (modus-vivendi-tinted + JetBrains Mono"
      :theme modus-vivendi-tinted
@@ -439,13 +439,18 @@ active, and turns it off if it is."
     (:key "6"
      :name "Night (solarized-dark + Inclusive"
      :theme solarized-dark-high-contrast
-     :font  "Inclusive Sans"))
+     :font  "Inclusive Sans")
+    (:key "7"
+     :name "Default (Emacs + JetBrains Mono)"
+     :theme nil
+     :font "JetBrains Mono"))
   "Ordered list of theme+font preset combinations")
 
 (defun nice--apply-theme (theme)
-  "Disable current themes and load THEME."
+  "Disable current themes, then load THEME if non-nil."
   (mapc #'disable-theme custom-enabled-themes)
-  (load-theme theme t))
+  (when theme
+    (load-theme theme t)))
 
 (defun nice--apply-font (font)
   "Set frame FONT for all frames and future ones."
@@ -478,7 +483,8 @@ active, and turns it off if it is."
   "t t 3" #'nice-apply-theme-font-3
   "t t 4" #'nice-apply-theme-font-4
   "t t 5" #'nice-apply-theme-font-5
-  "t t 6" #'nice-apply-theme-font-6)
+  "t t 6" #'nice-apply-theme-font-6
+  "t t 7" #'nice-apply-theme-font-7)
 
 ;; Font and theme combos:1 ends here
 
@@ -1414,9 +1420,10 @@ kill ring."
     "RET"   #'org-open-at-point
     "e"     #'org-export-dispatch
     "p t"   #'nice-publish-this
+    "p b"   #'nice-beamer
     "a s"   #'org-schedule
-    "o t l" #'org-latex-preview
-    "o t i" #'org-toggle-inline-images))
+    "t l" #'org-latex-preview
+    "t i" #'org-toggle-inline-images))
 ;; Org-mode:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Anki][Anki:1]]
