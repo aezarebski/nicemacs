@@ -2102,7 +2102,11 @@ backup dictionary."
   :config
   (let ((plantuml-jar "~/.emacs.d/plantuml/plantuml-1.2026.2.jar"))
   (setq plantuml-default-exec-mode 'jar
-        plantuml-output-type "png")))
+        plantuml-output-type "png")
+
+  (nice-local-leader
+    :keymaps 'plantuml-mode-map
+    "p" #'plantuml-preview))
 
 (add-hook 'plantuml-mode-hook
           (lambda ()
