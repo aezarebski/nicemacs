@@ -1437,6 +1437,28 @@ kill ring."
 
 ;; Org-mode:1 ends here
 
+;; [[file:nicemacs-v2.org::*Anki][Anki:1]]
+;; Anki-editor
+;; -----------
+;;
+;; You will need to have the Anki application running to use this
+;; package fully. The `anki-editor-sync-collection' command
+;; synchronizes the local version to the web collection (so seems to
+;; be more of a "pull" operation). The `anki-editor-push-notes'
+;; command is needed to push the current collection to the web.
+;;
+(defun nice-anki-sync ()
+  "Synchronise AnkiWeb, push Org notes, then synchronise again."
+  (interactive)
+  ;; Ensure anki-editor-mode is available and enabled.
+  (require 'anki-editor)
+  (anki-editor-mode 1)
+  (anki-editor-sync-collection)
+  (anki-editor-push-notes)
+  (save-buffer)
+  (anki-editor-sync-collection)
+  (message "Anki synchronisation finished."))
+;; Anki:1 ends here
 ;; [[file:nicemacs-v2.org::*Writing natural language][Writing natural language:1]]
 ;; Write well
 ;; ----------
@@ -1891,18 +1913,6 @@ backup dictionary."
 ;; LaTeX preview:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Nicemacs v2][Nicemacs v2:1]]
-;; [[file:nicemacs-v2.org::*Anki][Anki:1]]
-;; Anki-editor
-;; -----------
-;;
-;; You will need to have the Anki application running to use this
-;; package fully. The `anki-editor-sync-collection' command
-;; synchronizes the local version to the web collection (so seems to
-;; be more of a "pull" operation). The `anki-editor-push-notes'
-;; command is needed to push the current collection to the web.
-;;
-;; Anki:1 ends here
-
 ;; Copilot
 ;; =======
 ;;
