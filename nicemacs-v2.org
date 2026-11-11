@@ -1925,27 +1925,6 @@ functions that sneak in here too.
       "t i" #'org-toggle-inline-images))
 #+end_src
 
-*** Anki
-
-- You will need to have the Anki application running to use this
-  package fully.
-- =anki-editor-sync-collection= synchronizes the local version to the
-  web collection (so seems to be more of a "pull" operation).
-- =anki-editor-push-notes= is needed to push the current collection to
-  the web.
-
-#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
-  ;; Anki-editor
-  ;; -----------
-  ;;
-  ;; You will need to have the Anki application running to use this
-  ;; package fully. The `anki-editor-sync-collection' command
-  ;; synchronizes the local version to the web collection (so seems to
-  ;; be more of a "pull" operation). The `anki-editor-push-notes'
-  ;; command is needed to push the current collection to the web.
-  ;;
-#+end_src
-
 *** Writing natural language
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
@@ -2434,6 +2413,27 @@ for =org-latex-preview= below.
 
 #+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+#+end_src
+
+** Anki
+
+- You will need to have the Anki application running to use this
+  package fully.
+- =anki-editor-sync-collection= synchronizes the local version to the
+  web collection (so seems to be more of a "pull" operation).
+- =anki-editor-push-notes= is needed to push the current collection to
+  the web.
+
+#+begin_src emacs-lisp :tangle nicemacs-v2.el :comments link
+  ;; Anki-editor
+  ;; -----------
+  ;;
+  ;; You will need to have the Anki application running to use this
+  ;; package fully. The `anki-editor-sync-collection' command
+  ;; synchronizes the local version to the web collection (so seems to
+  ;; be more of a "pull" operation). The `anki-editor-push-notes'
+  ;; command is needed to push the current collection to the web.
+  ;;
 #+end_src
 
 ** Copilot
