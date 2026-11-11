@@ -527,9 +527,9 @@ scrolling (which gives a smoother scroll).
        :theme leuven
        :font  "JetBrains Mono")
       (:key "2"
-       :name "Green (organic-green + Noto Sans)"
+       :name "Green (organic-green + JetBrains Mono)"
        :theme organic-green
-       :font  "Noto Sans")
+       :font "JetBrains Mono")
       (:key "3"
        :name "Dark (modus-vivendi-tinted + JetBrains Mono"
        :theme modus-vivendi-tinted
@@ -545,13 +545,18 @@ scrolling (which gives a smoother scroll).
       (:key "6"
        :name "Night (solarized-dark + Inclusive"
        :theme solarized-dark-high-contrast
-       :font  "Inclusive Sans"))
+       :font  "Inclusive Sans")
+      (:key "7"
+       :name "Default (Emacs + JetBrains Mono)"
+       :theme nil
+       :font "JetBrains Mono"))
     "Ordered list of theme+font preset combinations")
 
   (defun nice--apply-theme (theme)
-    "Disable current themes and load THEME."
+    "Disable current themes, then load THEME if non-nil."
     (mapc #'disable-theme custom-enabled-themes)
-    (load-theme theme t))
+    (when theme
+      (load-theme theme t)))
 
   (defun nice--apply-font (font)
     "Set frame FONT for all frames and future ones."
@@ -584,7 +589,8 @@ scrolling (which gives a smoother scroll).
     "t t 3" #'nice-apply-theme-font-3
     "t t 4" #'nice-apply-theme-font-4
     "t t 5" #'nice-apply-theme-font-5
-    "t t 6" #'nice-apply-theme-font-6)
+    "t t 6" #'nice-apply-theme-font-6
+    "t t 7" #'nice-apply-theme-font-7)
 #+end_src
 
 *** Other
@@ -1074,6 +1080,14 @@ Ibuffer include
 
   ;; File stuff
   ;; ----------
+
+  (defun nice-revert-buffer ()
+    "Revert the current buffer, confirming only if modified."
+    (interactive)
+    (revert-buffer :ignore-auto (not (buffer-modified-p)))
+    (message "Reverted the buffer."))
+
+  (global-set-key (kbd "<f5>") #'nice-revert-buffer)
 
   (nice-leader
     "b r" 'revert-buffer
@@ -1894,6 +1908,7 @@ functions that sneak in here too.
   ;; Provides aliases which are easier to remember.
   (defalias 'nice-export #'org-export-dispatch)
   (defalias 'nice-beamer #'org-beamer-export-to-pdf)
+  (defalias 'nice-html #'org-html-export-to-html)
   (defalias 'nice-publish-this #'org-publish-current-file)
 
   ;; Mode-specific bindings, all prefixed with SPC m.
@@ -1903,9 +1918,11 @@ functions that sneak in here too.
       "RET"   #'org-open-at-point
       "e"     #'org-export-dispatch
       "p t"   #'nice-publish-this
+      "p b"   #'nice-beamer
+      "p h"   #'nice-html
       "a s"   #'org-schedule
-      "o t l" #'org-latex-preview
-      "o t i" #'org-toggle-inline-images))
+      "t l" #'org-latex-preview
+      "t i" #'org-toggle-inline-images))
 #+end_src
 
 *** Anki
@@ -2543,6 +2560,7 @@ for =org-latex-preview= below.
           ("professional funding" (filename . "~/Documents/professional/funding-grants/"))
           ("professional jobs" (filename . "~/Documents/professional/job-applications/"))
           ("professional research statement" (filename . "~/Documents/professional/research-statement/"))
+          ("professional style guide: visualisation" (filename . "~/Documents/professional/visualisation/aez-style-guide.md"))
           ("website html" (filename . "~/aezarebski.github.io/"))
           ("website org" (filename . "~/public-site/org/"))
           ("website - notes - git" (filename . "~/public-site/org/notes/git-notes.org"))
@@ -2655,7 +2673,11 @@ for =org-latex-preview= below.
     :config
     (let ((plantuml-jar "~/.emacs.d/plantuml/plantuml-1.2026.2.jar"))
     (setq plantuml-default-exec-mode 'jar
-          plantuml-output-type "png")))
+          plantuml-output-type "png")
+
+    (nice-local-leader
+      :keymaps 'plantuml-mode-map
+      "p" #'plantuml-preview)))
 
   (add-hook 'plantuml-mode-hook
             (lambda ()
