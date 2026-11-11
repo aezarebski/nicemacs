@@ -857,6 +857,14 @@ This uses /proc so may be fragile..."
 ;; File stuff
 ;; ----------
 
+(defun nice-revert-buffer ()
+  "Revert the current buffer, confirming only if modified."
+  (interactive)
+  (revert-buffer :ignore-auto (not (buffer-modified-p)))
+  (message "Reverted the buffer."))
+
+(global-set-key (kbd "<f5>") #'nice-revert-buffer)
+
 (nice-leader
   "b r" 'revert-buffer
   "b l" 'ibuffer
@@ -1411,6 +1419,7 @@ kill ring."
 ;; Provides aliases which are easier to remember.
 (defalias 'nice-export #'org-export-dispatch)
 (defalias 'nice-beamer #'org-beamer-export-to-pdf)
+(defalias 'nice-html #'org-html-export-to-html)
 (defalias 'nice-publish-this #'org-publish-current-file)
 
 ;; Mode-specific bindings, all prefixed with SPC m.
@@ -1421,9 +1430,11 @@ kill ring."
     "e"     #'org-export-dispatch
     "p t"   #'nice-publish-this
     "p b"   #'nice-beamer
+    "p h"   #'nice-html
     "a s"   #'org-schedule
     "t l" #'org-latex-preview
     "t i" #'org-toggle-inline-images))
+
 ;; Org-mode:1 ends here
 
 ;; [[file:nicemacs-v2.org::*Anki][Anki:1]]
@@ -2106,7 +2117,7 @@ backup dictionary."
 
   (nice-local-leader
     :keymaps 'plantuml-mode-map
-    "p" #'plantuml-preview))
+    "p" #'plantuml-preview)))
 
 (add-hook 'plantuml-mode-hook
           (lambda ()
