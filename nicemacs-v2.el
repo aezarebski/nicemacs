@@ -1224,6 +1224,7 @@ kill ring."
     "s b" #'python-shell-send-buffer
     "s r" #'python-shell-send-region
     "'"   #'run-python
+    "c r" #'eglot-rename
     "g d" #'xref-find-definitions
     "g r" #'xref-find-references
     "g b" #'xref-go-back))
@@ -2106,6 +2107,29 @@ backup dictionary."
 ;;
 ;; $ java -jar </path/to/plantuml.jar> -tpng </path/to/diagram.puml>
 ;;
+(defun nice-plantuml-export-png ()
+  "Save the current PlantUML file and render it as a PNG beside it."
+  (interactive)
+  (unless buffer-file-name
+    (user-error "Save this buffer as a PlantUML file first"))
+  (let* ((source buffer-file-name)
+         (default-directory (file-name-directory source))
+         (png (concat (file-name-sans-extension source) ".png"))
+         (log (get-buffer-create "*PlantUML export*")))
+    (when (and (or (file-exists-p png) (file-symlink-p png))
+               (not (yes-or-no-p
+                     (format "Overwrite %s? " (file-name-nondirectory png)))))
+      (user-error "PNG export cancelled"))
+    (save-buffer)
+    (with-current-buffer log
+      (erase-buffer))
+    (if (equal 0 (call-process "java" nil (list log t) nil
+                               "-jar" (expand-file-name plantuml-jar-path)
+                               "-tpng" source))
+        (message "PlantUML export complete")
+      (display-buffer log)
+      (user-error "PlantUML failed. See *PlantUML export*"))))
+
 (let ((jar "~/.emacs.d/plantuml/plantuml-1.2026.2.jar"))
   (setq org-plantuml-jar-path jar)
   (setq plantuml-jar-path jar)
@@ -2127,6 +2151,7 @@ backup dictionary."
 
   (nice-local-leader
     :keymaps 'plantuml-mode-map
+    "c" #'nice-plantuml-export-png
     "p" #'plantuml-preview)))
 
 (add-hook 'plantuml-mode-hook
