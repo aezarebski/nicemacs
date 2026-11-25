@@ -236,3 +236,124 @@ Ollama runs separately. Use =ollama stop qwen3.5:0.8b= to release
 model memory, or shut down the Ollama server if you are done with
 it. Keep the test directory and the downloaded model for Emacs.
 See the [[https://opencode.ai/docs/cli/commands/][OpenCode CLI reference]].
+
+** OpenCode in Emacs
+
+Use the same test project and Ollama server as in the terminal test.
+In Emacs, agent-shell starts =opencode acp= and talks to it over the
+Agent Client Protocol. OpenCode reads the project's =opencode.json=
+and sends model requests to Ollama. The OpenCode terminal interface
+can stay closed. See the [[https://opencode.ai/docs/cli/acp][OpenCode ACP guide]].
+
+The file-read test follows this sequence.
+
+#+name: emacs-opencode-sequence
+#+begin_src plantuml :results verbatim :exports results :eval never-export
+@startuml
+hide footbox
+actor You
+participant "Emacs\nagent-shell" as Emacs
+participant "OpenCode\nopencode acp" as OpenCode
+participant "Ollama\nQwen3.5 0.8B" as Ollama
+
+Emacs -> OpenCode : Start ACP process
+You -> Emacs : Ask to read marker.txt
+Emacs -> OpenCode : Send prompt (ACP)
+OpenCode -> Ollama : Send prompt and tools (HTTP)
+Ollama --> OpenCode : Request a file read
+OpenCode -> OpenCode : Run the read tool
+OpenCode -> Ollama : Send file contents
+Ollama --> OpenCode : Return the answer
+OpenCode --> Emacs : Stream reply (ACP)
+Emacs --> You : Display reply
+@enduml
+#+end_src
+
+#+RESULTS: emacs-opencode-sequence
+#+begin_example
+      ,-.
+      `-'
+      /|\                ,-----------.          ,------------.                ,------------.
+       |                 |Emacs      |          |OpenCode    |                |Ollama      |
+      / \                |agent-shell|          |opencode acp|                |Qwen3.5 0.8B|
+      You                `-----+-----'          `------+-----'                `------+-----'
+       |                       |  Start ACP process    |                             |
+       |                       |---------------------->|                             |
+       |                       |                       |                             |
+       |Ask to read marker.txt |                       |                             |
+       |---------------------->|                       |                             |
+       |                       |                       |                             |
+       |                       |  Send prompt (ACP)    |                             |
+       |                       |---------------------->|                             |
+       |                       |                       |                             |
+       |                       |                       |Send prompt and tools (HTTP) |
+       |                       |                       |---------------------------->|
+       |                       |                       |                             |
+       |                       |                       |    Request a file read      |
+       |                       |                       |<- - - - - - - - - - - - - - |
+       |                       |                       |                             |
+       |                       |                       |----.                        |
+       |                       |                       |    | Run the read tool      |
+       |                       |                       |<---'                        |
+       |                       |                       |                             |
+       |                       |                       |     Send file contents      |
+       |                       |                       |---------------------------->|
+       |                       |                       |                             |
+       |                       |                       |     Return the answer       |
+       |                       |                       |<- - - - - - - - - - - - - - |
+       |                       |                       |                             |
+       |                       |  Stream reply (ACP)   |                             |
+       |                       |<- - - - - - - - - - - |                             |
+       |                       |                       |                             |
+       |    Display reply      |                       |                             |
+       |<- - - - - - - - - - - |                       |                             |
+       |                       |                       |                             |
+       |                       |                       |                             |
+#+end_example
+
+*** Install agent-shell and check the executable
+
+In graphical Emacs, run =M-x package-refresh-contents=, then
+=M-x package-install RET agent-shell RET=. MELPA is already configured
+on this laptop. See the [[https://github.com/xenodium/agent-shell#installation][agent-shell installation guide]].
+
+Use =M-:= to evaluate the following expression and press =RET=.
+
+#+begin_src emacs-lisp
+(executable-find "opencode")
+#+end_src
+
+If Emacs returns the OpenCode executable path, continue. If it returns
+=nil=, use =M-:= to evaluate this expression for the current Emacs
+session. Use the path from =command -v opencode= if it has changed.
+
+#+begin_src emacs-lisp
+(setq agent-shell-opencode-acp-command
+      '("/home/aez/.nvm/versions/node/v24.12.0/bin/opencode" "acp"))
+#+end_src
+
+*** Test a file read and edit
+
+Start Ollama the same way you did for the successful terminal test.
+In Emacs, visit =marker.txt= in the test project and run
+=M-x agent-shell-opencode-start-agent=. In the new agent-shell buffer,
+confirm that the model is =ollama/qwen3.5:0.8b=. Use
+=M-x agent-shell-set-session-model= to select it if needed.
+
+1. Type =Read marker.txt and tell me the marker.= and press =RET=.
+   Look for a file-read tool call and a reply containing =blue-fern-27=.
+2. Ask =Append the line "Edited from Emacs." to marker.txt.= If you
+   get an approval prompt, inspect the proposed change and allow it
+   once if it matches the request. Revisit =marker.txt= and confirm
+   that the original line is still there and the new line appears once.
+
+The local model read the file and made an edit from Emacs on this
+laptop. The edit differed from the requested change.
+
+*** Shut down after the test
+
+When finished, kill the OpenCode agent-shell buffer with
+=C-x k RET=. This closes its OpenCode process. If a request is still
+running, interrupt it with =C-c C-c= first. Use
+=ollama stop qwen3.5:0.8b= to release model memory or press =Ctrl-C= in
+the terminal running =ollama serve= to stop the server.
