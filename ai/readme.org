@@ -7,7 +7,7 @@
 <div id="toc-sidebar">
 #+end_export
 
-#+TOC: headlines 3
+#+TOC: headlines 2
 
 #+begin_export html
 </div>
@@ -17,6 +17,26 @@ This guide walks through setting up a local Ollama model, trying it
 with OpenCode in the terminal and Emacs, and then connecting OpenCode
 to ChatGPT Plus. It also covers checking model memory use, testing
 file reads and edits, and shutting down the services when you're done.
+
+** Quick reference
+
+*** Ollama
+
+| Command                                | Purpose                        |
+|----------------------------------------+--------------------------------|
+| =ollama serve=                         | Start the Ollama server        |
+| =ollama list=                          | List models downloaded locally |
+| =ollama ps=                            | Show models loaded in memory   |
+| =ollama stop <model:name>=             | Unload the model from memory   |
+| =ollama rm <model:name>=               | Delete the downloaded model    |
+
+*** =agent-shell=
+
+| Command                            | Purpose                                         |
+|------------------------------------+-------------------------------------------------|
+| =agent-shell-opencode-start-agent= | Start a session for the current project         |
+| =agent-shell-send-region=          | Send region (and file reference) to the session |
+| =C-x k RET=                        | Kill the OpenCode process                       |
 
 ** Ollama
 
@@ -68,7 +88,7 @@ server is still running.
 ollama show --modelfile smollm2:135m
 #+end_src
 
-*** Free memory and disk space
+**** Free memory and disk space
 
 After leaving the chat with =/bye=, use =ollama ps= to see which models
 are still loaded. To release the RAM or GPU memory immediately and keep
