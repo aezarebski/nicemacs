@@ -120,3 +120,119 @@ this result as a baseline for OpenCode.
 When finished, run =ollama stop qwen3.5:0.8b= to free memory while keeping
 the download for the OpenCode test. If you are done with Ollama for now,
 stop the server as described above.
+
+** OpenCode
+
+OpenCode is the coding agent. It sends prompts to Ollama and handles
+tool calls, such as reading a file in the current project. Start Ollama
+as above and check that =ollama list= includes =qwen3.5:0.8b=.
+
+*** Install the command-line client
+
+Use the existing Node.js installation to install OpenCode 2.
+=command -v opencode= shows which executable the shell finds on its
+=PATH=. Keep this path handy in case Emacs has trouble finding the
+command later. Use =opencode --version= to check the installed version.
+
+#+begin_src sh
+npm install -g @opencode/cli
+command -v opencode
+opencode --version
+#+end_src
+
+On this laptop, the commands returned the following path and version.
+
+#+begin_example
+/home/aez/.nvm/versions/node/v24.12.0/bin/opencode
+opencode v2.4.1
+#+end_example
+
+See the [[https://opencode.ai/docs/][OpenCode installation guide]].
+
+*** Test a reply and a file read
+
+Create a disposable project directory and save the path it prints.
+
+#+begin_src sh
+mktemp -d "$HOME/opencode-test.XXXXXX"
+#+end_src
+
+Change to that directory, then initialise a Git repository and create
+one file for the agent to read.
+
+#+begin_src sh
+git init -q
+printf '%s\n' 'The marker is blue-fern-27.' > marker.txt
+#+end_src
+
+Create a file named =opencode.json= next to =marker.txt= in the test
+project. Copy the JSON block below into that file, including the
+opening and closing braces.
+
+#+begin_src json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "ollama/qwen3.5:0.8b"
+}
+#+end_src
+
+The =model= setting selects =qwen3.5:0.8b= for this project. The
+=ollama/= prefix tells OpenCode to look for it on the local Ollama
+server on port 11434. The local server needs no account or API key.
+See the [[https://opencode.ai/docs/models/#ollama][OpenCode local model guide]].
+
+First, send one prompt and wait for it to return to the shell.
+=--standalone= starts a private OpenCode server for this command.
+
+#+begin_src sh
+opencode run --standalone --model ollama/qwen3.5:0.8b 'Reply with READY.'
+#+end_src
+
+If Ollama reports that the prompt exceeds the context length, run
+=ollama ps= to check the =CONTEXT= column. OpenCode sends agent
+instructions and tool descriptions along with your short prompt.
+Those all count towards the model's context window.
+
+If you started Ollama with =ollama serve=, press =Ctrl-C= in its
+terminal and restart it with a larger context. Try 16,384 tokens first
+if the current allocation is smaller. A larger context uses more
+memory.
+
+#+begin_src sh
+OLLAMA_CONTEXT_LENGTH=16384 ollama serve
+#+end_src
+
+Leave that terminal running and repeat the =opencode run= command from
+the test directory. Check =ollama ps= again for the actual context
+and CPU/GPU split. This setting lasts for this server run. If you use
+the systemd service, set the variable in the service environment
+instead. See the [[https://docs.ollama.com/context-length][Ollama context guide]] and
+[[https://docs.ollama.com/faq#how-do-i-configure-ollama-server][Ollama service configuration]].
+
+From the test directory, run =opencode=. It opens a full-screen
+interface in your terminal with a prompt box where you can type
+requests. Replies and tool activity appear in the conversation.
+OpenCode starts or reuses its background server when you launch it
+this way. See the [[https://opencode.ai/docs/cli/tui/][OpenCode terminal interface guide]].
+
+Before sending a prompt, check the model shown near the prompt box.
+It should be Qwen3.5 0.8B from Ollama (=ollama/qwen3.5:0.8b=).
+If a different model is shown, type =/models= and press Enter to open
+the model picker, then select the Ollama entry. If that entry is
+missing, check in another terminal that =ollama list= works and
+includes =qwen3.5:0.8b=.
+
+Type =Read marker.txt and tell me the marker.= and press Enter. Look
+for a tool call that reads =marker.txt= and a reply containing
+=blue-fern-27=. Together they show that OpenCode read the project file
+and used its contents in the reply.
+
+*** Shut down after the test
+
+Press =Ctrl-X= followed by =q= to exit the terminal interface. Check
+the OpenCode background server with =opencode service status=. If it
+is running and you are finished with it, run =opencode service stop=.
+Ollama runs separately. Use =ollama stop qwen3.5:0.8b= to release
+model memory, or shut down the Ollama server if you are done with
+it. Keep the test directory and the downloaded model for Emacs.
+See the [[https://opencode.ai/docs/cli/commands/][OpenCode CLI reference]].
