@@ -62,5 +62,25 @@ server is still running.
 ollama show --modelfile smollm2:135m
 #+end_src
 
-If you started the server yourself, switch back to its terminal and
-press =Ctrl-C= when you are finished.
+*** Free memory and disk space
+
+After leaving the chat with =/bye=, use =ollama ps= to see which models
+are still loaded. To release the RAM or GPU memory immediately and keep
+the download for next time, run =ollama stop smollm2:135m=. Run
+=ollama ps= again to check that the model has been unloaded.
+
+Before downloading a model, check its size in the Ollama model library.
+Use =ollama list= to see the models on disk and their sizes. To reclaim
+disk space, choose a model you no longer need and run =ollama rm= with
+its exact name and tag. For example, =ollama rm smollm2:135m= removes
+the model used in this exercise. Run =ollama list= again to check. You
+can download it again later with =ollama pull=. See the
+[[https://docs.ollama.com/cli][Ollama CLI reference]].
+
+When you finish using Ollama, stop the server as well if you want it
+out of the background. For a server you started with =ollama serve=,
+press =Ctrl-C= in its terminal. If Ollama was already running, check
+=systemctl is-active ollama=. If it reports =active= and you are done
+using the service, run =sudo systemctl stop ollama=. Start it again
+when needed with =sudo systemctl start ollama=. See the
+[[https://docs.ollama.com/linux][Ollama Linux guide]].
