@@ -939,6 +939,7 @@ retreived from the prompt."
 (nice-scratch-buffer org-mode "b s o")
 (nice-scratch-buffer emacs-lisp-mode "b s e")
 (nice-scratch-buffer markdown-mode "b s m")
+(nice-scratch-buffer bibtex-mode "b s b")
 ;; Buffers, files, and dired:1 ends here
 
 ;; [[file:nicemacs-v2.org::*STUFF 2][STUFF 2:1]]
@@ -1339,6 +1340,26 @@ kill ring."
     "b b" #'nice-bibtex-braces
     "b f" #'bibtex-reformat)
 
+;;--------------------------------------------------------------------
+;; Setting a buffer local variable to the compilation script allows
+;; you to run the compilation with `SPC m p`.
+(defvar-local nice-latex-project-script nil
+  "Script to run, relative to the directory of this LaTeX file.")
+
+(defun nice-latex-run-project-script ()
+  "Run this LaTeX buffer's project script."
+  (interactive)
+  (unless buffer-file-name
+    (user-error "This buffer is not visiting a file"))
+  (unless nice-latex-project-script
+    (user-error "Set nice-latex-project-script for this file"))
+  (let* ((default-directory (file-name-directory buffer-file-name))
+         (script (expand-file-name nice-latex-project-script)))
+    (unless (and (file-regular-p script) (file-executable-p script))
+      (user-error "Script is missing or not executable: %s" script))
+    (compilation-start (shell-quote-argument script))))
+;;--------------------------------------------------------------------
+
 (use-package tex
   :ensure auctex
   :defer t
@@ -1358,6 +1379,7 @@ kill ring."
     "t" #'reftex-toc
     "j" #'outline-next-visible-heading
     "k" #'outline-previous-visible-heading
+    "p" #'nice-latex-run-project-script
     "c" #'reftex-citation))
 
 (use-package reftex
