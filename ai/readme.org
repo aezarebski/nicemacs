@@ -84,3 +84,39 @@ press =Ctrl-C= in its terminal. If Ollama was already running, check
 using the service, run =sudo systemctl stop ollama=. Start it again
 when needed with =sudo systemctl start ollama=. See the
 [[https://docs.ollama.com/linux][Ollama Linux guide]].
+
+*** Try the model for OpenCode
+
+So far we have sent prompts directly to Ollama. In the next stage,
+OpenCode will send prompts to the same Ollama server and use the model
+to decide when to call tools, such as reading a file. First, try that
+model in Ollama so we know how it behaves on its own.
+
+Start with [[https://ollama.com/library/qwen3.5:0.8b][qwen3.5:0.8b]], which supports tool calling and takes about
+1.3 GB of disk space. If it struggles with the file-reading test in
+OpenCode, we can try [[https://ollama.com/library/qwen3.5:2b][qwen3.5:2b]] (about 2.7 GB).
+If you started the server with =ollama serve= and use the default model
+directory, check the free space with =df -h ~/.ollama= before downloading.
+
+With the server running, download the model.
+
+#+begin_src sh
+ollama pull qwen3.5:0.8b
+#+end_src
+
+When the download finishes, start a chat.
+
+#+begin_src sh
+ollama run qwen3.5:0.8b
+#+end_src
+
+Try =Write one line of Python that prints Hello.= Send a second short
+prompt to see how quickly it replies once the model is already loaded.
+After =/bye=, run =ollama ps= promptly and note the =PROCESSOR= and
+=CONTEXT= columns. The context is the number of tokens Ollama has
+allocated for the model to work with. Start with the default and use
+this result as a baseline for OpenCode.
+
+When finished, run =ollama stop qwen3.5:0.8b= to free memory while keeping
+the download for the OpenCode test. If you are done with Ollama for now,
+stop the server as described above.
