@@ -1,3 +1,4 @@
+#+title: Using LLMs in Emacs
 #+options: toc:nil
 #+options: num:nil
 #+HTML_HEAD: <link rel="stylesheet" href="norg.css">
@@ -321,6 +322,16 @@ from an OpenAI model in the terminal while working in =demo/=.
 
 Exit with =Ctrl-X= followed by =q=. If you are done with the
 background service, run =opencode service stop=.
+
+*** Check ChatGPT usage limits
+
+In the OpenCode terminal interface, press =Ctrl+P= and choose
+*View usage limits*. You can also open =/models= and press =Ctrl+U=.
+See the [[https://opencode.ai/docs/cli/keybinds][OpenCode keybind reference]].
+
+The context indicator in Emacs agent-shell shows how much of the
+model's context window the current session is using, when available.
+It does not show how much of your ChatGPT Plus allowance is left.
 
 *** Try the OpenAI model from Emacs
 
