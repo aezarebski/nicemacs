@@ -1,0 +1,66 @@
+#+options: toc:nil
+#+options: num:nil
+#+HTML_HEAD: <link rel="stylesheet" href="norg.css">
+
+#+begin_export html
+<div id="toc-sidebar">
+#+end_export
+
+#+TOC: headlines 3
+
+#+begin_export html
+</div>
+#+end_export
+
+** Ollama
+
+- [[https://docs.ollama.com/cli][Ollama CLI reference]]
+- [[https://huggingface.co/HuggingFaceTB/SmolLM2-135M][SmolLM2-135M]] from HuggingFace
+
+*** Run a model locally
+
+The Ollama server loads the model and generates replies. The Ollama
+command-line client sends prompts to the server and displays its replies.
+
+In a terminal, check whether the local server is already listening.
+
+#+begin_src sh
+curl -fsS http://127.0.0.1:11434/api/tags
+#+end_src
+
+A JSON response means the server is running, even if its list of models
+is empty. If =curl= reports a connection failure, start the server in
+that terminal and leave it running.
+
+#+begin_src sh
+ollama serve
+#+end_src
+
+In a second terminal, run =ollama list=. If =smollm2:135m= is missing
+from the list, run =ollama pull smollm2:135m=. The downloaded model takes
+about 270 MB of disk space ([[https://ollama.com/library/smollm2:135m][Ollama model listing]]).
+Then start the interactive prompt.
+
+#+begin_src sh
+ollama run smollm2:135m
+#+end_src
+
+At the =>>>= prompt, try typing =Name one fruit.= and press Enter.
+Once you see a reply, type =/bye= to return to the shell.
+
+Run =ollama ps= shortly after the reply, while the server is still
+running. Look at the =PROCESSOR= column for =smollm2:135m=. =100% GPU=
+means the whole model was loaded into GPU memory, =100% CPU= means it
+was loaded into system memory, and a split means Ollama uses both. If
+the model has disappeared from the list, send another prompt and check
+again. See the [[https://docs.ollama.com/faq#how-can-i-tell-if-my-model-was-loaded-onto-the-gpu][Ollama GPU FAQ]].
+
+To inspect the model's configuration, run the following while the
+server is still running.
+
+#+begin_src sh
+ollama show --modelfile smollm2:135m
+#+end_src
+
+If you started the server yourself, switch back to its terminal and
+press =Ctrl-C= when you are finished.
