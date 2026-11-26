@@ -1343,6 +1343,11 @@ kill ring."
 ;;--------------------------------------------------------------------
 ;; Setting a buffer local variable to the compilation script allows
 ;; you to run the compilation with `SPC m p`.
+;;
+;; % Local Variables:
+;; % nice-latex-project-script: "compile.sh"
+;; % End:
+;;
 (defvar-local nice-latex-project-script nil
   "Script to run, relative to the directory of this LaTeX file.")
 
