@@ -562,7 +562,7 @@ already in its own frame."
   (setq which-key-idle-delay 0.3))
 
 (setq key-description-pairs
-      '(("SPC a" . "Agenda (org-mode)")
+      '(("SPC a" . "AI")
         ("SPC b" . "Buffers/Babel")
         ("SPC c" . "Cursors")
         ("SPC c" . "Delete")
@@ -1633,7 +1633,6 @@ backup dictionary."
 
 (advice-add 'org-agenda-goto-today
             :after #'nice-org-agenda-goto-today-advice-after)
-(nice-leader "a a" 'org-agenda-list)
 ;; Agenda and calendar (org-mode):1 ends here
 
 ;; [[file:nicemacs-v2.org::*Literate programming][Literate programming:1]]
@@ -1961,6 +1960,14 @@ backup dictionary."
   ;; this needs to point to a node executable that works with tools like codex.
   ;; - 2026-01-29 :: v24.12.0 works
   (setq exec-path (append '("/home/aez/.nvm/versions/node/v24.12.0/bin/") exec-path)))
+
+(use-package agent-shell
+  :ensure t
+  :commands agent-shell-send-region)
+
+(nice-leader
+  "a '" #'agent-shell-opencode-start-agent
+  "a s r" #'agent-shell-send-region)
 
 (use-package copilot
   :after evil-leader

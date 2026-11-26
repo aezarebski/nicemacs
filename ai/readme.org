@@ -271,26 +271,34 @@ Agent Client Protocol. OpenCode reads the project's =opencode.json=
 and sends model requests to Ollama. The OpenCode terminal interface
 can stay closed. See the [[https://opencode.ai/docs/cli/acp][OpenCode ACP guide]].
 
-*** Install agent-shell and check the executable
+*** Configure agent-shell in init.el
 
-In graphical Emacs, run =M-x package-refresh-contents=, then
-=M-x package-install RET agent-shell RET=. MELPA is already configured
-on this laptop. See the [[https://github.com/xenodium/agent-shell#installation][agent-shell installation guide]].
-
-Use =M-:= to evaluate the following expression and press =RET=.
+Nicemacs already configures MELPA and uses =use-package= to install
+packages. Add this block after the existing =exec-path-from-shell=
+setup.
 
 #+begin_src emacs-lisp
-(executable-find "opencode")
+(use-package agent-shell
+  :ensure t
+  :commands agent-shell-send-region)
+
+(nice-leader
+  "a '" #'agent-shell-opencode-start-agent
+  "a s r" #'agent-shell-send-region)
 #+end_src
 
-If Emacs returns the OpenCode executable path, continue. If it returns
-=nil=, use =M-:= to evaluate this expression for the current Emacs
-session. Use the path from =command -v opencode= if it has changed.
+Restart graphical Emacs. From a project file, use =SPC a '= to start
+a new OpenCode session. With text selected in Evil visual state, use
+=SPC a s r= to add the selection to the session prompt. The =M-x=
+commands below still work.
 
-#+begin_src emacs-lisp
-(setq agent-shell-opencode-acp-command
-      '("/home/aez/.nvm/versions/node/v24.12.0/bin/opencode" "acp"))
-#+end_src
+Agent-shell runs =opencode acp= by default. If it fails to start, use
+=M-:= to check =(executable-find "opencode")= and
+=(executable-find "node")=. Compare the results with
+=command -v opencode= and =command -v node= in the terminal where
+OpenCode works. If they differ, check that =exec-path-from-shell=
+imports the intended NVM directory into Emacs's =exec-path= and
+process =PATH=.
 
 *** Test a file read and edit
 
