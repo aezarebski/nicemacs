@@ -284,6 +284,7 @@ setup.
 
 (nice-leader
   "a '" #'agent-shell-opencode-start-agent
+  "a m m" #'agent-shell-cycle-session-mode
   "a s r" #'agent-shell-send-region)
 #+end_src
 
@@ -404,3 +405,49 @@ press =RET= to send the prompt.
 
 If you have more than one session, use
 =M-x agent-shell-send-region-to= to choose the destination.
+
+** Create and test a skill in agent-shell
+
+A skill is a reusable set of instructions for a task you do more
+than once. Here, agent-shell is where you type the prompt, OpenCode
+finds and loads the skill, and the selected model follows it.
+
+*** Write a project skill
+
+In Emacs, create =.agents/skills/pirate/SKILL.md= inside
+=demo/=. The description tells OpenCode when the skill is relevant;
+the body tells it what to do when the skill is loaded.
+
+#+begin_src markdown
+---
+name: pirate
+description: Respond in a playful pirate voice.
+---
+
+Begin with "Ahoy, matey!" and answer the user's question in a playful
+pirate voice. Use nautical phrases, but keep the answer clear and
+accurate. Wherever possible try to mention pirate type things. For
+example, if the colour blue comes up, say "it was as blue as the
+ocean" rather than just "it was blue".
+#+end_src
+
+*** Try it from agent-shell
+
+Visit =demo/edit-check.txt= and start a new OpenCode session with
+=M-x agent-shell-opencode-start-agent=. Select the OpenAI model
+used in the previous exercise, then send this prompt:
+
+#+begin_example
+Use the pirate skill to explain why the sky is blue.
+#+end_example
+
+Look for a =skill= tool call if agent-shell shows it. The reply should
+begin with "Ahoy, matey!" and explain why the sky is blue. A pirate
+voice alone does not prove the skill loaded; look for the =skill= tool
+call if it is visible. If the agent does not choose the skill, check
+that the session started in =demo/=, the file is named exactly
+=SKILL.md=, and its description matches the request.
+
+See the [[https://opencode.ai/docs/skills/][OpenCode skills guide]] for other discovery locations. The same
+format can often be reused with Codex or Claude, but each agent
+decides where to look for skills and which tools it can use.
