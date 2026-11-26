@@ -451,3 +451,15 @@ that the session started in =demo/=, the file is named exactly
 See the [[https://opencode.ai/docs/skills/][OpenCode skills guide]] for other discovery locations. The same
 format can often be reused with Codex or Claude, but each agent
 decides where to look for skills and which tools it can use.
+
+*** Share skills between projects
+
+To share a whole collection of skills, add its directory to the
+=skills= array in the destination project's =opencode.json=, keeping
+any existing settings:
+
+#+begin_src json
+{
+  "skills": ["/absolute/path/to/skills"]
+}
+#+end_src
