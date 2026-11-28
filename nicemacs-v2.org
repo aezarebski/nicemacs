@@ -1478,6 +1478,9 @@ be careful to get the right value here.
 - [[https://github.com/p3r7/awesome-elisp][Awesome Elisp]] sounds like it would be a good place to go to learn a bit more
   elisp.
 
+Use =checkdoc= in an Emacs Lisp buffer to review docstrings. It walks
+through issues interactively and offers fixes where it can.
+
 The =pp-sexp-to-kill-ring= function is there to help pretty print code. It uses
 a new pretty printer function included in 29.1 and puts the pretty-printed
 version of an S-expression on the kill ring.
