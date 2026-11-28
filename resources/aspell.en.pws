@@ -1,6 +1,7 @@
-personal_ws-1.1 en 325 
+personal_ws-1.1 en 355
 AIC
 ANZIAM
+ASBI
 Autoregressive
 BDSIR
 BDSky
@@ -11,6 +12,7 @@ Biostatistics
 Bonferroni
 CDF
 CERN
+CNNs
 COVID
 CPUs
 CRAN
@@ -19,6 +21,7 @@ CTMC
 CTMCs
 Centre
 Combinatorics
+Comparator
 Contrastive
 Coronavirus
 CrI
@@ -30,10 +33,12 @@ EPSRC
 Elsevier
 FASTA
 FFX
+Flegg
 GISAID
 GLM
 GNNs
 GPUs
+Gantt
 Genotype
 Gnuplot
 HCV
@@ -41,6 +46,7 @@ HMC
 HPC
 Heterozygous
 Homozygous
+IID
 ILI
 JSON
 Jacobian
@@ -70,6 +76,7 @@ PDEs
 PDRA
 PGF
 PHEIC
+PICO
 PMF
 PNG
 POMPs
@@ -102,6 +109,7 @@ TODO
 Troublingly
 UKRI
 UQ
+VOCs
 Visualising
 Volterra
 Voronoi
@@ -143,6 +151,7 @@ choropleths
 clade
 clades
 cobwebbing
+collegial
 colour
 colouring
 colours
@@ -164,6 +173,7 @@ datasets
 datatypes
 decapod
 deconvolution
+deme
 demes
 deterministically
 differentiable
@@ -183,6 +193,7 @@ exponentiated
 feedforward
 flavour
 flavoured
+flavours
 formatter
 frequentist
 functionals
@@ -195,6 +206,7 @@ grey
 heterochronous
 heteroscedasticity
 honoured
+humour
 hyperparameter
 hyperparameters
 identifiability
@@ -218,11 +230,13 @@ logit
 mentee
 mentees
 metagenomics
+mins
 misspecification
 misspecified
 misspecifying
 mitigations
 modelled
+modellers
 modelling
 modularity
 monadic
@@ -234,6 +248,8 @@ multimodal
 multinomial
 multiscale
 multitype
+neighbour
+neighbours
 nonparametric
 normalization
 normalizing
@@ -241,6 +257,7 @@ nowcasting
 nucleotides
 nullclines
 numerics
+onigiri
 onwards
 optimization
 optimizer
@@ -287,9 +304,12 @@ programme
 pseudocode
 quantile
 quantiles
+recency
+reimplemented
 reproducibility
 repurposing
 rescaling
+rigour
 scalability
 scalable
 serotype
@@ -307,13 +327,16 @@ subdirectories
 subdirectory
 subnetworks
 subsampling
+subvariants
 superspreading
 surveil
 tanh
 telomere
+testbed
 topologies
 transmissibility
 tumorigenesis
+tunable
 tuple
 ultrametric
 unimodal
@@ -321,6 +344,7 @@ univariate
 unrooted
 untick
 unvaccinated
+variates
 variational
 vectorization
 vectorizations
@@ -329,3 +353,4 @@ vectorized
 virions
 visualise
 visualising
+whitespace
