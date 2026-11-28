@@ -883,7 +883,7 @@ This uses /proc so may be fragile..."
   "F d" 'delete-frame)
 
 (defun nice-dired ()
-  "Open dired for the current context."
+  "Open Dired for the current context."
   (interactive)
   (let* ((buffer-mode major-mode)
          (dir
@@ -919,13 +919,13 @@ This uses /proc so may be fragile..."
 retreived from the prompt."
   (interactive)
   (if (not (eq major-mode 'dired-mode))
-      (error "Not in dired mode"))
+      (error "Not in Dired mode"))
   (let ((filename (read-string "Filename: ")))
     (shell-command (format "touch %s" filename))
     (revert-buffer)))
 
 (defmacro nice-scratch-buffer (mode key)
-  "Create a nice-scratch-buffer function for MODE and bind it to KEY."
+  "Create a `nice-scratch-buffer' function for MODE and bind it to KEY."
   (let ((func-name (intern (format "nice-scratch-buffer-%s" (symbol-name mode))))
         (docstring (format "Open the scratch buffer and set the major mode to `%s'." mode)))
     `(progn
@@ -1436,7 +1436,7 @@ kill ring."
 
 (setq org-confirm-babel-evaluate t)
 (defun nice-org-mode-hook ()
-  "Set up org-mode specific keybindings."
+  "Set up `org-mode' specific keybindings."
   (local-set-key (kbd "<tab>") #'org-cycle))
 
 (add-hook 'org-mode-hook #'nice-org-mode-hook)
@@ -1557,7 +1557,7 @@ backup dictionary."
 ;;
 
 (defun nice-org-wrapped-lines ()
-  "Formats the current paragraph to have wrapped lines at 70"
+  "Formats the current paragraph to have wrapped lines at 70."
   (interactive)
   (setq fill-column 70)
   (fill-paragraph)
@@ -2084,7 +2084,7 @@ backup dictionary."
         ("emacs nicemacs elisp" (filename . "~/nicemacs/nicemacs-v2.el"))))
 
 (defun nice-copy-bookmark-alist ()
-  "Copy the current `bookmark-alist' to the kill-ring in a pretty-printed format."
+  "Copy the current `bookmark-alist' to the `kill-ring' in a pretty-printed format."
   (interactive)
   (let ((output (with-temp-buffer
                   (let ((print-length nil)
